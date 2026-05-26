@@ -2,89 +2,116 @@
 
 // time : O(n)
 // space: O(1)
-char	f_atoi_arr(char **src, int *dst, size_t len)
+char	split_to_int_arr(char **split, int *dst, size_t len)
 {
 	size_t	i;
 	char	err;
 
-	if (src == NULL || dst == NULL)
-	{
-		if (dst != NULL)
-			free(dst);
-		return (0);
-	}
 	err = 'K';
 	i = 0;
-	while (i < len && err != 'E')
+	while (i < len)
 	{
-		dst[i] = f_atoi(src[i], &err);
+		dst[i] = f_atoi(split[i], &err, "0123456789", knight_of_coin(split[i], ','));
 		i += 1;
 	}
-	if (err == 'E')
+	return (err);
+}
+
+// time : O(n)
+// space: O(n)
+int	*line_to_int_arr(char *line, char *err)
+{
+	int		*dst;
+	char	**split;
+	size_t	len;
+
+	len = f_split_len(line, " \n\t\r\f\v");
+	if (len == 0)
+		return (NULL);
+	split = f_split(line, " \t\n\r\f\v");
+	if (split == NULL)
+		return (NULL);
+	dst = (int *)malloc_talk(sizeof(int) * len,
+		"input/fdf.c/line_to_int_arr\n");
+	if (dst == NULL)
 	{
-		write(1, "\nInput FdF File contains character, which is invalid.\n", 54);
+		free_nest_arr((void **)split, len);
+		return (NULL);
+	}
+	*err = split_to_int_arr(split, dst, len);
+	free_nest_arr((void **)split, len);
+	return (dst);
+}
+
+// time : O(n)
+// space: O(1)
+char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)
+{
+	size_t	i;
+	char	err;
+
+	err = 'K';
+	i = 0;
+	while (i < len)
+	{
+		if (f_strncmp(split[i] + knight_of_coin(split[i], ','), ",0x", 3) == 0)
+			f_atorgb(split[i] + knight_of_coin(split[i], ',') + 3, &err, dst[i]);
+		else
+			f_atorgb("\0", &err, dst[i]);
+		i += 1;
+	}
+	return (err);
+}
+
+// time : O(n)
+// space: O(n)
+t_rgb	**line_to_rgb_arr(char *line, char *err)
+{
+	t_rgb	**dst;
+	char	**split;
+	size_t	len;
+
+	len = f_split_len(line, " \n\t\r\f\v");
+	if (len == 0)
+		return (NULL);
+	split = f_split(line, " \t\n\r\f\v");
+	if (split == NULL)
+		return (NULL);
+	dst = (t_rgb **)malloc_talk(sizeof(t_rgb *) * len,
+		"input/fdf.c/line_to_rgb_arr\n");
+	if (dst == NULL)
+	{
+		free_nest_arr((void **)split, len);
+		return (NULL);
+	}
+	*err = split_to_rgb_arr(split, dst, len);
+	free_nest_arr((void **)split, len);
+	return (dst);
+}
+
+// time : O(n)
+// space: O(n)
+t_llist_fdf	*one_fdf_line(char *line)
+{
+	t_llist_fdf	*dst;
+
+	dst = init_llist_fdf(f_split_len(line, " \n\t\r\f\v"));
+	if (dst == NULL)
+		return (NULL);
+	if (dst->int_err == '0')
+		return (dst);
+	dst->arr = line_to_int_arr(line, &dst->int_err);
+	if (dst->arr == NULL)
+	{
 		free(dst);
-		return (0);
-	}
-	return (1);
-}
-
-// time : O(n)
-// space: O(n)
-t_llist_int	*create_fdf_line(char *line)
-{
-	t_llist_int	*ll;
-
-	ll = (t_llist_int *)malloc(sizeof(t_llist_int));
-	if (ll == NULL)
 		return (NULL);
-	ll->next = NULL;
-	ll->len = f_split_len(line);
-	if (ll->len == 0)
+	}
+	dst->rgb = line_to_rgb_arr(line, &dst->rgb_err);
+	if (dst->rgb == NULL)
 	{
-		free(ll);
+		free(dst->arr);
+		free(dst);
 		return (NULL);
 	}
-	ll->arr = (int *)malloc(sizeof(int) * ll->len);
-	if (0 == f_atoi_arr(f_split_space(line), 
-		ll->arr, ll->len))
-	{
-		free(ll);
-		return (NULL);
-	}
-	return (ll);
-}
-
-// time : O(n)
-// space: O(n)
-t_llist_int	*create_fdf_file(char *file_name)
-{
-	int			fd;
-	char		*line;
-	t_llist_int	*header;
-	t_llist_int	*output;
-
-	fd = open(file_name, 'r');
-	if (fd < 0)
-		return (NULL);
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (NULL);
-	header = create_fdf_line(line);
-	if (header == NULL)
-	{
-		free(line);
-		return (NULL);
-	}
-	output = header;
-	while (line != NULL)
-	{
-		free(line);
-		line = get_next_line(fd);
-		if (line != NULL && output != NULL)
-			output->next = create_fdf_line(line);
-		if (output != NULL)
-			output = output->next;
-	}
-	return (header);
+	return (dst);
 }

@@ -13,102 +13,82 @@ int	f_ctoi(char a)
 	i = 0;
 	while (dict[i] != '\0' && dict[i] != a)
 		i += 1;
-	if (69 <= (int) i)
+	if (i >= 42)
+		i -= 1;
+	if (68 <= (int) i)
 		return (0);
-	return (69 - (int) i);
+	return (68 - (int) i);
 }
 
 // time : O(n)
-// space: O(1)
-char	f_ctoi_arr(char *src, int *dst, size_t len)
+// space: O(n)
+int	*line_to_ascii_arr(char *line)
 {
+	int		*dst;
+	size_t	len;
 	size_t	i;
 
-	if (src == NULL || dst == NULL)
-	{
-		if (dst != NULL)
-			free(dst);
-		return (0);
-	}
+	len = knight_of_coin(line, '\n');
+	if (len == 0)
+		return (NULL);
+	dst = (int *)malloc_talk(sizeof(int) * len,
+		"input/ascii.c/line_to_ascii_arr\n");
+	if (dst == NULL)
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		dst[i] = f_ctoi(src[i]);
+		dst[i] = f_ctoi(line[i]);
 		i += 1;
 	}
-	return (1);
+	return (dst);
 }
 
-// time : O(n)
-// space: O(1)
-size_t	f_strlen(char *str)
+t_llist_fdf	*init_llist_fdf(size_t line_len)
 {
-	size_t	i;
+	t_llist_fdf	*dst;
 
-	i = 0;
-	while (*str != '\0')
+	dst = (t_llist_fdf *)malloc_talk(sizeof(t_llist_fdf),
+		"input/ascii.c/init_llist_fdf\n");
+	if (dst == NULL)
+		return (NULL);
+	dst->next = NULL;
+	dst->rgb = NULL;
+	dst->int_err = 'K';
+	dst->rgb_err = 'K';
+	dst->len = line_len;
+	if (dst->len == 0)
 	{
-		str += 1;
-		i += 1;
+		dst->arr = malloc_talk(sizeof(int),
+			"input/ascii.c/one_ascii_line\n");
+		if (dst->arr == NULL)
+		{
+			free(dst);
+			return (NULL);
+		}
+		dst->int_err = '0';
+		dst->len = 1;
+		dst->arr[0] = 0;
 	}
-	return (i);
+	return (dst);
 }
 
 // time : O(n)
 // space: O(n)
-t_llist_int	*create_ascii_line(char *line)
+t_llist_fdf	*one_ascii_line(char *line)
 {
-	t_llist_int	*ll;
+	t_llist_fdf	*dst;
 
-	ll = (t_llist_int *)malloc(sizeof(t_llist_int));
-	if (ll == NULL)
+	dst = init_llist_fdf(knight_of_coin(line, '\n'));
+	if (dst == NULL)
 		return (NULL);
-	ll->next = NULL;
-	ll->len = f_strlen(line);
-	if (ll->len == 0)
+	if (dst->int_err == '0')
+		return (dst);
+	dst->arr = line_to_ascii_arr(line);
+	if (dst->arr == NULL)
 	{
-		free(ll);
+		free(dst);
 		return (NULL);
 	}
-	ll->arr = (int *)malloc(sizeof(int) * ll->len);
-	if (0 == f_ctoi_arr(line, ll->arr, ll->len))
-	{
-		free(ll);
-		return (NULL);
-	}
-	return (ll);
-}
-
-// time : O(n)
-// space: O(n)
-t_llist_int	*create_ascii_file(char *file_name)
-{
-	int			fd;
-	char		*line;
-	t_llist_int	*header;
-	t_llist_int	*output;
-
-	fd = open(file_name, 'r');
-	if (fd < 0)
-		return (NULL);
-	line = get_next_line(fd);
-	if (line == NULL)
-		return (NULL);
-	header = create_ascii_line(line);
-	if (header == NULL)
-	{
-		free(line);
-		return (NULL);
-	}
-	output = header;
-	while (line != NULL)
-	{
-		free(line);
-		line = get_next_line(fd);
-		if (line != NULL && output != NULL)
-			output->next = create_ascii_line(line);
-		if (output != NULL)
-			output = output->next;
-	}
-	return (header);
+	return (dst);
 }

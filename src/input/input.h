@@ -1,40 +1,47 @@
-#ifndef INPUT_H
-# define INPUT_H
+#ifndef FDF_H
+# define FDF_H
 
 #include <stdlib.h>
 #include "get_next_line.h"
+#include "libft.h"
 
-// https://stackoverflow.com/questions/36217352/
-// unknown-type-name-error-in-c
+typedef struct t_llist_fdf t_llist_fdf;
+typedef struct t_table_fdf t_table_fdf;
 
-typedef struct t_llist_int t_llist_int;
-
-struct t_llist_int
+struct t_llist_fdf
 {
-	int			*arr;
-	size_t		len;
-	t_llist_int	*next;
+	int				*arr;
+	t_rgb			**rgb;
+	size_t			len;
+	t_llist_fdf		*next;
+	char			int_err;
+	char			rgb_err;
 };
 
+struct t_table_fdf
+{
+	size_t			row;
+	size_t			col;
+	int				**table;
+	unsigned char	**r;
+	unsigned char	**g;
+	unsigned char	**b;
+	unsigned char	**a;
+};
+
+// all_lines.c
+t_llist_fdf	*all_lines(char *file, t_llist_fdf *(*one_line)(char *));
+void		free_llist_fdf(t_llist_fdf *src);
+
 // ascii.c
-t_llist_int	*create_ascii_file(char *file_name);
+t_llist_fdf	*init_llist_fdf(size_t line_len);
+t_llist_fdf	*one_ascii_line(char *line);
 
 // fdf.c
-t_llist_int	*create_fdf_file(char *file_name);
+t_llist_fdf	*one_fdf_line(char *line);
 
-// int.c
-void		free_matrix(float **matrix, size_t len);
-size_t		len_llist(t_llist_int *ll, size_t *width);
-float		**create_matrix(t_llist_int *ll, size_t not_sharp, size_t col, size_t row);
-
-// split_space.c
-size_t		f_split_len(char *input);
-void		f_free_nested_string(char **dst, size_t len);
-char		**f_split_space(char *input);
-
-// utils.c
-void		free_llist(t_llist_int *ll);
-int			f_atoi(char *src, char *err);
-char		f_isspace(char s);
+// table.c
+void		*free_table_fdf(t_table_fdf *table);
+t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src);
 
 #endif

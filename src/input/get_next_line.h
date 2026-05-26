@@ -17,13 +17,14 @@ typedef struct t_temperance
 }	t_temperance;
 
 // utils.c
-size_t			knight_of_coin(char *str, char stop);
-void			*malloc_talk(size_t elem_size, char *comment);
 char			*ace_of_coin(char *src, size_t length, size_t capacity);
+t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup);
+t_temperance	*two_of_cups(t_temperance **left_cup, char c);
 t_temperance	**three_of_cups(t_temperance **group, char *friends);
 
 // get_next_line.c
-
+size_t			knight_of_coin(char *str, char stop);
+char			the_chariot(int fd, char *ambition, t_temperance **angel);
 // char			*get_next_line(int fd);
 char			*get_next_line(int fd, char anchor);
 

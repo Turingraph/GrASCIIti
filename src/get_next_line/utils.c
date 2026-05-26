@@ -1,6 +1,39 @@
 #include "get_next_line.h"
 
 // time : O(n)
+// space: O(1)
+size_t	knight_of_coin(char *str, char stop)
+{
+	size_t	i;
+
+	i = 0;
+	while (*str != '\0' && *str != stop)
+	{
+		i += 1;
+		str += 1;
+	}
+	return (i);
+}
+
+// time : O(n)
+// space: O(1)
+void	*malloc_talk(size_t elem_size, char *comment)
+{
+	void	*dst;
+
+	dst = (void *)malloc(elem_size);
+	if (dst == NULL)
+	{
+		if (comment != NULL && *comment != '\0')
+		{
+			write(1, "Malloc Fail: ", 14);
+			write(1, comment, knight_of_coin(comment, '\0'));
+		}
+	}
+	return (dst);
+}
+
+// time : O(n)
 // space: O(n)
 char	*ace_of_coin(char *src, size_t length, size_t capacity)
 {
@@ -11,7 +44,7 @@ char	*ace_of_coin(char *src, size_t length, size_t capacity)
 		capacity = length;
 	if (capacity == 0)
 		return (NULL);
-	coin = (char *)malloc(sizeof(char) * (capacity + 1));
+	coin = (char *)malloc_talk(sizeof(char) * (capacity + 1), "GNL/ace_of_coin\n");
 	if (coin == NULL)
 		return (NULL);
 	coin[capacity] = '\0';
@@ -30,24 +63,6 @@ char	*ace_of_coin(char *src, size_t length, size_t capacity)
 	return (coin);
 }
 
-// time : O(n)
-// space: O(n)
-t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
-{
-	*cup = (t_temperance *)malloc(sizeof(t_temperance));
-	if (*cup == NULL)
-		return (NULL);
-	(*cup)->length = 0;
-	(*cup)->capacity = capacity;
-	(*cup)->arr = ace_of_coin("\0", 0, capacity);
-	if ((*cup)->arr == NULL)
-	{
-		free(*cup);
-		return (NULL);
-	}
-	return (*cup);
-}
-
 // time : O(1)
 // space: O(1)
 t_temperance	*two_of_cups(t_temperance **left_cup, char c)
@@ -60,7 +75,7 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 		(*left_cup)->length += 1;
 		return (*left_cup);
 	}
-	right_cup = (t_temperance *)malloc(sizeof(t_temperance));
+	right_cup = (t_temperance *)malloc_talk(sizeof(t_temperance), "GNL/two_of_cups\n");
 	if (right_cup == NULL)
 		return (NULL);
 	right_cup->capacity = (*left_cup)->capacity * 2;

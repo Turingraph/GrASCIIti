@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 
+/*
 // time : O(1)
 // space: O(1)
 long int	f_atolongi(char *src, char *err, size_t *digit, size_t sign)
@@ -85,6 +86,7 @@ int	main(int len, char **str)
 	get_next_line(fd, 1);
 	return (0);
 }
+*/
 
 /*
 int	main(int len, char **str)
@@ -113,7 +115,6 @@ int	main(int len, char **str)
 }
 */
 
-/*
 int	main(int len, char **str)
 {
 	int		fd;
@@ -136,9 +137,8 @@ int	main(int len, char **str)
 	}
 	return (0);
 }
-*/
 
 /*
 cc -Wall -Wextra -Werror src/get_next_line/test.c src/get_next_line/get_next_line.c src/get_next_line/utils.c
-valgrind --leak-check=full ./a.out a.txt
+valgrind --leak-check=full ./bin/get_next_line.out test/fdf/10-2.fdf
 */

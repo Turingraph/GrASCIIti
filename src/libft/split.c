@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// time : O(n)
+// space: O(1)
 size_t	f_split_len(char *input, char *space)
 {
 	size_t	i;
@@ -21,6 +23,8 @@ size_t	f_split_len(char *input, char *space)
 	return (y);
 }
 
+// time : O(n)
+// space: O(1)
 char	*f_create_copy_text(char *input, char *space)
 {
 	char	*dst;
@@ -30,7 +34,8 @@ char	*f_create_copy_text(char *input, char *space)
 	dst_len = 0;
 	while (input[dst_len] != '\0' && f_isspace(input[dst_len], space) == 0)
 		dst_len += 1;
-	dst = (char *)malloc(sizeof(char) * (dst_len + 1));
+	dst = (char *)malloc_talk(sizeof(char) * (dst_len + 1),
+		"LIB/split.c/f_create_copy_text\n");
 	if (dst == NULL)
 		return (NULL);
 	dst[dst_len] = '\0';
@@ -43,19 +48,8 @@ char	*f_create_copy_text(char *input, char *space)
 	return (dst);
 }
 
-void	f_free_nested_string(char **dst, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len)
-	{
-		free(dst[i]);
-		i += 1;
-	}
-	free(dst);
-}
-
+// time : O(n)
+// space: O(1)
 char	**f_split_push(char *input, char **dst, char *space)
 {
 	size_t	i;
@@ -70,7 +64,8 @@ char	**f_split_push(char *input, char **dst, char *space)
 			dst[j] = f_create_copy_text(input + i, space);
 			if (dst[j] == NULL)
 			{
-				f_free_nested_string(dst, j);
+				free_nest_arr((void **) dst, j);
+				write(1, "Malloc Fail: LIB/split.c/f_split_push\n", 22);
 				return (NULL);
 			}
 			while (f_isspace(input[i], space) == 0 && input[i] != '\0')
@@ -83,13 +78,16 @@ char	**f_split_push(char *input, char **dst, char *space)
 	return (dst);
 }
 
+// time : O(n)
+// space: O(n)
 char	**f_split(char *input, char *space)
 {
 	char	**dst;
 	size_t	dst_len;
 
 	dst_len = f_split_len(input, space);
-	dst = (char **)malloc(sizeof(char *) * (dst_len + 1));
+	dst = (char **)malloc_talk(sizeof(char *) * (dst_len + 1),
+		"LIB/split.c/f_split\n");
 	if (dst == NULL)
 		return (NULL);
 	dst[dst_len] = NULL;
