@@ -159,6 +159,11 @@ Here is the directory structure
 5.	Makefile
 	1.	Makefile for Git repo with multiple folders
 	*	https://stackoverflow.com/questions/1139271/makefiles-with-source-files-in-different-directories
+6.	Synesthesia
+	1.	I spent a day with SYNESTHETES (Neurological condition aka SYNESTHESIA) 
+	*	https://youtu.be/lP58G70QmpA?si=L086y0idPJ9W9uyV
+	2.	A simple yet impossible test
+	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 
 <!-- 1.	`ascii/`
 2.	import MXL42 library.
@@ -172,3 +177,29 @@ Here is the directory structure
 	1.	Stable Diffusion
 	2.	Piskel
 	*	https://www.piskelapp.com/p/create/sprite/ -->
+
+
+<!--
+Skeleton 
+1. Plate
+2. Chocolate 
+3. Double face
+
+Skin
+1. Rectangle 
+2. Triangle 
+3. Z buffer
+4. Mixed (rectangle + triangle = triangle, order also matter)
+
+Color
+1. Background 
+2. Shadow
+3. Skin
+4. Skeleton
+
+Rotation
+1. Global vs local
+2. Speed
+3. Initial Orientation 
+4. Direction of Orientation
+-->
