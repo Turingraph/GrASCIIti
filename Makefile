@@ -4,32 +4,38 @@ CC = cc -Wall -Wextra -Werror
 SRC = src/
 BUILD = build/
 BIN = bin/
+LIB = lib/
 TEST = test.c
 
 #----------------------------------------------------------------------------------
 
-# ATOMIC LIBRARY
+# ATOM LIBRARY
 
-DIR_GNL = get_next_line/
+NAME_GNL = get_next_line
+DIR_GNL = $(NAME_GNL)/
 OBJ_GNL := get_next_line.o utils.o
 BUILD_GNL = $(OBJ_GNL:%.o=$(BUILD)$(DIR_GNL)%.o)
-LIB_GNL = lib/get_next_line.a
-BIN_GNL = $(BIN)get_next_line.out
-BUFFER_SIZE = 1
+LIB_GNL = $(LIB)$(NAME_GNL).a
+BIN_GNL = $(BIN)$(NAME_GNL).out
+BUFFER_SIZE = 41
 
-DIR_LIB = libft/
-OBJ_LIB := arr.o atoi.o putnbr_fd.o split.o
+NAME_LIB = libft
+DIR_LIB = $(NAME_LIB)/
+OBJ_LIB := arr.o atoi.o split.o utils.o
 BUILD_LIB = $(OBJ_LIB:%.o=$(BUILD)$(DIR_LIB)%.o)
-LIB_LIB = lib/libft.a
-BIN_LIB = $(BIN)libft.out
+LIB_LIB = $(LIB)$(NAME_LIB).a
+BIN_LIB = $(BIN)$(NAME_LIB).out
 
 #----------------------------------------------------------------------------------
 
-# INPUT = input/
-# MESH = mesh/
-# SYNESTHESIA = synesthesia/
+# MOLECULE LIBRARY
 
-# SUB_DIR = $(GET_NEXT_LINE) $(INPUT) $(LIBFT) $(MESH) $(SYNESTHESIA)
+NAME_INP = input
+DIR_INP = $(NAME_INP)/
+OBJ_INP = all_lines.o ascii.o fdf.o table.o
+BUILD_INP = $(OBJ_INP:%.o=$(BUILD)$(DIR_INP)%.o)
+LIB_INP = $(LIB)$(NAME_INP).a
+BIN_INP = $(BIN)$(NAME_INP).out
 
 #----------------------------------------------------------------------------------
 
@@ -45,6 +51,20 @@ $(NAME): $(BUILD_LIB) $(BUILD_GNL)
 	echo $@
 
 # 	ar rcs $@ $^
+
+#----------------------------------------------------------------------------------
+
+# *** PROBLEM ! ***
+# /usr/bin/ld: test.c:(.text+0x115): undefined reference to `ft_putnbr_fd' and many other undefined reference.
+# so I cannot test if src/input/test.c works as expected or not.
+$(BIN_INP): $(LIB_INP)
+	$(CC) $(SRC)$(DIR_INP)$(TEST) $^ -o $@
+
+$(LIB_INP): $(BUILD_INP)
+	ar rcs $@ $^
+
+$(BUILD)$(DIR_INP)%.o: $(SRC)$(DIR_INP)%.c 
+	$(CC) -c $^ -L$(LIB_LIB) -l$(NAME_LIB).h $(LIB_GNL) -l$(NAME_GNL) -o $@
 
 #----------------------------------------------------------------------------------
 
@@ -76,17 +96,20 @@ $(BUILD)$(DIR_LIB)%.o: $(SRC)$(DIR_LIB)%.c
 # DELETE FILES
 
 binclean:
-	rm -f $(BIN_GNL) $(BIN_LIB)
+	rm -f $(BIN_GNL) $(BIN_LIB) $(BIN_INP)
 
 fclean: clean
-	rm -f $(LIB_GNL) $(LIB_LIB)
+	rm -f $(LIB_GNL) $(LIB_LIB) $(LIB_INP)
 
 clean:
-	rm -f $(BUILD_GNL) $(BUILD_LIB)
+	rm -f $(BUILD_GNL) $(BUILD_LIB) $(BUILD_INT)
 
 re: binclean fclean clean $(BIN_GNL) $(BIN_LIB) all
 
 .PHONY: re all clean fclean binclean
+
+# valgrind --leak-check=full 
+# valgrind --leak-check=full bin/...out input0 input1 ... inputn build/..0.a build/..1.a ...
 
 #----------------------------------------------------------------------------------
 

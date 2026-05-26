@@ -3,3 +3,6 @@ gnlTester/
 draft_*/
 
 trash_*/
+
+include/glfw/
+include/MLX42/
