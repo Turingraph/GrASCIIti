@@ -159,11 +159,18 @@ Here is the directory structure
 5.	Makefile
 	1.	Makefile for Git repo with multiple folders
 	*	https://stackoverflow.com/questions/1139271/makefiles-with-source-files-in-different-directories
+	2.	.
+	*	https://stackoverflow.com/questions/4318906/ar-on-an-existing-a-file
+	3.	.
+	*	https://stackoverflow.com/questions/1139271/makefiles-with-source-files-in-different-directories
 6.	Synesthesia
 	1.	I spent a day with SYNESTHETES (Neurological condition aka SYNESTHESIA) 
 	*	https://youtu.be/lP58G70QmpA?si=L086y0idPJ9W9uyV
 	2.	A simple yet impossible test
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
+7.	Convolution
+	1.	But what is a convolution?
+	*	https://youtu.be/KuXjwB4LzSA?si=5538Gr5xpS-cfLwV
 
 <!-- 1.	`ascii/`
 2.	import MXL42 library.
