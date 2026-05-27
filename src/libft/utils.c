@@ -58,7 +58,7 @@ void	non_numerical_file_warning(char *file, size_t i_th_line, char error_mode)
 		write(1, "Error: line no.", 15);
 	else
 		write(1, "Warning: line no.", 17);
-	ft_putnbr_fd((int) i_th_line, 1);
+	ft_putnbr_fd((int) i_th_line, 1, "0123456789");
 	write(1, " of ", 4);
 	write(1, file, f_strlen(file));
 	if (error_mode == 0 || error_mode == 3)

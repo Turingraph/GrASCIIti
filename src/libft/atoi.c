@@ -7,14 +7,14 @@ size_t	f_atoonei(char c, char *base, char *err)
 	size_t	i;
 	char	big_c;
 
-	big_c = '\0';
+	big_c = c;
 	if (c >= 'a' && c <= 'z')
 		big_c = c - 'a' + 'A';
 	if (c >= 'A' && c <= 'Z')
 		big_c = c + 'a' - 'A';
 	i = 0;
 	while (*base != '\0' && *base != c && *base != big_c
-		&& *base == '-' && *base == '+')
+		&& *base != '-' && *base != '+')
 	{
 		base += 1;
 		i += 1;
@@ -76,44 +76,42 @@ int	f_atoi(char *src, char *err, char *base, size_t len)
 
 // time : O(1)
 // space: O(1)
-void	display_int(int fd, int x)
+void	display_int(int fd, long x, char *base)
 {
 	long	d;
 	char	coef;
+	size_t	len;
 
+	len = f_strlen(base);
 	d = 1;
 	while (d < x)
-		d *= 10;
+		d *= len;
 	if (d > x)
-		d /= 10;
+		d /= len;
 	while (d > 0)
 	{
-		coef = x / d + '0';
+		coef = base[x / d];
 		write(fd, &coef, 1);
 		x = x % d;
-		d /= 10;
+		d /= len;
 	}
 }
 
 // time : O(1)
 // space: O(1)
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd, char *base)
 {
 	if (n == 0)
 	{
-		write(fd, "0", 1);
+		write(fd, base, 1);
 	}
 	else if (n > 0)
 	{
-		display_int(fd, n);
-	}
-	else if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
+		display_int(fd, (long) n, base);
 	}
 	else
 	{
 		write(fd, "-", 1);
-		display_int(fd, (-1) * n);
+		display_int(fd, (-1) * ((long) n), base);
 	}
 }
