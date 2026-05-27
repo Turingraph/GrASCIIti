@@ -22,17 +22,17 @@ int	main(int len, char **str)
 		i = 0;
 		while (i < src->len)
 		{
-			ft_putnbr_fd(src->arr[i], 1);
+			ft_putnbr_fd(src->arr[i], 1, "0123456789");
 			if (src->rgb != NULL && src->rgb[i] != NULL)
 			{
 				write(1, " (", 2);
-				ft_putnbr_fd((int) src->rgb[i]->r, 1);
+				ft_putnbr_fd((int) src->rgb[i]->r, 1, "0123456789abcdef");
 				write(1, " | ", 3);
-				ft_putnbr_fd((int) src->rgb[i]->g, 1);
+				ft_putnbr_fd((int) src->rgb[i]->g, 1, "0123456789abcdef");
 				write(1, " | ", 3);
-				ft_putnbr_fd((int) src->rgb[i]->b, 1);
+				ft_putnbr_fd((int) src->rgb[i]->b, 1, "0123456789abcdef");
 				write(1, " | ", 3);
-				ft_putnbr_fd((int) src->rgb[i]->a, 1);
+				ft_putnbr_fd((int) src->rgb[i]->a, 1, "0123456789abcdef");
 				write(1, ") ", 2);
 			}
 			write(1, ", ", 2);
@@ -46,5 +46,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full ./bin/input.out test/fdf/10-2.fdf
+valgrind --leak-check=full ./test/bin/input.out test/input/fdf/10-2.fdf
 */

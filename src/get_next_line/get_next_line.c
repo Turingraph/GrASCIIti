@@ -4,7 +4,7 @@
 // space: O(n)
 t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 {
-	*cup = (t_temperance *)malloc_talk(sizeof(t_temperance), "GNL/ace_of_cup\n");
+	*cup = (t_temperance *)queen_of_coin(sizeof(t_temperance), "GNL/ace_of_cup\n");
 	if (*cup == NULL)
 		return (NULL);
 	(*cup)->length = 0;
@@ -20,7 +20,7 @@ t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 
 // time : O(1)
 // space: O(1)
-char	free_line(char *ambition, char **coin)
+char	the_lost_treasure(char *ambition, char **coin)
 {
 	*ambition = 2;
 	if (*coin != NULL)
@@ -42,13 +42,13 @@ char	king_of_coin(char **coin, char *ambition, char anchor, t_temperance **angel
 		return (0);
 	}
 	if (anchor == 1 || *ambition == 2)
-		return (free_line(ambition, coin));
+		return (the_lost_treasure(ambition, coin));
 	if (ace_of_cup(1, angel) == NULL)
-		return (free_line(ambition, coin));
+		return (the_lost_treasure(ambition, coin));
 	if (*coin != NULL)
 	{
 		if (three_of_cups(angel, *coin) == NULL)
-			return (free_line(ambition, coin));
+			return (the_lost_treasure(ambition, coin));
 		if (*coin != NULL)
 			free(*coin);
 		*coin = NULL;

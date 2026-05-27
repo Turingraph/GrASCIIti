@@ -17,7 +17,7 @@ size_t	knight_of_coin(char *str, char stop)
 
 // time : O(n)
 // space: O(1)
-void	*malloc_talk(size_t elem_size, char *comment)
+void	*queen_of_coin(size_t elem_size, char *comment)
 {
 	void	*dst;
 
@@ -44,7 +44,7 @@ char	*ace_of_coin(char *src, size_t length, size_t capacity)
 		capacity = length;
 	if (capacity == 0)
 		return (NULL);
-	coin = (char *)malloc_talk(sizeof(char) * (capacity + 1), "GNL/ace_of_coin\n");
+	coin = (char *)queen_of_coin(sizeof(char) * (capacity + 1), "GNL/ace_of_coin\n");
 	if (coin == NULL)
 		return (NULL);
 	coin[capacity] = '\0';
@@ -75,7 +75,7 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 		(*left_cup)->length += 1;
 		return (*left_cup);
 	}
-	right_cup = (t_temperance *)malloc_talk(sizeof(t_temperance), "GNL/two_of_cups\n");
+	right_cup = (t_temperance *)queen_of_coin(sizeof(t_temperance), "GNL/two_of_cups\n");
 	if (right_cup == NULL)
 		return (NULL);
 	right_cup->capacity = (*left_cup)->capacity * 2;

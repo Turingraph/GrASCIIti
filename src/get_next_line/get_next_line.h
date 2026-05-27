@@ -18,7 +18,7 @@ typedef struct t_temperance
 
 // utils.c
 size_t			knight_of_coin(char *str, char stop);
-void			*malloc_talk(size_t elem_size, char *comment);
+void			*queen_of_coin(size_t elem_size, char *comment);
 char			*ace_of_coin(char *src, size_t length, size_t capacity);
 t_temperance	**three_of_cups(t_temperance **group, char *friends);
 
