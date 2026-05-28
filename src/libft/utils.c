@@ -4,25 +4,19 @@
 // space: O(1)
 t_rgb	*f_atorgb(char *src, char *err, t_rgb *dst)
 {
-	int		rgb;
-
-	dst->a = 0;
-	if (f_strlen(src) == 0 || err == NULL)
+	dst->a = 255;
+	if (f_strlen(src) < 6 || f_strlen(src) > 8)
 	{
-		dst->b = (unsigned char) 256;
-		dst->r = (unsigned char) 256;
-		dst->g = (unsigned char) 256;
+		dst->b = (unsigned char) 255;
+		dst->r = (unsigned char) 255;
+		dst->g = (unsigned char) 255;
+		if (err != NULL || f_strlen(src) > 0)
+			*err = 'E';
 		return (dst);
 	}
-	if (f_strlen(src) < 6)
-	{
-		*err = 'E';
-		return (dst);
-	}
-	rgb = f_atoi(src, err, "0123456789ABCDEF", 6);
-	dst->b = (unsigned char) rgb % (256 * 256);
-	dst->r = (unsigned char) rgb / (256 * 256);
-	dst->g = (unsigned char) (rgb / 256) % 256;
+	dst->r = (unsigned char) f_atoi(src + 0, err, "0123456789ABCDEF", 2);
+	dst->g = (unsigned char) f_atoi(src + 2, err, "0123456789ABCDEF", 2);
+	dst->b = (unsigned char) f_atoi(src + 4, err, "0123456789ABCDEF", 2);
 	if (f_strlen(src) > 6)
 		dst->a = (unsigned char) f_atoi(src + 6, err, "0123456789ABCDEF", 2);
 	return (dst);

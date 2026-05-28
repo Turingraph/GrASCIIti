@@ -59,8 +59,7 @@ char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		if (f_strncmp(split[i] + knight_of_coin(split[i], ','), ",0x", 3) == 0
-			|| dst[i] != NULL)
+		if (*(split[i] + knight_of_coin(split[i], ',')) != '\0' && f_strlen(split[i] + knight_of_coin(split[i], ',')) > 3)
 			f_atorgb(split[i] + knight_of_coin(split[i], ',') + 3, &err, dst[i]);
 		else
 			f_atorgb("\0", &err, dst[i]);

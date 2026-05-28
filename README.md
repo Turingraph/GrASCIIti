@@ -157,12 +157,10 @@ Here is the directory structure
 	2.	ASCII Art gradient
 	*	https://paulbourke.net/dataformats/asciiart/
 5.	Makefile
-	1.	Makefile for Git repo with multiple folders
-	*	https://stackoverflow.com/questions/1139271/makefiles-with-source-files-in-different-directories
-	2.	.
+	1.	Wildcard in Makefile
+	*	https://stackoverflow.com/questions/11184389/what-does-wildcard-mean-in-makefile
+	2.	ar on an existing .a file?
 	*	https://stackoverflow.com/questions/4318906/ar-on-an-existing-a-file
-	3.	.
-	*	https://stackoverflow.com/questions/1139271/makefiles-with-source-files-in-different-directories
 6.	Synesthesia
 	1.	I spent a day with SYNESTHETES (Neurological condition aka SYNESTHESIA) 
 	*	https://youtu.be/lP58G70QmpA?si=L086y0idPJ9W9uyV
@@ -171,6 +169,11 @@ Here is the directory structure
 7.	Convolution
 	1.	But what is a convolution?
 	*	https://youtu.be/KuXjwB4LzSA?si=5538Gr5xpS-cfLwV
+	2.	Gaussian Blur implementation
+	*	https://stackoverflow.com/questions/1696113/how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions
+8.	Software testing tool
+	1.	Get Next Line Tester
+	*	https://github.com/Tripouille/gnlTester
 
 <!-- 1.	`ascii/`
 2.	import MXL42 library.

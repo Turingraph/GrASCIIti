@@ -50,9 +50,11 @@ int	main(int len, char **str)
 }
 */
 
+/*
 int	main(int len, char **str)
 {
 	int			fd;
+	char		*line;
 	t_llist_fdf	*head;
 	t_llist_fdf	*llist;
 	size_t		i;
@@ -62,13 +64,31 @@ int	main(int len, char **str)
 	fd = open(str[1], 'r');
 	if (fd < 0)
 		return (0);
-	head = all_lines(str[1], one_ascii_line);
-	if (head == NULL)
+	line = get_next_line(fd, 0);
+	if (line == NULL)
 		return (0);
+	head = one_fdf_line(line);
+	if (head == NULL)
+	{
+		get_next_line(fd, 1);
+		free(line);
+		return (0);
+	}
+	llist = head;
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(fd, 0);
+		if (line != NULL)
+			llist->next = one_fdf_line(line);
+		llist = llist->next;
+	}
 	llist = head;
 	while (llist != NULL)
 	{
 		i = 0;
+		if (llist->int_err == 'E')
+			write(1, "Invalid Input\n", 14);
 		while (i < llist->len)
 		{
 			ft_putnbr_fd(llist->arr[i], 1, "0123456789");
@@ -84,7 +104,7 @@ int	main(int len, char **str)
 				ft_putnbr_fd((int) llist->rgb[i]->a, 1, "0123456789abcdef");
 				write(1, ") ", 2);
 			}
-			write(1, ", ", 2);
+			write(1, ",\t", 2);
 			i += 1;
 		}
 		write(1, "\n", 1);
@@ -92,8 +112,17 @@ int	main(int len, char **str)
 	}
 	get_next_line(fd, 1);
 	free_llist_fdf(head);
+	free(line);
 	return (0);
 }
+*/
+
+// int	main(int len, char **str)
+// {
+// 	if (len < 2)
+// 		return (0);
+// 	return (0);
+// }
 
 /*
 int	main(int len, char **str)
@@ -138,46 +167,6 @@ int	main(int len, char **str)
 	free_llist_fdf(head);
 	return (0);
 }
-*/
-
-/*
-ISSUES:
-
-// with free_llist_fdf(head);
-// with get_next_line(fd, 1);
-==8933== LEAK SUMMARY:
-==8933==    definitely lost: 60 bytes in 1 blocks
-==8933==    indirectly lost: 0 bytes in 0 blocks
-==8933==      possibly lost: 0 bytes in 0 blocks
-==8933==    still reachable: 0 bytes in 0 blocks
-==8933==         suppressed: 0 bytes in 0 blocks
-
-// without free_llist_fdf(head);
-// with get_next_line(fd, 1);
-==9812== LEAK SUMMARY:
-==9812==    definitely lost: 100 bytes in 2 blocks
-==9812==    indirectly lost: 232 bytes in 1 blocks
-==9812==      possibly lost: 0 bytes in 0 blocks
-==9812==    still reachable: 0 bytes in 0 blocks
-==9812==         suppressed: 0 bytes in 0 blocks
-
-// with free_llist_fdf(head);
-// without get_next_line(fd, 1);
-==10858== LEAK SUMMARY:
-==10858==    definitely lost: 60 bytes in 1 blocks
-==10858==    indirectly lost: 0 bytes in 0 blocks
-==10858==      possibly lost: 0 bytes in 0 blocks
-==10858==    still reachable: 26 bytes in 1 blocks
-==10858==         suppressed: 0 bytes in 0 blocks
-
-// without free_llist_fdf(head);
-// without get_next_line(fd, 1);
-==11292== LEAK SUMMARY:
-==11292==    definitely lost: 100 bytes in 2 blocks
-==11292==    indirectly lost: 232 bytes in 1 blocks
-==11292==      possibly lost: 0 bytes in 0 blocks
-==11292==    still reachable: 26 bytes in 1 blocks
-==11292==         suppressed: 0 bytes in 0 blocks
 */
 
 /*

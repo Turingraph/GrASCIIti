@@ -47,7 +47,7 @@ long int	f_atolongi(char *src, char *err, char *base, size_t len)
 		src += 1;
 		i += 1;
 	}
-	y /= 10;
+	y /= f_strlen(base);
 	return (y);
 }
 
