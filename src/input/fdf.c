@@ -43,6 +43,11 @@ int	*line_to_int_arr(char *line, char *err)
 	return (dst);
 }
 
+/*
+Something might be wrong about f_atorgb and/or other rgb related features.
+It is a good idea to test with one_ascii_line !
+*/
+
 // time : O(n)
 // space: O(1)
 char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)
@@ -54,7 +59,8 @@ char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		if (f_strncmp(split[i] + knight_of_coin(split[i], ','), ",0x", 3) == 0)
+		if (f_strncmp(split[i] + knight_of_coin(split[i], ','), ",0x", 3) == 0
+			|| dst[i] != NULL)
 			f_atorgb(split[i] + knight_of_coin(split[i], ',') + 3, &err, dst[i]);
 		else
 			f_atorgb("\0", &err, dst[i]);
@@ -70,6 +76,7 @@ t_rgb	**line_to_rgb_arr(char *line, char *err)
 	t_rgb	**dst;
 	char	**split;
 	size_t	len;
+	size_t	i;
 
 	len = f_split_len(line, " \n\t\r\f\v");
 	if (len == 0)
@@ -79,6 +86,13 @@ t_rgb	**line_to_rgb_arr(char *line, char *err)
 		return (NULL);
 	dst = (t_rgb **)malloc_talk(sizeof(t_rgb *) * len,
 		"input/fdf.c/line_to_rgb_arr\n");
+	i = 0;
+	while (i < len)
+	{
+		dst[i] = (t_rgb *)malloc_talk(sizeof(t_rgb),
+			"input/fdf.c/line_to_rgb_arr\n");
+		i += 1;
+	}
 	if (dst == NULL)
 	{
 		free_nest_arr((void **)split, len);
