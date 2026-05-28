@@ -13,7 +13,7 @@ int	f_ctoi(char a)
 	i = 0;
 	while (dict[i] != '\0' && dict[i] != a)
 		i += 1;
-	if (i >= 42)
+	if (i >= 41)
 		i -= 1;
 	if (68 <= (int) i)
 		return (0);

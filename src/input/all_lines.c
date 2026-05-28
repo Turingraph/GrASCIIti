@@ -55,6 +55,8 @@ t_llist_fdf	*all_lines(char *file, t_llist_fdf *(*one_line)(char *))
 		line = get_next_line(fd, 0);
 		if (line != NULL)
 			output = one_line(line);
+		else
+			get_next_line(fd, 1);
 		i += 1;
 	}
 	return (header);
@@ -65,15 +67,25 @@ t_llist_fdf	*all_lines(char *file, t_llist_fdf *(*one_line)(char *))
 void	free_llist_fdf(t_llist_fdf *src)
 {
 	t_llist_fdf	*temp;
+	size_t		i;
 
-	temp = src;
-	while (temp != NULL)
+	while (src != NULL)
 	{
-		if (temp->arr != NULL)
-			free(temp->arr);
-		if (temp->rgb != NULL)
-			free(temp->rgb);
-		free(temp);
 		temp = src->next;
+		if (src->arr != NULL)
+			free(src->arr);
+		if (src->rgb != NULL)
+		{
+			i = 0;
+			while (i < src->len)
+			{
+				if (src->rgb[i] != NULL)
+					free(src->rgb[i]);
+				i += 1;
+			}
+			free(src->rgb);
+		}
+		free(src);
+		src = temp;
 	}
 }
