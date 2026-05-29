@@ -53,14 +53,16 @@ It is a good idea to test with one_ascii_line !
 char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)
 {
 	size_t	i;
+	size_t	k;
 	char	err;
 
 	err = 'K';
 	i = 0;
 	while (i < len)
 	{
-		if (*(split[i] + knight_of_coin(split[i], ',')) != '\0' && f_strlen(split[i] + knight_of_coin(split[i], ',')) > 3)
-			f_atorgb(split[i] + knight_of_coin(split[i], ',') + 3, &err, dst[i]);
+		k = knight_of_coin(split[i], ',');
+		if (split[i][k] != '\0' && f_strlen(split[i] + k) > 3)
+			f_atorgb(split[i] + k + 3, &err, dst[i]);
 		else
 			f_atorgb("\0", &err, dst[i]);
 		i += 1;

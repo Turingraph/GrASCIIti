@@ -58,6 +58,7 @@ int	main(int len, char **str)
 	t_llist_fdf	*head;
 	t_llist_fdf	*llist;
 	size_t		i;
+	size_t		j;
 
 	if (len < 2)
 		return (0);
@@ -84,89 +85,80 @@ int	main(int len, char **str)
 		llist = llist->next;
 	}
 	llist = head;
+	j = 0;
 	while (llist != NULL)
 	{
 		i = 0;
+		write(1, "::: ", 4);
 		if (llist->int_err == 'E')
 			write(1, "Invalid Input\n", 14);
 		while (i < llist->len)
 		{
-			ft_putnbr_fd(llist->arr[i], 1, "0123456789");
-			if (llist->rgb != NULL && llist->rgb[i] != NULL)
+			ft_putnbr_fd(llist->arr[i], 1, "0123456789", 3);
+			if (llist->rgb != NULL && llist->rgb[i] != NULL && (j == 0 || j == 3))
 			{
 				write(1, " (", 2);
-				ft_putnbr_fd((int) llist->rgb[i]->r, 1, "0123456789abcdef");
+				ft_putnbr_fd((int) llist->rgb[i]->r, 1, "0123456789abcdef", 2);
 				write(1, " | ", 3);
-				ft_putnbr_fd((int) llist->rgb[i]->g, 1, "0123456789abcdef");
+				ft_putnbr_fd((int) llist->rgb[i]->g, 1, "0123456789abcdef", 2);
 				write(1, " | ", 3);
-				ft_putnbr_fd((int) llist->rgb[i]->b, 1, "0123456789abcdef");
+				ft_putnbr_fd((int) llist->rgb[i]->b, 1, "0123456789abcdef", 2);
 				write(1, " | ", 3);
-				ft_putnbr_fd((int) llist->rgb[i]->a, 1, "0123456789abcdef");
+				ft_putnbr_fd((int) llist->rgb[i]->a, 1, "0123456789abcdef", 2);
 				write(1, ") ", 2);
+				if (llist->rgb[i]->r == (unsigned char) 0)
+					write(1, "Suisei", 6);
 			}
 			write(1, ",\t", 2);
 			i += 1;
 		}
 		write(1, "\n", 1);
 		llist = llist->next;
+		j += 1;
 	}
 	get_next_line(fd, 1);
+	if (head->rgb_err == 'E')
+		write(1, "I'm queer!\n", 11);
+	else
+		write(1, "I'm straight!\n", 14);
 	free_llist_fdf(head);
 	free(line);
 	return (0);
 }
 */
 
-// int	main(int len, char **str)
-// {
-// 	if (len < 2)
-// 		return (0);
-// 	return (0);
-// }
-
-/*
+// Graffiti
+// GrASCIIti
 int	main(int len, char **str)
 {
-	t_llist_fdf	*src;
-	t_llist_fdf	*head;
-	size_t		i;
+	int			fd;
+	t_llist_fdf	*llist;
 
 	if (len < 2)
-	{
-		write(1, "File name isn't specified.\n", 27);
 		return (0);
-	}
-	head = all_lines(str[1], one_fdf_line);
-	if (head == NULL)
+	fd = open(str[1], 'r');
+	if (fd < 0)
 		return (0);
-	src = head;
-	while (src != NULL)
-	{
-		i = 0;
-		while (i < llist->len)
-		{
-			ft_putnbr_fd(llist->arr[i], 1, "0123456789");
-			if (llist->rgb != NULL && llist->rgb[i] != NULL)
-			{
-				write(1, " (", 2);
-				ft_putnbr_fd((int) llist->rgb[i]->r, 1, "0123456789abcdef");
-				write(1, " | ", 3);
-				ft_putnbr_fd((int) llist->rgb[i]->g, 1, "0123456789abcdef");
-				write(1, " | ", 3);
-				ft_putnbr_fd((int) llist->rgb[i]->b, 1, "0123456789abcdef");
-				write(1, " | ", 3);
-				ft_putnbr_fd((int) llist->rgb[i]->a, 1, "0123456789abcdef");
-				write(1, ") ", 2);
-			}
-			write(1, ", ", 2);
-			i += 1;
-		}
-		write(1, "\n", 1);
-		src = llist->next;
-	}
-	free_llist_fdf(head);
+	llist = all_lines(str[1], fd, one_fdf_line);
+	write_all_lines(1, llist);
+	free_llist_fdf(llist);
 	return (0);
 }
+
+/*
+*** ISSUE! ***
+// valgrind --leak-check=full ./test/bin/input.out test/input/fdf/elem-col.fdf
+// Should be 20,0xff00ff instead of 20,0x000ff
+0 0 0 0 0 0 0 0 0 0 
+0 10 10 10 10 10 10 10 10 0 
+0,0xffffffff 10,0xffffffff 20,0x000ff 15,0x000ff 12,0xffffffff 15,0x000ff 17,0x000ff 20,0x000ff 10,0xffffffff 0,0xffffffff 
+0 10 15 10 12 15 15 15 10 0 
+0 5 15 10 12 15 15 13 10 0 
+0 5 10 5 7 12 12 12 10 0 
+0 5 7 1 2 7 5 5 7 0 
+0 3 0 0 1 2 2 2 5 0 
+0 1 0 0 0 0 0 0 3 0 
+0 0 0 0 0 0 0 0 0 0 
 */
 
 /*

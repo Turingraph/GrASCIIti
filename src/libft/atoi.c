@@ -21,7 +21,8 @@ size_t	f_atoonei(char c, char *base, char *err)
 	}
 	if (*base == '\0' || *base == '-' || *base == '+')
 	{
-		*err = 'E';
+		if (err != NULL)
+			*err = 'E';
 		return (0);
 	}
 	return (i);
@@ -38,10 +39,10 @@ long int	f_atolongi(char *src, char *err, char *base, size_t len)
 		len = f_strlen(src);
 	i = 0;
 	y = 0;
-	while (*err != 'E' && *src != '\0' && i < len)
+	while ((err == NULL || *err != 'E') && *src != '\0' && i < len)
 	{
 		y += (long int) f_atoonei(*src, base, err);
-		if (*err == 'E')
+		if (err != NULL && *err == 'E')
 			return (-1);
 		y *= f_strlen(base);
 		src += 1;
@@ -76,12 +77,14 @@ int	f_atoi(char *src, char *err, char *base, size_t len)
 
 // time : O(1)
 // space: O(1)
-void	display_int(int fd, long x, char *base)
+size_t	display_int(int fd, long x, char *base, char say)
 {
+	size_t	i;
 	long	d;
 	char	coef;
 	size_t	len;
 
+	i = 0;
 	len = f_strlen(base);
 	d = 1;
 	while (d < x)
@@ -91,27 +94,39 @@ void	display_int(int fd, long x, char *base)
 	while (d > 0)
 	{
 		coef = base[x / d];
-		write(fd, &coef, 1);
+		if (say == 1)
+			write(fd, &coef, 1);
 		x = x % d;
 		d /= len;
+		i += 1;
 	}
+	return (i);
 }
 
 // time : O(1)
 // space: O(1)
-void	ft_putnbr_fd(int n, int fd, char *base)
+void	ft_putnbr_fd(int n, int fd, char *base, size_t len)
 {
-	if (n == 0)
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	if (n > 0)
+		j = display_int(fd, (long) n, base, 0);
+	else if (n < 0)
+	{
+		n *= 1;
+		j = 1 + display_int(fd, n, base, 0);
+		write(fd, "-", 1);
+	}
+	i = 0;
+	if (j > len)
+		j = len;
+	while (i < len - j)
 	{
 		write(fd, base, 1);
+		i += 1;
 	}
-	else if (n > 0)
-	{
-		display_int(fd, (long) n, base);
-	}
-	else
-	{
-		write(fd, "-", 1);
-		display_int(fd, (-1) * ((long) n), base);
-	}
+	if (n != 0)
+		display_int(fd, n, base, 1);
 }

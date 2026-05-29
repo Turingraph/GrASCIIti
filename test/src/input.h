@@ -30,8 +30,9 @@ struct t_table_fdf
 };
 
 // all_lines.c
-t_llist_fdf	*all_lines(char *file, t_llist_fdf *(*one_line)(char *));
 void		free_llist_fdf(t_llist_fdf *src);
+t_llist_fdf	*all_lines(char *file, int fd, t_llist_fdf *(*one_line)(char *));
+void		write_all_lines(int fd, t_llist_fdf *llist);
 
 // ascii.c
 t_llist_fdf	*init_llist_fdf(size_t line_len);

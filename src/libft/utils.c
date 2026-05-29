@@ -4,21 +4,22 @@
 // space: O(1)
 t_rgb	*f_atorgb(char *src, char *err, t_rgb *dst)
 {
-	dst->a = 255;
+	dst->a = 0;
 	if (f_strlen(src) < 6 || f_strlen(src) > 8)
 	{
-		dst->b = (unsigned char) 255;
-		dst->r = (unsigned char) 255;
-		dst->g = (unsigned char) 255;
-		if (err != NULL || f_strlen(src) > 0)
+		dst->r = 0;
+		dst->g = 0;
+		dst->b = 0;
+		if (err != NULL && f_strlen(src) > 0)
 			*err = 'E';
 		return (dst);
 	}
-	dst->r = (unsigned char) f_atoi(src + 0, err, "0123456789ABCDEF", 2);
-	dst->g = (unsigned char) f_atoi(src + 2, err, "0123456789ABCDEF", 2);
-	dst->b = (unsigned char) f_atoi(src + 4, err, "0123456789ABCDEF", 2);
+	dst->a = 255;
+	dst->r = (unsigned char)f_atoi(src + 0, err, "0123456789ABCDEF", 2);
+	dst->g = (unsigned char)f_atoi(src + 2, err, "0123456789ABCDEF", 2);
+	dst->b = (unsigned char)f_atoi(src + 4, err, "0123456789ABCDEF", 2);
 	if (f_strlen(src) > 6)
-		dst->a = (unsigned char) f_atoi(src + 6, err, "0123456789ABCDEF", 2);
+		dst->a = (unsigned char)f_atoi(src + 6, err, "0123456789ABCDEF", 2);
 	return (dst);
 }
 
@@ -52,7 +53,7 @@ void	non_numerical_file_warning(char *file, size_t i_th_line, char error_mode)
 		write(1, "Error: line no.", 15);
 	else
 		write(1, "Warning: line no.", 17);
-	ft_putnbr_fd((int) i_th_line, 1, "0123456789");
+	ft_putnbr_fd((int) i_th_line, 1, "0123456789", 1);
 	write(1, " of ", 4);
 	write(1, file, f_strlen(file));
 	if (error_mode == 0 || error_mode == 3)

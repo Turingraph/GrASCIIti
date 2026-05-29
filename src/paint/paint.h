@@ -6,6 +6,7 @@
 # include <fcntl.h>
 
 typedef struct t_gradient t_gradient;
+typedef struct t_paint_func t_paint_func;
 
 /*
 direction == 0 => x
@@ -28,6 +29,21 @@ struct t_gradient
 	int				int_1st;
 	int				int_2nd;
 	char			direction;
+};
+
+/*
+e_line_log = 0 => ???
+e_line_log = 1 => scale * x + constant
+e_line_log = 2 => constant * scale^x
+*/
+
+struct t_paint_func
+{
+	char		e_line_log;
+	double		scale;
+	double		constant;
+	double		percent;
+	t_gradient	*color;
 };
 
 // copy.c

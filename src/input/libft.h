@@ -23,7 +23,7 @@ void	copy_nested_arr(void **dst, void **src, size_t col, size_t row_x_elem_size)
 
 // atoi.c
 int		f_atoi(char *src, char *err, char *base, size_t len);
-void	ft_putnbr_fd(int n, int fd, char *base);
+void	ft_putnbr_fd(int n, int fd, char *base, size_t len);
 
 // split.c
 size_t	f_split_len(char *input, char *space);
