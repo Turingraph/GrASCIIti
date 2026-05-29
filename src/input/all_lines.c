@@ -108,7 +108,7 @@ void	write_all_lines(int fd, t_llist_fdf *llist)
 					ft_putnbr_fd(llist->rgb[i]->a, fd, "0123456789abcdef", 2);
 				}
 				else
-					write(fd, "ffffffff", 8);
+					write(fd, "00000000", 8);
 			}
 			write(fd, " ", 1);
 			i += 1;
