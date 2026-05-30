@@ -28,15 +28,15 @@ void	*free_table_fdf(t_table_fdf *table)
 	if (table != NULL)
 	{
 		if (table->table != NULL)
-			free_nest_arr((void **)table->table, table->col);
+			free_nest_arr((void **)table->table, table->row);
 		if (table->a != NULL)
-			free_nest_arr((void **)table->a, table->col);
+			free_nest_arr((void **)table->a, table->row);
 		if (table->r != NULL)
-			free_nest_arr((void **)table->a, table->col);
+			free_nest_arr((void **)table->r, table->row);
 		if (table->g != NULL)
-			free_nest_arr((void **)table->a, table->col);
+			free_nest_arr((void **)table->g, table->row);
 		if (table->b != NULL)
-			free_nest_arr((void **)table->a, table->col);
+			free_nest_arr((void **)table->b, table->row);
 		free(table);
 	}
 	return (NULL);
@@ -44,25 +44,20 @@ void	*free_table_fdf(t_table_fdf *table)
 
 // time : O(n)
 // space: O(1)
-t_table_fdf	*init_table(size_t col, size_t row)
+t_table_fdf	*init_table_fdf(size_t row, size_t col)
 {
 	t_table_fdf	*dst;
 
 	dst = (t_table_fdf *)malloc_talk(sizeof(t_table_fdf), "table/convert.c\n");
 	if (dst == NULL)
 		return (NULL);
-	dst->col = col;
 	dst->row = row;
-	dst->table = (int **)create_null_arr(col, row,
-		sizeof(int), "input/table.c/init_table\n");
-	dst->r = (unsigned char **)create_null_arr(col, row,
-		sizeof(unsigned char), "input/table.c/init_table\n");
-	dst->g = (unsigned char **)create_null_arr(col, row,
-		sizeof(unsigned char), "input/table.c/init_table\n");
-	dst->b = (unsigned char **)create_null_arr(col, row,
-		sizeof(unsigned char), "input/table.c/init_table\n");
-	dst->a = (unsigned char **)create_null_arr(col, row,
-		sizeof(unsigned char), "input/table.c/init_table\n");
+	dst->col = col;
+	dst->table = init_null_int_arr(row, col);
+	dst->r = init_null_char_arr(row, col);
+	dst->g = init_null_char_arr(row, col);
+	dst->b = init_null_char_arr(row, col);
+	dst->a = init_null_char_arr(row, col);
 	if (dst->r == NULL || dst->g == NULL || dst->b == NULL
 		|| dst->a == NULL|| dst->table == NULL)
 	{
@@ -73,6 +68,20 @@ t_table_fdf	*init_table(size_t col, size_t row)
 }
 
 // time : O(n)
+// space: O(1)
+void	copy_int_arr(int *dst, int *src, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		dst[i] = src[i];
+		i += 1;
+	}
+}
+
+// time : O(n)
 // space: O(n)
 t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src)
 {
@@ -80,15 +89,15 @@ t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src)
 	size_t		i;
 	size_t		j;
 	
-	dst = init_table(get_dim(src, 0), get_dim(src, 1));
+	dst = init_table_fdf(get_dim(src, 0), get_dim(src, 1));
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
-	while (i < dst->col)
+	while (i < dst->row)
 	{
-		copy_nested_arr((void **)&(dst->table[i]), (void **)&(src->arr), 1, dst->row * sizeof(int));
+		copy_int_arr(dst->table[i], src->arr, dst->row);
 		j = 0;
-		while (j < dst->row && src->rgb != NULL && src->rgb[i] != NULL)
+		while (j < dst->col && src->rgb != NULL && src->rgb[i] != NULL)
 		{
 			dst->r[i][j] = src->rgb[i]->r;
 			dst->g[i][j] = src->rgb[i]->g;

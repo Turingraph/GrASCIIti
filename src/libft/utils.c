@@ -83,3 +83,18 @@ char	f_isspace(char s, char *space)
 	}
 	return (0);
 }
+
+// time : O(n)
+// space: O(1)
+size_t	f_strlen(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (*str != '\0')
+	{
+		i += 1;
+		str += 1;
+	}
+	return (i);
+}

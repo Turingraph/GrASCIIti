@@ -110,6 +110,8 @@ t_llist_fdf	*one_fdf_line(char *line)
 {
 	t_llist_fdf	*dst;
 
+	if (line == NULL)
+		return (NULL);
 	dst = init_llist_fdf(f_split_len(line, " \n\t\r\f\v"));
 	if (dst == NULL)
 		return (NULL);

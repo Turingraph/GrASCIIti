@@ -2,13 +2,6 @@
 #include <fcntl.h>
 
 /*
-To Do Now
-1.	Fix ft_putnbr_fd
-2.	Update libft.h of other dir accordingly
-3.	Implementing save_table_fdf
-4.	Implementing save_table_ascii
-*/
-
 // f_atoi
 int	main(int len, char **str)
 {
@@ -35,8 +28,8 @@ int	main(int len, char **str)
 	write(1, "\n", 1);
 	return (0);
 }
+*/
 
-/*
 // f_split
 int	main(int len, char **str)
 {
@@ -55,7 +48,7 @@ int	main(int len, char **str)
 	i = 0;
 	while (i < split_len)
 	{
-		ft_putnbr_fd((int) i, fd, "0123456789");
+		ft_putnbr_fd((int) i, fd, "0123456789", 1);
 		write(fd, ".\t: ", 4);
 		write(fd, split_arr[i], f_strlen(split_arr[i]));
 		write(fd, "\n", 1);
@@ -64,7 +57,6 @@ int	main(int len, char **str)
 	free_nest_arr((void **) split_arr, split_len);
 	return (0);
 }
-*/
 
 /*
 valgrind --leak-check=full ./test/bin/libft.out "Mumu CheChe Tata" " C" test/write/main.txt

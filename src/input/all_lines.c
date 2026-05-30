@@ -67,6 +67,7 @@ t_llist_fdf	*all_lines(char *file, int fd, t_llist_fdf *(*one_line)(char *))
 	if (fdf_line_checker(llist, file, &i, fd) == 0)
 	{
 		free(line);
+		get_next_line(fd, 1);
 		return (NULL);
 	}
 	while (line != NULL)
@@ -114,7 +115,7 @@ void	write_all_lines(int fd, t_llist_fdf *llist, char show_rgb, size_t n_digits)
 			i += 1;
 		}
 		j += 1;
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 		llist = llist->next;
 	}
 }

@@ -59,7 +59,7 @@ t_llist_fdf	*init_llist_fdf(size_t line_len)
 	dst->len = line_len;
 	if (dst->len == 0)
 	{
-		dst->arr = malloc_talk(sizeof(int),
+		dst->arr = (int *)malloc_talk(sizeof(int),
 			"input/ascii.c/one_ascii_line\n");
 		if (dst->arr == NULL)
 		{

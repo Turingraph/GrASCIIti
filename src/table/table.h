@@ -5,9 +5,21 @@
 #include "../libft/libft.h"
 #include "../type/type.h"
 
-// table.c
-void		*free_table_fdf(t_table_fdf *table);
-t_table_fdf	*init_table(size_t col, size_t row);
-t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src);
+// arr.c
+unsigned char	**init_null_char_arr(size_t row, size_t col);
+int				**init_null_int_arr(size_t row, size_t col);
+
+// convert.c
+size_t			get_dim(t_llist_fdf *src, char dim);
+void			*free_table_fdf(t_table_fdf *table);
+t_table_fdf		*init_table_fdf(size_t row, size_t col);
+t_table_fdf		*llist_to_table_fdf(t_llist_fdf *src);
+
+// save.c
+void			write_table_fdf(int fd, t_table_fdf *table, char show_rgb, size_t n_digits);
+
+// scale.c
+t_table_fdf		*scale_table_fdf(t_table_fdf *src, size_t scale);
+void			higher_table_fdf(t_table_fdf *table, size_t scale);
 
 #endif
