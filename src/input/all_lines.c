@@ -84,7 +84,7 @@ t_llist_fdf	*all_lines(char *file, int fd, t_llist_fdf *(*one_line)(char *))
 
 // time : O(n)
 // space: O(1)
-void	write_all_lines(int fd, t_llist_fdf *llist)
+void	write_all_lines(int fd, t_llist_fdf *llist, char show_rgb, size_t n_digits)
 {
 	size_t	i;
 	size_t	j;
@@ -96,8 +96,8 @@ void	write_all_lines(int fd, t_llist_fdf *llist)
 		while (i < llist->len)
 		{
 			if (llist->arr != NULL)
-				ft_putnbr_fd(llist->arr[i], fd, "0123456789", 1);
-			if (llist->rgb != NULL)// && (j == 3 || j == 0))
+				ft_putnbr_fd(llist->arr[i], fd, "0123456789", n_digits);
+			if (llist->rgb != NULL && show_rgb == 1)
 			{
 				write(fd, ",0x", 3);
 				if (llist->rgb[i] != NULL)

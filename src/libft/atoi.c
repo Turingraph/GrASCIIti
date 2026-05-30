@@ -115,7 +115,7 @@ void	ft_putnbr_fd(int n, int fd, char *base, size_t len)
 		j = display_int(fd, (long) n, base, 0);
 	else if (n < 0)
 	{
-		n *= 1;
+		n *= -1;
 		j = 1 + display_int(fd, n, base, 0);
 		write(fd, "-", 1);
 	}

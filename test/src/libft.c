@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../../src/libft/libft.h"
 #include <fcntl.h>
 
 /*
@@ -12,26 +12,26 @@ To Do Now
 // f_atoi
 int	main(int len, char **str)
 {
-	char			err;
-	unsigned char	min;
-	unsigned char	max;
+	char	err;
+	int		min;
+	int		max;
 
 	err = 'K';
 	if (len < 3)
 		return (0);
-	min = (unsigned char)f_atoi(str[1], &err, "0123456789ABCDEF", f_strlen(str[1]));
-	max = (unsigned char)f_atoi(str[2], &err, "0123456789ABCDEF", f_strlen(str[2]));
+	min = f_atoi(str[1], &err, "0123456789", f_strlen(str[1]));
+	max = f_atoi(str[2], &err, "0123456789", f_strlen(str[2]));
 	if (err == 'E')
 	{
 		write(1, "input is invalid.\n", 18);
 		return (0);
 	}
-	ft_putnbr_fd((int) min, 1, "0123456789ABCDEF", 5);
+	ft_putnbr_fd((int) min, 1, "0123456789", 5);
 	if (min <= max)
 		write(1, " is less than or equal to ", 26);
 	else
 		write(1, " is greater than ", 17);
-	ft_putnbr_fd((int) max, 1, "0123456789ABCDEF", 5);
+	ft_putnbr_fd((int) max, 1, "0123456789", 5);
 	write(1, "\n", 1);
 	return (0);
 }

@@ -213,3 +213,19 @@ Rotation
 3. Initial Orientation 
 4. Direction of Orientation
 -->
+
+<!--
+Pixel Art Tool required features
+1. Undo
+2. File safe
+3. Tools
+4. Animation 
+5. Some FEM (ver 2)
+
+What not to add now (but will in future)
+1. Gen AI
+2. Color editor (with PCA, HSL, K mean etc.)
+3. Layers
+4. Conformal/non Euclidean  2D map 
+5.
+-->

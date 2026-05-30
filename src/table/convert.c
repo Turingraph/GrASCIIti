@@ -1,4 +1,4 @@
-#include "input.h"
+#include "table.h"
 
 // time : O(n)
 // space: O(1)
@@ -48,7 +48,7 @@ t_table_fdf	*init_table(size_t col, size_t row)
 {
 	t_table_fdf	*dst;
 
-	dst = (t_table_fdf *)malloc(sizeof(t_table_fdf));
+	dst = (t_table_fdf *)malloc_talk(sizeof(t_table_fdf), "table/convert.c\n");
 	if (dst == NULL)
 		return (NULL);
 	dst->col = col;
@@ -101,3 +101,10 @@ t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src)
 	}
 	return (dst);
 }
+
+/*
+To Do Now
+1.	Create test/src/table.c
+2.	Modify Makefile
+3.	Create synesthesia and f_atofloat
+*/

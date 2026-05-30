@@ -1,6 +1,6 @@
-#include "input.h"
-#include "libft.h"
-#include "get_next_line.h"
+#include "../../src/input/input.h"
+#include "../../src/libft/libft.h"
+#include "../../src/get_next_line/get_next_line.h"
 
 /*
 int	main(int len, char **str)
@@ -140,7 +140,7 @@ int	main(int len, char **str)
 	if (fd < 0)
 		return (0);
 	llist = all_lines(str[1], fd, one_fdf_line);
-	write_all_lines(1, llist);
+	write_all_lines(1, llist, 0, 3);
 	free_llist_fdf(llist);
 	return (0);
 }
