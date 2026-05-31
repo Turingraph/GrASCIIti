@@ -71,7 +71,7 @@ int	main(int len, char **str)
 	free_llist_fdf(llist);
 	if (table == NULL)
 		return (0);
-	table2 = scale_table_fdf(table, 4);
+	table2 = scale_dimension_fdf(table, 4);
 	if (table2 == NULL)
 	{
 		free_table_fdf(table);
@@ -81,7 +81,13 @@ int	main(int len, char **str)
 	write_table_fdf(1, table2, 0, 3);
 	free_table_fdf(table2);
 	write(1, "*** TALLY ***\n", 14);
-	higher_table_fdf(table, 3);
+	scale_hadamard_fdf(table, 0.5);
+	write_table_fdf(1, table, 0, 3);
+	write(1, "*** HAPPY ***\n", 14);
+	positive_table_fdf(table);
+	write_table_fdf(1, table, 0, 3);
+	write(1, "*** ZERO0 ***\n", 14);
+	scale_relu_fdf(table, 0, 10, 1);
 	write_table_fdf(1, table, 0, 3);
 	free_table_fdf(table);
 	return (0);

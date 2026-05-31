@@ -49,7 +49,7 @@ char	f_intncpy(int *src, int *dst, size_t n, size_t scale)
 
 // time : O(n * s^2)
 // space: O(n * s^2)
-t_table_fdf	*scale_table_fdf(t_table_fdf *src, size_t scale)
+t_table_fdf	*scale_dimension_fdf(t_table_fdf *src, size_t scale)
 {
 	size_t		i;
 	size_t		j;
@@ -78,7 +78,7 @@ t_table_fdf	*scale_table_fdf(t_table_fdf *src, size_t scale)
 
 // time : O(n * h)
 // space: O(n * h)
-void	higher_table_fdf(t_table_fdf *table, size_t scale)
+void	scale_hadamard_fdf(t_table_fdf *table, float scale)
 {
 	size_t	i;
 	size_t	j;
@@ -90,10 +90,10 @@ void	higher_table_fdf(t_table_fdf *table, size_t scale)
 		j = 0;
 		while (j < table->row)
 		{
-			check = (long)(table->table[i][j]) * (long)scale;
+			check = (long)f_floor((float)table->table[i][j] * scale);
 			if (table->table[i] != NULL
 				&& check <= (long)2147483647 && check > (long)-2147483648)
-				table->table[i][j] *= (int) scale;
+				table->table[i][j] = (int)check;
 			else if (table->table[i] == NULL)
 				write(1, "Warning: Some rows of the Table are empty.\n", 43);
 			else if (check > (long)2147483647 && check <= (long)-2147483648)

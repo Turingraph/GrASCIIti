@@ -110,10 +110,3 @@ t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src)
 	}
 	return (dst);
 }
-
-/*
-To Do Now
-1.	Create test/src/table.c
-2.	Modify Makefile
-3.	Create synesthesia and f_atofloat
-*/
