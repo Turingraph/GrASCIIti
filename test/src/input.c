@@ -148,21 +148,5 @@ int	main(int len, char **str)
 }
 
 /*
-*** ISSUE! ***
-// valgrind --leak-check=full ./test/bin/input.out test/input/fdf/elem-col.fdf
-// Should be 20,0xff00ff instead of 20,0x000ff
-0 0 0 0 0 0 0 0 0 0 
-0 10 10 10 10 10 10 10 10 0 
-0,0xffffffff 10,0xffffffff 20,0x000ff 15,0x000ff 12,0xffffffff 15,0x000ff 17,0x000ff 20,0x000ff 10,0xffffffff 0,0xffffffff 
-0 10 15 10 12 15 15 15 10 0 
-0 5 15 10 12 15 15 13 10 0 
-0 5 10 5 7 12 12 12 10 0 
-0 5 7 1 2 7 5 5 7 0 
-0 3 0 0 1 2 2 2 5 0 
-0 1 0 0 0 0 0 0 3 0 
-0 0 0 0 0 0 0 0 0 0 
-*/
-
-/*
 valgrind --leak-check=full ./test/bin/input.out test/input/fdf/10-2.fdf
 */

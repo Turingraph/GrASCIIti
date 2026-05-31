@@ -9,7 +9,7 @@ long	min_and_max_fdf(t_table_fdf *table, char mode)
 	long	min;
 	long	max;
 
-	min = (long)table->table[0][0];
+	min = (long)table->arr[0][0];
 	max = (long)0;
 	i = 0;
 	while (i < table->row)
@@ -17,10 +17,10 @@ long	min_and_max_fdf(t_table_fdf *table, char mode)
 		j = 0;
 		while (j < table->col)
 		{
-			if (max < (long)table->table[i][j])
-				max = (long)table->table[i][j];
-			if (min > (long)table->table[i][j])
-				min = (long)table->table[i][j];
+			if (max < (long)table->arr[i][j])
+				max = (long)table->arr[i][j];
+			if (min > (long)table->arr[i][j])
+				min = (long)table->arr[i][j];
 			j += 1;
 		}
 		i += 1;
@@ -43,8 +43,8 @@ void	scale_relu_fdf(t_table_fdf *table, int min, int max, int expect)
 		j = 0;
 		while (j < table->col)
 		{
-			if (table->table[i][j] >= min && table->table[i][j] <= max)
-				table->table[i][j] = expect;
+			if (table->arr[i][j] >= min && table->arr[i][j] <= max)
+				table->arr[i][j] = expect;
 			j += 1;
 		}
 		i += 1;
@@ -65,13 +65,13 @@ void	scale_addition_fdf(t_table_fdf *table, int scale)
 		j = 0;
 		while (j < table->col)
 		{
-			check = (long)table->table[i][j] + (long)scale;
+			check = (long)table->arr[i][j] + (long)scale;
 			if (check > 2147483647)
-				table->table[i][j] = 2147483647;
+				table->arr[i][j] = 2147483647;
 			else if (check < -2147483648)
-				table->table[i][j] = -2147483648;
+				table->arr[i][j] = -2147483648;
 			else
-				table->table[i][j] = (int)check;
+				table->arr[i][j] = (int)check;
 			j += 1;
 		}
 		i += 1;

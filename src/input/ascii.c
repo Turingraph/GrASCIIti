@@ -44,6 +44,8 @@ int	*line_to_ascii_arr(char *line)
 	return (dst);
 }
 
+// time : O(n)
+// space: O(n)
 t_llist_fdf	*init_llist_fdf(size_t line_len)
 {
 	t_llist_fdf	*dst;

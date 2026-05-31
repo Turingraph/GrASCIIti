@@ -43,11 +43,6 @@ int	*line_to_int_arr(char *line, char *err)
 	return (dst);
 }
 
-/*
-Something might be wrong about f_atorgb and/or other rgb related features.
-It is a good idea to test with one_ascii_line !
-*/
-
 // time : O(n)
 // space: O(1)
 char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)

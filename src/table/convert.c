@@ -27,8 +27,8 @@ void	*free_table_fdf(t_table_fdf *table)
 {
 	if (table != NULL)
 	{
-		if (table->table != NULL)
-			free_nest_arr((void **)table->table, table->row);
+		if (table->arr != NULL)
+			free_nest_arr((void **)table->arr, table->row);
 		if (table->a != NULL)
 			free_nest_arr((void **)table->a, table->row);
 		if (table->r != NULL)
@@ -53,13 +53,13 @@ t_table_fdf	*init_table_fdf(size_t row, size_t col)
 		return (NULL);
 	dst->row = row;
 	dst->col = col;
-	dst->table = init_null_int_arr(row, col);
+	dst->arr = init_null_int_arr(row, col);
 	dst->r = init_null_char_arr(row, col);
 	dst->g = init_null_char_arr(row, col);
 	dst->b = init_null_char_arr(row, col);
 	dst->a = init_null_char_arr(row, col);
 	if (dst->r == NULL || dst->g == NULL || dst->b == NULL
-		|| dst->a == NULL|| dst->table == NULL)
+		|| dst->a == NULL|| dst->arr == NULL)
 	{
 		free_table_fdf(dst);
 		return (NULL);
@@ -95,7 +95,7 @@ t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src)
 	i = 0;
 	while (i < dst->row)
 	{
-		copy_int_arr(dst->table[i], src->arr, dst->row);
+		copy_int_arr(dst->arr[i], src->arr, dst->row);
 		j = 0;
 		while (j < dst->col && src->rgb != NULL && src->rgb[i] != NULL)
 		{

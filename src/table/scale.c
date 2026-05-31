@@ -64,7 +64,7 @@ t_table_fdf	*scale_dimension_fdf(t_table_fdf *src, size_t scale)
 		j = 0;
 		while (j < scale)
 		{
-			f_intncpy(src->table[i], dst->table[scale * i + j], src->row, scale);
+			f_intncpy(src->arr[i], dst->arr[scale * i + j], src->row, scale);
 			f_rgbncpy(src->r[i], dst->r[scale * i + j], src->row, scale);
 			f_rgbncpy(src->g[i], dst->g[scale * i + j], src->row, scale);
 			f_rgbncpy(src->b[i], dst->b[scale * i + j], src->row, scale);
@@ -85,16 +85,16 @@ void	scale_hadamard_fdf(t_table_fdf *table, float scale)
 	long	check;
 
 	i = 0;
-	while (table != NULL && table->table != NULL && i < table->col)
+	while (table != NULL && table->arr != NULL && i < table->col)
 	{
 		j = 0;
 		while (j < table->row)
 		{
-			check = (long)f_floor((float)table->table[i][j] * scale);
-			if (table->table[i] != NULL
+			check = (long)f_floor((float)table->arr[i][j] * scale);
+			if (table->arr[i] != NULL
 				&& check <= (long)2147483647 && check > (long)-2147483648)
-				table->table[i][j] = (int)check;
-			else if (table->table[i] == NULL)
+				table->arr[i][j] = (int)check;
+			else if (table->arr[i] == NULL)
 				write(1, "Warning: Some rows of the Table are empty.\n", 43);
 			else if (check > (long)2147483647 && check <= (long)-2147483648)
 				write(1, "Warning: Some Integer of the Table are Integer Overflow.\n", 57);

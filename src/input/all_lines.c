@@ -47,10 +47,6 @@ char	fdf_line_checker(t_llist_fdf *llist, char *file, size_t *ith_line, int fd)
 	return (0);
 }
 
-/*
-A little bit wrong in all_lines.
-*/
-
 // time : O(n)
 // space: O(n)
 t_llist_fdf	*all_lines(char *file, int fd, t_llist_fdf *(*one_line)(char *))

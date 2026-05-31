@@ -36,10 +36,10 @@ void	write_table_fdf(int fd, t_table_fdf *table, char show_rgb, size_t n_digits)
 		j = 0;
 		while (j < table->row)
 		{
-			if (table->table != NULL && table->table[i] != NULL)
-				ft_putnbr_fd(table->table[i][j], fd, "0123456789", n_digits);
+			if (table->arr != NULL && table->arr[i] != NULL)
+				ft_putnbr_fd(table->arr[i][j], fd, "0123456789", n_digits);
 			else
-				write(fd, "Error: table->table from table/\
+				write(fd, "Error: table->arr from table/\
 					write_table_fdf is empty.\n", 51);
 			if (show_rgb == 1)
 				write_rgb_fdf(fd, table, i, j);
@@ -50,16 +50,3 @@ void	write_table_fdf(int fd, t_table_fdf *table, char show_rgb, size_t n_digits)
 		i += 1;
 	}
 }
-
-// else if (table->table[i] == NULL)
-// {
-// 	write(1, "Warning: ", 9);
-// 	ft_putnbr_fd((int)i, 1, "0123456789", 1);
-// 	write(1, "-th line of the Table is Empty.\n", 32);
-// }
-// else
-// {
-// 	write(1, "Warning: ", 9);
-// 	ft_putnbr_fd((int)i, 1, "0123456789", 1);
-// 	write(1, "-th line of the Table is Integer Overflow.\n", 43);
-// }

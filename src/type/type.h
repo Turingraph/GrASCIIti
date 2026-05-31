@@ -30,7 +30,7 @@ struct t_table_fdf
 {
 	size_t			row;
 	size_t			col;
-	int				**table;
+	int				**arr;
 	unsigned char	**r;
 	unsigned char	**g;
 	unsigned char	**b;
