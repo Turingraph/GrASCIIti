@@ -31,16 +31,20 @@ void	write_table_fdf(int fd, t_table_fdf *table, char show_rgb, size_t n_digits)
 	size_t	j;
 
 	i = 0;
-	while (i < table->col)
+	while (i < table->row)
 	{
 		j = 0;
-		while (j < table->row)
+		while (j < table->col)
 		{
 			if (table->arr != NULL && table->arr[i] != NULL)
 				ft_putnbr_fd(table->arr[i][j], fd, "0123456789", n_digits);
 			else
-				write(fd, "Error: table->arr from table/\
-					write_table_fdf is empty.\n", 51);
+			{
+				write(fd, "Error: table->arr == NULL from table/save/\
+					write_table_fdf in line no.", 74);
+				ft_putnbr_fd((int)i, 1, "0123456789", 1);
+				write(1, "\n", 1);
+			}
 			if (show_rgb == 1)
 				write_rgb_fdf(fd, table, i, j);
 			write(fd, " ", 1);

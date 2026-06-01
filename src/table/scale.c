@@ -31,7 +31,7 @@ char	f_intncpy(int *src, int *dst, size_t n, size_t scale)
 	size_t			i;
 	size_t			j;
 
-	if (src == NULL || dst == NULL)
+	if (src == NULL || dst == NULL || scale == 0 || n == 0)
 		return (0);
 	i = 0;
 	while (i < n)
@@ -55,20 +55,20 @@ t_table_fdf	*scale_dimension_fdf(t_table_fdf *src, size_t scale)
 	size_t		j;
 	t_table_fdf	*dst;
 
-	dst = init_table_fdf(src->col * scale, src->row * scale);
+	dst = init_table_fdf(src->row * scale, src->col * scale);
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
-	while (i < src->col)
+	while (i < src->row)
 	{
 		j = 0;
 		while (j < scale)
 		{
-			f_intncpy(src->arr[i], dst->arr[scale * i + j], src->row, scale);
-			f_rgbncpy(src->r[i], dst->r[scale * i + j], src->row, scale);
-			f_rgbncpy(src->g[i], dst->g[scale * i + j], src->row, scale);
-			f_rgbncpy(src->b[i], dst->b[scale * i + j], src->row, scale);
-			f_rgbncpy(src->a[i], dst->a[scale * i + j], src->row, scale);
+			f_intncpy(src->arr[i], dst->arr[scale * i + j], src->col, scale);
+			f_rgbncpy(src->r[i], dst->r[scale * i + j], src->col, scale);
+			f_rgbncpy(src->g[i], dst->g[scale * i + j], src->col, scale);
+			f_rgbncpy(src->b[i], dst->b[scale * i + j], src->col, scale);
+			f_rgbncpy(src->a[i], dst->a[scale * i + j], src->col, scale);
 			j += 1;
 		}
 		i += 1;
@@ -85,10 +85,10 @@ void	scale_hadamard_fdf(t_table_fdf *table, float scale)
 	long	check;
 
 	i = 0;
-	while (table != NULL && table->arr != NULL && i < table->col)
+	while (table != NULL && table->arr != NULL && i < table->row)
 	{
 		j = 0;
-		while (j < table->row)
+		while (j < table->col)
 		{
 			check = (long)f_floor((float)table->arr[i][j] * scale);
 			if (table->arr[i] != NULL

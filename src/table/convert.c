@@ -93,16 +93,16 @@ t_table_fdf	*llist_to_table_fdf(t_llist_fdf *src)
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
-	while (i < dst->row)
+	while (i < dst->row && src != NULL)
 	{
-		copy_int_arr(dst->arr[i], src->arr, dst->row);
+		copy_int_arr(dst->arr[i], src->arr, src->len);
 		j = 0;
-		while (j < dst->col && src->rgb != NULL && src->rgb[i] != NULL)
+		while (j < src->len && src->rgb != NULL && src->rgb[j] != NULL)
 		{
-			dst->r[i][j] = src->rgb[i]->r;
-			dst->g[i][j] = src->rgb[i]->g;
-			dst->b[i][j] = src->rgb[i]->b;
-			dst->a[i][j] = src->rgb[i]->a;
+			dst->r[i][j] = src->rgb[j]->r;
+			dst->g[i][j] = src->rgb[j]->g;
+			dst->b[i][j] = src->rgb[j]->b;
+			dst->a[i][j] = src->rgb[j]->a;
 			j += 1;
 		}
 		src = src->next;

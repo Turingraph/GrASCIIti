@@ -17,7 +17,7 @@ unsigned char	**init_null_char_arr(size_t row, size_t col)
 		dst[i] = (unsigned char *)malloc_talk(sizeof(unsigned char *) * col, "table/arr.c/init_null_char_arr\n");
 		if (dst[i] == NULL)
 		{
-			free_nest_arr((void *)dst, i + 1);
+			free_nest_arr((void *)dst, i);
 			return (NULL);
 		}
 		j = 0;
@@ -68,7 +68,7 @@ int	**init_null_int_arr(size_t row, size_t col)
 		dst[i] = (int *)malloc_talk(sizeof(int) * col, "table/arr.c/init_null_char_arr\n");
 		if (dst[i] == NULL)
 		{
-			free_nest_arr((void **)dst, i + 1);
+			free_nest_arr((void **)dst, i);
 			return (NULL);
 		}
 		j = 0;
