@@ -49,26 +49,26 @@ char	f_intncpy(int *src, int *dst, size_t n, size_t scale)
 
 // time : O(n * s^2)
 // space: O(n * s^2)
-t_table_fdf	*scale_dimension_fdf(t_table_fdf *src, size_t scale)
+t_table_fdf	*scale_dimension_fdf(t_table_fdf *src, size_t s_row, size_t s_col)
 {
 	size_t		i;
 	size_t		j;
 	t_table_fdf	*dst;
 
-	dst = init_table_fdf(src->row * scale, src->col * scale);
+	dst = init_table_fdf(src->row * s_row, src->col * s_col);
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
 	while (i < src->row)
 	{
 		j = 0;
-		while (j < scale)
+		while (j < s_row)
 		{
-			f_intncpy(src->arr[i], dst->arr[scale * i + j], src->col, scale);
-			f_rgbncpy(src->r[i], dst->r[scale * i + j], src->col, scale);
-			f_rgbncpy(src->g[i], dst->g[scale * i + j], src->col, scale);
-			f_rgbncpy(src->b[i], dst->b[scale * i + j], src->col, scale);
-			f_rgbncpy(src->a[i], dst->a[scale * i + j], src->col, scale);
+			f_intncpy(src->arr[i], dst->arr[s_row * i + j], src->col, s_col);
+			f_rgbncpy(src->r[i], dst->r[s_row * i + j], src->col, s_col);
+			f_rgbncpy(src->g[i], dst->g[s_row * i + j], src->col, s_col);
+			f_rgbncpy(src->b[i], dst->b[s_row * i + j], src->col, s_col);
+			f_rgbncpy(src->a[i], dst->a[s_row * i + j], src->col, s_col);
 			j += 1;
 		}
 		i += 1;

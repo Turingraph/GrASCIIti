@@ -25,7 +25,7 @@ void			positive_table_fdf(t_table_fdf *table);
 void			write_table_fdf(int fd, t_table_fdf *table, char show_rgb, size_t n_digits);
 
 // scale.c
-t_table_fdf		*scale_dimension_fdf(t_table_fdf *src, size_t scale);
+t_table_fdf		*scale_dimension_fdf(t_table_fdf *src, size_t s_row, size_t s_col);
 void			scale_hadamard_fdf(t_table_fdf *table, float scale);
 
 #endif
