@@ -1,7 +1,7 @@
 #ifndef PAINT_H
 # define PAINT_H
 
-# include "../input/input.h"
+# include "../type/type.h"
 # include "../libft/libft.h"
 # include <fcntl.h>
 
@@ -31,25 +31,23 @@ struct t_gradient
 };
 
 /*
-e_line_log = 0 => scale * x + constant
-e_line_log = 1 => constant * scale^x
+e_line_log = 0 => scale * (x + shift)
+e_line_log = 1 => shift * scale^x
 e_line_log = 2 => ???
 
-constant, percent in [0, 1]
+shift, percent in [0, 1]
 */
 
 struct t_paint_func
 {
 	double		scale;
-	double		constant;
+	double		shift;
 	double		percent;
-	t_gradient	*color;
 };
 
-// linear.c
-
 // paint.c
-void	paint_gradient_fdf(t_table_fdf *table, t_gradient *gradient, char direction);
-void	reset_gradient_fdf(t_table_fdf *table);
+void		paint_gradient_fdf(t_table_fdf *table, t_gradient *gradient, char direction);
+void		reset_gradient_fdf(t_table_fdf *table);
+void		f_gradient_cpy(t_gradient *src, t_gradient *dst);
 
 #endif

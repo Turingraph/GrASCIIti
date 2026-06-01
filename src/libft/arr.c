@@ -33,7 +33,7 @@ void	free_nest_arr(void **arr, size_t len)
 {
 	while (len > 0)
 	{
-		if (arr[len - 1] != NULL)
+		if (len > 0 && arr[len - 1] != NULL)
 			free(arr[len - 1]);
 		len -= 1;
 	}

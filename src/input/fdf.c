@@ -56,10 +56,12 @@ char	split_to_rgb_arr(char **split, t_rgb **dst, size_t len)
 	while (i < len)
 	{
 		k = knight_of_coin(split[i], ',');
-		if (split[i][k] != '\0' && f_strlen(split[i] + k) > 3)
+		if (split[i][k] != '\0' && f_strlen(split[i] + k) > 3 && dst[i] != NULL)
 			f_atorgb(split[i] + k + 3, &err, dst[i]);
-		else
+		else if (dst[i] != NULL)
 			f_atorgb("\0", &err, dst[i]);
+		else
+			err = 'M';
 		i += 1;
 	}
 	return (err);
@@ -82,17 +84,17 @@ t_rgb	**line_to_rgb_arr(char *line, char *err)
 		return (NULL);
 	dst = (t_rgb **)malloc_talk(sizeof(t_rgb *) * len,
 		"input/fdf.c/line_to_rgb_arr\n");
+	if (dst == NULL)
+	{
+		free_nest_arr((void **)split, len);
+		return (NULL);
+	}
 	i = 0;
 	while (i < len)
 	{
 		dst[i] = (t_rgb *)malloc_talk(sizeof(t_rgb),
 			"input/fdf.c/line_to_rgb_arr\n");
 		i += 1;
-	}
-	if (dst == NULL)
-	{
-		free_nest_arr((void **)split, len);
-		return (NULL);
 	}
 	*err = split_to_rgb_arr(split, dst, len);
 	free_nest_arr((void **)split, len);
