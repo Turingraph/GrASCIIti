@@ -78,7 +78,7 @@ t_table_fdf	*scale_dimension_fdf(t_table_fdf *src, size_t s_row, size_t s_col)
 
 // time : O(n * h)
 // space: O(n * h)
-void	scale_hadamard_fdf(t_table_fdf *table, float scale)
+void	scale_hadamard_fdf(t_table_fdf *table, double scale)
 {
 	size_t	i;
 	size_t	j;
@@ -90,7 +90,7 @@ void	scale_hadamard_fdf(t_table_fdf *table, float scale)
 		j = 0;
 		while (j < table->col)
 		{
-			check = (long)f_floor((float)table->arr[i][j] * scale);
+			check = (long)f_floor((double)table->arr[i][j] * scale);
 			if (table->arr[i] != NULL
 				&& check <= (long)2147483647 && check > (long)-2147483648)
 				table->arr[i][j] = (int)check;

@@ -36,7 +36,7 @@ int	main(int len, char **str)
 	rgb->g2 = 0;
 	rgb->b2 = 255;
 	rgb->a2 = 255;
-	rgb->x2 = 8;
+	rgb->x2 = 2;
 	paint_gradient_fdf(table, rgb, 0);
 	write_table_fdf(1, table, 1, 3);
 	free_table_fdf(table);

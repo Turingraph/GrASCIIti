@@ -4,13 +4,13 @@
 // space: O(1)
 void	mixing_over_rgb(unsigned char *color, t_gradient *rgb, int ratio, char rgb_type)
 {
-	if (ratio < rgb->x1 && rgb_type == 'r')
+	if (ratio <= rgb->x1 && rgb_type == 'r')
 		*color = rgb->r1;
-	if (ratio < rgb->x1 && rgb_type == 'g')
+	if (ratio <= rgb->x1 && rgb_type == 'g')
 		*color = rgb->g1;
-	if (ratio < rgb->x1 && rgb_type == 'b')
+	if (ratio <= rgb->x1 && rgb_type == 'b')
 		*color = rgb->b1;
-	if (ratio < rgb->x1 && rgb_type == 'a')
+	if (ratio <= rgb->x1 && rgb_type == 'a')
 		*color = rgb->a1;
 	if (ratio > rgb->x1 && rgb_type == 'r')
 		*color = rgb->r1;
@@ -42,6 +42,7 @@ void	mixing_rgb(unsigned char *color, t_gradient *rgb, int ratio, char rgb_type)
 	float	delta;
 	float	y1;
 
+	delta = 1.0;
 	if (rgb_type == 'r')
 		delta = (float)f_floor(rgb->r2 - rgb->r1);
 	if (rgb_type == 'g')
@@ -58,9 +59,11 @@ void	mixing_rgb(unsigned char *color, t_gradient *rgb, int ratio, char rgb_type)
 		y1 = (float)f_floor(rgb->b1);
 	if (rgb_type == 'a')
 		y1 = (float)f_floor(rgb->a1);
-	mix_rgb = f_floor(ratio - (rgb->x1)) * delta / f_floor(rgb->x2 - rgb->x1) + y1;
-	if (ratio >= rgb->x1 && ratio <= rgb->x2)
+	if (ratio >= rgb->x1 && ratio <= rgb->x2 && rgb->x2 != rgb->x1)
+	{
+		mix_rgb = f_floor(ratio - (rgb->x1)) * delta / f_floor(rgb->x2 - rgb->x1) + y1;
 		*color = (unsigned char)f_floor(mix_rgb);
+	}
 	else
 		mixing_over_rgb(color, rgb, (int)f_floor(ratio), rgb_type);
 }

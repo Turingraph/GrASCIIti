@@ -32,26 +32,6 @@ unsigned char	**init_null_char_arr(size_t row, size_t col)
 }
 
 // time : O(n)
-// space: O(1)
-// void	copy_nested_rgb_arr(unsigned char **dst, unsigned char **src, size_t row, size_t col)
-// {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	i = 0;
-// 	while (i < row)
-// 	{
-// 		j = 0;
-// 		while (j < col)
-// 		{
-// 			dst[i][j] = src[i][j];
-// 			j += 1;
-// 		}
-// 		i += 1;
-// 	}
-// }
-
-// time : O(n)
 // space: O(n)
 int	**init_null_int_arr(size_t row, size_t col)
 {
