@@ -1,134 +1,182 @@
 # Description
 
-This is FdF from 42 coding school assignment. FdF is about converting the `.fdf` files with the columns of integer to 3D isometric wireframe, and display it on 2D screen using XML42 library.
+This project name as `GrASCIIfi` which is inspired by 42 Coding School, Graffiti art, ASCII art, 3D Typography, and my personal experience with Grapheme Color Synesthesia.
 
-I add the following features for bonus part
-1.	`--bonus` option for display 3D object with the following default bonus features.
-2.	Z Buffer calculation, so the only surface of the object that are in front of another surface will be shown accordingly.
-3.	color is based on the angle between cross project vector of 2D triangles, and the light vector.
-4.	quaternion rotation of 3D object and light source. (I have to design how user specify the rotation of the 3D object and light source later)
-5.	`--prism` so the 3D model will looks like prism instead of chocolate as seen in most FdF project.
-6.	`--not_sharp=n` to make `n` duplicated integer and integer array to make isometric projection less "sharp" for example if `--not_sharp=2` then `0 1 0` -> `0 0 1 1 0 0` (which have plateau than sharp mountain), or if `--not_sharp=3` then `0 1 1 0` -> `0 0 0 1 1 1 1 1 1 1 0 0 0`. If you use `--not_sharp`, then default value of `n` is `2`.
-7.	`--double_face` to make back side of the 3D model has the same face as the front side.
-8.	`--only_triangle` to display isometric 3D model with triangle meshes and without Z buffer calculation.
-9.	Display 3D input text when use `./fdf "Hello World"` base on FIGlet style ASCII files input (`text/a.txt`, `text/b.txt`, etc.). If there is no target files, then return the error.
-10.	`--Adir` option to specify which folder that have `dir/a.txt`, `dir/b.txt` etc. to include for `./fdf "Goodbye Mars"` input.
-11.	`--obj_rgb=#a6c0d3`, `--background_rgb=#000000`, and `--light_rgb=#FFFFFF` to specify the color of 3D object, background, and light, accordingly. The default color of objects, background, and light, are red, black, and white, accordingly.
-12.	`synesthesia.txt` as 3 column text to color object based on user defined graphite color synesthesia as the color of 3D object (instead of `#a6c0d3` a.k.a. light blue, in 10-th feature), is based on the color of the first character of user string/file name input. If `synesthesia.txt` file don't exists in the current directory, than the default color of the object is `#a6c0d3`. If `synesthesia.txt` file exists in the current directory, then the color of each text is color based on the user defined graphite color synesthesia mixing with the color of the first character according to this formula `(1 - a) * current_char + a * first_char`
-13.	The default value of `a` is `0` if `a` isn't specified.
-14.	All invalid line of text inside `synesthesia.txt` and all the string in between `#` and `\n`, is treated as programming comment (in other words, those line of text does not affect the output at all).
+## How to run GrASCIIfi
 
-Here is the example of `synesthesia.txt`
-
-### 1st example
-
-```
-0 FFFFFF a=0
-1 000000 a=0.3
-2 b58b1b 
-2 reminds me of Euler constant. (This line of text is also treated as comment because it isn't valid. My software will show `WARNING: invalid line at line ...`).
-# 2 reminds me of Euler constant. (This line of text is also treated as comment because it isn't valid. My software won't show `WARNING: invalid line at line ...` because `#` make this line valid).
-3 998811 3 is too boring (This line of text is also treated as comment because this line of text isn't valid).
-3 998811 # 3 is too boring (This line of text is also not treated as comment because this line of text is valid).
-2 f58b00 # (This line of text is also treated as comment because this line of text is duplicated). Also my software will display `WARNING: color duplication at line ...` on CLI.
-4 fa0 # This line of text is not valid because user have to write 6 characters to specify the color of alphabets or write 0 character to set the color of that alphabet as default color.
-5 a=0.2 # This is valid.
-6 a=3 # If a isn't number or a is greater than 1 or a is less than 0, then this line isn't valid and my software will display `WARNING: a value at line ... isn't valid.`
 ...
-z 4e4736 a=0.7
-```
-
-### 2nd example
-
-```
-a ff0000 a=0.7
-b 0000ff a=0.7
-c ffff00 a=0.6
+Unfinished.
 ...
-z 4e4736 a=0.7
+
+## What is Fdf42 ?
+
+This project is based on FdF42 which is 3D graphic 42 coding school assignment. The purpose of this assignment is to convert the `.fdf` files with the columns of integer to 3D isometric wireframe, and display it on 2D screen using XML42 library.
+
+1st Example of `fdf` files: `pyramid.fdf`
+
+```
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0
+0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 3 3 3 3 3 3 3 3 3 3 3 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 4 4 4 4 4 4 4 4 4 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 4 4 4 4 4 4 4 4 4 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 4 4 4 4 4 4 4 4 4 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 4 4 4 4 4 4 4 4 4 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 4 4 4 4 4 4 4 4 4 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 5 5 5 5 5 5 5 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 6 6 6 6 6 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 7 7 7 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 8,0xFFFFFF 8,0xFFFFFF 8,0xFFFFFF 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 8,0xFFFFFF 8,0xFFFFFF 8,0xFFFFFF 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 8,0xFFFFFF 8,0xFFFFFF 8,0xFFFFFF 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 8,0xFFFFFF 8,0xFFFFFF 8,0xFFFFFF 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 8,0xFFFFFF 9,0xFFFFFF 8,0xFFFFFF 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 8,0xFFFFFF 8,0xFFFFFF 8,0xFFFFFF 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 7 7 7 7 7 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 6 6 6 6 6 6 6 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 5 5 5 5 5 5 5 5 5 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 4 4 4 4 4 4 4 4 4 4 4 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 3 3 3 3 3 3 3 3 3 3 3 3 3 2 1 0 0 0 0 0
+0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0
+0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ```
 
-### 3rd example
-
-Note that `synesthesia.txt` can be applied with any well defined alphabet, for example
+2nd Example of `fdf` files: `elem.fdf`
 
 ```
-ก FF0000 
-ข d2bc97
-ค 5b4c38 a=0.4
+0  0  0  0  0  0  0  0  0  0
+0 10 10 10 10 10 10 10 10  0
+0 10 20 15 12 15 17 20 10  0
+0 10 15 10 12 15 15 15 10  0
+0  5 15 10 12 15 15 13 10  0
+0  5 10  5  7 12 12 12 10  0
+0  5  7  1  2  7  5  5  7  0
+0  3  0  0  1  2  2  2  5  0
+0  1  0  0  0  0  0  0  3  0
+0  0  0  0  0  0  0  0  0  0
 ```
 
-As long as there is available `dir/ก.txt`, `dir/ข.txt`, `dir/ค.txt`. However the unique language dependence character placement e.g. ดี, ลิง, กล้วย ฯลฯ isn't supported by this first version now, but might be supported in future version.
+Note that the i-th row, j-th column, and the integer number match with the 3D points of the 3D isometric wireframe.
 
-## Future Project Plan
+FdF42 features
+1.	Convert Fdf files as 3D wireframe, by using `./fdf [input file name].fdf` command. (for example `./fdf my_file.fdf`, `./fdf 10-70.fdf` etc.)
+2.	User able to rotate the 3D wireframe in any angle.
+3.	User able to close 3D wireframe window frame by click `ESC` button and/or the cross on the window’s frame
 
-I add those features because MiniRT is the project about displaying light interaction with 3D object, so I can reuse some of my code and my experience in this future project. 
+## The Additional Features of GrASCIIfi. (Quick Guide)
 
-Even through, people can use Blender and/or Gen AI model to create the cool looking rotated 3D prism/text interacting with light, Blender is hard to use and Gen AI art tool don't have deterministic behavior, so this project is suitable for user who just want to convert ASCII text/art into simple 3D model that interacting with light. I will make this app compatible with Blender and add user friendly React Typescript based UXUI in the future.
+...
+Unfinished.
+...
 
-<!--
+## The Additional Features of GrASCIIfi. (Detailed)
 
---bonus
-*	Z buffer
-*	quaternion
-*	triangle mesh
-*	light
+I also add the additional features, including
 
---prism
-*	line mesh
+1.	Input Handle (`src/input/`, this folder is responsible for both handle, copy, and editing both fdf and txt input file)
+	1.	Support arbitrary `txt` files, in order to convert Figlet and/or other ASCII art file into FdF File using `input/`
+	2.	Handle with `synesthesia.txt` using `synesthesia/`
+	3.	`--not_sharp=n` to make `n` duplicated integer and integer array to make isometric projection less "sharp" for example if `--not_sharp=2` then `0 1 0` -> `0 0 1 1 0 0` (which have plateau than sharp mountain), or if `--not_sharp=3` then `0 1 1 0` -> `0 0 0 1 1 1 1 1 1 1 0 0 0`. If you use `--not_sharp`, then default value of `n` is `2`.
+2.	Input Editor (`src/editor/`, this folder is only responsible for editing and copy input fdf file)
+	1.	Can color FdF files based on `paint/paint.c/paint_gradient_fdf(t_table_fdf *table, t_gradient *gradient, char direction);` function where `gradient` including 1st color, 2nd color, 1st x position, 2nd x position, and `direction` choose one out of 3 Axises.
+	2.	Can blur FdF files using convolution from `convolution/`
+3.	Graphic Command
+	1.	`--z_buffer` command allow user to do Z Buffer calculation, so the only surface of the object that are in front of another surface will be shown accordingly, and the color is based on the angle between cross project vector of 2D triangles, and the light vector.
+	2.	`--prism` so the 3D model will looks like prism instead of chocolate as seen in most FdF project.
+	3.	`--triangle` to display isometric 3D model with triangle meshes line and without Z buffer calculation.
+	4.	`--z_buffer --triangle` display 3D object as Z buffer object and draw the triangle line (without Z buffer) line on top of the Z buffer object.
+	5.	`--triangle --z_buffer` display 3D object as Z buffer object with the surface triangle line.
+	6.	`--z_buffer --isometric` display 3D object as Z buffer object and draw the isometric line (without Z buffer) line on top of the Z buffer object.
+	7.	`--isometric --z_buffer` display 3D object as Z buffer object with the surface isometric line.
+4.	Quaternion Rotation
+	1.	quaternion rotation of 3D object and light source. (I have to design how user specify the rotation of the 3D object and light source later)
+5.	Color
+	1.	User can define the color of the 3D Object as follow
+	*	`--rgb_object` = color of 3B object (default is `#FFFFFF`)
+	*	`--rgb_shadow` = color of the shadow of 3D object (default is `#000000`)
+	*	`--rgb_background` = color of the background (default is `#000000`)
+	*	`--rgb_triangle` = color of the triangle mesh line (default is `#FFFFFF`)
+	*	`--rgb_isometric` = color of the triangle mesh line (default is `#FFFFFF`)
+	2.	If the color of FdF input file is defined but the alpha channel isn't specified, then the color in that region overwrite the global color.
+	3.	If the color of FdF input file and the alpha channel (`a`) are defined, then the color of that region is defined as `f_round((1 - (a/255)) * global_rgb + (a/255) * local_rgb)`.
+6.	Grapheme Color Synesthesia Inspired Feature
+	1.	Display 3D input text when use `./fdf "Hello World"` base on FIGlet style ASCII files input (`text/a.txt`, `text/b.txt`, etc.). If there is no target files, then return the error.
+	2.	`--Adir` option to specify which folder that have `dir/synesthesia.txt`, `dir/a.txt`, `dir/b.txt` etc. to include for `./fdf "Goodbye Mars"` input. The default input of `--Adir` is `text/`
+	3.	`dir/synesthesia.txt` as 2 to 5 column text, where 2nd, 3rd, 4th, and 5th must be 8 digits Hexadecimal strings.
+	*	1st column (optional) = character e.g. `a`, `A`, `1`, `;` etc.
+	*	2nd column (not optional if 1st column exists) = color of that characters
+	*	3rd column (optional, default is `000000FF`) = color of the shadow of that characters
+	*	4th column (optional, default is `FFFFFFFF`) = color of the triangle line of that characters.
+	*	5th column (optional, default is `FFFFFFFF`) = color of the isometric line of that characters.
+	4.	When display `./fdf "string"`, the "global" color of each characters are `(1 - a) * current_char + a * first_char` where `a=` last 2 digits of the color as specified in `dir/synesthesia.txt`
+	5.	All string in `dir/synesthesia.txt` after `#` and before `\n` is treated as comment.
 
---not_sharp
-*	input/ transformation
+Example of `dir/synesthesia.txt`
 
---double_face
-*	mesh
+```
+a ff000055
+b 0000ff55
+c ffff0055
+...
+z 4e4736FF
+# This is comment. You can also use `dir/synesthesia.txt` without writing comment.
+```
 
-./fdf "Hello World" --Adir
-*	input/
+Limitation of GrASCIIfi in the current version.
+1.	Support only English Language Alphabets and every other printable ASCII characters.
+2.	No `\n` (a.k.a. new line) and `\t` (a.k.a. taps).
+3.	Not compatible with Blender and no every other features from future features list.
+4.	Focus mainly about 3D typography and Grapheme color synesthesia related feature.
+<!-- 5.	Cannot rotate multiple alphabets in different direction -->
 
---obj_rgb --background_rgb --light_rgb synesthesia.txt
-*	color
+Note that this `thai/synesthesia.txt` won't be supported with this current version of this Git repo, because those aren't Latin Alphabet characters.
 
---only_triangle
-*	mesh
+```
+ก FF0000FF
+ข d2bc9722
+ค 5b4c38AA
+```
 
--->
-
-## How to download this project ? (EMPTY)
-
-## Basic user tutorial (EMPTY)
+Future Features
+1.	Shell
+	*	Allow the user to manipulating `fdf` and `txt` files and running `./fdf` more smoothly with MiniShell42 inspired UX instead of editing fdf files via C scripts and/or manually.
+2.	Language Specific Feature and color alphabet based on its phoneme
+	*	Support other some languages based 3D typography e.g. Thai, Japanese, Arabic, famous conlang, user defined conlang etc.
+3.	Convert 3D model to Blender compatible file
+4.	Add Gen AI model for generating background
+5.	React Typescript based User Friendly Frontend
+6.	More ways to paint FdF file e.g. draw pixel art style circle, apply 2D FFT for more convolution, apply Flood fill Algorithm to color FdF file etc.
 
 ## Folder Structure
 
-Here is the directory structure
-1.	`build/` for computing the binary files
-2.	`doc/` for user tutorial, installation tutorial, and explaining how 3D graphic related algorithms work.
-3.	`examples/` for showing my 4 artworks
-	1.	Gen AI Artwork (a.k.a. `examples/ai_art/`) that have my 3D Graffiti visual components. This is the only artwork that is made by AI, and other artworks aren't made by AI and made by me manually.
-	2.	Photo of my physical drawing (a.k.a. `examples/draw_art/`) is the only artwork that use that use 3D Graffiti visual components as drawing reference, and other artwork use 3D Graffiti visual components as the part of the artwork directly.
-	3.	Photo (a.k.a. `examples/photo_art/`) that have my 3D Graffiti visual components by photo editing.
-	4.	Pixel Art (a.k.a. `examples/pixel_art/`) that have my 3D Graffiti visual components. This artwork is made using Piskel pixel art drawing app.
-4.	`include/` for including the header files and other files of the static library including `libft.h`, `libft/`, `glfw/`, `MLX42.h`, `MLX42/`, and `get_next_line.h`. Note that I don't include some library in this Git repo e.including `glfw/` and `MLX42/`, but include it in my PC anyway. I will use static library for the early version of this project and might migrate as dynamic library later.
-5.	`input/` for checking if my project works with fdf files, `synesthesia.txt`, `alphabet/a.txt` and txt files correctly.
-6.	`src/` for the source code of this project.
-
-# Instructions (EMPTY)
-
-## Check if my project follow the subject requirement (EMPTY)
-
-## Check memory leak with Valgrind (EMPTY)
-
-# Additional Information
-
-1.	`doc/dev_plan_0_introduction.md` is about Graphic Rendering Pipeline and my Project Plan for the MVP version.
-2.	`doc/synesthesia.md` is about what is synesthesia ?
-3.	`doc/user_tutorial.md` for more user tutorial.
+1.	`build/`
+*	object files
+2.	`examples/`
+*	demonstrate how to use this Git repo
+3.	`lib/`
+*	library
+4.	`src/`
+*	C files
+5.	`test/`
+*	testing files
 
 # Resource
 
 1.	Computer Graphic pipeline
 	1.	How Real Time Computer Graphics and Rasterization work
 	*	https://youtu.be/brDJVEPOeY8?si=Tt-vaGcUnZng1LDp
+	2.	Visualizing the 4d numbers Quaternions
+	*	https://youtu.be/d4EgbgTm0Bg?si=wdYcMB8PoKzabdQJ
 2.	import MXL42 library
 	1.  MLX42
 	*   https://github.com/codam-coding-college/MLX42#download-and-build---mlx42
@@ -148,88 +196,39 @@ Here is the directory structure
 	8.	Install GLFW
 	*	https://stackoverflow.com/questions/17768008/how-to-build-install-glfw-3-and-use-it-in-a-linux-project
 	*	https://www.glfw.org/docs/latest/compile.html#compile_deps_wayland
-3.	Quaternion
-	1.	Visualizing the 4d numbers Quaternions
-	*	https://youtu.be/d4EgbgTm0Bg?si=wdYcMB8PoKzabdQJ
+3.	Makefile
+	1.	Wildcard in Makefile
+	*	https://stackoverflow.com/questions/11184389/what-does-wildcard-mean-in-makefile
+	2.	ar on an existing .a file?
+	*	https://stackoverflow.com/questions/4318906/ar-on-an-existing-a-file
 4.	Figlet
 	1.	Figlet
 	*	https://textarttools.com/Figletfontstool/
 	2.	ASCII Art gradient
 	*	https://paulbourke.net/dataformats/asciiart/
-5.	Makefile
-	1.	Wildcard in Makefile
-	*	https://stackoverflow.com/questions/11184389/what-does-wildcard-mean-in-makefile
-	2.	ar on an existing .a file?
-	*	https://stackoverflow.com/questions/4318906/ar-on-an-existing-a-file
-6.	Synesthesia
+5.	Convolution
+	1.	But what is a convolution?
+	*	https://youtu.be/KuXjwB4LzSA?si=5538Gr5xpS-cfLwV
+	2.	Gaussian Blur implementation
+	*	https://stackoverflow.com/questions/1696113/how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions
+	3.	Convolution demonstration on Wikipedia
+	*	https://en.wikipedia.org/wiki/Kernel_(image_processing)#/media/File:2D_Convolution_Animation.gif
+	4.	Implementing floor function
+	*	https://stackoverflow.com/questions/41856771/write-your-own-implementation-of-maths-floor-function-c
+	5.	Newton Method for approximating root
+	*	https://youtu.be/-RdOwhmqP5s?si=HZMppRY9tGm3OjL-
+	6.	Taylor Series for approximating e^x
+	*	https://youtu.be/eX1hvWxmJVE?si=9jQUq-r2TJ8hPvIb
+	*	https://mathworld.wolfram.com/TaylorSeries.html
+6.	Software testing tool
+	1.	Valgrind
+	*	https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
+	2.	Get Next Line Tester
+	*	https://github.com/Tripouille/gnlTester
+7.	Synesthesia
 	1.	I spent a day with SYNESTHETES (Neurological condition aka SYNESTHESIA) 
 	*	https://youtu.be/lP58G70QmpA?si=L086y0idPJ9W9uyV
 	2.	A simple yet impossible test
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
 	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
-7.	Convolution
-	1.	But what is a convolution?
-	*	https://youtu.be/KuXjwB4LzSA?si=5538Gr5xpS-cfLwV
-	2.	Gaussian Blur implementation
-	*	https://stackoverflow.com/questions/1696113/how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions
-8.	Software testing tool
-	1.	Valgrind
-	*	https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
-	2.	Get Next Line Tester
-	*	https://github.com/Tripouille/gnlTester
-
-<!-- 1.	`ascii/`
-2.	import MXL42 library.
-3.	`tessellation/`
-4.	`rasterization/`
-5.	`rotation/`
-6.	`cli/`
-7.	Synesthesia
-8.	basic computer graphic
-9.	Art tool
-	1.	Stable Diffusion
-	2.	Piskel
-	*	https://www.piskelapp.com/p/create/sprite/ -->
-
-
-<!--
-Skeleton 
-1. Plate
-2. Chocolate 
-3. Double face
-
-Skin
-1. Rectangle 
-2. Triangle 
-3. Z buffer
-4. Mixed (rectangle + triangle = triangle, order also matter)
-
-Color
-1. Background 
-2. Shadow
-3. Skin
-4. Skeleton
-
-Rotation
-1. Global vs local
-2. Speed
-3. Initial Orientation 
-4. Direction of Orientation
--->
-
-<!--
-Pixel Art Tool required features
-1. Undo
-2. File safe
-3. Tools
-4. Animation 
-5. Some FEM (ver 2)
-
-What not to add now (but will in future)
-1. Gen AI
-2. Color editor (with PCA, HSL, K mean etc.)
-3. Layers
-4. Conformal/non Euclidean  2D map 
-5.
--->
