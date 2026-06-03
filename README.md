@@ -166,13 +166,17 @@ Here is the directory structure
 	*	https://youtu.be/lP58G70QmpA?si=L086y0idPJ9W9uyV
 	2.	A simple yet impossible test
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
+	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
+	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
 7.	Convolution
 	1.	But what is a convolution?
 	*	https://youtu.be/KuXjwB4LzSA?si=5538Gr5xpS-cfLwV
 	2.	Gaussian Blur implementation
 	*	https://stackoverflow.com/questions/1696113/how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions
 8.	Software testing tool
-	1.	Get Next Line Tester
+	1.	Valgrind
+	*	https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
+	2.	Get Next Line Tester
 	*	https://github.com/Tripouille/gnlTester
 
 <!-- 1.	`ascii/`

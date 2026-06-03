@@ -8,7 +8,6 @@
 // arr.c
 void	free_nest_arr(void **arr, size_t len);
 void	*malloc_talk(size_t elem_size, char *comment);
-double	f_floor(double num);
 
 // atoi.c
 int		f_atoi(char *src, char *err, char *base, size_t len);

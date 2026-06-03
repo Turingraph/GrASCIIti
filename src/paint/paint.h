@@ -3,6 +3,7 @@
 
 # include "../type/type.h"
 # include "../libft/libft.h"
+# include "../math/math.h"
 # include <fcntl.h>
 
 typedef struct t_gradient t_gradient;

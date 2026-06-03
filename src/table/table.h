@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 #include "../type/type.h"
+#include "../math/math.h"
 
 // arr.c
 unsigned char	**init_null_char_arr(size_t row, size_t col);
