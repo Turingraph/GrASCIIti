@@ -111,15 +111,17 @@ I also add the additional features, including
 	3.	If the color of FdF input file and the alpha channel (`a`) are defined, then the color of that region is defined as `f_round((1 - (a/255)) * global_rgb + (a/255) * local_rgb)`.
 6.	Grapheme Color Synesthesia Inspired Feature
 	1.	Display 3D input text when use `./fdf "Hello World"` base on FIGlet style ASCII files input (`text/a.txt`, `text/b.txt`, etc.). If there is no target files, then return the error.
-	2.	`--Adir` option to specify which folder that have `dir/synesthesia.txt`, `dir/a.txt`, `dir/b.txt` etc. to include for `./fdf "Goodbye Mars"` input. The default input of `--Adir` is `text/`
+	2.	`--Adir` option to specify which folder that have `dir/synesthesia.txt`, `dir/a.fdf`, `dir/b.fdf` etc. to include for `./fdf "Goodbye Mars"` input. The default input of `--Adir` is `text/`
 	3.	`dir/synesthesia.txt` as 2 to 5 column text, where 2nd, 3rd, 4th, and 5th must be 8 digits Hexadecimal strings.
 	*	1st column (optional) = character e.g. `a`, `A`, `1`, `;` etc.
-	*	2nd column (not optional if 1st column exists) = color of that characters
+	*	2nd column (not optional if 1st column exists) = color of that characters.
 	*	3rd column (optional, default is `000000FF`) = color of the shadow of that characters
 	*	4th column (optional, default is `FFFFFFFF`) = color of the triangle line of that characters.
 	*	5th column (optional, default is `FFFFFFFF`) = color of the isometric line of that characters.
-	4.	When display `./fdf "string"`, the "global" color of each characters are `(1 - a) * current_char + a * first_char` where `a=` last 2 digits of the color as specified in `dir/synesthesia.txt`
+	4.	When display `./fdf "string"`, the "global" color of each characters are `a * first_char + (1 - a) * current_char` where `a=` last 2 digits of the color of the first character as specified in `dir/synesthesia.txt`
 	5.	All string in `dir/synesthesia.txt` after `#` and before `\n` is treated as comment.
+	6.	If `dir/synesthesia.txt` do not specify the color of the specific characters e.g. a, $ etc. then that character will have `FFFFFFFF` as default color.
+	7.	Both `.fdf` and `dir/synesthesia.txt` are case insensitive.
 
 Example of `dir/synesthesia.txt`
 
@@ -133,11 +135,33 @@ z 4e4736FF
 ```
 
 Limitation of GrASCIIfi in the current version.
-1.	Support only English Language Alphabets and every other printable ASCII characters.
+1.	Support only English Language Alphabets and another 15 printable ASCII characters.
 2.	No `\n` (a.k.a. new line) and `\t` (a.k.a. taps).
 3.	Not compatible with Blender and no every other features from future features list.
 4.	Focus mainly about 3D typography and Grapheme color synesthesia related feature.
-<!-- 5.	Cannot rotate multiple alphabets in different direction -->
+5.	Not support small characters. Every user's English alphabet input will be treated as it is capital letters.
+<!-- 6.	Cannot rotate multiple alphabets in different direction -->
+
+Beside 0-9 and a-z, this project support only 14 special characters.
+
+```
+ampersand.txt      &
+at_sign.txt        @
+dollar.txt         $
+percent.txt        %
+plus.txt           +
+minus.txt          -
+equal.txt          =
+dot.txt            .
+comma.txt          ,
+exclamation.txt    !
+question.txt       ?
+left_paren.txt     (
+right_paren.txt    )
+slash.txt          /
+```
+
+The other characters are treated as empty space (a.k.a. ` `).
 
 Note that this `thai/synesthesia.txt` won't be supported with this current version of this Git repo, because those aren't Latin Alphabet characters.
 
@@ -204,7 +228,13 @@ Future Features
 4.	Figlet
 	1.	Figlet
 	*	https://textarttools.com/Figletfontstool/
-	2.	ASCII Art gradient
+	2.	Figlet License
+	*	https://github.com/cmatsuoka/figlet/blob/master/LICENSE
+	3.	Figlet Font Database
+	*	https://www.figlet.org/cgi-bin/fontdb.cgi
+	4.	Including third party license
+	*	https://www.reddit.com/r/reactjs/comments/1mri80d/best_practice_for_including_thirdparty_licenses/
+	5.	ASCII Art gradient
 	*	https://paulbourke.net/dataformats/asciiart/
 5.	Convolution
 	1.	But what is a convolution?
@@ -232,3 +262,10 @@ Future Features
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
 	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
+
+<1--
+To Do Next
+1.	Check if I can use this specific Figlet font in my demo. If I can use this, then how can I credit this formally.
+2.	Take synesthesia https://youtu.be/-hc29pbzM1A?si=Z7XkSVTeq2JbgVfg test and make my synesthesia.txt
+3.	Add my license.
+-->
