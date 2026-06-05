@@ -86,7 +86,6 @@ I also add the additional features, including
 1.	Input Handle (`src/input/`, this folder is responsible for both handle, copy, and editing both fdf and txt input file)
 	1.	Support arbitrary `txt` files, in order to convert Figlet and/or other ASCII art file into FdF File using `input/`
 	2.	Handle with `synesthesia.txt` using `synesthesia/`
-	3.	`--not_sharp=n` to make `n` duplicated integer and integer array to make isometric projection less "sharp" for example if `--not_sharp=2` then `0 1 0` -> `0 0 1 1 0 0` (which have plateau than sharp mountain), or if `--not_sharp=3` then `0 1 1 0` -> `0 0 0 1 1 1 1 1 1 1 0 0 0`. If you use `--not_sharp`, then default value of `n` is `2`.
 2.	Input Editor (`src/editor/`, this folder is only responsible for editing and copy input fdf file)
 	1.	Can color FdF files based on `paint/paint.c/paint_gradient_fdf(t_table_fdf *table, t_gradient *gradient, char direction);` function where `gradient` including 1st color, 2nd color, 1st x position, 2nd x position, and `direction` choose one out of 3 Axises.
 	2.	Can blur FdF files using convolution from `convolution/`
@@ -173,8 +172,8 @@ Note that this `thai/synesthesia.txt` won't be supported with this current versi
 
 Future Features
 1.	Shell
-	*	Allow the user to manipulating `fdf` and `txt` files and running `./fdf` more smoothly with MiniShell42 inspired UX instead of editing fdf files via C scripts and/or manually.
-2.	Language Specific Feature and color alphabet based on its phoneme
+	*	Allow the user to manipulating `fdf` and `txt` files and running `./fdf` more smoothly with MiniShell42 inspired interactive Shell via `src/shell/` instead of editing fdf files via C scripts and/or manually.
+2.	Language Specific Feature and color alphabet base on its phoneme.
 	*	Support other some languages based 3D typography e.g. Thai, Japanese, Arabic, famous conlang, user defined conlang etc.
 3.	Convert 3D model to Blender compatible file
 4.	Add Gen AI model for generating background
@@ -193,6 +192,10 @@ Future Features
 *	C files
 5.	`test/`
 *	testing files
+
+# How am I use LLM ?
+
+I use LLM to brainstorm the synesthesia related features, check if my convolution output is correct or not, warn me that the sum of convolution kernel should equal to 1, and guide me on writing Makefile. For examples, ChatGPT recommend me to use `wildcard`. However, every C programming and Makefile files is 100% written by me.
 
 # Resource
 
@@ -221,10 +224,20 @@ Future Features
 	*	https://stackoverflow.com/questions/17768008/how-to-build-install-glfw-3-and-use-it-in-a-linux-project
 	*	https://www.glfw.org/docs/latest/compile.html#compile_deps_wayland
 3.	Makefile
-	1.	Wildcard in Makefile
+	1.	Makefile Tutorial
+	*	https://makefiletutorial.com/
+	2.	Wildcard in Makefile
 	*	https://stackoverflow.com/questions/11184389/what-does-wildcard-mean-in-makefile
-	2.	ar on an existing .a file?
+	3.	ar on an existing .a file?
 	*	https://stackoverflow.com/questions/4318906/ar-on-an-existing-a-file
+	4.	Recursive wildcard.
+	*	https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
+	5.	Mkdir nested folder
+	*	https://stackoverflow.com/questions/66781722/make-nested-directories-and-files-with-linux
+	6.	Makefile Mkdir
+	*	https://stackoverflow.com/questions/1950926/create-directories-using-make-file
+	7.	Rm directory and everything in it.
+	*	https://askubuntu.com/questions/802996/how-to-remove-directory-with-all-of-its-contents
 4.	Figlet
 	1.	Figlet
 	*	https://textarttools.com/Figletfontstool/
