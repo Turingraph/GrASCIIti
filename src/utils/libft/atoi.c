@@ -69,7 +69,8 @@ int	f_atoi(char *src, char *err, char *base, size_t len)
 		y *= -1;
 	if (y < -2147483648 || y > 2147483647)
 	{
-		*err = 'E';
+		if (err != NULL)
+			*err = 'E';
 		return (-1);
 	}
 	return ((int) y);

@@ -7,7 +7,6 @@
 #include "../../utils/math/math.h"
 
 // arr.c
-unsigned char	**init_null_char_arr(size_t row, size_t col);
 int				**init_null_int_arr(size_t row, size_t col);
 
 // convert.c

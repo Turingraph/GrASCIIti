@@ -162,14 +162,6 @@ slash.txt          /
 
 The other characters are treated as empty space (a.k.a. ` `).
 
-Note that this `thai/synesthesia.txt` won't be supported with this current version of this Git repo, because those aren't Latin Alphabet characters.
-
-```
-ก FF0000FF
-ข d2bc9722
-ค 5b4c38AA
-```
-
 Future Features
 1.	Shell
 	*	Allow the user to manipulating `fdf` and `txt` files and running `./fdf` more smoothly with MiniShell42 inspired interactive Shell via `src/shell/` instead of editing fdf files via C scripts and/or manually.

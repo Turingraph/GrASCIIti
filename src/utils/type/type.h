@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 typedef struct t_rgb t_rgb;
-typedef struct t_llist_fdf t_llist_fdf;
 
 struct t_rgb
 {
@@ -13,6 +12,8 @@ struct t_rgb
 	unsigned char	b;
 	unsigned char	a;
 };
+
+typedef struct t_llist_fdf t_llist_fdf;
 
 struct t_llist_fdf
 {
@@ -44,6 +45,33 @@ struct t_table_char
 	size_t			row;
 	size_t			col;
 	unsigned char	**arr;
+};
+
+typedef struct t_synesthesia t_synesthesia;
+
+struct t_synesthesia
+{
+	char			*alphabet;
+	size_t			row;
+	size_t			col;
+	unsigned char	**r;
+	unsigned char	**g;
+	unsigned char	**b;
+	unsigned char	**a;
+};
+
+typedef struct t_rasterization t_rasterization;
+
+struct t_rasterization
+{
+	double			**x;
+	double			**y;
+	double			**z;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+	unsigned char	triangle_line;
 };
 
 #endif

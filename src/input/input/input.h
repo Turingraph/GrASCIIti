@@ -1,7 +1,6 @@
 #ifndef INPUT_H
 # define INPUT_H
 
-#include <stdlib.h>
 #include "../get_next_line/get_next_line.h"
 #include "../../utils/libft/libft.h"
 #include "../../utils/type/type.h"

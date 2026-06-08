@@ -7,6 +7,7 @@ SRC_01_LIBFT = $(wildcard src/utils/libft/*)
 SRC_01_GNL = $(wildcard src/input/get_next_line/*.c)
 SRC_02_INPUT = $(wildcard src/input/input/*.c)
 SRC_02_TABLE = $(wildcard src/input/table/*.c)
+SRC_02_SYNESTHESIA = $(wildcard src/input/synesthesia/*.c)
 SRC_02_PAINT = $(wildcard src/editor/paint/*.c)
 SRC_02_CONVOLUTION = $(wildcard src/editor/convolution/*.c)
 
@@ -15,6 +16,7 @@ BUILD_01_LIBFT = $(patsubst src/%.c, build/%.o, $(SRC_01_LIBFT))
 BUILD_01_GNL = $(patsubst src/%.c, build/%.o, $(SRC_01_GNL))
 BUILD_02_INPUT = $(patsubst src/%.c, build/%.o, $(SRC_02_INPUT)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_TABLE = $(patsubst src/%.c, build/%.o, $(SRC_02_TABLE)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
+BUILD_02_SYNESTHESIA = $(patsubst src/%.c, build/%.o, $(SRC_02_SYNESTHESIA)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_PAINT = $(patsubst src/%.c, build/%.o, $(SRC_02_PAINT)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 BUILD_02_CONVOLUTION = $(patsubst src/%.c, build/%.o, $(SRC_02_CONVOLUTION)) $(BUILD_02_TABLE)
 
@@ -32,6 +34,16 @@ test/bin/editor/paint.out: lib/editor/paint.a lib/input/table.a lib/input/input.
 	chmod +x $@
 
 test/bin/input/table.out: lib/input/table.a lib/input/input.a
+	@mkdir -p $(@D)
+	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
+	chmod +x $@
+
+test/bin/input/synesthesia.out: lib/input/synesthesia.a
+	@mkdir -p $(@D)
+	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
+	chmod +x $@
+
+test/bin/input/input.out: lib/input/input.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
@@ -54,6 +66,10 @@ lib/editor/convolution.a: $(BUILD_02_CONVOLUTION)
 	ar rcs $@ $^
 
 lib/editor/paint.a: $(BUILD_02_PAINT)
+	@mkdir -p $(@D)
+	ar rcs $@ $^
+
+lib/input/synesthesia.a: $(BUILD_02_SYNESTHESIA)
 	@mkdir -p $(@D)
 	ar rcs $@ $^
 

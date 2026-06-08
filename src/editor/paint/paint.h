@@ -37,7 +37,6 @@ e_line_log = 1 => shift * scale^x
 e_line_log = 2 => ???
 
 shift, percent in [0, 1]
-*/
 
 struct t_paint_func
 {
@@ -45,6 +44,7 @@ struct t_paint_func
 	double		shift;
 	double		percent;
 };
+*/
 
 // paint.c
 void		paint_gradient_fdf(t_table_fdf *table, t_gradient *gradient, char direction);

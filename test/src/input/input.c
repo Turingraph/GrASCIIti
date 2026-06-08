@@ -1,4 +1,4 @@
-#include "../../src/input/input/input.h"
+#include"../../../src/input/input/input.h"
 
 /*
 int	main(int len, char **str)
