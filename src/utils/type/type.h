@@ -60,18 +60,26 @@ struct t_synesthesia
 	unsigned char	**a;
 };
 
-typedef struct t_rasterization t_rasterization;
+typedef struct t_triangle t_triangle;
 
-struct t_rasterization
+struct t_triangle
 {
-	double			**x;
-	double			**y;
-	double			**z;
+	double			*p1;
+	double			*p2;
+	double			*p3;
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
 	unsigned char	a;
-	unsigned char	triangle_line;
+};
+
+typedef struct t_triangle_arr t_triangle_arr;
+
+struct t_triangle_arr
+{
+	t_triangle	**arr;
+	size_t		length;
+	size_t		capacity;
 };
 
 #endif

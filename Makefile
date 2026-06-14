@@ -10,6 +10,8 @@ SRC_02_TABLE = $(wildcard src/input/table/*.c)
 SRC_02_SYNESTHESIA = $(wildcard src/input/synesthesia/*.c)
 SRC_02_PAINT = $(wildcard src/editor/paint/*.c)
 SRC_02_CONVOLUTION = $(wildcard src/editor/convolution/*.c)
+SRC_02_TRIANGLE_ARR = $(wildcard src/graphic/triangle_arr/*.c)
+SRC_02_TRIANGLE_PAIR = $(wildcard src/graphic/triangle_pair/*.c)
 
 BUILD_01_MATH = $(patsubst src/%.c, build/%.o, $(SRC_01_MATH))
 BUILD_01_LIBFT = $(patsubst src/%.c, build/%.o, $(SRC_01_LIBFT))
@@ -19,9 +21,21 @@ BUILD_02_TABLE = $(patsubst src/%.c, build/%.o, $(SRC_02_TABLE)) $(BUILD_01_LIBF
 BUILD_02_SYNESTHESIA = $(patsubst src/%.c, build/%.o, $(SRC_02_SYNESTHESIA)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_PAINT = $(patsubst src/%.c, build/%.o, $(SRC_02_PAINT)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 BUILD_02_CONVOLUTION = $(patsubst src/%.c, build/%.o, $(SRC_02_CONVOLUTION)) $(BUILD_02_TABLE)
+BUILD_02_TRIANGLE_PAIR = $(patsubst src/%.c, build/%.o, $(SRC_02_TRIANGLE_PAIR)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
+BUILD_02_TRIANGLE_ARR = $(patsubst src/%.c, build/%.o, $(SRC_02_TRIANGLE_ARR)) $(BUILD_02_TRIANGLE_PAIR) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 
 #----------------------------------------------------------------------------------
 # create testing file
+
+test/bin/graphic/triangle_arr.out: lib/graphic/triangle_arr.a lib/input/input.a lib/input/table.a
+	@mkdir -p $(@D)
+	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
+	chmod +x $@
+
+test/bin/graphic/triangle_pair.out: lib/graphic/triangle_pair.a lib/input/input.a lib/input/table.a
+	@mkdir -p $(@D)
+	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
+	chmod +x $@
 
 test/bin/editor/convolution.out: lib/editor/convolution.a lib/input/input.a lib/input/table.a
 	@mkdir -p $(@D)
@@ -60,6 +74,14 @@ test/bin/utils/libft.out: lib/utils/libft.a
 
 #----------------------------------------------------------------------------------
 # create library
+
+lib/graphic/triangle_arr.a: $(BUILD_02_TRIANGLE_ARR)
+	@mkdir -p $(@D)
+	ar rcs $@ $^
+
+lib/graphic/triangle_pair.a: $(BUILD_02_TRIANGLE_PAIR)
+	@mkdir -p $(@D)
+	ar rcs $@ $^
 
 lib/editor/convolution.a: $(BUILD_02_CONVOLUTION)
 	@mkdir -p $(@D)
@@ -110,4 +132,7 @@ clean:
 	rm -r lib/
 	rm -r test/bin/
 
-.PHONY: all clean test
+clean_test:
+	rm -r test/bin/
+
+.PHONY: all clean test clean_test

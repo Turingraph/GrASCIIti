@@ -92,11 +92,12 @@ I also add the additional features, including
 3.	Graphic Command
 	1.	`--z_buffer` command allow user to do Z Buffer calculation, so the only surface of the object that are in front of another surface will be shown accordingly, and the color is based on the angle between cross project vector of 2D triangles, and the light vector.
 	2.	`--prism` so the 3D model will looks like prism instead of chocolate as seen in most FdF project.
-	3.	`--triangle` to display isometric 3D model with triangle meshes line and without Z buffer calculation.
-	4.	`--z_buffer --triangle` display 3D object as Z buffer object and draw the triangle line (without Z buffer) line on top of the Z buffer object.
-	5.	`--triangle --z_buffer` display 3D object as Z buffer object with the surface triangle line.
-	6.	`--z_buffer --isometric` display 3D object as Z buffer object and draw the isometric line (without Z buffer) line on top of the Z buffer object.
-	7.	`--isometric --z_buffer` display 3D object as Z buffer object with the surface isometric line.
+	3.	`--double_faces` sp the 3D model will have 2 faces.
+	4.	`--triangle` to display isometric 3D model with triangle meshes line and without Z buffer calculation.
+	5.	`--z_buffer --triangle` display 3D object as Z buffer object and draw the triangle line (without Z buffer) line on top of the Z buffer object.
+	6.	`--triangle --z_buffer` display 3D object as Z buffer object with the surface triangle line.
+	7.	`--z_buffer --isometric` display 3D object as Z buffer object and draw the isometric line (without Z buffer) line on top of the Z buffer object.
+	8.	`--isometric --z_buffer` display 3D object as Z buffer object with the surface isometric line.
 4.	Quaternion Rotation
 	1.	quaternion rotation of 3D object and light source. (I have to design how user specify the rotation of the 3D object and light source later)
 5.	Color
@@ -134,7 +135,7 @@ z 4e4736FF
 ```
 
 Limitation of GrASCIIfi in the current version.
-1.	Support only English Language Alphabets and another 15 printable ASCII characters.
+1.	Support only English Language Alphabets, empty space (a.k.a. ` `), decimal number `0-9`, and another 14 printable ASCII characters.
 2.	No `\n` (a.k.a. new line) and `\t` (a.k.a. taps).
 3.	Not compatible with Blender and no every other features from future features list.
 4.	Focus mainly about 3D typography and Grapheme color synesthesia related feature.
@@ -260,6 +261,8 @@ I use LLM to brainstorm the synesthesia related features, check if my convolutio
 	*	https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
 	2.	Get Next Line Tester
 	*	https://github.com/Tripouille/gnlTester
+	3.	Random Hex Generator
+	*	https://www.browserling.com/tools/random-hex
 7.	Synesthesia
 	1.	I spent a day with SYNESTHETES (Neurological condition aka SYNESTHESIA) 
 	*	https://youtu.be/lP58G70QmpA?si=L086y0idPJ9W9uyV

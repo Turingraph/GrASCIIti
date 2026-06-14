@@ -1,4 +1,6 @@
-#include"unistd.h"
+#include"../../src/graphic/triangle_arr/triangle_arr.h"
+#include"../../src/input/input/input.h"
+#include"../../src/input/table/table.h"
 
 int	main(void)
 {
