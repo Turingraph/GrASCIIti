@@ -190,12 +190,37 @@ Future Features
 
 I use LLM to brainstorm the synesthesia related features, check if my convolution output is correct or not, warn me that the sum of convolution kernel should equal to 1, and guide me on writing Makefile. For examples, ChatGPT recommend me to use `wildcard`. However, every C programming and Makefile files is 100% written by me.
 
+## Warning from ChatGPT No.1: Dynamic Array vs Linked List for loading input.
+
+LLM said that I should use dynamic array for fdf input file instead of linked list for saving more space.
+
+## Warning from ChatGPT No.2: Array of Struct vs Array of Pointer
+
+Also LLM warn me to use array of struct over array of pointer of struct for performance reason.
+
+According to StackOverflow ( https://stackoverflow.com/questions/42328735/array-of-structs-vs-array-of-pointers-to-structs ).
+
+Pros of Array of Pointer
+1.	You can use the last `NULL` to specify the length of array.
+2.	ith `NULL` means the ith item is missing
+3.	chaning the order of elements by moving pointers.
+4.	You can define multiple elements as the pointer of the same element.
+
+Cons of Array of Pointer
+1.	allocating and freeing this indirect array is more cumbersome. 
+2.	waste more memory than Array of struct.
+3.	access i-th item slower than Array of struct.
+
+It is note that triangles mesh in typical computer graphic does not utilize the pros of array of Pointer at all. So I have to refactor it as Array of struct instead.
+
 # Resource
 
 1.	Computer Graphic pipeline
 	1.	How Real Time Computer Graphics and Rasterization work
 	*	https://youtu.be/brDJVEPOeY8?si=Tt-vaGcUnZng1LDp
-	2.	Visualizing the 4d numbers Quaternions
+	2.	Array of Struct vs Array of Pointer
+	*	https://stackoverflow.com/questions/42328735/array-of-structs-vs-array-of-pointers-to-structs
+	3.	Visualizing the 4d numbers Quaternions
 	*	https://youtu.be/d4EgbgTm0Bg?si=wdYcMB8PoKzabdQJ
 2.	import MXL42 library
 	1.  MLX42
@@ -270,10 +295,3 @@ I use LLM to brainstorm the synesthesia related features, check if my convolutio
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
 	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
-
-<1--
-To Do Next
-1.	Check if I can use this specific Figlet font in my demo. If I can use this, then how can I credit this formally.
-2.	Take synesthesia https://youtu.be/-hc29pbzM1A?si=Z7XkSVTeq2JbgVfg test and make my synesthesia.txt
-3.	Add my license.
--->

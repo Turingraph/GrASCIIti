@@ -15,34 +15,29 @@ void	write_3d_vector(int fd, double *vec_v)
 
 // time : O(1)
 // space: O(1)
-void	write_triangle(int fd, t_triangle *src)
+void	write_triangle(int fd, t_triangle src)
 {
-	if (src != NULL)
-	{
-		write_3d_vector(fd, src->p1);
-		write_3d_vector(fd, src->p2);
-		write_3d_vector(fd, src->p3);
-		write(fd, "0x", 2);
-		ft_putnbr_fd(src->r, fd, "0123456789abcdef", 2);
-		ft_putnbr_fd(src->g, fd, "0123456789abcdef", 2);
-		ft_putnbr_fd(src->b, fd, "0123456789abcdef", 2);
-		ft_putnbr_fd(src->a, fd, "0123456789abcdef", 2);
-		write(fd, "\n", 1);
-	}
-	else
-		write(fd, "#\n", 2);
+	write_3d_vector(fd, src.p1);
+	write_3d_vector(fd, src.p2);
+	write_3d_vector(fd, src.p3);
+	write(fd, "0x", 2);
+	ft_putnbr_fd(src.r, fd, "0123456789abcdef", 2);
+	ft_putnbr_fd(src.g, fd, "0123456789abcdef", 2);
+	ft_putnbr_fd(src.b, fd, "0123456789abcdef", 2);
+	ft_putnbr_fd(src.a, fd, "0123456789abcdef", 2);
+	write(fd, "\n", 1);
 }
 
 // time : O(1)
 // space: O(1)
-void	write_triangle_arr(int fd, t_triangle_arr *src)
+void	write_triangle_arr(int fd, t_triangle_arr src)
 {
 	size_t	i;
 
 	i = 0;
-	while (src != NULL && i < src->capacity)
+	while (src.arr != NULL && i < src.length)
 	{
-		write_triangle(fd, src->arr[i]);
+		write_triangle(fd, src.arr[i]);
 		i += 1;
 	}
 }

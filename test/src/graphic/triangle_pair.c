@@ -24,11 +24,10 @@ int	main(int len, char **str)
 }
 */
 
-/*
 //	f_fdf_face
 int	main(int len, char **str)
 {
-	t_triangle_arr	*output;
+	t_triangle_arr	output;
 	t_llist_fdf		*llist;
 	t_table_fdf		*table;
 	int				fd;
@@ -58,18 +57,18 @@ int	main(int len, char **str)
 	if (table == NULL)
 		return (0);
 	output = f_fdf_face(table, (size_t)(row % (table->row - 1)),
-		(size_t)(col % (table->col - 1)), 1);
+		(size_t)(col % (table->col - 1)), 0);
 	free_table_fdf(table);
 	write_triangle_arr(1, output);
 	free_triangle_arr(output);
 	return (0);
 }
-*/
 
+/*
 // f_fdf_side
 int	main(int len, char **str)
 {
-	t_triangle_arr	*output;
+	t_triangle_arr	output;
 	t_llist_fdf		*llist;
 	t_table_fdf		*table;
 	int				fd;
@@ -106,6 +105,7 @@ int	main(int len, char **str)
 	free_triangle_arr(output);
 	return (0);
 }
+*/
 
 /*
 valgrind --leak-check=full ./test/bin/graphic/triangle_pair.out test/input/fdf/20-60.fdf 0 0

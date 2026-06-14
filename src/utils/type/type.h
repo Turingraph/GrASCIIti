@@ -13,6 +13,8 @@ struct t_rgb
 	unsigned char	a;
 };
 
+// input/llist_load/
+
 typedef struct t_llist_fdf t_llist_fdf;
 
 struct t_llist_fdf
@@ -24,6 +26,8 @@ struct t_llist_fdf
 	char			int_err;
 	char			rgb_err;
 };
+
+// input/table/
 
 typedef struct t_table_fdf t_table_fdf;
 
@@ -47,6 +51,8 @@ struct t_table_char
 	unsigned char	**arr;
 };
 
+// input/synesthesia/
+
 typedef struct t_synesthesia t_synesthesia;
 
 struct t_synesthesia
@@ -59,6 +65,8 @@ struct t_synesthesia
 	unsigned char	**b;
 	unsigned char	**a;
 };
+
+// graphic/triangle_pair/
 
 typedef struct t_triangle t_triangle;
 
@@ -73,11 +81,13 @@ struct t_triangle
 	unsigned char	a;
 };
 
+// graphic/triangle_arr/
+
 typedef struct t_triangle_arr t_triangle_arr;
 
 struct t_triangle_arr
 {
-	t_triangle	**arr;
+	t_triangle	*arr;
 	size_t		length;
 	size_t		capacity;
 };

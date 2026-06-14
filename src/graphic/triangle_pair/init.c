@@ -2,86 +2,60 @@
 
 // time : O(1)
 // space: O(1)
-void	*free_triangle(t_triangle *src)
+void	free_triangle(t_triangle src)
 {
-	if (src != NULL)
-	{
-		if (src->p1 != NULL)
-			free(src->p1);
-		if (src->p2 != NULL)
-			free(src->p2);
-		if (src->p3 != NULL)
-			free(src->p3);
-		free(src);
-	}
-	return (NULL);
+	if (src.p1 != NULL)
+		free(src.p1);
+	if (src.p2 != NULL)
+		free(src.p2);
+	if (src.p3 != NULL)
+		free(src.p3);
 }
 
 // time : O(1)
 // space: O(1)
-t_triangle	*init_triangle()
-{
-	t_triangle	*dst;
-
-	dst = malloc_talk(sizeof(t_triangle),
-		"mesh/mesh.c/init_triangle\n");
-	if (dst == NULL)
-		return (NULL);
-	dst->r = (unsigned char)255;
-	dst->g = (unsigned char)255;
-	dst->b = (unsigned char)255;
-	dst->a = (unsigned char)0;
-	dst->p1 = create_3d_vector(0, 0, 0);
-	dst->p2 = create_3d_vector(0, 0, 0);
-	dst->p3 = create_3d_vector(0, 0, 0);
-	if (dst->p1 == NULL || dst->p2 == NULL || dst->p3 == NULL)
-	{
-		free_triangle(dst);
-		return (NULL);
-	}
-	return (dst);
-}
-
-// time : O(n)
-// space: O(1)
-void	*free_triangle_arr(t_triangle_arr *arr)
+void	free_triangle_arr(t_triangle_arr src)
 {
 	size_t	i;
 
 	i = 0;
-	while (arr != NULL && arr->arr != NULL && i < arr->capacity)
+	while (src.arr != NULL && i < src.capacity)
 	{
-		free_triangle(arr->arr[i]);
+		free_triangle(src.arr[i]);
 		i += 1;
 	}
-	if (arr != NULL && arr->arr != NULL)
-		free(arr->arr);
-	if (arr != NULL)
-		free(arr);
-	return (NULL);
+	if (src.arr != NULL)
+		free(src.arr);
 }
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	*init_triangle_arr(size_t length)
+t_triangle	init_triangle()
 {
-	t_triangle_arr	*dst;
+	t_triangle	dst;
 
-	if (length < 1)
-		return (NULL);
-	dst = malloc_talk(sizeof(t_triangle_arr),
-		"mesh/init.c/init_triangle_arr\n");
-	if (dst == NULL)
-		return (NULL);
-	dst->length = 0;
-	dst->capacity = length;
-	dst->arr = malloc_talk(sizeof(t_triangle *) * length,
-		"mesh/init.c/init_triangle_arr\n");
-	if (dst->arr == NULL)
-	{
-		free(dst);
-		return (NULL);
-	}
+	dst.r = (unsigned char)255;
+	dst.g = (unsigned char)255;
+	dst.b = (unsigned char)255;
+	dst.a = (unsigned char)0;
+	dst.p1 = create_3d_vector(0, 0, 0);
+	dst.p2 = create_3d_vector(0, 0, 0);
+	dst.p3 = create_3d_vector(0, 0, 0);
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_triangle_arr	init_triangle_arr(size_t length)
+{
+	t_triangle_arr	dst;
+
+	dst.length = 0;
+	dst.capacity = length;
+	dst.arr = NULL;
+	if (length > 0)
+		dst.arr = malloc_talk(sizeof(t_triangle) * length,
+			"mesh/init.c/init_triangle_arr\n");
 	return (dst);
 }
 
