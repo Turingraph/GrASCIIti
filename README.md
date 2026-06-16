@@ -1,6 +1,18 @@
-# Description
+# Introduction
 
 This project name as `GrASCIIfi` which is inspired by 42 Coding School, Graffiti art, ASCII art, 3D Typography, and my personal experience with Grapheme Color Synesthesia.
+
+## What is GrASCIIfi ?
+
+...
+Unfinished.
+...
+
+## How to download GrASCIIfi
+
+...
+Unfinished.
+...
 
 ## How to run GrASCIIfi
 
@@ -8,7 +20,7 @@ This project name as `GrASCIIfi` which is inspired by 42 Coding School, Graffiti
 Unfinished.
 ...
 
-## What is Fdf42 ?
+# What is Fdf42 ?
 
 This project is based on FdF42 which is 3D graphic 42 coding school assignment. The purpose of this assignment is to convert the `.fdf` files with the columns of integer to 3D isometric wireframe, and display it on 2D screen using XML42 library.
 
@@ -73,13 +85,7 @@ FdF42 features
 2.	User able to rotate the 3D wireframe in any angle.
 3.	User able to close 3D wireframe window frame by click `ESC` button and/or the cross on the window’s frame
 
-## The Additional Features of GrASCIIfi. (Quick Guide)
-
-...
-Unfinished.
-...
-
-## The Additional Features of GrASCIIfi. (Detailed)
+## The Additional Features of GrASCIIfi.
 
 I also add the additional features, including
 
@@ -168,6 +174,7 @@ Future Features
 	*	Allow the user to manipulating `fdf` and `txt` files and running `./fdf` more smoothly with MiniShell42 inspired interactive Shell via `src/shell/` instead of editing fdf files via C scripts and/or manually.
 2.	Language Specific Feature and color alphabet base on its phoneme.
 	*	Support other some languages based 3D typography e.g. Thai, Japanese, Arabic, famous conlang, user defined conlang etc.
+	*	Might helps some language learner study languages as subplement learning resource, by color each alphabets based on the pronunciation of the word.
 3.	Convert 3D model to Blender compatible file
 4.	Add Gen AI model for generating background
 5.	React Typescript based User Friendly Frontend
@@ -188,13 +195,20 @@ Future Features
 
 # How am I use LLM ?
 
-I use LLM to brainstorm the synesthesia related features, check if my convolution output is correct or not, warn me that the sum of convolution kernel should equal to 1, and guide me on writing Makefile. For examples, ChatGPT recommend me to use `wildcard`. However, every C programming and Makefile files is 100% written by me.
+I use LLM to brainstorm the synesthesia related features, guide me on writing Makefile, and other tasks. For examples, ChatGPT recommend me to use `wildcard`. However, every C programming and Makefile files is 100% written by me.
 
-## Warning from ChatGPT No.1: Dynamic Array vs Linked List for loading input.
+## How am I use LLM for designing choice ?
+
+1.	LLM recommended me to use Figlet for ASCII typography art font.
+2.	LLM said that my project also related to MiniRT42.
+3.	LLM recommended me to use another 14 special characters for the first stable version of GrASCIIfi.
+4.	LLM recommended me to study Japanese, Chinese, and/or Arabic as third language (that isn't Indo European e.g. English, German, Franch etc. and/or Kra–Dai languages e.g. Thai, Lao etc. and have rich interesting writing system)
+
+## Consult with ChatGPT No.1: Dynamic Array vs Linked List for loading input.
 
 LLM said that I should use dynamic array for fdf input file instead of linked list for saving more space.
 
-## Warning from ChatGPT No.2: Array of Struct vs Array of Pointer
+## Consult with ChatGPT No.2: Array of Struct vs Array of Pointer
 
 Also LLM warn me to use array of struct over array of pointer of struct for performance reason.
 
@@ -212,6 +226,28 @@ Cons of Array of Pointer
 3.	access i-th item slower than Array of struct.
 
 It is note that triangles mesh in typical computer graphic does not utilize the pros of array of Pointer at all. So I have to refactor it as Array of struct instead.
+
+## Consult with ChatGPT No.3: The Sum of Convolution should be 1
+
+I asked LLM to check if my convolution output is correct or not, it warned me that the sum of convolution kernel should equal to 1 or else the brightness of the color will change unexpectedly.
+
+## Consult with ChatGPT No.4: ASCII art shading
+
+I want to convert Figlet text data as 3D geometric model, so I have to convert each printable characters as an integer.
+
+I research about the standard shading of ASCII art from this Stackoverflow post ( https://stackoverflow.com/questions/30097953/ascii-art-sorting-an-array-of-ascii-characters-by-brightness-levels-c-c ), and it turn out that there are 70 ASCII characters ```$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.``` for ASCII shading, which cannot deal with some printable characters from `NHRD96KAPgeESGVF54y32T7=s` string. In addition, the approach from Stackoverflow does not consider the case where characters have same brightness and are the mirror of each other e.g. `p` and `q`, `b`, and `d`, `/` and `\`, `[` and `]` etc.
+
+LLM said that there is no standard way to rank the brightness of all 95 characters that also catagorizing the pair of mirror characters. So I create `ascii/version_01/` which contains my personal subjective ranking. Which contains 4 following files
+1.	`ascii/version_01/mirror.txt` (list of the mirror characters)
+2.	`ascii/version_01/my_design.txt` (my subjective 95 ASCII characters brightness ranking)
+3.	`ascii/version_01/standard.txt` (my subjective 95 ASCII characters brightness ranking that align with 70 standard ASCII shading characters)
+4.	`ascii/version_01/their_design.txt` (other's 95 ASCII characters brightness ranking on Stackoverflow question 30097953)
+
+`ascii/version_01` also contains other following 2 folders
+1.	`ascii/version_01/examples/` (my own simple ASCII art examples txt files)
+2.	`ascii/version_01/my_design/` (my own thinking process of how I rank the brightness of all 95 printable ASCII characters for `ascii/version_01/my_design.txt`)
+
+I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ`, `\`, etc. based on other metrics e.g. counting dark Pixel, counting the standard deviation of dark pixel of each characters from different fonts, FFT/ML related technique etc. in the future.
 
 # Resource
 
@@ -256,7 +292,7 @@ It is note that triangles mesh in typical computer graphic does not utilize the 
 	*	https://stackoverflow.com/questions/1950926/create-directories-using-make-file
 	7.	Rm directory and everything in it.
 	*	https://askubuntu.com/questions/802996/how-to-remove-directory-with-all-of-its-contents
-4.	Figlet
+4.	Typography
 	1.	Figlet
 	*	https://textarttools.com/Figletfontstool/
 	2.	Figlet License
@@ -267,6 +303,11 @@ It is note that triangles mesh in typical computer graphic does not utilize the 
 	*	https://www.reddit.com/r/reactjs/comments/1mri80d/best_practice_for_including_thirdparty_licenses/
 	5.	ASCII Art gradient
 	*	https://paulbourke.net/dataformats/asciiart/
+	6.	Render 3D model as ASCII Art (I might read this later for the future version of GrASCIIfi)
+	*	https://alexharri.com/blog/ascii-rendering
+	*	https://www.reddit.com/r/PlotterArt/comments/1qfzhzt/ascii_characters_are_not_pixels_a_deep_dive_into/
+	7.	The concept of Ambigram seem very interesting for designing new Figlet font for my future project!
+	*	https://en.wikipedia.org/wiki/Ambigram
 5.	Convolution
 	1.	But what is a convolution?
 	*	https://youtu.be/KuXjwB4LzSA?si=5538Gr5xpS-cfLwV
@@ -295,3 +336,13 @@ It is note that triangles mesh in typical computer graphic does not utilize the 
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
 	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
+
+<!-- 
+To Do List
+1.	linked list to dynamic array
+2.	arr of pt to arr of struct
+3.	triangle_arr
+4.	double to float
+5.	ras/z buffer
+6.	rotation
+ -->
