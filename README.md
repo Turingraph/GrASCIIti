@@ -237,17 +237,19 @@ I want to convert Figlet text data as 3D geometric model, so I have to convert e
 
 I research about the standard shading of ASCII art from this Stackoverflow post ( https://stackoverflow.com/questions/30097953/ascii-art-sorting-an-array-of-ascii-characters-by-brightness-levels-c-c ), and it turn out that there are 70 ASCII characters ```$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.``` for ASCII shading, which cannot deal with some printable characters from `NHRD96KAPgeESGVF54y32T7=s` string. In addition, the approach from Stackoverflow does not consider the case where characters have same brightness and are the mirror of each other e.g. `p` and `q`, `b`, and `d`, `/` and `\`, `[` and `]` etc.
 
-LLM said that there is no standard way to rank the brightness of all 95 characters that also catagorizing the pair of mirror characters. So I create `ascii/version_01/` which contains my personal subjective ranking. Which contains 4 following files
-1.	`ascii/version_01/mirror.txt` (list of the mirror characters)
-2.	`ascii/version_01/my_design.txt` (my subjective 95 ASCII characters brightness ranking)
-3.	`ascii/version_01/standard.txt` (my subjective 95 ASCII characters brightness ranking that align with 70 standard ASCII shading characters)
-4.	`ascii/version_01/their_design.txt` (other's 95 ASCII characters brightness ranking on Stackoverflow question 30097953)
+LLM said that there is no standard way to rank the brightness of all 95 characters that also catagorizing the pair of mirror characters.
 
-`ascii/version_01` also contains other following 2 folders
-1.	`ascii/version_01/examples/` (my own simple ASCII art examples txt files)
-2.	`ascii/version_01/my_design/` (my own thinking process of how I rank the brightness of all 95 printable ASCII characters for `ascii/version_01/my_design.txt`)
+So I create `ascii_shading/version_01/` which contains my personal subjective ranking. Which contains 4 following files
+1.	`ascii_shading/version_01/mirror.txt` (list of the mirror characters)
+2.	`ascii_shading/version_01/my_design.txt` (my subjective 95 ASCII characters brightness ranking)
+3.	`ascii_shading/version_01/standard.txt` (my subjective 95 ASCII characters brightness ranking that align with 70 standard ASCII shading characters)
+4.	`ascii_shading/version_01/chungaloider_design.txt` (other's 95 ASCII characters brightness ranking on Stackoverflow question 30097953)
 
-I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ`, `\`, etc. based on other metrics e.g. counting dark Pixel, counting the standard deviation of dark pixel of each characters from different fonts, FFT/ML related technique etc. in the future.
+`ascii_shading/version_01` also contains other following 2 folders
+1.	`ascii_shading/version_01/examples/` (my own simple ASCII art examples txt files)
+2.	`ascii_shading/version_01/my_design/` (my own thinking process of how I rank the brightness of all 95 printable ASCII characters for `ascii_shading/version_01/my_design.txt`)
+
+I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ`, `\`, etc. based on other metrics e.g. counting dark Pixel, counting the standard deviation of dark pixel of each characters from different fonts, FFT/ML related technique etc. in the future. and/or I might treat each string individual characters as a chunk of multiple small triangles meshes.
 
 # Resource
 
