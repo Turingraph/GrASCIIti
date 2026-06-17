@@ -30,16 +30,16 @@ size_t	f_atoonei(char c, char *base, char *err)
 
 // time : O(1)
 // space: O(1)
-long int	f_atolongi(char *src, char *err, char *base, size_t len)
+long int	f_atolongi(char *src, char *err, char *base, size_t digits)
 {
 	long int	y;
 	size_t		i;
 
-	if (len == 0)
-		len = f_strlen(src);
+	if (digits == 0)
+		digits = f_strlen(src);
 	i = 0;
 	y = 0;
-	while ((err == NULL || *err != 'E') && *src != '\0' && i < len)
+	while ((err == NULL || *err != 'E') && *src != '\0' && i < digits)
 	{
 		y += (long int) f_atoonei(*src, base, err);
 		if (err != NULL && *err == 'E')
@@ -54,7 +54,7 @@ long int	f_atolongi(char *src, char *err, char *base, size_t len)
 
 // time : O(1)
 // space: O(1)
-int	f_atoi(char *src, char *err, char *base, size_t len)
+int	f_atoi(char *src, char *err, char *base, size_t digits)
 {
 	long int	y;
 	size_t		sign;
@@ -64,7 +64,7 @@ int	f_atoi(char *src, char *err, char *base, size_t len)
 	sign = 0;
 	if (src[sign] == '-')
 		sign = 1;
-	y = f_atolongi(src + sign, err, base, len);
+	y = f_atolongi(src + sign, err, base, digits);
 	if (sign == 1)
 		y *= -1;
 	if (y < -2147483648 || y > 2147483647)
@@ -106,7 +106,7 @@ size_t	display_int(int fd, long x, char *base, char say)
 
 // time : O(1)
 // space: O(1)
-void	ft_putnbr_fd(int n, int fd, char *base, size_t len)
+void	ft_putnbr_fd(int n, int fd, char *base, size_t digits)
 {
 	size_t	i;
 	size_t	j;
@@ -121,9 +121,9 @@ void	ft_putnbr_fd(int n, int fd, char *base, size_t len)
 		write(fd, "-", 1);
 	}
 	i = 0;
-	if (j > len)
-		j = len;
-	while (i < len - j)
+	if (j > digits)
+		j = digits;
+	while (i < digits - j)
 	{
 		write(fd, base, 1);
 		i += 1;

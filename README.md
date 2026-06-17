@@ -202,7 +202,7 @@ I use LLM to brainstorm the synesthesia related features, guide me on writing Ma
 1.	LLM recommended me to use Figlet for ASCII typography art font.
 2.	LLM said that my project also related to MiniRT42.
 3.	LLM recommended me to use another 14 special characters for the first stable version of GrASCIIfi.
-4.	LLM recommended me to study Japanese, Chinese, and/or Arabic as third language (that isn't Indo European e.g. English, German, Franch etc. and/or Kra–Dai languages e.g. Thai, Lao etc. and have rich interesting writing system)
+4.	LLM recommended me to study Japanese, Chinese, and/or Arabic as third language (that isn't Indo European e.g. English, German, Franch etc. and/or Kra–Dai languages e.g. Thai, Lao etc. and have rich interesting writing system, also my mother tongue is Thai language).
 
 ## Consult with ChatGPT No.1: Dynamic Array vs Linked List for loading input.
 
@@ -241,13 +241,13 @@ LLM said that there is no standard way to rank the brightness of all 95 characte
 
 So I create `ascii_shading/version_01/` which contains my personal subjective ranking. Which contains 4 following files
 1.	`ascii_shading/version_01/mirror.txt` (list of the mirror characters)
-2.	`ascii_shading/version_01/my_design.txt` (my subjective 95 ASCII characters brightness ranking)
+2.	`ascii_shading/version_01/cheche_design.txt` (my subjective 95 ASCII characters brightness ranking)
 3.	`ascii_shading/version_01/standard.txt` (my subjective 95 ASCII characters brightness ranking that align with 70 standard ASCII shading characters)
-4.	`ascii_shading/version_01/chungaloider_design.txt` (other's 95 ASCII characters brightness ranking on Stackoverflow question 30097953)
+4.	`ascii_shading/version_01/chungaloider_design.txt` (Chungaloider's 95 ASCII characters brightness ranking on Stackoverflow question 30097953)
 
 `ascii_shading/version_01` also contains other following 2 folders
 1.	`ascii_shading/version_01/examples/` (my own simple ASCII art examples txt files)
-2.	`ascii_shading/version_01/my_design/` (my own thinking process of how I rank the brightness of all 95 printable ASCII characters for `ascii_shading/version_01/my_design.txt`)
+2.	`ascii_shading/version_01/cheche_design/` (my own thinking process of how I rank the brightness of all 95 printable ASCII characters for `ascii_shading/version_01/cheche_design.txt`)
 
 I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ`, `\`, etc. based on other metrics e.g. counting dark Pixel, counting the standard deviation of dark pixel of each characters from different fonts, FFT/ML related technique etc. in the future. and/or I might treat each string individual characters as a chunk of multiple small triangles meshes.
 

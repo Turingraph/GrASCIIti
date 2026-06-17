@@ -3,28 +3,29 @@
 
 #include <stdlib.h>
 
-typedef struct t_rgb t_rgb;
+// input/load/
 
-struct t_rgb
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned char	a;
-};
+typedef struct t_load_fdf t_load_fdf;
 
-// input/llist_load/
-
-typedef struct t_llist_fdf t_llist_fdf;
-
-struct t_llist_fdf
+struct t_load_fdf
 {
 	int				*arr;
-	t_rgb			**rgb;
-	size_t			len;
-	t_llist_fdf		*next;
+	unsigned char	*r;
+	unsigned char	*g;
+	unsigned char	*b;
+	unsigned char	*a;
+	size_t			length;
 	char			int_err;
 	char			rgb_err;
+};
+
+typedef struct t_load_fdf_arr t_load_fdf_arr;
+
+struct t_load_fdf_arr
+{
+	t_load_fdf	*arr;
+	size_t		length;
+	size_t		capacity;
 };
 
 // input/table/
