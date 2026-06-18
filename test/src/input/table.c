@@ -15,10 +15,7 @@ int	main(int len, char **str)
 		return (0);
 	data = load_all_fdf_lines(fd, cheche_one_ascii_line);
 	if (data.arr == NULL)
-	{
-		free_load_fdf_arr(data);
 		return (0);
-	}
 	write(1, "*** DATA ***\n", 14);
 	write_load_fdf_arr(1, data, 3, 0);
 	table = load_table_fdf(data, 1);

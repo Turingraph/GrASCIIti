@@ -6,9 +6,6 @@
 # include "../../utils/math/math.h"
 # include <fcntl.h>
 
-typedef struct t_gradient t_gradient;
-typedef struct t_paint_func t_paint_func;
-
 /*
 direction == 0 => x
 direction == 1 => y
@@ -16,6 +13,8 @@ direction == 2 => z
 
 r1, g1, b1, a1 = r2, g2, b2, a2 => sharp coloring
 */
+
+typedef struct t_gradient t_gradient;
 
 struct t_gradient
 {
@@ -32,6 +31,8 @@ struct t_gradient
 };
 
 /*
+typedef struct t_paint_func t_paint_func;
+
 e_line_log = 0 => scale * (x + shift)
 e_line_log = 1 => shift * scale^x
 e_line_log = 2 => ???
@@ -47,8 +48,8 @@ struct t_paint_func
 */
 
 // paint.c
-void		paint_gradient_fdf(t_table_fdf *table, t_gradient *gradient, char direction);
+void		paint_gradient_fdf(t_table_fdf *table, t_gradient rgb, char dim);
 void		reset_gradient_fdf(t_table_fdf *table);
-void		f_gradient_cpy(t_gradient *src, t_gradient *dst);
+void		f_gradient_cpy(t_gradient src, t_gradient *dst);
 
 #endif
