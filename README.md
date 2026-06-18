@@ -273,7 +273,7 @@ struct t_table_fdf
 };
 ```
 
-In addition, it might be possible that many if not most future user would likely convert small Figlet input data ( https://www.figlet.org/ ), like this
+In addition, it might be possible that many if not most future users would likely convert small Figlet input data ( https://www.figlet.org/ ), like this
 
 ```
                           .   oooo         o8o           
