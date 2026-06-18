@@ -65,7 +65,7 @@ double		**blur_kernel_2d(size_t dim, double scale)
 		dst[i] = (double *)malloc_talk(sizeof(double) * dim, "convolution/kernel.c/blur_kernel\n");
 		if (dst[i] == NULL)
 		{
-			free_nest_arr((void **)dst, i);
+			free_2d_arr((void **)dst, i);
 			return (NULL);
 		}
 		j = 0;
@@ -81,20 +81,20 @@ double		**blur_kernel_2d(size_t dim, double scale)
 
 // time : O(n^2)
 // space: O(n^2)
-double	**one_dim_to_two_dim(double *vec_v, double *vec_u, size_t half_dim)
+double	**outer_product_kernel(double *vec_v, double *vec_u, size_t dim)
 {
 	double	**kernel;
 	size_t	i;
 	size_t	j;
 
-	kernel = blur_kernel_2d(2 * half_dim + 1, 1);
+	kernel = blur_kernel_2d(dim, 1);
 	if (kernel == NULL)
 		return (NULL);
 	i = 0;
-	while (i < 2 * half_dim + 1)
+	while (i < dim)
 	{
 		j = 0;
-		while (j < 2 * half_dim + 1)
+		while (j < dim)
 		{
 			kernel[i][j] = vec_v[i] * vec_u[j];
 			j += 1;

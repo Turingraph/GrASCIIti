@@ -5,7 +5,7 @@ BUFFER_SIZE = 42
 SRC_01_MATH = $(wildcard src/utils/math/*)
 SRC_01_LIBFT = $(wildcard src/utils/libft/*)
 SRC_01_GNL = $(wildcard src/input/get_next_line/*.c)
-SRC_02_INPUT = $(wildcard src/input/input/*.c)
+SRC_02_LOAD = $(wildcard src/input/load/*.c)
 SRC_02_TABLE = $(wildcard src/input/table/*.c)
 SRC_02_SYNESTHESIA = $(wildcard src/input/synesthesia/*.c)
 SRC_02_PAINT = $(wildcard src/editor/paint/*.c)
@@ -16,7 +16,7 @@ SRC_02_TRIANGLE_PAIR = $(wildcard src/graphic/triangle_pair/*.c)
 BUILD_01_MATH = $(patsubst src/%.c, build/%.o, $(SRC_01_MATH))
 BUILD_01_LIBFT = $(patsubst src/%.c, build/%.o, $(SRC_01_LIBFT))
 BUILD_01_GNL = $(patsubst src/%.c, build/%.o, $(SRC_01_GNL))
-BUILD_02_INPUT = $(patsubst src/%.c, build/%.o, $(SRC_02_INPUT)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
+BUILD_02_LOAD = $(patsubst src/%.c, build/%.o, $(SRC_02_LOAD)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_TABLE = $(patsubst src/%.c, build/%.o, $(SRC_02_TABLE)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 BUILD_02_SYNESTHESIA = $(patsubst src/%.c, build/%.o, $(SRC_02_SYNESTHESIA)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_PAINT = $(patsubst src/%.c, build/%.o, $(SRC_02_PAINT)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
@@ -27,27 +27,27 @@ BUILD_02_TRIANGLE_ARR = $(patsubst src/%.c, build/%.o, $(SRC_02_TRIANGLE_ARR)) $
 #----------------------------------------------------------------------------------
 # create testing file
 
-test/bin/graphic/triangle_arr.out: lib/graphic/triangle_arr.a lib/input/input.a lib/input/table.a
+test/bin/graphic/triangle_arr.out: lib/graphic/triangle_arr.a lib/input/load.a lib/input/table.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
 
-test/bin/graphic/triangle_pair.out: lib/graphic/triangle_pair.a lib/input/input.a lib/input/table.a
+test/bin/graphic/triangle_pair.out: lib/graphic/triangle_pair.a lib/input/load.a lib/input/table.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
 
-test/bin/editor/convolution.out: lib/editor/convolution.a lib/input/input.a lib/input/table.a
+test/bin/editor/convolution.out: lib/editor/convolution.a lib/input/load.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
 
-test/bin/editor/paint.out: lib/editor/paint.a lib/input/table.a lib/input/input.a
+test/bin/editor/paint.out: lib/editor/paint.a lib/input/table.a lib/input/load.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
 
-test/bin/input/table.out: lib/input/table.a lib/input/input.a
+test/bin/input/table.out: lib/input/table.a lib/input/load.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
@@ -57,7 +57,7 @@ test/bin/input/synesthesia.out: lib/input/synesthesia.a
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
 
-test/bin/input/input.out: lib/input/input.a
+test/bin/input/load.out: lib/input/load.a
 	@mkdir -p $(@D)
 	$(CC) $(patsubst test/bin/%.out, test/src/%.c, $@) $^ -o $@
 	chmod +x $@
@@ -99,7 +99,7 @@ lib/input/table.a: $(BUILD_02_TABLE)
 	@mkdir -p $(@D)
 	ar rcs $@ $^
 
-lib/input/input.a: $(BUILD_02_INPUT)
+lib/input/load.a: $(BUILD_02_LOAD)
 	@mkdir -p $(@D)
 	ar rcs $@ $^
 

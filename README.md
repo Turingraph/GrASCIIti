@@ -251,6 +251,11 @@ So I create `ascii_shading/version_01/` which contains my personal subjective ra
 
 I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ`, `\`, etc. based on other metrics e.g. counting dark Pixel, counting the standard deviation of dark pixel of each characters from different fonts, FFT/ML related technique etc. in the future. and/or I might treat each string individual characters as a chunk of multiple small triangles meshes.
 
+## Consult with ChatGPT No.4: 1D Array is Faster.
+
+( https://stackoverflow.com/questions/17259877/1d-or-2d-array-whats-faster )
+
+
 # Resource
 
 1.	Computer Graphic pipeline
@@ -341,10 +346,15 @@ I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ
 
 <!-- 
 To Do List
-1.	linked list to dynamic array
-2.	arr of pt to arr of struct
-3.	triangle_arr
-4.	double to float
-5.	ras/z buffer
-6.	rotation
+1.	arr of pt to arr of struct
+2.	enum warning
+3.	1D array
+4.	triangle_arr
+5.	double to float
+
+To Do List
+1.	pointer to struct arr: input/table, input/synesthesia, editor/*
+2.	enum: input/load, utils/libft, 
+3.	implement: triangle_arr
+4.	double to float: triangle_pair, triangle_arr
  -->
