@@ -43,15 +43,6 @@ struct t_table_fdf
 	unsigned char	**a;
 };
 
-typedef struct t_table_char t_table_char;
-
-struct t_table_char
-{
-	size_t			row;
-	size_t			col;
-	unsigned char	**arr;
-};
-
 // input/synesthesia/
 
 typedef struct t_synesthesia t_synesthesia;

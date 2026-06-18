@@ -83,7 +83,7 @@ void	row_of_src_kernel_char(unsigned char *src, double *dst, size_t col, size_t 
 
 // time : O(n)
 // space: O(n)
-double	**src_kernel_char(t_table_char src, size_t row, size_t col, size_t half_dim)
+double	**src_kernel_char(t_table_rgba src, size_t row, size_t col, size_t half_dim)
 {
 	size_t		i;
 	size_t		i_w;

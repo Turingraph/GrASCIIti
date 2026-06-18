@@ -69,9 +69,9 @@ unsigned char	**choose_rgb_table_fdf(t_table_fdf src, char rgb_type)
 
 // time : O(1)
 // space: O(1)
-t_table_char	init_table_rgb(size_t row, size_t col, unsigned char **rgb_arr)
+t_table_rgba	init_table_rgb(size_t row, size_t col, unsigned char **rgb_arr)
 {
-	t_table_char	dst;
+	t_table_rgba	dst;
 
 	dst.row = row;
 	dst.col = col;
@@ -84,7 +84,7 @@ t_table_char	init_table_rgb(size_t row, size_t col, unsigned char **rgb_arr)
 t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, char rgb_type)
 {
 	t_table_fdf		dst;
-	t_table_char	src_arr;
+	t_table_rgba	src_arr;
 	double			**src_kernel;
 	size_t			i;
 	size_t			j;
