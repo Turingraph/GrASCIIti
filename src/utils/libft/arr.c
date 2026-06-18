@@ -32,7 +32,7 @@ void	*malloc_talk(size_t elem_size, char *comment)
 
 // time : O(n)
 // space: O(1)
-void	free_nest_arr(void **arr, size_t len)
+void	free_2d_arr(void **arr, size_t len)
 {
 	while (len > 0)
 	{
@@ -41,56 +41,4 @@ void	free_nest_arr(void **arr, size_t len)
 		len -= 1;
 	}
 	free(arr);
-}
-
-// time : O(n)
-// space: O(n)
-unsigned char	**init_null_char_arr(size_t row, size_t col)
-{
-	size_t			i;
-	unsigned char	**dst;
-
-	dst = (unsigned char **)malloc_talk(sizeof(unsigned char **) * row, "libft/arr.c/init_null_char_arr\n");
-	if (dst == NULL)
-		return (NULL);
-	i = 0;
-	while (i < row)
-	{
-		dst[i] = (unsigned char *)malloc_talk(sizeof(unsigned char *) * col, "libft/arr.c/init_null_char_arr\n");
-		if (dst[i] == NULL)
-		{
-			free_nest_arr((void *)dst, i);
-			return (NULL);
-		}
-		i += 1;
-	}
-	return (dst);
-}
-
-// time : O(n)
-// space: O(1)
-void	copy_int_arr(int *dst, int *src, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (dst != NULL && src != NULL && i < len)
-	{
-		dst[i] = src[i];
-		i += 1;
-	}
-}
-
-// time : O(n)
-// space: O(1)
-void	copy_uchar_arr(unsigned char *dst, unsigned char *src, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (dst != NULL && src != NULL && i < len)
-	{
-		dst[i] = src[i];
-		i += 1;
-	}
 }

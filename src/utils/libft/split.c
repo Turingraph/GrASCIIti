@@ -64,7 +64,7 @@ char	**f_split_push(char *input, char **dst, char *space)
 			dst[j] = f_create_copy_text(input + i, space);
 			if (dst[j] == NULL)
 			{
-				free_nest_arr((void **) dst, j);
+				free_2d_arr((void **) dst, j);
 				write(1, "Malloc Fail: LIB/split.c/f_split_push\n", 22);
 				return (NULL);
 			}

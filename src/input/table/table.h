@@ -7,25 +7,24 @@
 #include "../../utils/math/math.h"
 
 // arr.c
-int				**init_null_int_arr(size_t row, size_t col);
+void			copy_int_arr(int *dst, int *src, size_t len, size_t scale_dim);
+void			copy_uchar_arr(unsigned char *dst, unsigned char *src, size_t len, size_t scale_dim);
+unsigned char	**init_2d_uchar_arr(size_t row, size_t col);
+int				**init_2d_int_arr(size_t row, size_t col);
 
-// convert.c
-size_t			get_dim(t_llist_fdf *src, char dim);
-void			*free_table_fdf(t_table_fdf *table);
-t_table_fdf		*init_table_fdf(size_t row, size_t col);
-t_table_fdf		*llist_to_table_fdf(t_llist_fdf *src);
-
-// positive.c
-long			min_and_max_fdf(t_table_fdf *table, char mode);
-void			scale_relu_fdf(t_table_fdf *table, int min, int max, int expect);
-void			scale_addition_fdf(t_table_fdf *table, int scale);
-void			positive_table_fdf(t_table_fdf *table);
-
-// save.c
-void			write_table_fdf(int fd, t_table_fdf *table, char show_rgb, size_t n_digits);
+// init.c
+t_table_fdf		free_table_fdf(t_table_fdf *src);
+t_table_fdf		init_table_fdf(size_t row, size_t col, char is_rgb);
+t_table_fdf		load_table_fdf(t_load_fdf_arr src, char is_rgb);
 
 // scale.c
-t_table_fdf		*scale_dimension_fdf(t_table_fdf *src, size_t s_row, size_t s_col);
-void			scale_hadamard_fdf(t_table_fdf *table, double scale);
+t_table_fdf		scale_dimension_fdf(t_table_fdf src, size_t scale_dim);
+void			scale_addition_fdf(t_table_fdf *src, int scale);
+void			scale_hadamard_fdf(t_table_fdf *src, double scale);
+void			scale_relu_fdf(t_table_fdf *src, int min, int max, int expect);
+size_t			scale_positive_fdf(t_table_fdf *src, char update);
+
+// write.c
+void			write_table_fdf(int fd, t_table_fdf src, char rgb, size_t digits);
 
 #endif

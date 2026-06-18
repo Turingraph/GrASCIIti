@@ -35,11 +35,11 @@ int	*line_to_int_arr(char *line, char *err)
 		"input/fdf.c/line_to_int_arr\n");
 	if (dst == NULL)
 	{
-		free_nest_arr((void **)split, len);
+		free_2d_arr((void **)split, len);
 		return (NULL);
 	}
 	*err = split_to_int_arr(split, dst, len);
-	free_nest_arr((void **)split, len);
+	free_2d_arr((void **)split, len);
 	return (dst);
 }
 
@@ -90,7 +90,7 @@ void	line_to_rgb_arr(char *line, t_load_fdf *dst)
 		i += 1;
 	}
 	if (split != NULL)
-		free_nest_arr((void **)split, len);
+		free_2d_arr((void **)split, len);
 }
 
 // time : O(n)
