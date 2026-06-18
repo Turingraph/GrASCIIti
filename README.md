@@ -203,6 +203,7 @@ I use LLM to brainstorm the synesthesia related features, guide me on writing Ma
 2.	LLM said that my project also related to MiniRT42.
 3.	LLM recommended me to use another 14 special characters for the first stable version of GrASCIIfi.
 4.	LLM recommended me to study Japanese, Chinese, and/or Arabic as third language (that isn't Indo European e.g. English, German, Franch etc. and/or Kra–Dai languages e.g. Thai, Lao etc. and have rich interesting writing system, also my mother tongue is Thai language).
+5.	LLM recommended me to create `THIRD_PARTY_LICENSES.md` and `LICENSE` (`GrASCIIfi` use Apeche license) in root directory for crediting Figlet properly and ethically.
 
 ## Consult with ChatGPT No.1: Dynamic Array vs Linked List for loading input.
 
@@ -251,10 +252,40 @@ So I create `ascii_shading/version_01/` which contains my personal subjective ra
 
 I might ranks the brightness of the characters e.g. `a`, `B`, `ห`, `พ`, `ไ`, `\`, etc. based on other metrics e.g. counting dark Pixel, counting the standard deviation of dark pixel of each characters from different fonts, FFT/ML related technique etc. in the future. and/or I might treat each string individual characters as a chunk of multiple small triangles meshes.
 
-## Consult with ChatGPT No.4: 1D Array is Faster.
+## Consult with ChatGPT No.5: 1D Array is Faster.
 
-( https://stackoverflow.com/questions/17259877/1d-or-2d-array-whats-faster )
+ChatGPT warn me to use 1D array over 2D array when deal with large input. Several Stackoverflow from this post ( https://stackoverflow.com/questions/17259877/1d-or-2d-array-whats-faster ) also recommend everyone to use 1D over 2D array because 1D array is faster (because calculating `arr[col * i + j]` is faster than calculate `arr[i][j]` when `arr` is dynamic array) and use less memory (because there computer do not have to use extra space for pointer of the pointer). However, both 1D static array and 2d static array use equal amount of time and space to operate for the same task. The only reason to use 2D array over 1D array is when deal with static array, small size input data, and for making debugging easier.
 
+However, my `t_table_fdf` use 2D array for reducing debugging difficulty.
+
+```
+typedef struct t_table_fdf t_table_fdf;
+
+struct t_table_fdf
+{
+	size_t			row;
+	size_t			col;
+	int				**arr;
+	unsigned char	**r;
+	unsigned char	**g;
+	unsigned char	**b;
+	unsigned char	**a;
+};
+```
+
+In addition, it might be possible that many if not most future user would likely convert small Figlet input data ( https://www.figlet.org/ ), like this
+
+```
+                          .   oooo         o8o           
+                        .o8   `888         `"'           
+ .ooooo.  oooo d8b    .o888oo  888 .oo.   oooo   .oooo.o 
+d88' `88b `888""8P      888    888P"Y88b  `888  d88(  "8 
+888   888  888          888    888   888   888  `"Y88b.  
+888   888  888          888 .  888   888   888  o.  )88b 
+`Y8bod8P' d888b         "888" o888o o888o o888o 8""888P' 
+```
+
+as 16 times larger and apply 5x5 Gaussian convolution, or do something similar to this without deal with lots of input data.
 
 # Resource
 
