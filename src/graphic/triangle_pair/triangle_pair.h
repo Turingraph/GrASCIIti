@@ -1,5 +1,5 @@
-#ifndef TRIANGLE_ONE_H
-# define TRIANGLE_ONE_H
+#ifndef TRIANGLE_PAIR_H
+# define TRIANGLE_PAIR_H
 
 # include "../../utils/type/type.h"
 # include "../../utils/libft/libft.h"
