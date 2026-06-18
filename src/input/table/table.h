@@ -8,8 +8,6 @@
 
 // arr.c
 void			copy_int_arr(int *dst, int *src, size_t len, size_t scale_dim);
-void			copy_uchar_arr(unsigned char *dst, unsigned char *src, size_t len, size_t scale_dim);
-unsigned char	**init_2d_uchar_arr(size_t row, size_t col);
 int				**init_2d_int_arr(size_t row, size_t col);
 
 // init.c

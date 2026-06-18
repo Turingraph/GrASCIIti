@@ -2,50 +2,40 @@
 
 // time : O(n)
 // space: O(1)
-void	*free_synesthesia(t_synesthesia *table)
+t_synesthesia	free_synesthesia(t_synesthesia table)
 {
-	if (table != NULL)
-	{
-		if (table->alphabet != NULL)
-			free(table->alphabet);
-		if (table->a != NULL)
-			free_nest_arr((void **)table->a, table->row);
-		if (table->r != NULL)
-			free_nest_arr((void **)table->r, table->row);
-		if (table->g != NULL)
-			free_nest_arr((void **)table->g, table->row);
-		if (table->b != NULL)
-			free_nest_arr((void **)table->b, table->row);
-		free(table);
-	}
-	return (NULL);
+	if (table.alphabet != NULL)
+		free(table.alphabet);
+	if (table.a != NULL)
+		free_2d_arr((void **)table.a, table.row);
+	if (table.r != NULL)
+		free_2d_arr((void **)table.r, table.row);
+	if (table.g != NULL)
+		free_2d_arr((void **)table.g, table.row);
+	if (table.b != NULL)
+		free_2d_arr((void **)table.b, table.row);
+	return (table);
 }
 
 // time : O(n)
 // space: O(1)
-t_synesthesia	*init_synesthesia(size_t row, size_t col)
+t_synesthesia	init_synesthesia(size_t row, size_t col)
 {
-	t_synesthesia	*dst;
+	t_synesthesia	dst;
 
-	dst = (t_synesthesia *)malloc_talk(sizeof(t_synesthesia), "table/convert.c\n");
-	if (dst == NULL)
-		return (NULL);
-	dst->row = row;
-	dst->col = col;
-	dst->alphabet = malloc_talk(sizeof(char) * (row + 1),
+	dst.row = row;
+	dst.col = col;
+	dst.alphabet = malloc_talk(sizeof(char) * (row + 1),
 		"synesthesia/convert.c/init_synesthesia\n");
-	if (dst->alphabet != NULL)
-		dst->alphabet[row] = '\0';
-	dst->r = init_null_char_arr(row, col);
-	dst->g = init_null_char_arr(row, col);
-	dst->b = init_null_char_arr(row, col);
-	dst->a = init_null_char_arr(row, col);
-	if (dst->r == NULL || dst->g == NULL || dst->b == NULL
-		|| dst->a == NULL|| dst->alphabet == NULL)
-	{
+	if (dst.alphabet != NULL)
+		dst.alphabet[row] = '\0';
+	dst.r = init_2d_uchar_arr(row, col);
+	dst.g = init_2d_uchar_arr(row, col);
+	dst.b = init_2d_uchar_arr(row, col);
+	dst.a = init_2d_uchar_arr(row, col);
+	if (dst.r == NULL || dst.g == NULL || dst.b == NULL
+		|| dst.a == NULL|| dst.alphabet == NULL)
 		free_synesthesia(dst);
-		return (NULL);
-	}
 	return (dst);
 }
 
@@ -72,26 +62,27 @@ void	init_default_rgb_synesthesia(t_synesthesia *dst, size_t row)
 
 // time : O(1)
 // space: O(1)
-t_synesthesia	*init_default_synesthesia()
+t_synesthesia	init_default_synesthesia()
 {
-	t_synesthesia	*dst;
-	size_t				i;
-	char				*dict;
+	t_synesthesia	dst;
+	size_t			i;
+	char			*dict;
 
 	dict = "&@$%+-=.,!?()/";
 	dst = init_synesthesia(26 + 10 + 14, 4);
-	if (dst == NULL)
-		return (NULL);
+	if (dst.alphabet == NULL || dst.r == NULL
+		|| dst.g == NULL || dst.b == NULL || dst.a == NULL)
+		return (dst);
 	i = 0;
 	while (i < 26 + 10 + 14)
 	{
 		if (i < 10)
-			dst->alphabet[i] = (char)(i + '0');
+			dst.alphabet[i] = (char)(i + '0');
 		if (10 <= i && i < 26 + 10)
-			dst->alphabet[i] = (char)(i + 'a' - 10);
+			dst.alphabet[i] = (char)(i + 'a' - 10);
 		if (26 + 10 <= i && i < 26 + 10 + 14)
-			dst->alphabet[i] = dict[i - 26 - 10];
-		init_default_rgb_synesthesia(dst, i);
+			dst.alphabet[i] = dict[i - 26 - 10];
+		init_default_rgb_synesthesia(&dst, i);
 		i += 1;
 	}
 	return (dst);

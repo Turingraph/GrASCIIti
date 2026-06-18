@@ -179,6 +179,7 @@ Future Features
 4.	Add Gen AI model for generating background
 5.	React Typescript based User Friendly Frontend
 6.	More ways to paint FdF file e.g. draw pixel art style circle, apply 2D FFT for more convolution, apply Flood fill Algorithm to color FdF file etc.
+7.	Allow user to make 3D Typography DaVinci Resolve user friendly animations e.g. rotating text, moving text, zoom text, etc.
 
 ## Folder Structure
 

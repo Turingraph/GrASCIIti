@@ -3,7 +3,7 @@
 int	main(int len, char **str)
 {
 	int				fd;
-	t_synesthesia	*synesthesia;
+	t_synesthesia	synesthesia;
 
 	if (len < 2)
 		return (0);
@@ -11,8 +11,6 @@ int	main(int len, char **str)
 	if (fd < 0)
 		return (0);
 	synesthesia = file_to_synesthesia(fd);
-	if (synesthesia == NULL)
-		return (0);
 	write_synesthesia(1, synesthesia);
 	free_synesthesia(synesthesia);
 	return (0);

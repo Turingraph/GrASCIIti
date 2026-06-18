@@ -70,23 +70,27 @@ void	replace_char(char *dst, char before, char after)
 
 // time : O(n)
 // space: O(n)
-void	write_synesthesia(int fd, t_synesthesia *src)
+void	write_synesthesia(int fd, t_synesthesia src)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	while (i < src->row)
+	while (i < src.row && src.alphabet != NULL)
 	{
 		j = 0;
-		write(fd, src->alphabet + i, 1);
-		while (j < src->col)
+		write(fd, src.alphabet + i, 1);
+		while (j < src.col)
 		{
 			write(fd, " ", 1);
-			ft_putnbr_fd((int)(src->r[i][j]), fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)(src->g[i][j]), fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)(src->b[i][j]), fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)(src->a[i][j]), fd, "0123456789abcdef", 2);
+			if (src.r != NULL && src.r[i] != NULL)
+				ft_putnbr_fd((int)(src.r[i][j]), fd, "0123456789abcdef", 2);
+			if (src.g != NULL && src.g[i] != NULL)
+				ft_putnbr_fd((int)(src.g[i][j]), fd, "0123456789abcdef", 2);
+			if (src.b != NULL && src.b[i] != NULL)
+				ft_putnbr_fd((int)(src.b[i][j]), fd, "0123456789abcdef", 2);
+			if (src.a != NULL && src.a[i] != NULL)
+				ft_putnbr_fd((int)(src.a[i][j]), fd, "0123456789abcdef", 2);
 			j += 1;
 		}
 		write(fd, "\n", 1);

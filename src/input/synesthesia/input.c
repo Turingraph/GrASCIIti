@@ -46,7 +46,7 @@ char	record_o_ffffff00(t_synesthesia *dst, char *o_ffffff00)
 	ith_row = knight_of_coin(dst->alphabet, split[0][0]);
 	if (ith_row == knight_of_coin(dst->alphabet, '\0'))
 	{
-		free_nest_arr((void **)split, split_len);
+		free_2d_arr((void **)split, split_len);
 		return ('2');
 	}
 	err = 'K';
@@ -56,7 +56,7 @@ char	record_o_ffffff00(t_synesthesia *dst, char *o_ffffff00)
 		err = record_rgba_alphabet(dst, split[jth_col + 1], ith_row, jth_col);
 		jth_col += 1;
 	}
-	free_nest_arr((void **)split, split_len);
+	free_2d_arr((void **)split, split_len);
 	return (err);
 }
 
@@ -95,40 +95,29 @@ Reference
 */
 
 // time : O(n)
-// space: O(1)
-t_synesthesia	*dst_and_file_to_synesthesia(int fd, t_synesthesia *dst)
+// space: O(n)
+t_synesthesia	file_to_synesthesia(int fd)
 {
-	char	*line;
-	char	*dict;
-	size_t	i;
+	t_synesthesia	dst;
+	char			*line;
+	char			*dict;
+	size_t			i;
 
+	dst = init_default_synesthesia();
+	if (fd < 0 || dst.alphabet == NULL || dst.r == NULL || dst.g == NULL || dst.b == NULL || dst.a == NULL)
+		return (free_synesthesia(dst));
 	dict = ace_of_coin("0123456789abcdefghijklmnopqrstuvwxyz&@$%+-=.,!?()/", 51, 0);
 	if (dict == NULL)
-		return (NULL);
+		return (free_synesthesia(dst));
 	i = 0;
 	line = get_next_line(fd, 0);
 	while (line != NULL && i < 50)
 	{
-		line_to_synesthesia(line, dict, dst, &i);
+		line_to_synesthesia(line, dict, &dst, &i);
 		free(line);
 		line = get_next_line(fd, 0);
 	}
 	get_next_line(fd, 1);
 	free(dict);
-	return (dst);
-}
-
-// time : O(n)
-// space: O(n)
-t_synesthesia	*file_to_synesthesia(int fd)
-{
-	t_synesthesia	*dst;
-
-	if (fd < 0)
-		return (NULL);
-	dst = init_default_synesthesia();
-	if (dst == NULL)
-		return (NULL);
-	dst_and_file_to_synesthesia(fd, dst);
 	return (dst);
 }

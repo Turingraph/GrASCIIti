@@ -8,6 +8,8 @@
 // arr.c
 void			free_2d_arr(void **arr, size_t len);
 void			*malloc_talk(size_t elem_size, char *comment);
+void			copy_uchar_arr(unsigned char *dst, unsigned char *src, size_t len, size_t scale_dim);
+unsigned char	**init_2d_uchar_arr(size_t row, size_t col);
 
 // atoi.c
 int				f_atoi(char *src, char *err, char *base, size_t digits);
