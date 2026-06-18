@@ -73,9 +73,9 @@ typedef struct t_triangle t_triangle;
 
 struct t_triangle
 {
-	double			*p1;
-	double			*p2;
-	double			*p3;
+	float			*p1;
+	float			*p2;
+	float			*p3;
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;

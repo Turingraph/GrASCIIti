@@ -5,13 +5,13 @@
 
 // time : O(1)
 // space: O(1)
-double	f_floor(double num)
+float	f_floor(float num)
 {
     long long	n;
-    double		d;
+    float		d;
 
 	n = (long long)num;
-	d = (double)n;
+	d = (float)n;
 	if (num >= 2147483647 || num <= -2147483648 || num != num)
         return (num);
     if (d == num || num >= 0)
@@ -21,9 +21,9 @@ double	f_floor(double num)
 
 // time : O(1)
 // space: O(1)
-double	f_round(double num)
+float	f_round(float num)
 {
-    double	floor;
+    float	floor;
 
 	floor = f_floor(num);
 	if (num >= 2147483647 || num <= -2147483648 || num != num)
@@ -35,7 +35,7 @@ double	f_round(double num)
 
 // time : O(1)
 // space: O(1)
-double	f_interval(double num, double min, double max)
+float	f_interval(float num, float min, float max)
 {
 	if (num > max)
 		return (max);

@@ -1,10 +1,10 @@
-#include"math.h"
+#include"linalg.h"
 
 // time : O(n)
 // space: O(1)
-double	euclid_distance(double *vec_v, double *vec_0, size_t dim, char square)
+float	euclid_distance(float *vec_v, float *vec_0, size_t dim, char square)
 {
-	double	y;
+	float	y;
 	size_t	i;
 
 	y = 0;
@@ -24,9 +24,9 @@ double	euclid_distance(double *vec_v, double *vec_0, size_t dim, char square)
 
 // time : O(n)
 // space: O(1)
-double	cos_between_2_vectors(double *vec_v, double *vec_u, size_t dim)
+float	cos_between_2_vectors(float *vec_v, float *vec_u, size_t dim)
 {
-	double	div;
+	float	div;
 
 	div = euclid_distance(vec_v, vec_u, dim, 0);
 	if (div == 0)
@@ -36,10 +36,10 @@ double	cos_between_2_vectors(double *vec_v, double *vec_u, size_t dim)
 
 // time : O(n)
 // space: O(n)
-void	vector_projection(double *update_v, double *vec_u, size_t dim)
+void	vector_projection(float *update_v, float *vec_u, size_t dim)
 {
-	double	div;
-	double	scale;
+	float	div;
+	float	scale;
 
 	div = euclid_distance(update_v, NULL, dim, 1);
 	if (div != 0)
@@ -51,10 +51,10 @@ void	vector_projection(double *update_v, double *vec_u, size_t dim)
 
 // time : O(n)
 // space: O(1)
-double	scale_projection(double *vec_v, double *vec_u, size_t dim)
+float	scale_projection(float *vec_v, float *vec_u, size_t dim)
 {
-	double	div;
-	double	scale;
+	float	div;
+	float	scale;
 
 	div = euclid_distance(vec_v, NULL, dim, 0);
 	if (div == 0)

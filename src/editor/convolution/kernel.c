@@ -3,22 +3,6 @@
 // https://stackoverflow.com/questions/1696113/
 // how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions
 
-double	normal_distribution_function(double std, double means, double x)
-{
-	size_t	ac;
-	double	up;
-	double	down;
-	double	pi;
-
-	pi = 3.141592653;
-	ac = 24;
-	if (std == 0)
-		return (0);
-	down = std * newton_method(2 * pi, 2, ac);
-	up = f_exp(-1 * f_pow(x - means, 2) / (2 * std * std), ac);
-	return (up / down);
-}
-
 // time : O(n)
 // space: O(n)
 double	*gaussian_kernel_1d(size_t half_dim)

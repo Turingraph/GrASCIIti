@@ -99,3 +99,21 @@ double	f_exp(double x, size_t accuracy)
 	}
 	return (y);
 }
+
+// time : O(n)
+// space: O(1)
+double	normal_distribution_function(double std, double means, double x)
+{
+	size_t	ac;
+	double	up;
+	double	down;
+	double	pi;
+
+	pi = 3.141592653;
+	ac = 24;
+	if (std == 0)
+		return (0);
+	down = std * newton_method(2 * pi, 2, ac);
+	up = f_exp(-1 * f_pow(x - means, 2) / (2 * std * std), ac);
+	return (up / down);
+}

@@ -1,12 +1,12 @@
-#include"math.h"
+#include"linalg.h"
 
 // time : O(1)
 // space: O(1)
-void	cross_product_3d(double *update_v, double *vec_u)
+void	cross_product_3d(float *update_v, float *vec_u)
 {
-	double	dim_0;
-	double	dim_1;
-	double	dim_2;
+	float	dim_0;
+	float	dim_1;
+	float	dim_2;
 
 	if (update_v != NULL && vec_u != NULL)
 	{
@@ -21,7 +21,7 @@ void	cross_product_3d(double *update_v, double *vec_u)
 
 // time : O(1)
 // space: O(1)
-void	update_3d_vector(double *dst, double x, double y, double z)
+void	update_3d_vector(float *dst, float x, float y, float z)
 {
 	dst[0] = x;
 	dst[1] = y;
@@ -30,11 +30,11 @@ void	update_3d_vector(double *dst, double x, double y, double z)
 
 // time : O(1)
 // space: O(1)
-double	*create_3d_vector(double x, double y, double z)
+float	*create_3d_vector(float x, float y, float z)
 {
-	double	*dst;
+	float	*dst;
 
-	dst = malloc(sizeof(double) * 3);
+	dst = malloc(sizeof(float) * 3);
 	if (dst == NULL)
 		return (NULL);
 	dst[0] = x;

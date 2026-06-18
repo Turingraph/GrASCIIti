@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-void	write_3d_vector(int fd, double *vec_v)
+void	write_3d_vector(int fd, float *vec_v)
 {
 	write(fd, "(", 1);
 	ft_putnbr_fd(f_floor(vec_v[0]), fd, "0123456789", 3);

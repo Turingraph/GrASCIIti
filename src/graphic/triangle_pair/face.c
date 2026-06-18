@@ -4,15 +4,15 @@
 // space: O(1)
 void	triangle_fdf_rgb(t_table_fdf src, t_triangle *dst, size_t row, size_t col)
 {
-	double	drgb;
+	float	drgb;
 
-	drgb = (double)((int)src.r[row][col] + (int)src.r[row + 1][col] + (int)src.r[row][col + 1] + (int)src.r[row + 1][col + 1]) / 4;
+	drgb = (float)((int)src.r[row][col] + (int)src.r[row + 1][col] + (int)src.r[row][col + 1] + (int)src.r[row + 1][col + 1]) / 4;
 	dst->r = (unsigned char)f_round(f_interval(drgb, 0, 255));
-	drgb = (double)((int)src.g[row][col] + (int)src.g[row + 1][col] + (int)src.g[row][col + 1] + (int)src.g[row + 1][col + 1]) / 4;
+	drgb = (float)((int)src.g[row][col] + (int)src.g[row + 1][col] + (int)src.g[row][col + 1] + (int)src.g[row + 1][col + 1]) / 4;
 	dst->g = (unsigned char)f_round(f_interval(drgb, 0, 255));
-	drgb = (double)((int)src.b[row][col] + (int)src.b[row + 1][col] + (int)src.b[row][col + 1] + (int)src.b[row + 1][col + 1]) / 4;
+	drgb = (float)((int)src.b[row][col] + (int)src.b[row + 1][col] + (int)src.b[row][col + 1] + (int)src.b[row + 1][col + 1]) / 4;
 	dst->b = (unsigned char)f_round(f_interval(drgb, 0, 255));
-	drgb = (double)((int)src.a[row][col] + (int)src.a[row + 1][col] + (int)src.a[row][col + 1] + (int)src.a[row + 1][col + 1]) / 4;
+	drgb = (float)((int)src.a[row][col] + (int)src.a[row + 1][col] + (int)src.a[row][col + 1] + (int)src.a[row + 1][col + 1]) / 4;
 	dst->a = (unsigned char)f_round(f_interval(drgb, 0, 255));
 }
 
@@ -73,10 +73,10 @@ int	count_2_fdf_triangles(t_table_fdf src, size_t row, size_t col, char *mode)
 
 // time : O(1)
 // space: O(1)
-double	test_2_fdf_triangles(t_table_fdf src, size_t row, size_t col)
+float	test_2_fdf_triangles(t_table_fdf src, size_t row, size_t col)
 {
-	double		y;
-	double		*target;
+	float		y;
+	float		*target;
 	t_triangle	triangle;
 
 	if (src.row < 2 || src.col < 2 || src.row <= row + 1 || src.col <= col + 1)

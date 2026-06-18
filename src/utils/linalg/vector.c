@@ -1,8 +1,8 @@
-#include"math.h"
+#include"linalg.h"
 
 // time : O(n)
 // space: O(1)
-void	vec_add(double *update_v, double *vec_u, size_t dim)
+void	vec_add(float *update_v, float *vec_u, size_t dim)
 {
 	size_t	i;
 
@@ -16,7 +16,7 @@ void	vec_add(double *update_v, double *vec_u, size_t dim)
 
 // time : O(n)
 // space: O(1)
-void	scale_vec(double *update_v, double s, size_t dim)
+void	scale_vec(float *update_v, float s, size_t dim)
 {
 	size_t	i;
 
@@ -30,9 +30,9 @@ void	scale_vec(double *update_v, double s, size_t dim)
 
 // time : O(n)
 // space: O(1)
-double	dot_product(double *vec_v, double *vec_u, size_t dim)
+float	dot_product(float *vec_v, float *vec_u, size_t dim)
 {
-	double	y;
+	float	y;
 	size_t	i;
 
 	if (vec_u == NULL || vec_v == NULL)
@@ -49,12 +49,12 @@ double	dot_product(double *vec_v, double *vec_u, size_t dim)
 
 // time : O(n^2)
 // space: O(n)
-char	matrix_times_vec(double **matrix, double *update_v, size_t dim)
+char	matrix_times_vec(float **matrix, float *update_v, size_t dim)
 {
-	double	*temp;
+	float	*temp;
 	size_t	i;
 
-	temp = malloc(sizeof(double) * dim);
+	temp = malloc(sizeof(float) * dim);
 	if (temp == NULL)
 		return (0);
 	i = 0;

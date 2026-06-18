@@ -3,6 +3,7 @@
 
 # include "../../utils/type/type.h"
 # include "../../utils/libft/libft.h"
+# include "../../utils/linalg/linalg.h"
 # include "../../utils/math/math.h"
 
 // face.c
@@ -19,7 +20,7 @@ char			fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis);
 t_triangle_arr	f_fdf_side(t_table_fdf src, size_t row, size_t col, char axis);
 
 // write_triangle.c
-void			write_3d_vector(int fd, double *vec_v);
+void			write_3d_vector(int fd, float *vec_v);
 void			write_triangle(int fd, t_triangle src);
 void			write_triangle_arr(int fd, t_triangle_arr src);
 

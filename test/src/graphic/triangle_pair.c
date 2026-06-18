@@ -45,7 +45,7 @@ int	main(int len, char **str)
 		ft_putnbr_fd(table.arr[row + 1][col + 1], 1, "0123456789", 1);
 		write(1, "\n", 1);
 	}
-	output = f_fdf_face(table, row, col, 'l');
+	output = f_fdf_side(table, row, col, 'y');
 	free_table_fdf(&table);
 	write_triangle_arr(1, output);
 	free_triangle_arr(output);
