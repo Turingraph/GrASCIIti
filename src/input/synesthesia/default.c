@@ -2,19 +2,28 @@
 
 // time : O(n)
 // space: O(1)
-t_synesthesia	free_synesthesia(t_synesthesia table)
+void	*free_synesthesia(t_synesthesia *src)
 {
-	if (table.alphabet != NULL)
-		free(table.alphabet);
-	if (table.a != NULL)
-		free_2d_arr((void **)table.a, table.row);
-	if (table.r != NULL)
-		free_2d_arr((void **)table.r, table.row);
-	if (table.g != NULL)
-		free_2d_arr((void **)table.g, table.row);
-	if (table.b != NULL)
-		free_2d_arr((void **)table.b, table.row);
-	return (table);
+	if (src == NULL)
+		return (NULL);
+	if (src->alphabet != NULL)
+		free(src->alphabet);
+	if (src->a != NULL)
+		free_2d_arr((void **)src->a, src->row);
+	if (src->r != NULL)
+		free_2d_arr((void **)src->r, src->row);
+	if (src->g != NULL)
+		free_2d_arr((void **)src->g, src->row);
+	if (src->b != NULL)
+		free_2d_arr((void **)src->b, src->row);
+	src->alphabet = NULL;
+	src->r = NULL;
+	src->g = NULL;
+	src->b = NULL;
+	src->a = NULL;
+	src->row = 0;
+	src->col = 0;
+	return (NULL);
 }
 
 // time : O(n)
@@ -35,7 +44,7 @@ t_synesthesia	init_synesthesia(size_t row, size_t col)
 	dst.a = init_2d_uchar_arr(row, col);
 	if (dst.r == NULL || dst.g == NULL || dst.b == NULL
 		|| dst.a == NULL|| dst.alphabet == NULL)
-		free_synesthesia(dst);
+		free_synesthesia(&dst);
 	return (dst);
 }
 

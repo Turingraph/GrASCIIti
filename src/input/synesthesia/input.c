@@ -105,10 +105,16 @@ t_synesthesia	file_to_synesthesia(int fd)
 
 	dst = init_default_synesthesia();
 	if (fd < 0 || dst.alphabet == NULL || dst.r == NULL || dst.g == NULL || dst.b == NULL || dst.a == NULL)
-		return (free_synesthesia(dst));
+	{
+		free_synesthesia(&dst);
+		return (dst);
+	}
 	dict = ace_of_coin("0123456789abcdefghijklmnopqrstuvwxyz&@$%+-=.,!?()/", 51, 0);
 	if (dict == NULL)
-		return (free_synesthesia(dst));
+	{
+		free_synesthesia(&dst);
+		return (dst);
+	}
 	i = 0;
 	line = get_next_line(fd, 0);
 	while (line != NULL && i < 50)

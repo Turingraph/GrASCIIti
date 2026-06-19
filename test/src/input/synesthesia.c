@@ -12,7 +12,7 @@ int	main(int len, char **str)
 		return (0);
 	synesthesia = file_to_synesthesia(fd);
 	write_synesthesia(1, synesthesia);
-	free_synesthesia(synesthesia);
+	free_synesthesia(&synesthesia);
 	return (0);
 }
 
