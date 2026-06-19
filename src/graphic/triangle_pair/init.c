@@ -15,21 +15,18 @@ void	*free_triangle(t_triangle src)
 
 // time : O(1)
 // space: O(1)
-void	free_triangle_arr(t_triangle_arr *src)
+void	free_triangle_arr(t_triangle_arr src)
 {
 	size_t	i;
 
 	i = 0;
-	while (src->arr != NULL && i < src->capacity)
+	while (src.arr != NULL && i < src.capacity)
 	{
-		free_triangle(src->arr[i]);
+		free_triangle(src.arr[i]);
 		i += 1;
 	}
-	if (src->arr != NULL)
-		free(src->arr);
-	src->arr = NULL;
-	src->length = 0;
-	src->capacity = 0;
+	if (src.arr != NULL)
+		free(src.arr);
 }
 
 // time : O(1)

@@ -48,7 +48,7 @@ int	main(int len, char **str)
 	output = f_fdf_side(table, row, col, 'y');
 	free_table_fdf(&table);
 	write_triangle_arr(1, output);
-	free_triangle_arr(&output);
+	free_triangle_arr(output);
 	return (0);
 }
 
