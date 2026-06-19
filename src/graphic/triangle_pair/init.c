@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-void	free_triangle(t_triangle src)
+void	*free_triangle(t_triangle src)
 {
 	if (src.p1 != NULL)
 		free(src.p1);
@@ -10,22 +10,26 @@ void	free_triangle(t_triangle src)
 		free(src.p2);
 	if (src.p3 != NULL)
 		free(src.p3);
+	return (NULL);
 }
 
 // time : O(1)
 // space: O(1)
-void	free_triangle_arr(t_triangle_arr src)
+void	free_triangle_arr(t_triangle_arr *src)
 {
 	size_t	i;
 
 	i = 0;
-	while (src.arr != NULL && i < src.capacity)
+	while (src->arr != NULL && i < src->capacity)
 	{
-		free_triangle(src.arr[i]);
+		free_triangle(src->arr[i]);
 		i += 1;
 	}
-	if (src.arr != NULL)
-		free(src.arr);
+	if (src->arr != NULL)
+		free(src->arr);
+	src->arr = NULL;
+	src->length = 0;
+	src->capacity = 0;
 }
 
 // time : O(1)
