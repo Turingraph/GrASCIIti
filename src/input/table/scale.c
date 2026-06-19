@@ -65,7 +65,7 @@ void	scale_addition_fdf(t_table_fdf *src, int scale)
 
 // time : O(n)
 // space: O(1)
-void	scale_hadamard_fdf(t_table_fdf *src, double scale)
+void	scale_hadamard_fdf(t_table_fdf *src, float scale)
 {
 	size_t	i;
 	size_t	j;
@@ -77,7 +77,7 @@ void	scale_hadamard_fdf(t_table_fdf *src, double scale)
 		j = 0;
 		while (j < src->col && src->arr[i] != NULL)
 		{
-			check = (long)f_floor((double)src->arr[i][j] * scale);
+			check = (long)f_floor((float)src->arr[i][j] * scale);
 			if (check > (long)2147483647)
 				write(1, "Warning: Some Integer of the Table is greater than 2147483647.\n", 64);
 			else if (check < (long)-2147483648)

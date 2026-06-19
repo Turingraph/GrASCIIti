@@ -18,7 +18,7 @@ t_table_fdf		load_table_fdf(t_load_fdf_arr src, char is_rgb);
 // scale.c
 t_table_fdf		scale_dimension_fdf(t_table_fdf src, size_t scale_dim);
 void			scale_addition_fdf(t_table_fdf *src, int scale);
-void			scale_hadamard_fdf(t_table_fdf *src, double scale);
+void			scale_hadamard_fdf(t_table_fdf *src, float scale);
 void			scale_relu_fdf(t_table_fdf *src, int min, int max, int expect);
 size_t			scale_positive_fdf(t_table_fdf *src, char update);
 

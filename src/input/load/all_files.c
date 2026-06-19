@@ -43,7 +43,9 @@ t_load_fdf_arr	push_load_fdf_arr(t_load_fdf_arr *src, t_load_fdf item)
 	t_load_fdf_arr	dst;
 
 	if (src->length < src->capacity)
-	{
+	{ 
+		if (src->arr == NULL)
+			return (*src);
 		src->arr[src->length] = item;
 		src->length += 1;
 		return (*src);
