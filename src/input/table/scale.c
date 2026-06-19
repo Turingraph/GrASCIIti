@@ -14,7 +14,10 @@ t_table_fdf	scale_dimension_fdf(t_table_fdf src, size_t scale_dim)
 		is_rgb = 1;
 	dst = init_table_fdf(src.row * scale_dim, src.col * scale_dim, is_rgb);
 	if (dst.arr == NULL)
-		return (free_table_fdf(&dst));
+	{
+		free_table_fdf(&dst);
+		return (dst);
+	}
 	i = 0;
 	while (i < src.row && src.arr != NULL)
 	{
@@ -111,6 +114,8 @@ void	scale_relu_fdf(t_table_fdf *src, int min, int max, int expect)
 	}
 }
 
+// time : O(n)
+// space: O(1)
 size_t	scale_positive_fdf(t_table_fdf *src, char update)
 {
 	long	min;

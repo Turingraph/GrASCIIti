@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-t_table_fdf	free_table_fdf(t_table_fdf *src)
+void	*free_table_fdf(t_table_fdf *src)
 {
 	if (src != NULL)
 	{
@@ -22,7 +22,7 @@ t_table_fdf	free_table_fdf(t_table_fdf *src)
 		src->b = NULL;
 		src->a = NULL;
 	}
-	return (*src);
+	return (NULL);
 }
 
 // time : O(n)

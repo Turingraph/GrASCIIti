@@ -11,7 +11,7 @@ void			copy_int_arr(int *dst, int *src, size_t len, size_t scale_dim);
 int				**init_2d_int_arr(size_t row, size_t col);
 
 // init.c
-t_table_fdf		free_table_fdf(t_table_fdf *src);
+void			*free_table_fdf(t_table_fdf *src);
 t_table_fdf		init_table_fdf(size_t row, size_t col, char is_rgb);
 t_table_fdf		load_table_fdf(t_load_fdf_arr src, char is_rgb);
 
