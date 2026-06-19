@@ -91,7 +91,7 @@ float	test_2_fdf_triangles(t_table_fdf src, size_t row, size_t col)
 	cross_product_3d(triangle.p1, triangle.p3);
 	y = scale_projection(triangle.p1, target, 3);
 	free(target);
-	free_triangle(triangle);
+	free_triangle(&triangle);
 	return (y);
 }
 
@@ -121,6 +121,9 @@ t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, char prism)
 		return (dst);
 	}
 	if (dst.length == 1)
+	{
 		dst.arr[0] = f_fdf_triangle(src, row, col, mode);
+		free_triangle(&(dst.arr[1]));
+	}
 	return (dst);
 }

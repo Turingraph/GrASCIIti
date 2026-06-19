@@ -31,7 +31,7 @@ int	main(int len, char **str)
 	if (data.arr == NULL)
 		return (0);
 	table = load_table_fdf(data, 1);
-	free_load_fdf_arr(data);
+	free_load_fdf_arr(&data);
 	if (table.arr == NULL)
 		return (0);
 	if ((size_t)(row + 1) < table.row && (size_t)(col + 1) < table.col)
@@ -48,7 +48,7 @@ int	main(int len, char **str)
 	output = f_fdf_side(table, row, col, 'y');
 	free_table_fdf(&table);
 	write_triangle_arr(1, output);
-	free_triangle_arr(output);
+	free_triangle_arr(&output);
 	return (0);
 }
 

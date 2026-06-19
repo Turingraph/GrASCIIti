@@ -10,8 +10,8 @@
 t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, char prism);
 
 // init.c
-void			*free_triangle(t_triangle src);
-void			free_triangle_arr(t_triangle_arr src);
+void			*free_triangle(t_triangle *src);
+void			*free_triangle_arr(t_triangle_arr *src);
 t_triangle		init_triangle();
 t_triangle_arr	init_triangle_arr(size_t length);
 char			fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis);
