@@ -15,9 +15,9 @@ t_load_fdf		one_ascii_line(char *line, char *dict);
 t_load_fdf		one_fdf_line(char *line);
 
 // init.c
-void			free_load_fdf(t_load_fdf src);
+void			*free_load_fdf(t_load_fdf *src);
 t_load_fdf		init_load_fdf(size_t line_len, char is_rgb);
-void			free_load_fdf_arr(t_load_fdf_arr src);
+void			*free_load_fdf_arr(t_load_fdf_arr *src);
 t_load_fdf_arr	init_load_fdf_arr(size_t len);
 
 // shade.c

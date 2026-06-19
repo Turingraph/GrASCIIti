@@ -2,18 +2,26 @@
 
 // time : O(1)
 // space: O(1)
-void	free_load_fdf(t_load_fdf src)
+void	*free_load_fdf(t_load_fdf *src)
 {
-	if (src.arr != NULL)
-		free(src.arr);
-	if (src.r != NULL)
-		free(src.r);
-	if (src.g != NULL)
-		free(src.g);
-	if (src.b != NULL)
-		free(src.b);
-	if (src.a != NULL)
-		free(src.a);
+	if (src == NULL)
+		return (NULL);
+	if (src->arr != NULL)
+		free(src->arr);
+	if (src->r != NULL)
+		free(src->r);
+	if (src->g != NULL)
+		free(src->g);
+	if (src->b != NULL)
+		free(src->b);
+	if (src->a != NULL)
+		free(src->a);
+	src->arr = NULL;
+	src->r = NULL;
+	src->g = NULL;
+	src->b = NULL;
+	src->a = NULL;
+	return (NULL);
 }
 
 // time : O(n)
@@ -48,20 +56,24 @@ t_load_fdf	init_load_fdf(size_t line_len, char is_rgb)
 
 // time : O(n)
 // space: O(1)
-void	free_load_fdf_arr(t_load_fdf_arr src)
+void	*free_load_fdf_arr(t_load_fdf_arr *src)
 {
 	size_t	i;
 
-	if (src.arr != NULL)
+	if (src != NULL && src->arr != NULL)
 	{
 		i = 0;
-		while (i < src.capacity)
+		while (i < src->capacity)
 		{
-			free_load_fdf(src.arr[i]);
+			free_load_fdf(&(src->arr[i]));
 			i += 1;
 		}
-		free(src.arr);
+		free(src->arr);
 	}
+	src->arr = NULL;
+	src->capacity = 0;
+	src->length = 0;
+	return (NULL);
 }
 
 // time : O(1)

@@ -41,14 +41,13 @@ int	main(int len, char **str)
 	fd2 = open(str[2], 'a');
 	if (fd2 < 0)
 		return (0);
-	dst = load_all_fdf_lines(fd, cheche_one_ascii_line);
+	dst = load_all_fdf_lines(fd, one_fdf_line);
 	write_load_fdf_arr(fd2, dst, 1, 1);
-	free_load_fdf_arr(dst);
+	free_load_fdf_arr(&dst);
 	return (0);
 }
 
 /*
 make test/bin/input/load.out
 valgrind --leak-check=full ./test/bin/input/load.out test/input/fdf/20-60.fdf output.txt
-
 */

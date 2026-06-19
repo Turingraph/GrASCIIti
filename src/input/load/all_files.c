@@ -51,9 +51,14 @@ t_load_fdf_arr	push_load_fdf_arr(t_load_fdf_arr *src, t_load_fdf item)
 		return (*src);
 	}
 	dst = copy_load_fdf_arr(*src, src->length * 2);
-	free(src->arr);
-	*src = dst;
-	return (push_load_fdf_arr(src, item));
+	if (dst.arr != NULL)
+	{
+		free(src->arr);
+		*src = dst;
+		return (push_load_fdf_arr(src, item));
+	}
+	free_load_fdf(&item);
+	return (*src);
 }
 
 // time : O(n)
