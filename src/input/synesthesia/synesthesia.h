@@ -6,7 +6,7 @@
 # include "../../utils/type/type.h"
 
 // default.c
-void			*free_synesthesia(t_synesthesia *table);
+void			*free_synesthesia(t_synesthesia *src);
 t_synesthesia	init_default_synesthesia();
 
 // input.c
