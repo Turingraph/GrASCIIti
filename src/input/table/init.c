@@ -4,24 +4,25 @@
 // space: O(1)
 void	*free_table_fdf(t_table_fdf *src)
 {
-	if (src != NULL)
-	{
-		if (src->arr != NULL)
-			free_2d_arr((void **)src->arr, src->row);
-		if (src->r != NULL)
-			free_2d_arr((void **)src->r, src->row);
-		if (src->g != NULL)
-			free_2d_arr((void **)src->g, src->row);
-		if (src->b != NULL)
-			free_2d_arr((void **)src->b, src->row);
-		if (src->a != NULL)
-			free_2d_arr((void **)src->a, src->row);
-		src->arr = NULL;
-		src->r = NULL;
-		src->g = NULL;
-		src->b = NULL;
-		src->a = NULL;
-	}
+	if (src == NULL)
+		return (NULL);
+	if (src->arr != NULL)
+		free_2d_arr((void **)src->arr, src->row);
+	if (src->r != NULL)
+		free_2d_arr((void **)src->r, src->row);
+	if (src->g != NULL)
+		free_2d_arr((void **)src->g, src->row);
+	if (src->b != NULL)
+		free_2d_arr((void **)src->b, src->row);
+	if (src->a != NULL)
+		free_2d_arr((void **)src->a, src->row);
+	src->arr = NULL;
+	src->r = NULL;
+	src->g = NULL;
+	src->b = NULL;
+	src->a = NULL;
+	src->row = 0;
+	src->col = 0;
 	return (NULL);
 }
 
