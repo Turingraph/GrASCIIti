@@ -60,6 +60,8 @@ void	*free_load_fdf_arr(t_load_fdf_arr *src)
 {
 	size_t	i;
 
+	if (src == NULL)
+		return (NULL);
 	if (src != NULL && src->arr != NULL)
 	{
 		i = 0;
