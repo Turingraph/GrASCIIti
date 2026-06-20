@@ -3,9 +3,9 @@ BUFFER_SIZE = 42
 
 # https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
 SRC_01_MATH = $(wildcard src/utils/math/*)
-SRC_01_LINALG = $(wildcard src/utils/linalg/*)
 SRC_01_LIBFT = $(wildcard src/utils/libft/*)
 SRC_01_GNL = $(wildcard src/input/get_next_line/*.c)
+SRC_02_LINALG = $(wildcard src/utils/linalg/*)
 SRC_02_LOAD = $(wildcard src/input/load/*.c)
 SRC_02_TABLE = $(wildcard src/input/table/*.c)
 SRC_02_SYNESTHESIA = $(wildcard src/input/synesthesia/*.c)
@@ -15,15 +15,15 @@ SRC_02_TRIANGLE_ARR = $(wildcard src/graphic/triangle_arr/*.c)
 SRC_02_TRIANGLE_PAIR = $(wildcard src/graphic/triangle_pair/*.c)
 
 BUILD_01_MATH = $(patsubst src/%.c, build/%.o, $(SRC_01_MATH))
-BUILD_01_LINALG = $(patsubst src/%.c, build/%.o, $(SRC_01_LINALG))
 BUILD_01_LIBFT = $(patsubst src/%.c, build/%.o, $(SRC_01_LIBFT))
 BUILD_01_GNL = $(patsubst src/%.c, build/%.o, $(SRC_01_GNL))
+BUILD_02_LINALG = $(patsubst src/%.c, build/%.o, $(SRC_02_LINALG)) $(BUILD_01_MATH)
 BUILD_02_LOAD = $(patsubst src/%.c, build/%.o, $(SRC_02_LOAD)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_TABLE = $(patsubst src/%.c, build/%.o, $(SRC_02_TABLE)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 BUILD_02_SYNESTHESIA = $(patsubst src/%.c, build/%.o, $(SRC_02_SYNESTHESIA)) $(BUILD_01_LIBFT) $(BUILD_01_GNL)
 BUILD_02_PAINT = $(patsubst src/%.c, build/%.o, $(SRC_02_PAINT)) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 BUILD_02_CONVOLUTION = $(patsubst src/%.c, build/%.o, $(SRC_02_CONVOLUTION)) $(BUILD_02_TABLE)
-BUILD_02_TRIANGLE_PAIR = $(patsubst src/%.c, build/%.o, $(SRC_02_TRIANGLE_PAIR)) $(BUILD_01_LIBFT) $(BUILD_01_MATH) $(BUILD_01_LINALG)
+BUILD_02_TRIANGLE_PAIR = $(patsubst src/%.c, build/%.o, $(SRC_02_TRIANGLE_PAIR)) $(BUILD_01_LIBFT) $(BUILD_01_MATH) $(BUILD_02_LINALG)
 BUILD_02_TRIANGLE_ARR = $(patsubst src/%.c, build/%.o, $(SRC_02_TRIANGLE_ARR)) $(BUILD_02_TRIANGLE_PAIR) $(BUILD_01_LIBFT) $(BUILD_01_MATH)
 
 #----------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ lib/input/get_next_line.a: $(BUILD_01_GNL)
 	@mkdir -p $(@D)
 	ar rcs $@ $^
 
-lib/utils/linalg.a: $(BUILD_01_LINALG)
+lib/utils/linalg.a: $(BUILD_02_LINALG)
 	@mkdir -p $(@D)
 	ar rcs $@ $^
 
