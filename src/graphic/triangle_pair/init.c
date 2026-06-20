@@ -43,6 +43,9 @@ void	*free_triangle_arr(t_triangle_arr *src)
 	src->arr = NULL;
 	src->capacity = 0;
 	src->length = 0;
+	src->width_x = 0.0;
+	src->width_y = 0.0;
+	src->width_z = 0.0;
 	return (NULL);
 }
 
@@ -70,6 +73,9 @@ t_triangle_arr	init_triangle_arr(size_t length)
 
 	dst.length = 0;
 	dst.capacity = length;
+	dst.width_x = 0.0;
+	dst.width_y = 0.0;
+	dst.width_z = 0.0;
 	dst.arr = NULL;
 	if (length > 0)
 		dst.arr = malloc_talk(sizeof(t_triangle) * length,
@@ -79,31 +85,20 @@ t_triangle_arr	init_triangle_arr(size_t length)
 
 // time : O(1)
 // space: O(1)
-char	fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis)
+float	width_of_triangle(t_triangle src, size_t axis, char max)
 {
-	if (row >= src.row || col >= src.col)
-		return ('n');
-	if ((axis == 'l' || axis == 'r') && (row + 1 >= src.row || col + 1 >= src.col))
-		return ('n');
-	if (axis == 'x' && row < src.row && col + 1 < src.col
-		&& src.arr[row][col] > 0 && src.arr[row][col + 1] > 0 && ((row == 0)
-		|| (row > 0 && src.arr[row - 1][col] <= 0 && src.arr[row - 1][col + 1] <= 0)
-		|| (row < src.row - 1 && src.arr[row + 1][col] <= 0 && src.arr[row + 1][col + 1] <= 0)
-		|| (row + 1 == src.row - 1)))
-		return ('x');
-	if (axis == 'y' && row + 1 < src.row && col < src.col
-		&& src.arr[row][col] > 0 && src.arr[row + 1][col] > 0 && ((col == 0)
-		|| (col > 0 && src.arr[row][col - 1] <= 0 && src.arr[row + 1][col - 1] <= 0)
-		|| (col < src.col - 1 && src.arr[row][col + 1] <= 0 && src.arr[row + 1][col + 1] <= 0)
-		|| (col + 1 == src.col - 1)))
-		return ('y');
-	if (axis == 'l' && row + 1 < src.row && col + 1 < src.col
-		&& src.arr[row][col] > 0 && src.arr[row + 1][col + 1] > 0
-		&& (src.arr[row][col + 1] <= 0 || src.arr[row + 1][col] <= 0))
-		return ('l');
-	if ((axis == 'r' && row + 1 < src.row && col + 1 < src.col
-		&& src.arr[row + 1][col] > 0 && src.arr[row][col + 1] > 0)
-		&& ((src.arr[row][col] <= 0 || src.arr[row + 1][col + 1] <= 0)))
-		return ('r');
-	return ('n');
+	float	dst;
+	float	sign;
+
+	if (axis > 2 || src.p1 == NULL || src.p2 == NULL || src.p3 == NULL)
+		return (0.0);
+	dst = src.p1[axis];
+	sign = 1;
+	if (max == 0)
+		sign *= -1;
+	if (dst * sign < sign * src.p2[axis])
+		dst = src.p2[axis];
+	if (dst * sign < sign * src.p3[axis])
+		dst = src.p3[axis];
+	return (dst);
 }

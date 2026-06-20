@@ -125,5 +125,7 @@ t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, char prism)
 		dst.arr[0] = f_fdf_triangle(src, row, col, mode);
 		free_triangle(&(dst.arr[1]));
 	}
+	if (dst.length == 0)
+		free_triangle_arr(&dst);
 	return (dst);
 }

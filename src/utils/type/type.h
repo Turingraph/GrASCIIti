@@ -82,6 +82,9 @@ struct t_triangle_arr
 	t_triangle	*arr;
 	size_t		length;
 	size_t		capacity;
+	float		width_x;
+	float		width_y;
+	float		width_z;
 };
 
 #endif

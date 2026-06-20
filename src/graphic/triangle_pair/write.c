@@ -41,3 +41,34 @@ void	write_triangle_arr(int fd, t_triangle_arr src)
 		i += 1;
 	}
 }
+
+// time : O(1)
+// space: O(1)
+char	fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis)
+{
+	if (row >= src.row || col >= src.col)
+		return ('n');
+	if ((axis == 'l' || axis == 'r') && (row + 1 >= src.row || col + 1 >= src.col))
+		return ('n');
+	if (axis == 'x' && row < src.row && col + 1 < src.col
+		&& src.arr[row][col] > 0 && src.arr[row][col + 1] > 0 && ((row == 0)
+		|| (row > 0 && src.arr[row - 1][col] <= 0 && src.arr[row - 1][col + 1] <= 0)
+		|| (row < src.row - 1 && src.arr[row + 1][col] <= 0 && src.arr[row + 1][col + 1] <= 0)
+		|| (row + 1 == src.row - 1)))
+		return ('x');
+	if (axis == 'y' && row + 1 < src.row && col < src.col
+		&& src.arr[row][col] > 0 && src.arr[row + 1][col] > 0 && ((col == 0)
+		|| (col > 0 && src.arr[row][col - 1] <= 0 && src.arr[row + 1][col - 1] <= 0)
+		|| (col < src.col - 1 && src.arr[row][col + 1] <= 0 && src.arr[row + 1][col + 1] <= 0)
+		|| (col + 1 == src.col - 1)))
+		return ('y');
+	if (axis == 'l' && row + 1 < src.row && col + 1 < src.col
+		&& src.arr[row][col] > 0 && src.arr[row + 1][col + 1] > 0
+		&& (src.arr[row][col + 1] <= 0 || src.arr[row + 1][col] <= 0))
+		return ('l');
+	if ((axis == 'r' && row + 1 < src.row && col + 1 < src.col
+		&& src.arr[row + 1][col] > 0 && src.arr[row][col + 1] > 0)
+		&& ((src.arr[row][col] <= 0 || src.arr[row + 1][col + 1] <= 0)))
+		return ('r');
+	return ('n');
+}

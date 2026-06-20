@@ -14,7 +14,7 @@ void			*free_triangle(t_triangle *src);
 void			*free_triangle_arr(t_triangle_arr *src);
 t_triangle		init_triangle();
 t_triangle_arr	init_triangle_arr(size_t length);
-char			fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis);
+float			width_of_triangle(t_triangle src, size_t axis, char max);
 
 // side.c
 t_triangle_arr	f_fdf_side(t_table_fdf src, size_t row, size_t col, char axis);
@@ -23,5 +23,6 @@ t_triangle_arr	f_fdf_side(t_table_fdf src, size_t row, size_t col, char axis);
 void			write_3d_vector(int fd, float *vec_v);
 void			write_triangle(int fd, t_triangle src);
 void			write_triangle_arr(int fd, t_triangle_arr src);
+char			fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis);
 
 #endif
