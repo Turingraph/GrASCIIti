@@ -1,14 +1,15 @@
 1.	editor
 	1.	convolution
-	*	paint
+	2.	paint
 2.	graphic
 	1.	triangle_pair
 	2.	triangle_all
 3.	input
 	*	load
 	3.	synesthesia
-	*	table
+	**	table
 4.	utils
 	*	libft
 	*	math
 	*	type
+

@@ -28,7 +28,7 @@ void	*free_table_fdf(t_table_fdf *src)
 
 // time : O(n)
 // space: O(n)
-t_table_fdf	init_table_fdf(size_t row, size_t col, char is_rgb)
+t_table_fdf	init_table_fdf(size_t row, size_t col, e_bool is_rgb)
 {
 	t_table_fdf	dst;
 
@@ -39,7 +39,7 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, char is_rgb)
 	dst.arr = init_2d_int_arr(row, col);
 	dst.row = row;
 	dst.col = col;
-	if (is_rgb > 0)
+	if (is_rgb == TRUE)
 	{
 		dst.r = init_2d_uchar_arr(row, col);
 		dst.g = init_2d_uchar_arr(row, col);
@@ -89,7 +89,7 @@ void	load_and_save_rgb(t_load_fdf_arr src, t_table_fdf dst, size_t row, size_t c
 
 // time : O(n)
 // space: O(1)
-t_table_fdf	load_table_fdf(t_load_fdf_arr src, char is_rgb)
+t_table_fdf	load_table_fdf(t_load_fdf_arr src, e_bool is_rgb)
 {
 	t_table_fdf	dst;
 	size_t		i;
@@ -105,7 +105,7 @@ t_table_fdf	load_table_fdf(t_load_fdf_arr src, char is_rgb)
 		while (j < src.arr[i].length && src.arr[i].arr != NULL)
 		{
 			dst.arr[i][j] = src.arr[i].arr[j];
-			if (is_rgb > 0)
+			if (is_rgb == TRUE)
 				load_and_save_rgb(src, dst, i, j);
 			j += 1;
 		}

@@ -25,7 +25,7 @@ void	write_rgb_fdf(int fd, t_table_fdf src, size_t row, size_t col)
 
 // time : O(n)
 // space: O(n)
-void	write_table_fdf(int fd, t_table_fdf src, char rgb, size_t digits)
+void	write_table_fdf(int fd, t_table_fdf src, e_bool is_rgb, size_t digits)
 {
 	size_t	i;
 	size_t	j;
@@ -45,7 +45,7 @@ void	write_table_fdf(int fd, t_table_fdf src, char rgb, size_t digits)
 				ft_putnbr_fd((int)i, fd, "0123456789", 1);
 				write(fd, "\n", 1);
 			}
-			if (rgb == 1)
+			if (is_rgb == TRUE)
 				write_rgb_fdf(fd, src, i, j);
 			write(fd, "\t", 1);
 			j += 1;

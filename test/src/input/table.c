@@ -17,23 +17,23 @@ int	main(int len, char **str)
 	if (data.arr == NULL)
 		return (0);
 	write(1, "*** DATA ***\n", 14);
-	write_load_fdf_arr(1, data, 3, 0);
-	table = load_table_fdf(data, 1);
+	write_load_fdf_arr(1, data, 3, FALSE);
+	table = load_table_fdf(data, FALSE);
 	free_load_fdf_arr(&data);
 	if (table.arr == NULL)
 		return (0);
 	write(1, "*** TABLE ***\n", 15);
-	write_table_fdf(1, table, 0, 2);
+	write_table_fdf(1, table, FALSE, 2);
 	write(1, "*** TABLE 1/2 ***\n", 19);
 	scale_hadamard_fdf(&table, 0.5);
-	write_table_fdf(1, table, 0, 2);
+	write_table_fdf(1, table, FALSE, 2);
 	write(1, "*** TABLE + ***\n", 17);
 	scale_positive_fdf(&table, 1);
-	write_table_fdf(1, table, 0, 2);
+	write_table_fdf(1, table, FALSE, 2);
 	write(1, "*** RELU 0 ***\n", 16);
 	scale_relu_fdf(&table, 1, 10, -55);
-	write_table_fdf(1, table, 0, 2);
-	table2 = scale_dimension_fdf(table, 3);
+	write_table_fdf(1, table, TRUE, 2);
+	table2 = scale_dimension_fdf(table, 8, 5);
 	free_table_fdf(&table);
 	if (table2.arr == NULL)
 		return (0);
@@ -44,6 +44,7 @@ int	main(int len, char **str)
 }
 
 /*
+make test/bin/input/table.out
 valgrind --leak-check=full ./test/bin/input/table.out test/input/fdf/julia.fdf
 time : 52 seconds
 */
