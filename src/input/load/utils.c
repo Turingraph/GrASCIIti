@@ -62,7 +62,7 @@ void	warning_load_fdf(t_load_fdf dst, size_t i)
 	if (dst.int_err != 'K' || dst.rgb_err != 'K')
 	{
 		write(1, "Warning: Line no. ", 19);
-		ft_putnbr_fd(i, 1, "0123456789", 0);
+		ft_putnbr_fd(i, 1, "0123456789", 1);
 		write(1, " of input Fdf file is ", 23);
 		if (dst.int_err == '0')
 			write(1, "empty", 6);

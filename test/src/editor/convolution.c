@@ -28,11 +28,11 @@ int	main(int len, char **str)
 	if (data.arr == NULL)
 	{
 		free_2d_arr((void **)ker, 2 * half_dim + 1);
-		free_load_fdf_arr(data);
+		free_load_fdf_arr(&data);
 		return (0);
 	}
 	table = load_table_fdf(data, 1);
-	free_load_fdf_arr(data);
+	free_load_fdf_arr(&data);
 	scale_positive_fdf(&table, 1);
 	blur = convolution_hight(table, ker, half_dim);
 	free_2d_arr((void **)ker, 2 * half_dim + 1);
@@ -45,5 +45,6 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full ./test/bin/editor/convolution.out test/input/fdf/20-60.fdf
+valgrind --leak-check=full ./test/bin/editor/convolution.out test/input/fdf/julia.fdf
+time: 33 seconds
 */

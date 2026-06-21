@@ -30,24 +30,27 @@ int	main(int len, char **str)
 int	main(int len, char **str)
 {
 	int				fd;
-	int				fd2;
+	// int				fd2;
 	t_load_fdf_arr	dst;
 
-	if (len < 3)
+	if (len < 2)
 		return (0);
 	fd = open(str[1], 'r');
 	if (fd < 0)
 		return (0);
-	fd2 = open(str[2], 'a');
-	if (fd2 < 0)
-		return (0);
+	// fd2 = open(str[2], 'a');
+	// if (fd2 < 0)
+	// 	return (0);
 	dst = load_all_fdf_lines(fd, one_fdf_line);
-	write_load_fdf_arr(fd2, dst, 1, 1);
+	// write_load_fdf_arr(fd2, dst, 1, 1);
+	// write_load_fdf_arr(1, dst, 1, 1);
 	free_load_fdf_arr(&dst);
 	return (0);
 }
 
 /*
 make test/bin/input/load.out
-valgrind --leak-check=full ./test/bin/input/load.out test/input/fdf/20-60.fdf output.txt
+valgrind --leak-check=full ./test/bin/input/load.out test/input/fdf/julia.fdf output.txt
+time : 43 seconds.
+time (without write): 20 seconds.
 */

@@ -12,14 +12,14 @@ void	f_fdf_side_x(t_table_fdf src, t_triangle_arr *dst, size_t row, size_t col)
 		update_3d_vector(dst->arr[1].p1, col, row, src.arr[row][col]);
 		update_3d_vector(dst->arr[1].p2, col, row, 0);
 		update_3d_vector(dst->arr[1].p3, col + 1, row, 0);
-		dst->arr[0].r = (unsigned char)f_interval(f_round((src.r[row][col] + src.r[row][col + 1]) / 2), 0, 255);
-		dst->arr[0].g = (unsigned char)f_interval(f_round((src.g[row][col] + src.g[row][col + 1]) / 2), 0, 255);
-		dst->arr[0].b = (unsigned char)f_interval(f_round((src.b[row][col] + src.b[row][col + 1]) / 2), 0, 255);
-		dst->arr[0].a = (unsigned char)f_interval(f_round((src.a[row][col] + src.a[row][col + 1]) / 2), 0, 255);
-		dst->arr[1].r = (unsigned char)f_interval(f_round((src.r[row][col] + src.r[row][col + 1]) / 2), 0, 255);
-		dst->arr[1].g = (unsigned char)f_interval(f_round((src.g[row][col] + src.g[row][col + 1]) / 2), 0, 255);
-		dst->arr[1].b = (unsigned char)f_interval(f_round((src.b[row][col] + src.b[row][col + 1]) / 2), 0, 255);
-		dst->arr[1].a = (unsigned char)f_interval(f_round((src.a[row][col] + src.a[row][col + 1]) / 2), 0, 255);
+		dst->arr[0].r = triangle_side_rgb(src.r, row, col, 'x');
+		dst->arr[1].r = triangle_side_rgb(src.r, row, col, 'x');
+		dst->arr[0].g = triangle_side_rgb(src.g, row, col, 'x');
+		dst->arr[1].g = triangle_side_rgb(src.g, row, col, 'x');
+		dst->arr[0].b = triangle_side_rgb(src.b, row, col, 'x');
+		dst->arr[1].b = triangle_side_rgb(src.b, row, col, 'x');
+		dst->arr[0].a = triangle_side_rgb(src.a, row, col, 'x');
+		dst->arr[1].a = triangle_side_rgb(src.a, row, col, 'x');
 		dst->length = 2;
 	}
 }
@@ -36,14 +36,14 @@ void	f_fdf_side_y(t_table_fdf src, t_triangle_arr *dst, size_t row, size_t col)
 		update_3d_vector(dst->arr[1].p1, col, row, src.arr[row][col]);
 		update_3d_vector(dst->arr[1].p2, col, row, 0);
 		update_3d_vector(dst->arr[1].p3, col, row + 1, 0);
-		dst->arr[0].r = (unsigned char)f_interval(f_round((src.r[row][col] + src.r[row + 1][col]) / 2), 0, 255);
-		dst->arr[0].g = (unsigned char)f_interval(f_round((src.g[row][col] + src.g[row + 1][col]) / 2), 0, 255);
-		dst->arr[0].b = (unsigned char)f_interval(f_round((src.b[row][col] + src.b[row + 1][col]) / 2), 0, 255);
-		dst->arr[0].a = (unsigned char)f_interval(f_round((src.a[row][col] + src.a[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].r = (unsigned char)f_interval(f_round((src.r[row][col] + src.r[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].g = (unsigned char)f_interval(f_round((src.g[row][col] + src.g[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].b = (unsigned char)f_interval(f_round((src.b[row][col] + src.b[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].a = (unsigned char)f_interval(f_round((src.a[row][col] + src.a[row + 1][col]) / 2), 0, 255);
+		dst->arr[0].r = triangle_side_rgb(src.r, row, col, 'y');
+		dst->arr[1].r = triangle_side_rgb(src.r, row, col, 'y');
+		dst->arr[0].g = triangle_side_rgb(src.g, row, col, 'y');
+		dst->arr[1].g = triangle_side_rgb(src.g, row, col, 'y');
+		dst->arr[0].b = triangle_side_rgb(src.b, row, col, 'y');
+		dst->arr[1].b = triangle_side_rgb(src.b, row, col, 'y');
+		dst->arr[0].a = triangle_side_rgb(src.a, row, col, 'y');
+		dst->arr[1].a = triangle_side_rgb(src.a, row, col, 'y');
 		dst->length = 2;
 	}
 }
@@ -60,14 +60,14 @@ void	f_fdf_side_l(t_table_fdf src, t_triangle_arr *dst, size_t row, size_t col)
 		update_3d_vector(dst->arr[1].p1, (float)col, (float)row, (float)src.arr[row][col]);
 		update_3d_vector(dst->arr[1].p2, (float)col, (float)row, 0.0);
 		update_3d_vector(dst->arr[1].p3, (float)(col + 1), (float)(row + 1), 0);
-		dst->arr[0].r = (unsigned char)f_interval(f_round((src.r[row][col] + src.r[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[0].g = (unsigned char)f_interval(f_round((src.g[row][col] + src.g[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[0].b = (unsigned char)f_interval(f_round((src.b[row][col] + src.b[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[0].a = (unsigned char)f_interval(f_round((src.a[row][col] + src.a[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[1].r = (unsigned char)f_interval(f_round((src.r[row][col] + src.r[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[1].g = (unsigned char)f_interval(f_round((src.g[row][col] + src.g[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[1].b = (unsigned char)f_interval(f_round((src.b[row][col] + src.b[row + 1][col + 1]) / 2), 0, 255);
-		dst->arr[1].a = (unsigned char)f_interval(f_round((src.a[row][col] + src.a[row + 1][col + 1]) / 2), 0, 255);
+		dst->arr[0].r = triangle_side_rgb(src.r, row, col, 'l');
+		dst->arr[1].r = triangle_side_rgb(src.r, row, col, 'l');
+		dst->arr[0].g = triangle_side_rgb(src.g, row, col, 'l');
+		dst->arr[1].g = triangle_side_rgb(src.g, row, col, 'l');
+		dst->arr[0].b = triangle_side_rgb(src.b, row, col, 'l');
+		dst->arr[1].b = triangle_side_rgb(src.b, row, col, 'l');
+		dst->arr[0].a = triangle_side_rgb(src.a, row, col, 'l');
+		dst->arr[1].a = triangle_side_rgb(src.a, row, col, 'l');
 		dst->length = 2;
 	}
 }
@@ -84,14 +84,14 @@ void	f_fdf_side_r(t_table_fdf src, t_triangle_arr *dst, size_t row, size_t col)
 		update_3d_vector(dst->arr[1].p1, (float)col, (float)(row + 1), (float)src.arr[row + 1][col]);
 		update_3d_vector(dst->arr[1].p2, (float)col, (float)(row + 1), 0.0);
 		update_3d_vector(dst->arr[1].p3, (float)col + 1, (float)row, 0.0);
-		dst->arr[0].r = (unsigned char)f_interval(f_round((src.r[row][col + 1] + src.r[row + 1][col]) / 2), 0, 255);
-		dst->arr[0].g = (unsigned char)f_interval(f_round((src.g[row][col + 1] + src.g[row + 1][col]) / 2), 0, 255);
-		dst->arr[0].b = (unsigned char)f_interval(f_round((src.b[row][col + 1] + src.b[row + 1][col]) / 2), 0, 255);
-		dst->arr[0].a = (unsigned char)f_interval(f_round((src.a[row][col + 1] + src.a[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].r = (unsigned char)f_interval(f_round((src.r[row][col + 1] + src.r[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].g = (unsigned char)f_interval(f_round((src.g[row][col + 1] + src.g[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].b = (unsigned char)f_interval(f_round((src.b[row][col + 1] + src.b[row + 1][col]) / 2), 0, 255);
-		dst->arr[1].a = (unsigned char)f_interval(f_round((src.a[row][col + 1] + src.a[row + 1][col]) / 2), 0, 255);
+		dst->arr[0].r = triangle_side_rgb(src.r, row, col, 'r');
+		dst->arr[1].r = triangle_side_rgb(src.r, row, col, 'r');
+		dst->arr[0].g = triangle_side_rgb(src.g, row, col, 'r');
+		dst->arr[1].g = triangle_side_rgb(src.g, row, col, 'r');
+		dst->arr[0].b = triangle_side_rgb(src.b, row, col, 'r');
+		dst->arr[1].b = triangle_side_rgb(src.b, row, col, 'r');
+		dst->arr[0].a = triangle_side_rgb(src.a, row, col, 'r');
+		dst->arr[1].a = triangle_side_rgb(src.a, row, col, 'r');
 		dst->length = 2;
 	}
 }
@@ -109,7 +109,10 @@ t_triangle_arr	f_fdf_side(t_table_fdf src, size_t row, size_t col, char axis)
 	dst.arr[0] = init_triangle();
 	dst.arr[1] = init_triangle();
 	if (axis == 'n')
+	{
+		free_triangle_arr(&dst);
 		return (dst);
+	}
 	if (axis == 'x')
 		f_fdf_side_x(src, &dst, row, col);
 	if (axis == 'y')

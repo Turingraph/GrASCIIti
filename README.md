@@ -288,6 +288,10 @@ d88' `88b `888""8P      888    888P"Y88b  `888  d88(  "8
 
 as 16 times larger and apply 5x5 Gaussian convolution, or do something similar to this without deal with lots of input data.
 
+## Consult with ChatGPT No.6: `src/input/load/` likely too slow.
+
+...
+
 # Resource
 
 1.	Computer Graphic pipeline
@@ -389,4 +393,13 @@ To Do List
 2.	enum: input/load, utils/libft, 
 3.	implement: triangle_arr
 4.	double to float: triangle_pair, triangle_arr
+
+enum warning
+1.	boolean & atoi
+2.	input/load/
+3.	input/synesthesia/
+4.	input/get_next_line/
+
+Yakiniku like level ground floor near 7-11 @onebangkok
+beef karubi rice300g.
  -->

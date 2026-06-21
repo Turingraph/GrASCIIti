@@ -44,5 +44,6 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full ./test/bin/input/table.out test/input/fdf/10-70.fdf
+valgrind --leak-check=full ./test/bin/input/table.out test/input/fdf/julia.fdf
+time : 52 seconds
 */

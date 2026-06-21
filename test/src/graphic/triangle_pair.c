@@ -27,7 +27,7 @@ int	main(int len, char **str)
 	fd = open(str[1], 'r');
 	if (fd < 0)
 		return (0);
-	data = load_all_fdf_lines(fd, cheche_one_ascii_line);
+	data = load_all_fdf_lines(fd, one_fdf_line);
 	if (data.arr == NULL)
 		return (0);
 	table = load_table_fdf(data, 1);
@@ -48,6 +48,7 @@ int	main(int len, char **str)
 	output = f_fdf_side(table, row, col, 'y');
 	free_table_fdf(&table);
 	write_triangle_arr(1, output);
+	write_triangle_arr_meta(1, output);
 	free_triangle_arr(&output);
 	return (0);
 }

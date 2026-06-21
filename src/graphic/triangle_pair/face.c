@@ -2,28 +2,15 @@
 
 // time : O(1)
 // space: O(1)
-void	triangle_fdf_rgb(t_table_fdf src, t_triangle *dst, size_t row, size_t col)
-{
-	float	drgb;
-
-	drgb = (float)((int)src.r[row][col] + (int)src.r[row + 1][col] + (int)src.r[row][col + 1] + (int)src.r[row + 1][col + 1]) / 4;
-	dst->r = (unsigned char)f_round(f_interval(drgb, 0, 255));
-	drgb = (float)((int)src.g[row][col] + (int)src.g[row + 1][col] + (int)src.g[row][col + 1] + (int)src.g[row + 1][col + 1]) / 4;
-	dst->g = (unsigned char)f_round(f_interval(drgb, 0, 255));
-	drgb = (float)((int)src.b[row][col] + (int)src.b[row + 1][col] + (int)src.b[row][col + 1] + (int)src.b[row + 1][col + 1]) / 4;
-	dst->b = (unsigned char)f_round(f_interval(drgb, 0, 255));
-	drgb = (float)((int)src.a[row][col] + (int)src.a[row + 1][col] + (int)src.a[row][col + 1] + (int)src.a[row + 1][col + 1]) / 4;
-	dst->a = (unsigned char)f_round(f_interval(drgb, 0, 255));
-}
-
-// time : O(1)
-// space: O(1)
 t_triangle	f_fdf_triangle(t_table_fdf src, size_t row, size_t col, char mode)
 {
 	t_triangle	dst;
 
 	dst = init_triangle();
-	triangle_fdf_rgb(src, &dst, row, col);
+	dst.r = triangle_face_rgb(src, row, col, 'r');
+	dst.g = triangle_face_rgb(src, row, col, 'g');
+	dst.b = triangle_face_rgb(src, row, col, 'b');
+	dst.a = triangle_face_rgb(src, row, col, 'a');
 	if (mode == 1 || mode == 2)
 	{
 		update_3d_vector(dst.p1, col, row, src.arr[row][col]);
@@ -106,10 +93,11 @@ t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, char prism)
 	dst = init_triangle_arr(2);
 	if (row + 1 >= src.row || col + 1 >= src.col)
 		return (dst);
-	dst.length += count_2_fdf_triangles(src, row, col, &mode);
-	if (dst.length == 2 || prism == 0)
+	dst.length = 2;
+	if (prism > 0)
+		dst.length = count_2_fdf_triangles(src, row, col, &mode);
+	if (dst.length == 2)
 	{
-		dst.length = 2;
 		if (test_2_fdf_triangles(src, row, col) > 0)
 		{
 			dst.arr[0] = f_fdf_triangle(src, row, col, 3);
