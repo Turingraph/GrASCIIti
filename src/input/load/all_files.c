@@ -12,8 +12,8 @@ t_load_fdf	copy_load_fdf(t_load_fdf src)
 	dst.g = src.g;
 	dst.b = src.b;
 	dst.a = src.a;
-	dst.int_err = src.int_err;
-	dst.rgb_err = src.rgb_err;
+	dst.int_warn = src.int_warn;
+	dst.rgb_warn = src.rgb_warn;
 	return (dst);
 }
 

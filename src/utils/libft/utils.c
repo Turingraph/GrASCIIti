@@ -16,6 +16,7 @@ char	f_strncmp(char *dst, char *src, size_t n)
 	return (*dst - *src);
 }
 
+/*
 // error_mode = 0 : error decimal
 // error_mode = 1 : error hexadecimal
 // error_mode = 2 : error this is invalid input
@@ -43,6 +44,7 @@ void	non_numerical_file_warning(char *file, size_t i_th_line, char error_mode)
 	if (error_mode == 5)
 		write(1, " Input file is invalid because this line is empty.\n", 51);
 }
+*/
 
 // time : O(n)
 // space: O(1)

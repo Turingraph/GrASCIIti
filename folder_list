@@ -5,7 +5,6 @@
 	1.	triangle_pair
 	2.	triangle_all
 3.	input
-	*	get_next_line
 	*	load
 	3.	synesthesia
 	*	table

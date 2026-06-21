@@ -1,20 +1,19 @@
 #include"../../../src/utils/libft/libft.h"
 #include<fcntl.h>
 
-/*
 // f_atoi
 int	main(int len, char **str)
 {
-	char	err;
+	e_bool	err;
 	int		min;
 	int		max;
 
-	err = 'K';
+	err = TRUE;
 	if (len < 3)
 		return (0);
 	min = f_atoi(str[1], &err, "0123456789", f_strlen(str[1]));
 	max = f_atoi(str[2], &err, "0123456789", f_strlen(str[2]));
-	if (err == 'E')
+	if (err == FALSE)
 	{
 		write(1, "input is invalid.\n", 18);
 		return (0);
@@ -28,8 +27,8 @@ int	main(int len, char **str)
 	write(1, "\n", 1);
 	return (0);
 }
-*/
 
+/*
 // f_split
 int	main(int len, char **str)
 {
@@ -57,7 +56,10 @@ int	main(int len, char **str)
 	free_nest_arr((void **) split_arr, split_len);
 	return (0);
 }
+*/
 
 /*
+make test/bin/utils/libft.out
+valgrind --leak-check=full ./test/bin/utils/libft.out 10 100
 valgrind --leak-check=full ./test/bin/utils/libft.out "Mumu CheChe Tata" " C" trash_print.txt
 */

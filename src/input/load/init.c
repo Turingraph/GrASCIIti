@@ -26,7 +26,7 @@ void	*free_load_fdf(t_load_fdf *src)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	init_load_fdf(size_t line_len, char is_rgb)
+t_load_fdf	init_load_fdf(size_t line_len, e_bool is_rgb)
 {
 	t_load_fdf	dst;
 
@@ -46,10 +46,10 @@ t_load_fdf	init_load_fdf(size_t line_len, char is_rgb)
 		dst.a = malloc_talk(sizeof(unsigned char) * line_len,
 			"load/ascii.c/int_load_fdf\n");
 	}
-	dst.int_err = 'K';
+	dst.int_warn = CORRECT;
 	if (line_len == 0)
-		dst.int_err = '0';
-	dst.rgb_err = 'K';
+		dst.int_warn = EMPTY;
+	dst.rgb_warn = CORRECT;
 	dst.length = line_len;
 	return (dst);
 }

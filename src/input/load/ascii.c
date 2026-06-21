@@ -68,7 +68,7 @@ t_load_fdf	one_ascii_line(char *line, char *dict)
 	t_load_fdf	dst;
 
 	dst = init_load_fdf(knight_of_coin(line, '\n'), 0);
-	if (dst.int_err == '0')
+	if (dst.int_warn == EMPTY)
 		return (dst);
 	dst.arr = line_to_ascii_arr(line, dict);
 	return (dst);

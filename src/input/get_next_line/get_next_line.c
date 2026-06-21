@@ -31,7 +31,7 @@ e_dream	the_lost_treasure(e_dream *ambition, char **coin)
 
 // time : O(n)
 // space: O(n)
-e_dream	king_gnl(char **coin, e_dream *ambition, e_dream anchor, t_temperance **angel)
+e_dream	king_gnu(char **coin, e_dream *ambition, e_dream anchor, t_temperance **angel)
 {
 	if (anchor == STOP_GNL || BUFFER_SIZE <= 0)
 	{
@@ -70,7 +70,7 @@ char	the_chariot(int fd, e_dream *ambition, t_temperance **angel)
 	{
 		coin = ace_of_coin("\0", 0, BUFFER_SIZE);
 		if (coin == NULL)
-			return (king_gnl(NULL, ambition, 2, angel));
+			return (king_gnu(NULL, ambition, 2, angel));
 		read(fd, coin, BUFFER_SIZE);
 		if (three_of_cups(angel, coin) == NULL
 			|| knight_of_coin(coin, '\n') < BUFFER_SIZE)
@@ -97,7 +97,7 @@ char	*get_next_line(int fd, e_dream anchor)
 	char			*knight;
 	size_t			length;
 
-	if (king_gnl(&coin, &ambition, anchor, &angel) == STOP_GNL)
+	if (king_gnu(&coin, &ambition, anchor, &angel) == STOP_GNL)
 		return (NULL);
 	if (the_chariot(fd, &ambition, &angel) == STOP_GNL)
 		return (NULL);

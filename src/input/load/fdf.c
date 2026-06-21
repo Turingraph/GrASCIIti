@@ -2,24 +2,32 @@
 
 // time : O(n)
 // space: O(1)
-char	split_to_int_arr(char **split, int *dst, size_t len)
+e_load_warning	split_to_int_arr(char **split, int *dst, size_t len)
 {
 	size_t	i;
-	char	err;
+	e_bool	int_warn;
 
-	err = 'K';
+	int_warn = TRUE;
 	i = 0;
 	while (i < len)
 	{
-		dst[i] = f_atoi(split[i], &err, "0123456789", knight_of_coin(split[i], ','));
+		dst[i] = f_atoi(split[i], &int_warn, "0123456789", knight_of_coin(split[i], ','));
 		i += 1;
 	}
-	return (err);
+	if (int_warn == TRUE)
+		return (CORRECT);
+	return (NOT_DECIMAL);
 }
+
+// write(1, ">>> ", 4);
+// write(1, split[i], knight_of_coin(split[i], ','));
+// write(1, "\t=\t", 3);
+// ft_putnbr_fd(knight_of_coin(split[i], ','), 1, "0123456789", 1);
+// write(1, "\n", 1);
 
 // time : O(n)
 // space: O(n)
-int	*line_to_int_arr(char *line, char *err)
+int	*line_to_int_arr(char *line, e_load_warning *int_warn)
 {
 	int		*dst;
 	char	**split;
@@ -38,7 +46,8 @@ int	*line_to_int_arr(char *line, char *err)
 		free_2d_arr((void **)split, len);
 		return (NULL);
 	}
-	*err = split_to_int_arr(split, dst, len);
+	if (int_warn != NULL)
+		*int_warn = split_to_int_arr(split, dst, len);
 	free_2d_arr((void **)split, len);
 	return (dst);
 }
@@ -47,25 +56,25 @@ int	*line_to_int_arr(char *line, char *err)
 // space: O(1)
 void	load_fdf_rgba(t_load_fdf *dst, size_t i, char *src)
 {
-	size_t			len;
-	char			err;
+	size_t	len;
+	e_bool	rgb_warn;
 
-	err = 'K';
+	rgb_warn = TRUE;
 	len = 1;
 	if (f_strlen(src) > 4)
 		len = 2;
 	if (dst != NULL && dst->r != NULL && i < dst->length && 0 * len < f_strlen(src))
-		dst->r[i] = f_rgb(src + 0 * len, len, &err);
+		dst->r[i] = f_rgb(src + 0 * len, len, &rgb_warn);
 	if (dst != NULL && dst->g != NULL && i < dst->length && 1 * len < f_strlen(src))
-		dst->g[i] = f_rgb(src + 1 * len, len, &err);
+		dst->g[i] = f_rgb(src + 1 * len, len, &rgb_warn);
 	if (dst != NULL && dst->b != NULL && i < dst->length && 2 * len < f_strlen(src))
-		dst->b[i] = f_rgb(src + 2 * len, len, &err);
+		dst->b[i] = f_rgb(src + 2 * len, len, &rgb_warn);
 	if (dst != NULL && dst->a != NULL && i < dst->length && 3 * len < f_strlen(src))
-		dst->a[i] = f_rgb(src + 3 * len, len, &err);
+		dst->a[i] = f_rgb(src + 3 * len, len, &rgb_warn);
 	else if (dst != NULL && dst->a != NULL && i < dst->length && 0 < f_strlen(src))
 		dst->a[i] = (unsigned char)255;
-	if (err == 'E')
-		dst->rgb_err = 'E';
+	if (rgb_warn == FALSE)
+		dst->rgb_warn = NOT_HEX;
 }
 
 // time : O(n)
@@ -102,9 +111,9 @@ t_load_fdf	one_fdf_line(char *line)
 
 	length = f_split_len(line, " \n\t\r\f\v");
 	dst = init_load_fdf(length, 1);
-	if (dst.int_err == '0')
+	if (dst.int_warn == EMPTY)
 		return (dst);
-	dst.arr = line_to_int_arr(line, &(dst.int_err));
+	dst.arr = line_to_int_arr(line, &(dst.int_warn));
 	if (dst.arr == NULL)
 		return (dst);
 	line_to_rgb_arr(line, &dst);

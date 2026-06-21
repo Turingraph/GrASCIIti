@@ -43,7 +43,7 @@ int	main(int len, char **str)
 	// 	return (0);
 	dst = load_all_fdf_lines(fd, one_fdf_line);
 	// write_load_fdf_arr(fd2, dst, 1, 1);
-	// write_load_fdf_arr(1, dst, 1, 1);
+	write_load_fdf_arr(1, dst, 1, FALSE);
 	free_load_fdf_arr(&dst);
 	return (0);
 }

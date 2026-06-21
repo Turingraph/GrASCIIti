@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-size_t	f_atoonei(char c, char *base, char *err)
+size_t	f_atoonei(char c, char *base, e_bool *is_int)
 {
 	size_t	i;
 	char	big_c;
@@ -21,8 +21,8 @@ size_t	f_atoonei(char c, char *base, char *err)
 	}
 	if (*base == '\0' || *base == '-' || *base == '+')
 	{
-		if (err != NULL)
-			*err = 'E';
+		if (is_int != NULL)
+			*is_int = FALSE;
 		return (0);
 	}
 	return (i);
@@ -30,7 +30,7 @@ size_t	f_atoonei(char c, char *base, char *err)
 
 // time : O(1)
 // space: O(1)
-long int	f_atolongi(char *src, char *err, char *base, size_t digits)
+long int	f_atolongi(char *src, e_bool *is_int, char *base, size_t digits)
 {
 	long int	y;
 	size_t		i;
@@ -39,10 +39,10 @@ long int	f_atolongi(char *src, char *err, char *base, size_t digits)
 		digits = f_strlen(src);
 	i = 0;
 	y = 0;
-	while ((err == NULL || *err != 'E') && *src != '\0' && i < digits)
+	while ((is_int == NULL || *is_int != FALSE) && *src != '\0' && i < digits)
 	{
-		y += (long int) f_atoonei(*src, base, err);
-		if (err != NULL && *err == 'E')
+		y += (long int) f_atoonei(*src, base, is_int);
+		if (is_int != NULL && *is_int == FALSE)
 			return (-1);
 		y *= f_strlen(base);
 		src += 1;
@@ -54,7 +54,7 @@ long int	f_atolongi(char *src, char *err, char *base, size_t digits)
 
 // time : O(1)
 // space: O(1)
-int	f_atoi(char *src, char *err, char *base, size_t digits)
+int	f_atoi(char *src, e_bool *is_int, char *base, size_t digits)
 {
 	long int	y;
 	size_t		sign;
@@ -64,13 +64,13 @@ int	f_atoi(char *src, char *err, char *base, size_t digits)
 	sign = 0;
 	if (src[sign] == '-')
 		sign = 1;
-	y = f_atolongi(src + sign, err, base, digits);
+	y = f_atolongi(src + sign, is_int, base, digits - sign);
 	if (sign == 1)
 		y *= -1;
 	if (y < -2147483648 || y > 2147483647)
 	{
-		if (err != NULL)
-			*err = 'E';
+		if (is_int != NULL)
+			*is_int = FALSE;
 		return (-1);
 	}
 	return ((int) y);
@@ -78,7 +78,7 @@ int	f_atoi(char *src, char *err, char *base, size_t digits)
 
 // time : O(1)
 // space: O(1)
-size_t	display_int(int fd, long x, char *base, char say)
+size_t	display_int(int fd, long x, char *base, e_bool is_write)
 {
 	size_t	i;
 	long	d;
@@ -95,7 +95,7 @@ size_t	display_int(int fd, long x, char *base, char say)
 	while (d > 0)
 	{
 		coef = base[x / d];
-		if (say == 1)
+		if (is_write == TRUE)
 			write(fd, &coef, 1);
 		x = x % d;
 		d /= len;
@@ -113,7 +113,7 @@ void	ft_putnbr_fd(int n, int fd, char *base, size_t digits)
 
 	j = 0;
 	if (n > 0)
-		j = display_int(fd, (long) n, base, 0);
+		j = display_int(fd, (long)n, base, 0);
 	else if (n < 0)
 	{
 		n *= -1;

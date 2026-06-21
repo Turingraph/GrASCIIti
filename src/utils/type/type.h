@@ -3,7 +3,25 @@
 
 #include <stdlib.h>
 
+typedef enum e_bool e_bool;
+
+enum e_bool
+{
+	FALSE,
+	TRUE
+};
+
 // input/load/
+
+typedef enum e_load_warning e_load_warning;
+
+enum e_load_warning
+{
+	CORRECT,
+	NOT_DECIMAL,
+	NOT_HEX,
+	EMPTY
+};
 
 typedef struct t_load_fdf t_load_fdf;
 
@@ -15,8 +33,8 @@ struct t_load_fdf
 	unsigned char	*b;
 	unsigned char	*a;
 	size_t			length;
-	char			int_err;
-	char			rgb_err;
+	e_load_warning	int_warn;
+	e_load_warning	rgb_warn;
 };
 
 typedef struct t_load_fdf_arr t_load_fdf_arr;
