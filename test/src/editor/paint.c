@@ -17,11 +17,11 @@ int	main(int len, char **str)
 	data = load_all_fdf_lines(fd, one_fdf_line);
 	if (data.arr == NULL)
 	{
-		free_load_fdf_arr(data);
+		free_load_fdf_arr(&data);
 		return (0);
 	}
 	table = load_table_fdf(data, 1);
-	free_load_fdf_arr(data);
+	free_load_fdf_arr(&data);
 	if (table.arr == NULL)
 		return (0);
 	rgb.r1 = 255;
@@ -33,7 +33,7 @@ int	main(int len, char **str)
 	rgb.g2 = 0;
 	rgb.b2 = 255;
 	rgb.a2 = 255;
-	rgb.x2 = 5;
+	rgb.x2 = 7;
 	paint_gradient_fdf(&table, rgb, 1);
 	write_table_fdf(1, table, 1, 3);
 	free_table_fdf(&table);
