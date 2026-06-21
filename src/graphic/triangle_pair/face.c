@@ -84,7 +84,7 @@ float	test_2_fdf_triangles(t_table_fdf src, size_t row, size_t col)
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, char prism)
+t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, e_bool is_prism)
 {
 	t_triangle_arr	dst;
 	char			mode;
@@ -94,7 +94,7 @@ t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, char prism)
 	if (row + 1 >= src.row || col + 1 >= src.col)
 		return (dst);
 	dst.length = 2;
-	if (prism > 0)
+	if (is_prism == TRUE)
 		dst.length = count_2_fdf_triangles(src, row, col, &mode);
 	if (dst.length == 2)
 	{

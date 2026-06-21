@@ -85,7 +85,7 @@ t_triangle_arr	init_triangle_arr(size_t length)
 
 // time : O(1)
 // space: O(1)
-float	width_of_triangle(t_triangle src, size_t axis, char max)
+float	width_of_triangle(t_triangle src, size_t axis, e_bool is_greater)
 {
 	float	dst;
 	float	sign;
@@ -94,7 +94,7 @@ float	width_of_triangle(t_triangle src, size_t axis, char max)
 		return (0.0);
 	dst = src.p1[axis];
 	sign = 1;
-	if (max == 0)
+	if (is_greater == FALSE)
 		sign *= -1;
 	if (dst * sign < sign * src.p2[axis])
 		dst = src.p2[axis];

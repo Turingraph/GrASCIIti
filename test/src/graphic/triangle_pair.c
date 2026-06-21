@@ -11,14 +11,14 @@ int	main(int len, char **str)
 	int				fd;
 	int				row;
 	int				col;
-	char			err;
+	e_bool			is_int;
 
 	if (len < 4)
 		return (0);
-	err = 'K';
-	row = f_atoi(str[2], &err, "0123456789", 0);
-	col = f_atoi(str[3], &err, "0123456789", 0);
-	if (err == 'E')
+	is_int = TRUE;
+	row = f_atoi(str[2], &is_int, "0123456789", 0);
+	col = f_atoi(str[3], &is_int, "0123456789", 0);
+	if (is_int == FALSE)
 		return (0);
 	if (row < 0)
 		row *= -1;
@@ -30,7 +30,7 @@ int	main(int len, char **str)
 	data = load_all_fdf_lines(fd, one_fdf_line);
 	if (data.arr == NULL)
 		return (0);
-	table = load_table_fdf(data, 1);
+	table = load_table_fdf(data, TRUE);
 	free_load_fdf_arr(&data);
 	if (table.arr == NULL)
 		return (0);
@@ -45,7 +45,7 @@ int	main(int len, char **str)
 		ft_putnbr_fd(table.arr[row + 1][col + 1], 1, "0123456789", 1);
 		write(1, "\n", 1);
 	}
-	output = f_fdf_side(table, row, col, 'y');
+	output = f_fdf_face(table, row, col, TRUE);
 	free_table_fdf(&table);
 	write_triangle_arr(1, output);
 	write_triangle_arr_meta(1, output);

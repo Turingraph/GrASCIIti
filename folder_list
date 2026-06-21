@@ -1,6 +1,6 @@
 1.	editor
-	1.	convolution
-	2.	paint
+	*	convolution
+	*	paint
 2.	graphic
 	1.	triangle_pair
 	2.	triangle_all
