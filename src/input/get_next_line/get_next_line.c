@@ -20,28 +20,28 @@ t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 
 // time : O(1)
 // space: O(1)
-char	the_lost_treasure(char *ambition, char **coin)
+e_dream	the_lost_treasure(e_dream *ambition, char **coin)
 {
-	*ambition = 2;
+	*ambition = STOP_GNL;
 	if (*coin != NULL)
 		free(*coin);
 	*coin = NULL;
-	return (0);
+	return (STOP_GNL);
 }
 
 // time : O(n)
 // space: O(n)
-char	king_gnl(char **coin, char *ambition, char anchor, t_temperance **angel)
+e_dream	king_gnl(char **coin, e_dream *ambition, e_dream anchor, t_temperance **angel)
 {
-	if (anchor == 2 || BUFFER_SIZE <= 0)
+	if (anchor == STOP_GNL || BUFFER_SIZE <= 0)
 	{
 		free((*angel)->arr);
 		free((*angel));
 		*angel = NULL;
-		*ambition = 2;
-		return (0);
+		*ambition = STOP_GNL;
+		return (STOP_GNL);
 	}
-	if (anchor == 1 || *ambition == 2)
+	if (anchor == STOP_GNL || *ambition == STOP_GNL)
 		return (the_lost_treasure(ambition, coin));
 	if (ace_of_cup(1, angel) == NULL)
 		return (the_lost_treasure(ambition, coin));
@@ -53,20 +53,20 @@ char	king_gnl(char **coin, char *ambition, char anchor, t_temperance **angel)
 			free(*coin);
 		*coin = NULL;
 	}
-	return (1);
+	return (CONTINUE);
 }
 
 // time : O(n)
 // space: O(n)
-char	the_chariot(int fd, char *ambition, t_temperance **angel)
+char	the_chariot(int fd, e_dream *ambition, t_temperance **angel)
 {
-	char	stop;
+	e_dream	stop;
 	char	*coin;
 
-	if (*ambition != (char) 1)
-		return (1);
-	stop = 0;
-	while (stop == 0)
+	if (*ambition != CONTINUE)
+		return (STOP_CHARIOT);
+	stop = CONTINUE;
+	while (stop == CONTINUE)
 	{
 		coin = ace_of_coin("\0", 0, BUFFER_SIZE);
 		if (coin == NULL)
@@ -74,32 +74,32 @@ char	the_chariot(int fd, char *ambition, t_temperance **angel)
 		read(fd, coin, BUFFER_SIZE);
 		if (three_of_cups(angel, coin) == NULL
 			|| knight_of_coin(coin, '\n') < BUFFER_SIZE)
-			stop = 1;
+			stop = STOP_NEWLINE;
 		if (knight_of_coin(coin, '\0') < BUFFER_SIZE)
-			*ambition = 0;
+			*ambition = STOP_CHARIOT;
 		free(coin);
 	}
 	if (*angel == NULL)
 	{
-		*ambition = 2;
-		return (0);
+		*ambition = STOP_GNL;
+		return (STOP_GNL);
 	}
-	return (1);
+	return (CONTINUE);
 }
 
 // time : O(n)
 // space: O(n)
-char	*get_next_line(int fd, char anchor)
+char	*get_next_line(int fd, e_dream anchor)
 {
 	static char		*coin = NULL;
-	static char		ambition = 1;
+	static e_dream	ambition = CONTINUE;
 	t_temperance	*angel;
 	char			*knight;
 	size_t			length;
 
-	if (king_gnl(&coin, &ambition, anchor, &angel) == 0)
+	if (king_gnl(&coin, &ambition, anchor, &angel) == STOP_GNL)
 		return (NULL);
-	if (the_chariot(fd, &ambition, &angel) == 0)
+	if (the_chariot(fd, &ambition, &angel) == STOP_GNL)
 		return (NULL);
 	length = knight_of_coin(angel->arr, '\n');
 	if (angel->arr[length] == '\n')
