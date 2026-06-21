@@ -32,7 +32,7 @@ t_table_fdf	convolution_hight(t_table_fdf src, double **kernel, size_t half_dim)
 	size_t		i;
 	size_t		j;
 
-	dst = scale_dimension_fdf(src, 1);
+	dst = scale_dimension_fdf(src, 1, 1);
 	if (dst.arr == NULL)
 		return (dst);
 	i = 0;
@@ -89,7 +89,7 @@ t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, c
 	size_t			i;
 	size_t			j;
 
-	dst = scale_dimension_fdf(src, 1);
+	dst = scale_dimension_fdf(src, 1, 1);
 	if (dst.arr == NULL || choose_rgb_table_fdf(src, rgb_type) == NULL)
 		return (dst);
 	src_arr = init_table_rgb(src.row, src.col, choose_rgb_table_fdf(src, rgb_type));
