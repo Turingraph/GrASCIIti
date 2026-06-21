@@ -2,6 +2,27 @@
 
 This project name as `GrASCIIfi` which is inspired by 42 Coding School, Graffiti art, ASCII art, 3D Typography, and my personal experience with Grapheme Color Synesthesia.
 
+<!-- 
+TO DO LIST
+1.	Add enum in graphic/triangle_arr/ and input/synesthesia/
+2.	study basic OpenGL/GLFW (including dynamic linking)
+3.	plan MVP
+
+MVP
+1.	Should input/load/ be optimized ?
+2.	simple rotation matrix animation
+3.	user able to click, see, and rotating the 3 circles around the 3D object. (this feature is inspired by EA Spore game where the player can create the creature and also rotate the creature's limbs/organs with the 3 circles) (Gizmo system)
+
+What not to do
+1.	Z Buffer
+2.	Quaternion rotation (use simple rotating matrix animation instead).
+3.	throttle (but I might add)
+4.	string "hello world" to 3D "HELLO WORLD" with synesthesia coloring system
+
+Note
+*	Replace `--z_buffer` `--triangle` and `--isometric` with pure rgb system
+ -->
+
 ## What is GrASCIIfi ?
 
 ...
