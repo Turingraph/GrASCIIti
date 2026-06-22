@@ -2,23 +2,23 @@
 
 // time : O(1)
 // space: O(1)
-void	mixing_over_rgb(unsigned char *color, t_gradient rgb, int ratio, char rgb_type)
+void	mixing_over_rgb(unsigned char *color, t_gradient rgb, int ratio, e_rgba rgb_type)
 {
-	if (ratio <= rgb.x1 && rgb_type == 'r')
+	if (ratio <= rgb.x1 && rgb_type == RED)
 		*color = rgb.r1;
-	if (ratio <= rgb.x1 && rgb_type == 'g')
+	if (ratio <= rgb.x1 && rgb_type == GREEN)
 		*color = rgb.g1;
-	if (ratio <= rgb.x1 && rgb_type == 'b')
+	if (ratio <= rgb.x1 && rgb_type == BLUE)
 		*color = rgb.b1;
-	if (ratio <= rgb.x1 && rgb_type == 'a')
+	if (ratio <= rgb.x1 && rgb_type == ALPHA)
 		*color = rgb.a1;
-	if (ratio > rgb.x1 && rgb_type == 'r')
+	if (ratio > rgb.x1 && rgb_type == RED)
 		*color = rgb.r1;
-	if (ratio > rgb.x1 && rgb_type == 'g')
+	if (ratio > rgb.x1 && rgb_type == GREEN)
 		*color = rgb.g1;
-	if (ratio > rgb.x1 && rgb_type == 'b')
+	if (ratio > rgb.x1 && rgb_type == BLUE)
 		*color = rgb.b1;
-	if (ratio > rgb.x1 && rgb_type == 'a')
+	if (ratio > rgb.x1 && rgb_type == ALPHA)
 		*color = rgb.a1;
 }
 
@@ -36,28 +36,28 @@ f:x2 = y2
 
 // time : O(1)
 // space: O(1)
-void	mixing_rgb(unsigned char *color, t_gradient rgb, int ratio, char rgb_type)
+void	mixing_rgb(unsigned char *color, t_gradient rgb, int ratio, e_rgba rgb_type)
 {
 	float	mix_rgb;
 	float	delta;
 	float	y1;
 
 	delta = 1.0;
-	if (rgb_type == 'r')
+	if (rgb_type == RED)
 		delta = (float)f_floor(rgb.r2 - rgb.r1);
-	if (rgb_type == 'g')
+	if (rgb_type == GREEN)
 		delta = (float)f_floor(rgb.g2 - rgb.g1);
-	if (rgb_type == 'b')
+	if (rgb_type == BLUE)
 		delta = (float)f_floor(rgb.b2 - rgb.b1);
-	if (rgb_type == 'a')
+	if (rgb_type == ALPHA)
 		delta = (float)f_floor(rgb.a2 - rgb.a1);
-	if (rgb_type == 'r')
+	if (rgb_type == RED)
 		y1 = (float)f_floor(rgb.r1);
-	if (rgb_type == 'g')
+	if (rgb_type == GREEN)
 		y1 = (float)f_floor(rgb.g1);
-	if (rgb_type == 'b')
+	if (rgb_type == BLUE)
 		y1 = (float)f_floor(rgb.b1);
-	if (rgb_type == 'a')
+	if (rgb_type == ALPHA)
 		y1 = (float)f_floor(rgb.a1);
 	if (ratio >= rgb.x1 && ratio <= rgb.x2 && rgb.x2 != rgb.x1)
 	{
@@ -106,10 +106,10 @@ void	paint_gradient_fdf(t_table_fdf *table, t_gradient rgb, char dim)
 			z = gradient_input(*table, dim, i, j);
 			if (rgb.x1 <= z && z <= rgb.x2 && 0 <= dim && dim <= 6)
 			{
-				mixing_rgb(table->r[i] + j, rgb, z, 'r');
-				mixing_rgb(table->g[i] + j, rgb, z, 'g');
-				mixing_rgb(table->b[i] + j, rgb, z, 'b');
-				mixing_rgb(table->a[i] + j, rgb, z, 'a');
+				mixing_rgb(table->r[i] + j, rgb, z, RED);
+				mixing_rgb(table->g[i] + j, rgb, z, GREEN);
+				mixing_rgb(table->b[i] + j, rgb, z, BLUE);
+				mixing_rgb(table->a[i] + j, rgb, z, ALPHA);
 			}
 			j += 1;
 		}
@@ -139,21 +139,3 @@ void	reset_gradient_fdf(t_table_fdf *table)
 		i += 1;
 	}
 }
-
-/*
-// time : O(1)
-// space: O(1)
-void	f_gradient_cpy(t_gradient src, t_gradient *dst)
-{
-	dst->r1 = src.r1;
-	dst->g1 = src.g1;
-	dst->b1 = src.b1;
-	dst->a1 = src.a1;
-	dst->x1 = src.x1;
-	dst->r2 = src.r2;
-	dst->g2 = src.g2;
-	dst->b2 = src.b2;
-	dst->a2 = src.a2;
-	dst->x2 = src.x2;
-}
-*/

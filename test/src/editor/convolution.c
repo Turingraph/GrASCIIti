@@ -34,17 +34,24 @@ int	main(int len, char **str)
 	table = load_table_fdf(data, 1);
 	free_load_fdf_arr(&data);
 	scale_positive_fdf(&table, 1);
-	blur = convolution_hight(table, ker, half_dim);
+	blur = convolution_rgb(table, ker, half_dim, GREEN);
 	free_2d_arr((void **)ker, 2 * half_dim + 1);
 	free_table_fdf(&table);
 	if (blur.arr == NULL)
 		return (0);
-	write_table_fdf(1, blur, 0, 1);
+	write_table_fdf(1, blur, TRUE, 1);
 	free_table_fdf(&blur);
 	return (0);
 }
 
 /*
+12 = 8
+1e = 10
+9e = 2
+82 = 4
+5f = 4
+a1 = 4
+make test/bin/editor/convolution.out
 valgrind --leak-check=full ./test/bin/editor/convolution.out test/input/fdf/julia.fdf
 time: 33 seconds
 */

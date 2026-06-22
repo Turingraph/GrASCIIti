@@ -4,7 +4,7 @@
 // space: O(1)
 void	write_rgb_fdf(int fd, t_table_fdf src, size_t row, size_t col)
 {
-	write(1, ",0x", 3);
+	write(fd, ",0x", 3);
 	if (src.r != NULL && src.r[row] != NULL)
 		ft_putnbr_fd((int)src.r[row][col], fd, "0123456789abcdef", 2);
 	else

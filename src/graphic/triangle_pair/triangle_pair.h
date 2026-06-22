@@ -7,6 +7,16 @@
 # include "../../utils/linalg/linalg.h"
 # include "../../utils/math/math.h"
 
+typedef enum e_side_shape e_side_shape;
+
+enum e_side_shape
+{
+	SIDE_X,
+	SIDE_Y,
+	SIDE_LEFT,
+	SIDE_RIGHT
+};
+
 // face.c
 t_triangle_arr	f_fdf_face(t_table_fdf src, size_t row, size_t col, e_bool is_prism);
 
@@ -23,7 +33,7 @@ t_triangle_arr	f_fdf_side(t_table_fdf src, size_t row, size_t col, char axis);
 // utils.c
 char			fdf_side_detection(t_table_fdf src, size_t row, size_t col, char axis);
 unsigned char	triangle_side_rgb(unsigned char **src, size_t row, size_t col, char mode);
-unsigned char	triangle_face_rgb(t_table_fdf src, size_t row, size_t col, char mode);
+unsigned char	triangle_face_rgb(t_table_fdf src, size_t row, size_t col, e_rgba rgb_type);
 
 // write.c
 void			write_3d_vector(int fd, float *vec_v);

@@ -56,13 +56,13 @@ t_table_fdf	convolution_hight(t_table_fdf src, double **kernel, size_t half_dim)
 
 // time : O(1)
 // space: O(1)
-unsigned char	**choose_rgb_table_fdf(t_table_fdf src, char rgb_type)
+unsigned char	**choose_rgb_table_fdf(t_table_fdf src, e_rgba rgb_type)
 {
-	if (rgb_type == 'b')
+	if (rgb_type == BLUE)
 		return (src.b);
-	if (rgb_type == 'g')
+	if (rgb_type == GREEN)
 		return (src.g);
-	if (rgb_type == 'a')
+	if (rgb_type == ALPHA)
 		return (src.a);
 	return (src.r);
 }
@@ -81,7 +81,7 @@ t_table_rgba	init_table_rgb(size_t row, size_t col, unsigned char **rgb_arr)
 
 // time : O(n * k^2)
 // space: O(n)
-t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, char rgb_type)
+t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, e_rgba rgb_type)
 {
 	t_table_fdf		dst;
 	t_table_rgba	src_arr;

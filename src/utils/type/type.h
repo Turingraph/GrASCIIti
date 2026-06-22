@@ -3,12 +3,28 @@
 
 #include <stdlib.h>
 
+/*
+lack enum
+1.	input/synesthesia/
+2.	graphic/triangle_arr/
+*/
+
 typedef enum e_bool e_bool;
 
 enum e_bool
 {
 	FALSE,
 	TRUE
+};
+
+typedef enum e_rgba e_rgba;
+
+enum e_rgba
+{
+	RED,
+	GREEN,
+	BLUE,
+	ALPHA
 };
 
 // input/load/

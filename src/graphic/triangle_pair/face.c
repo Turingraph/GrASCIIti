@@ -7,10 +7,10 @@ t_triangle	f_fdf_triangle(t_table_fdf src, size_t row, size_t col, char mode)
 	t_triangle	dst;
 
 	dst = init_triangle();
-	dst.r = triangle_face_rgb(src, row, col, 'r');
-	dst.g = triangle_face_rgb(src, row, col, 'g');
-	dst.b = triangle_face_rgb(src, row, col, 'b');
-	dst.a = triangle_face_rgb(src, row, col, 'a');
+	dst.r = triangle_face_rgb(src, row, col, RED);
+	dst.g = triangle_face_rgb(src, row, col, GREEN);
+	dst.b = triangle_face_rgb(src, row, col, BLUE);
+	dst.a = triangle_face_rgb(src, row, col, ALPHA);
 	if (mode == 1 || mode == 2)
 	{
 		update_3d_vector(dst.p1, col, row, src.arr[row][col]);

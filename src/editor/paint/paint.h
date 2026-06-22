@@ -30,26 +30,19 @@ struct t_gradient
 	int				x2;
 };
 
-/*
-typedef struct t_paint_func t_paint_func;
-
-e_line_log = 0 => scale * (x + shift)
-e_line_log = 1 => shift * scale^x
-e_line_log = 2 => ???
-
-shift, percent in [0, 1]
-
-struct t_paint_func
-{
-	double		scale;
-	double		shift;
-	double		percent;
-};
-*/
-
 // paint.c
 void		paint_gradient_fdf(t_table_fdf *table, t_gradient rgb, char dim);
 void		reset_gradient_fdf(t_table_fdf *table);
-void		f_gradient_cpy(t_gradient src, t_gradient *dst);
+
+// set_color.c
+e_bool	collatz_coloring(size_t row, size_t col, t_table_fdf *dst);
+e_bool	is_colored_cell(size_t row, size_t col, t_table_fdf *dst);
+e_bool	gaussian_prime(size_t row, size_t col, t_table_fdf *dst);
+e_bool	imaginary_square(size_t row, size_t col, t_table_fdf *dst);
+void	set_color_every_cells(
+	t_table_fdf *dst,
+	e_rgba rgb_type,
+	unsigned char new_rgb,
+	e_bool(*is_color_target)(size_t row, size_t col, t_table_fdf *dst));
 
 #endif

@@ -14,7 +14,7 @@ struct t_table_rgba
 
 // convolution.c
 t_table_fdf	convolution_hight(t_table_fdf src, double **kernel, size_t half_dim);
-t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, char rgb_type);
+t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, e_rgba rgb_type);
 
 // kernel.c
 double		**blur_kernel_2d(size_t dim, double scale);

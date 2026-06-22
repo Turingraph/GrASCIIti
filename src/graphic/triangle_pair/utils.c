@@ -48,18 +48,18 @@ unsigned char	triangle_side_rgb(unsigned char **src, size_t row, size_t col, cha
 
 // time : O(1)
 // space: O(1)
-unsigned char	triangle_face_rgb(t_table_fdf src, size_t row, size_t col, char mode)
+unsigned char	triangle_face_rgb(t_table_fdf src, size_t row, size_t col, e_rgba rgb_type)
 {
 	float	drgb;
 
 	drgb = 0;
-	if (mode == 'r' && src.r != NULL && src.r[row] != NULL && src.r[row + 1] != NULL)
+	if (rgb_type == RED && src.r != NULL && src.r[row] != NULL && src.r[row + 1] != NULL)
 		drgb = (float)((int)src.r[row][col] + (int)src.r[row + 1][col] + (int)src.r[row][col + 1] + (int)src.r[row + 1][col + 1]) / 4;
-	if (mode == 'g' && src.g != NULL && src.g[row] != NULL && src.g[row + 1] != NULL)
+	if (rgb_type == GREEN && src.g != NULL && src.g[row] != NULL && src.g[row + 1] != NULL)
 		drgb = (float)((int)src.g[row][col] + (int)src.g[row + 1][col] + (int)src.g[row][col + 1] + (int)src.g[row + 1][col + 1]) / 4;
-	if (mode == 'b' && src.b != NULL && src.b[row] != NULL && src.b[row + 1] != NULL)
+	if (rgb_type == BLUE && src.b != NULL && src.b[row] != NULL && src.b[row + 1] != NULL)
 		drgb = (float)((int)src.b[row][col] + (int)src.b[row + 1][col] + (int)src.b[row][col + 1] + (int)src.b[row + 1][col + 1]) / 4;
-	if (mode == 'a' && src.a != NULL && src.a[row] != NULL && src.a[row + 1] != NULL)
+	if (rgb_type == ALPHA && src.a != NULL && src.a[row] != NULL && src.a[row + 1] != NULL)
 		drgb = (float)((int)src.a[row][col] + (int)src.a[row + 1][col] + (int)src.a[row][col + 1] + (int)src.a[row + 1][col + 1]) / 4;
 	return ((unsigned char)f_round(f_interval(drgb, 0, 255)));
 }

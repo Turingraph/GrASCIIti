@@ -43,7 +43,7 @@ t_synesthesia	init_synesthesia(size_t row, size_t col)
 	dst.b = init_2d_uchar_arr(row, col);
 	dst.a = init_2d_uchar_arr(row, col);
 	if (dst.r == NULL || dst.g == NULL || dst.b == NULL
-		|| dst.a == NULL|| dst.alphabet == NULL)
+		|| dst.a == NULL || dst.alphabet == NULL)
 		free_synesthesia(&dst);
 	return (dst);
 }

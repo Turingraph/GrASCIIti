@@ -45,3 +45,12 @@ float	f_interval(float num, float min, float max)
 		return (min);
 	return (num);
 }
+
+// time : O(1)
+// space: O(1)
+float	f_max(float a, float b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
