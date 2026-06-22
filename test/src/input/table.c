@@ -37,8 +37,8 @@ int	main(int len, char **str)
 	free_table_fdf(&table);
 	if (table2.arr == NULL)
 		return (0);
-	// write(1, "*** TABLE 4x4 ***\n", 19);
-	// write_table_fdf(1, table2, 0, 2);
+	write(1, "*** TABLE 4x4 ***\n", 19);
+	write_table_fdf(1, table2, 0, 2);
 	free_table_fdf(&table2);
 	return (0);
 }

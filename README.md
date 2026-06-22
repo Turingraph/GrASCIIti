@@ -3,6 +3,9 @@
 This project name as `GrASCIIfi` which is inspired by 42 Coding School, Graffiti art, ASCII art, 3D Typography, and my personal experience with Grapheme Color Synesthesia.
 
 <!-- 
+Keyword
+1.	vulkan
+
 TO DO LIST
 1.	Add enum in graphic/triangle_arr/ and input/synesthesia/
 2.	study basic OpenGL/GLFW (including dynamic linking)

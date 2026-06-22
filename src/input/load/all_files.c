@@ -70,18 +70,18 @@ t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*one_line)(char *line))
 	char			*line;
 
 	dst = init_load_fdf_arr(1);
-	line = get_next_line(fd, 0);
+	line = get_next_line(fd, CONTINUE);
 	while (line != NULL)
 	{
 		push_load_fdf_arr(&dst, one_line(line));
 		if (dst.length > 0)
 			warning_load_fdf(dst.arr[dst.length - 1], dst.length - 1);
 		free(line);
-		line = get_next_line(fd, 0);
+		line = get_next_line(fd, CONTINUE);
 	}
 	if (line != NULL)
 		free(line);
-	get_next_line(fd, 1);
+	get_next_line(fd, STOP_GNL);
 	truncate = copy_load_fdf_arr(dst, dst.length);
 	free(dst.arr);
 	return (truncate);

@@ -20,15 +20,11 @@ char	f_strncmp(char *dst, char *src, size_t n)
 // space: O(1)
 char	f_isspace(char s, char *space)
 {
-	size_t	i;
-
-	i = 0;
 	while (*space != '\0')
 	{
 		if (*space == s)
 			return (1);
 		space += 1;
-		i += 1;
 	}
 	return (0);
 }

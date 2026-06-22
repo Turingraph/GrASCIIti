@@ -12,15 +12,15 @@ int	main(int len, char **str)
 	fd = open(str[1], 'r');
 	if (fd < 0)
 		return (0);
-	line = get_next_line(fd, 0);
-	get_next_line(fd, 1);
+	line = get_next_line(fd, CONTINUE);
+	get_next_line(fd, STOP_GNL);
 	if (line == NULL)
 		return (0);
 	// dst = one_fdf_line(line);
-	dst = my_one_ascii_line(line);
-	write_load_fdf(1, dst, 1, 0);
+	dst = cheche_one_ascii_line(line);
+	write_load_fdf(1, dst, 1, FALSE);
 	warning_load_fdf(dst, 0);
-	free_load_fdf(dst);
+	free_load_fdf(&dst);
 	free(line);
 	return (0);
 }
@@ -41,9 +41,9 @@ int	main(int len, char **str)
 	// fd2 = open(str[2], 'a');
 	// if (fd2 < 0)
 	// 	return (0);
-	dst = load_all_fdf_lines(fd, one_fdf_line);
+	dst = load_all_fdf_lines(fd, cheche_one_ascii_line);
 	// write_load_fdf_arr(fd2, dst, 1, 1);
-	write_load_fdf_arr(1, dst, 1, FALSE);
+	// write_load_fdf_arr(1, dst, 1, FALSE);
 	free_load_fdf_arr(&dst);
 	return (0);
 }

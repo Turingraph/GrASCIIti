@@ -4,6 +4,8 @@
 // space: O(n)
 t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 {
+	if (cup == NULL)
+		return (NULL);
 	*cup = (t_temperance *)queen_of_coin(sizeof(t_temperance), "GNL/ace_of_cup\n");
 	if (*cup == NULL)
 		return (NULL);
@@ -20,12 +22,22 @@ t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 
 // time : O(1)
 // space: O(1)
-e_dream	the_lost_treasure(e_dream *ambition, char **coin)
+e_dream	the_lost_treasure(e_dream *ambition, char **coin, t_temperance **angel)
 {
-	*ambition = STOP_GNL;
-	if (*coin != NULL)
+	if (angel != NULL && *(angel) != NULL)
+	{
+		free((*angel)->arr);
+		free((*angel));
+		*angel = NULL;
+	}
+	if (coin != NULL)
+	{
 		free(*coin);
-	*coin = NULL;
+		*coin = NULL;
+	}
+	if (ambition == NULL)
+		return (STOP_GNL);
+	*ambition = STOP_GNL;
 	return (STOP_GNL);
 }
 
@@ -33,22 +45,14 @@ e_dream	the_lost_treasure(e_dream *ambition, char **coin)
 // space: O(n)
 e_dream	king_gnu(char **coin, e_dream *ambition, e_dream anchor, t_temperance **angel)
 {
-	if (anchor == STOP_GNL || BUFFER_SIZE <= 0)
-	{
-		free((*angel)->arr);
-		free((*angel));
-		*angel = NULL;
-		*ambition = STOP_GNL;
-		return (STOP_GNL);
-	}
-	if (anchor == STOP_GNL || *ambition == STOP_GNL)
-		return (the_lost_treasure(ambition, coin));
+	if (anchor == STOP_GNL || BUFFER_SIZE <= 0 || *ambition == STOP_GNL)
+		return (the_lost_treasure(ambition, coin, angel));
 	if (ace_of_cup(1, angel) == NULL)
-		return (the_lost_treasure(ambition, coin));
+		return (the_lost_treasure(ambition, coin, angel));
 	if (*coin != NULL)
 	{
 		if (three_of_cups(angel, *coin) == NULL)
-			return (the_lost_treasure(ambition, coin));
+			return (the_lost_treasure(ambition, coin, angel));
 		if (*coin != NULL)
 			free(*coin);
 		*coin = NULL;
@@ -97,6 +101,7 @@ char	*get_next_line(int fd, e_dream anchor)
 	char			*knight;
 	size_t			length;
 
+	angel = NULL;
 	if (king_gnu(&coin, &ambition, anchor, &angel) == STOP_GNL)
 		return (NULL);
 	if (the_chariot(fd, &ambition, &angel) == STOP_GNL)

@@ -4,9 +4,6 @@ draft_*/
 
 trash_*/
 
-include/glfw/
-include/MLX42/
-
 test/bin/
 build/
 lib/
