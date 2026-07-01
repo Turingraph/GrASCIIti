@@ -403,6 +403,9 @@ as 16 times larger and apply 5x5 Gaussian convolution, or do something similar t
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
 	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
+8.	Git
+	1.	Undo Last Git commit.
+	*	https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git
 
 <!-- 
 To Do List
