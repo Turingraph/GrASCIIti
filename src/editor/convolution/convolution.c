@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-double	dot_product_2d(double **a, double **b, size_t row, size_t col)
+double	dot_product_2d(const double **a, const double **b, size_t row, size_t col)
 {
 	double	y;
 	size_t	i;
@@ -25,7 +25,7 @@ double	dot_product_2d(double **a, double **b, size_t row, size_t col)
 
 // time : O(n * k^2)
 // space: O(n)
-t_table_fdf	convolution_hight(t_table_fdf src, double **kernel, size_t half_dim)
+t_table_fdf	convolution_hight(const t_table_fdf *src, double **kernel, size_t half_dim)
 {
 	t_table_fdf	dst;
 	double		**src_kernel;
@@ -36,10 +36,10 @@ t_table_fdf	convolution_hight(t_table_fdf src, double **kernel, size_t half_dim)
 	if (dst.arr == NULL)
 		return (dst);
 	i = 0;
-	while (i < src.row)
+	while (i < src->row)
 	{
 		j = 0;
-		while (j < src.col)
+		while (j < src->col)
 		{
 			src_kernel = src_kernel_int(src, i, j, half_dim);
 			if (src_kernel == NULL)
@@ -56,19 +56,6 @@ t_table_fdf	convolution_hight(t_table_fdf src, double **kernel, size_t half_dim)
 
 // time : O(1)
 // space: O(1)
-unsigned char	**choose_rgb_table_fdf(t_table_fdf src, e_rgba rgb_type)
-{
-	if (rgb_type == BLUE)
-		return (src.b);
-	if (rgb_type == GREEN)
-		return (src.g);
-	if (rgb_type == ALPHA)
-		return (src.a);
-	return (src.r);
-}
-
-// time : O(1)
-// space: O(1)
 t_table_rgba	init_table_rgb(size_t row, size_t col, unsigned char **rgb_arr)
 {
 	t_table_rgba	dst;
@@ -81,7 +68,7 @@ t_table_rgba	init_table_rgb(size_t row, size_t col, unsigned char **rgb_arr)
 
 // time : O(n * k^2)
 // space: O(n)
-t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, e_rgba rgb_type)
+t_table_fdf	convolution_rgb(const t_table_fdf *src, double **kernel, size_t half_dim, e_rgba rgb_type)
 {
 	t_table_fdf		dst;
 	t_table_rgba	src_arr;
@@ -90,21 +77,22 @@ t_table_fdf	convolution_rgb(t_table_fdf src, double **kernel, size_t half_dim, e
 	size_t			j;
 
 	dst = scale_dimension_fdf(src, 1, 1);
-	if (dst.arr == NULL || choose_rgb_table_fdf(src, rgb_type) == NULL)
+	if (dst.arr == NULL || choose_rgb_channel(&src, rgb_type, 0) == NULL)
 		return (dst);
-	src_arr = init_table_rgb(src.row, src.col, choose_rgb_table_fdf(src, rgb_type));
+	src_arr = init_table_rgb(src->row, src->col, choose_rgb_channel(&src, rgb_type, 0));
 	i = 0;
-	while (i < src.row && src_arr.arr != NULL)
+	while (i < src->row && src_arr.arr != NULL)
 	{
 		j = 0;
-		while (j < src.col)
+		while (j < src->col)
 		{
 			src_kernel = src_kernel_char(src_arr, i, j, half_dim);
 			if (src_kernel == NULL)
 				return (dst);
-			choose_rgb_table_fdf(dst, rgb_type)[i][j] = (unsigned char)f_interval(
-				f_round(dot_product_2d(src_kernel, 
-				kernel, 2 * half_dim + 1, 2 * half_dim + 1)), 0, 255);
+			if (choose_rgb_channel(&dst, rgb_type, i) != NULL)
+				choose_rgb_channel(&dst, rgb_type, i)[i][j] = (unsigned char)f_interval(
+					f_round(dot_product_2d(src_kernel, 
+					kernel, 2 * half_dim + 1, 2 * half_dim + 1)), 0, 255);
 			free_2d_arr((void **)src_kernel, 2 * half_dim + 1);
 			j += 1;
 		}

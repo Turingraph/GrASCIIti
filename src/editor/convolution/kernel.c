@@ -65,7 +65,7 @@ double		**blur_kernel_2d(size_t dim, double scale)
 
 // time : O(n^2)
 // space: O(n^2)
-double	**outer_product_kernel(double *vec_v, double *vec_u, size_t dim)
+double	**outer_product_kernel(const double *vec_v, const double *vec_u, size_t dim)
 {
 	double	**kernel;
 	size_t	i;

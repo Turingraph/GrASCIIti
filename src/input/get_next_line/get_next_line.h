@@ -29,14 +29,13 @@ enum e_dream
 };
 
 // utils.c
-size_t			knight_of_coin(char *str, char stop);
-void			*queen_of_coin(size_t elem_size, char *comment);
-char			*ace_of_coin(char *src, size_t length, size_t capacity);
-t_temperance	**three_of_cups(t_temperance **group, char *friends);
+size_t			knight_of_coin(const char *str, char stop);
+void			*queen_of_coin(size_t elem_size, const char *comment);
+char			*ace_of_coin(const char *src, size_t length, size_t capacity);
+t_temperance	**three_of_cups(t_temperance **group, const char *friends);
 
 // get_next_line.c
-
-// char			*get_next_line(int fd);
+t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup);
 char			*get_next_line(int fd, e_dream anchor);
 
 #endif

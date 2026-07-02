@@ -4,6 +4,7 @@ draft_*/
 
 trash_*/
 
-test/bin/
+clone_examples/
+bin/
 build/
 lib/

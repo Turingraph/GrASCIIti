@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-char	f_strncmp(char *dst, char *src, size_t n)
+char	f_strncmp(const char *dst, const char *src, size_t n)
 {
 	size_t	i;
 
@@ -10,15 +10,15 @@ char	f_strncmp(char *dst, char *src, size_t n)
 	while (i < n && *dst == *src && *dst != '\0')
 	{
 		i += 1;
-		*dst += 1;
-		*src += 1;
+		dst += 1;
+		src += 1;
 	}
 	return (*dst - *src);
 }
 
 // time : O(n)
 // space: O(1)
-char	f_isspace(char s, char *space)
+char	f_isspace(char s, const char *space)
 {
 	while (*space != '\0')
 	{
@@ -31,7 +31,7 @@ char	f_isspace(char s, char *space)
 
 // time : O(n)
 // space: O(1)
-size_t	f_strlen(char *str)
+size_t	f_strlen(const char *str)
 {
 	size_t	i;
 

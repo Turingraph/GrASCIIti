@@ -2,23 +2,6 @@
 
 // time : O(n)
 // space: O(1)
-double	f_sum(double *vector, size_t dim)
-{
-	size_t	i;
-	double	y;
-
-	y = 0;
-	i = 0;
-	while (i < dim)
-	{
-		y += vector[i];
-		i += 1;
-	}
-	return (y);
-}
-
-// time : O(n)
-// space: O(1)
 double	f_pow(double x, size_t a)
 {
 	size_t	i;
@@ -45,6 +28,8 @@ double	newton_method(double x, size_t a, size_t accuracy)
 	size_t	i;
 	double	y;
 
+	if (a == 0)
+		return (1.0);
 	y = 1 / (double)a;
 	i = 0;
 	while (i < accuracy)
@@ -110,10 +95,21 @@ double	normal_distribution_function(double std, double means, double x)
 	double	pi;
 
 	pi = 3.141592653;
-	ac = 24;
+	ac = 12;
 	if (std == 0)
 		return (0);
 	down = std * newton_method(2 * pi, 2, ac);
 	up = f_exp(-1 * f_pow(x - means, 2) / (2 * std * std), ac);
 	return (up / down);
 }
+
+/*
+// the larger large_num the better the approximation.
+// https://math.stackexchange.com/questions/977586/is-there-an-approximation-to-the-natural-log-function-at-large-values
+// time : O(n)
+// space: O(1)
+double	natural_log(double x, double large_num, size_t accuracy)
+{
+	return (large_num * newton_method(x, large_num, accuracy) - large_num);
+}
+*/

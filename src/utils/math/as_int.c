@@ -54,3 +54,12 @@ float	f_max(float a, float b)
 		return (a);
 	return (b);
 }
+
+// time : O(1)
+// space: O(1)
+float	f_min(float a, float b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}

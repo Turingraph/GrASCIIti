@@ -2,11 +2,13 @@
 
 // time : O(n)
 // space: O(1)
-float	euclid_distance(float *vec_v, float *vec_0, size_t dim, char square)
+float	euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char square)
 {
 	float	y;
 	size_t	i;
 
+	if (vec_v == NULL)
+		return (0);
 	y = 0;
 	i = 0;
 	while (i < dim)
@@ -19,12 +21,12 @@ float	euclid_distance(float *vec_v, float *vec_0, size_t dim, char square)
 	}
 	if (square == 1)
 		return (y);
-	return (newton_method(y, 2, 12));
+	return ((float)newton_method(y, 2, 12));
 }
 
 // time : O(n)
 // space: O(1)
-float	cos_between_2_vectors(float *vec_v, float *vec_u, size_t dim)
+float	cos_between_2_vectors(const float *vec_v, const float *vec_u, size_t dim)
 {
 	float	div;
 
@@ -36,26 +38,31 @@ float	cos_between_2_vectors(float *vec_v, float *vec_u, size_t dim)
 
 // time : O(n)
 // space: O(n)
-void	vector_projection(float *update_v, float *vec_u, size_t dim)
+void	vector_projection(float *update_v, const float *vec_u, size_t dim)
 {
 	float	div;
 	float	scale;
 
-	div = euclid_distance(update_v, NULL, dim, 1);
-	if (div != 0)
+	if (update_3d != NULL && vec_u != NULL)
 	{
-		scale = dot_product(update_v, vec_u, dim) / div;
-		scale_vec(update_v, scale, dim);
+		div = euclid_distance(update_v, NULL, dim, 1);
+		if (div != 0)
+		{
+			scale = dot_product(update_v, vec_u, dim) / div;
+			scale_vec(update_v, scale, dim);
+		}
 	}
 }
 
 // time : O(n)
 // space: O(1)
-float	scale_projection(float *vec_v, float *vec_u, size_t dim)
+float	scale_projection(const float *vec_v, const float *vec_u, size_t dim)
 {
 	float	div;
 	float	scale;
 
+	if (vec_v == NULL || vec_u == NULL)
+		return (0);
 	div = euclid_distance(vec_v, NULL, dim, 0);
 	if (div == 0)
 		return (0);

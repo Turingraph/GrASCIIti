@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-size_t	knight_of_coin(char *str, char stop)
+size_t	knight_of_coin(const char *str, char stop)
 {
 	size_t	i;
 
@@ -17,7 +17,7 @@ size_t	knight_of_coin(char *str, char stop)
 
 // time : O(n)
 // space: O(1)
-void	*queen_of_coin(size_t elem_size, char *comment)
+void	*queen_of_coin(size_t elem_size, const char *comment)
 {
 	void	*dst;
 
@@ -35,7 +35,7 @@ void	*queen_of_coin(size_t elem_size, char *comment)
 
 // time : O(n)
 // space: O(n)
-char	*ace_of_coin(char *src, size_t length, size_t capacity)
+char	*ace_of_coin(const char *src, size_t length, size_t capacity)
 {
 	char	*coin;
 	size_t	i;
@@ -69,6 +69,8 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 {
 	t_temperance	*right_cup;
 
+	if (left_cup == NULL || *left_cup == NULL)
+		return (NULL);
 	if ((*left_cup)->length < (*left_cup)->capacity)
 	{
 		(*left_cup)->arr[(*left_cup)->length] = c;
@@ -95,9 +97,9 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 
 // time : O(n)
 // space: O(1)
-t_temperance	**three_of_cups(t_temperance **group, char *friends)
+t_temperance	**three_of_cups(t_temperance **group, const char *friends)
 {
-	while (*friends != '\0')
+	while (friends != NULL && group != NULL && *group != NULL && *friends != '\0')
 	{
 		if (two_of_cups(group, *friends) == NULL)
 		{

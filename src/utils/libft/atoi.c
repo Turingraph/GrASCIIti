@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-size_t	f_atoonei(char c, char *base, e_bool *is_int)
+size_t	f_atoonei(char c, const char *base, e_bool *is_int)
 {
 	size_t	i;
 	char	big_c;
@@ -30,7 +30,7 @@ size_t	f_atoonei(char c, char *base, e_bool *is_int)
 
 // time : O(1)
 // space: O(1)
-long int	f_atolongi(char *src, e_bool *is_int, char *base, size_t digits)
+long int	f_atolongi(const char *src, e_bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
 	size_t		i;
@@ -41,7 +41,7 @@ long int	f_atolongi(char *src, e_bool *is_int, char *base, size_t digits)
 	y = 0;
 	while ((is_int == NULL || *is_int != FALSE) && *src != '\0' && i < digits)
 	{
-		y += (long int) f_atoonei(*src, base, is_int);
+		y += (long int)f_atoonei(*src, base, is_int);
 		if (is_int != NULL && *is_int == FALSE)
 			return (-1);
 		y *= f_strlen(base);
@@ -54,11 +54,17 @@ long int	f_atolongi(char *src, e_bool *is_int, char *base, size_t digits)
 
 // time : O(1)
 // space: O(1)
-int	f_atoi(char *src, e_bool *is_int, char *base, size_t digits)
+int	f_atoi(const char *src, e_bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
 	size_t		sign;
 
+	if (src == NULL || base == NULL)
+	{
+		if (is_int != NULL)
+			*is_int = FALSE;
+		return (0);
+	}
 	if (src[0] == '0' && src[1] == '\0')
 		return (0);
 	sign = 0;
@@ -78,13 +84,15 @@ int	f_atoi(char *src, e_bool *is_int, char *base, size_t digits)
 
 // time : O(1)
 // space: O(1)
-size_t	display_int(int fd, long x, char *base, e_bool is_write)
+size_t	display_int(int fd, long x, const char *base, e_bool is_write)
 {
 	size_t	i;
 	long	d;
 	char	coef;
 	size_t	len;
 
+	if (base == NULL)
+		return (0);
 	i = 0;
 	len = f_strlen(base);
 	d = 1;
@@ -106,28 +114,33 @@ size_t	display_int(int fd, long x, char *base, e_bool is_write)
 
 // time : O(1)
 // space: O(1)
-void	ft_putnbr_fd(int n, int fd, char *base, size_t digits)
+size_t	ft_putnbr_fd(int n, int fd, const char *base, size_t digits)
 {
 	size_t	i;
 	size_t	j;
 
-	j = 0;
-	if (n > 0)
-		j = display_int(fd, (long)n, base, 0);
-	else if (n < 0)
+	if (base != NULL)
 	{
-		n *= -1;
-		j = 1 + display_int(fd, n, base, 0);
-		write(fd, "-", 1);
+		j = 0;
+		if (n > 0)
+			j = display_int(fd, (long)n, base, 0);
+		else if (n < 0)
+		{
+			n *= -1;
+			j = 1 + display_int(fd, n, base, 0);
+			write(fd, "-", 1);
+		}
+		i = 0;
+		if (j > digits)
+			j = digits;
+		while (i < digits - j)
+		{
+			write(fd, base, 1);
+			i += 1;
+		}
+		if (n != 0)
+			i += display_int(fd, n, base, 1);
+		return (i);
 	}
-	i = 0;
-	if (j > digits)
-		j = digits;
-	while (i < digits - j)
-	{
-		write(fd, base, 1);
-		i += 1;
-	}
-	if (n != 0)
-		display_int(fd, n, base, 1);
+	return (0);
 }

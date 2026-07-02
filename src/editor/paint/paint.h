@@ -4,45 +4,53 @@
 # include "../../utils/type/type.h"
 # include "../../utils/libft/libft.h"
 # include "../../utils/math/math.h"
+# include "../../input/table/table.h"
 # include <fcntl.h>
 
 /*
-direction == 0 => x
-direction == 1 => y
-direction == 2 => z
-
-r1, g1, b1, a1 = r2, g2, b2, a2 => sharp coloring
+List of unfinished function that I will implement after submit fdf42.
+1.	outlier.c
+2.	thue_morse.c
 */
 
 typedef struct t_gradient t_gradient;
 
 struct t_gradient
 {
-	unsigned char	r1;
-	unsigned char	g1;
-	unsigned char	b1;
-	unsigned char	a1;
-	unsigned char	r2;
-	unsigned char	g2;
-	unsigned char	b2;
-	unsigned char	a2;
-	int				x1;
-	int				x2;
+	t_rgb_input			start_rgb;
+	t_rgb_input			end_rgb;
+	e_7cell_channels	cell_channel;
+	int					start_value;
+	int					end_value;
 };
 
-// paint.c
-void		paint_gradient_fdf(t_table_fdf *table, t_gradient rgb, char dim);
-void		reset_gradient_fdf(t_table_fdf *table);
+// gradient.c
+void	color_cells_gradient(t_table_fdf *dst,
+	t_gradient *gradient_input,
+	e_bool is_overwrite,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst));
 
-// set_color.c
-e_bool	collatz_coloring(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_colored_cell(size_t row, size_t col, t_table_fdf *dst);
-e_bool	gaussian_prime(size_t row, size_t col, t_table_fdf *dst);
-e_bool	imaginary_square(size_t row, size_t col, t_table_fdf *dst);
-void	set_color_every_cells(
+// outlier.c
+void	print_outlier(void);
+
+// paint.c
+void	fill_cells_height(
 	t_table_fdf *dst,
-	e_rgba rgb_type,
-	unsigned char new_rgb,
-	e_bool(*is_color_target)(size_t row, size_t col, t_table_fdf *dst));
+	int height,
+	e_bool is_overwrite,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst));
+void	generate_cells_color(
+	t_table_fdf *dst,
+	e_5cell_channels channel,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst),
+	int(*gen_color)(size_t row, size_t col, t_table_fdf *dst));
+void	fill_cells_color(
+	t_table_fdf *dst,
+	int input_value,
+	e_5cell_channels channel,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst));
+
+// thue_morse.c
+void	print_thue_morse(void);
 
 #endif

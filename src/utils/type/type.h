@@ -27,6 +27,49 @@ enum e_rgba
 	ALPHA
 };
 
+typedef enum e_axis e_axis;
+
+enum e_axis
+{
+	AXIS_X,
+	AXIS_Y,
+	AXIS_Z
+};
+
+typedef enum e_5cell_channels e_5cell_channels;
+
+enum e_5cell_channels
+{
+	D5_RED,
+	D5_GREEN,
+	D5_BLUE,
+	D5_ALPHA,
+	D5_HEIGHT
+};
+
+typedef enum e_7cell_channels e_7cell_channels;
+
+enum e_7cell_channels
+{
+	D7_RED,
+	D7_GREEN,
+	D7_BLUE,
+	D7_ALPHA,
+	D7_ROW,
+	D7_COL,
+	D7_HEIGHT
+};
+
+typedef enum e_write_style e_write_style;
+
+enum e_write_style
+{
+	HEIGHT_ONLY,
+	HEIGHT_RGBA,
+	HEIGHT_RGB,
+	FDF42
+};
+
 // input/load/
 
 typedef enum e_load_warning e_load_warning;
@@ -38,6 +81,8 @@ enum e_load_warning
 	NOT_HEX,
 	EMPTY
 };
+
+// input/load/
 
 typedef struct t_load_fdf t_load_fdf;
 
@@ -70,6 +115,8 @@ struct t_table_fdf
 {
 	size_t			row;
 	size_t			col;
+	size_t			origin_x;
+	size_t			origin_y;
 	int				**arr;
 	unsigned char	**r;
 	unsigned char	**g;
@@ -77,19 +124,16 @@ struct t_table_fdf
 	unsigned char	**a;
 };
 
-// input/synesthesia/
+// editor/paint/
 
-typedef struct t_synesthesia t_synesthesia;
+typedef struct t_rgb_input t_rgb_input;
 
-struct t_synesthesia
+struct t_rgb_input
 {
-	char			*alphabet;
-	size_t			row;
-	size_t			col;
-	unsigned char	**r;
-	unsigned char	**g;
-	unsigned char	**b;
-	unsigned char	**a;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
 };
 
 // graphic/triangle_pair/
@@ -116,9 +160,38 @@ struct t_triangle_arr
 	t_triangle	*arr;
 	size_t		length;
 	size_t		capacity;
+	size_t		table_row;
+	size_t		table_col;
 	float		width_x;
 	float		width_y;
 	float		width_z;
 };
+
+// utils/math/
+typedef struct t_complex t_complex;
+
+struct t_complex
+{
+	float	re;
+	float	im;
+};
+
+// ascii.c
+char			mirror_tune(char a, e_bool is_left);
+int				f_ctoi(char a, const char *dict);
+void			ft_put_ascii_fd(int fd, int cell, const char *dict,
+					e_bool is_left);
+
+// table.c
+unsigned char	**choose_rgb_channel(const t_table_fdf *src, e_rgba rgb_type,
+					size_t row);
+void			**choose_5cell_channel(const t_table_fdf *src,
+					e_5cell_channels channel, size_t row);
+e_bool			is_rgbah_table_not_null(const t_table_fdf *src, size_t row);
+t_complex		get_table_fdf_coordinate(size_t row, size_t col,
+					const t_table_fdf *dst);
+e_bool			is_default_rgba(const unsigned char **r,
+					const unsigned char **g,
+					const unsigned char **b, const unsigned char **a);
 
 #endif

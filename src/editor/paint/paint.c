@@ -1,116 +1,25 @@
 #include"paint.h"
 
-// time : O(1)
-// space: O(1)
-void	mixing_over_rgb(unsigned char *color, t_gradient rgb, int ratio, e_rgba rgb_type)
-{
-	if (ratio <= rgb.x1 && rgb_type == RED)
-		*color = rgb.r1;
-	if (ratio <= rgb.x1 && rgb_type == GREEN)
-		*color = rgb.g1;
-	if (ratio <= rgb.x1 && rgb_type == BLUE)
-		*color = rgb.b1;
-	if (ratio <= rgb.x1 && rgb_type == ALPHA)
-		*color = rgb.a1;
-	if (ratio > rgb.x1 && rgb_type == RED)
-		*color = rgb.r1;
-	if (ratio > rgb.x1 && rgb_type == GREEN)
-		*color = rgb.g1;
-	if (ratio > rgb.x1 && rgb_type == BLUE)
-		*color = rgb.b1;
-	if (ratio > rgb.x1 && rgb_type == ALPHA)
-		*color = rgb.a1;
-}
-
-/*
-ratio == a => r1
-ratio == b => r2
-
-f:x1 = y1
-f:x2 = y2
-
-(y2 - y1) * (z - x1) / (x2 - x1)
-(y2 - y1) * (x1 - x1) / (x2 - x1) + y1 = y1
-(y2 - y1) * (x2 - x1) / (x2 - x1) + y1 = (y2 - y1) + y1 = y2
-*/
-
-// time : O(1)
-// space: O(1)
-void	mixing_rgb(unsigned char *color, t_gradient rgb, int ratio, e_rgba rgb_type)
-{
-	float	mix_rgb;
-	float	delta;
-	float	y1;
-
-	delta = 1.0;
-	if (rgb_type == RED)
-		delta = (float)f_floor(rgb.r2 - rgb.r1);
-	if (rgb_type == GREEN)
-		delta = (float)f_floor(rgb.g2 - rgb.g1);
-	if (rgb_type == BLUE)
-		delta = (float)f_floor(rgb.b2 - rgb.b1);
-	if (rgb_type == ALPHA)
-		delta = (float)f_floor(rgb.a2 - rgb.a1);
-	if (rgb_type == RED)
-		y1 = (float)f_floor(rgb.r1);
-	if (rgb_type == GREEN)
-		y1 = (float)f_floor(rgb.g1);
-	if (rgb_type == BLUE)
-		y1 = (float)f_floor(rgb.b1);
-	if (rgb_type == ALPHA)
-		y1 = (float)f_floor(rgb.a1);
-	if (ratio >= rgb.x1 && ratio <= rgb.x2 && rgb.x2 != rgb.x1)
-	{
-		mix_rgb = f_floor(ratio - (rgb.x1)) * delta / f_floor(rgb.x2 - rgb.x1) + y1;
-		*color = (unsigned char)f_floor(mix_rgb);
-	}
-	else
-		mixing_over_rgb(color, rgb, (int)f_floor(ratio), rgb_type);
-}
-
-// time : O(1)
-// space: O(1)
-int	gradient_input(t_table_fdf table, char dim, size_t row, size_t col)
-{
-	if (dim == 0)
-		return ((int)row);
-	if (dim == 1)
-		return ((int)col);
-	if (dim == 2)
-		return (table.arr[row][col]);
-	if (dim == 3)
-		return ((int)table.r[row][col]);
-	if (dim == 4)
-		return ((int)table.g[row][col]);
-	if (dim == 5)
-		return ((int)table.b[row][col]);
-	if (dim == 6)
-		return ((int)table.a[row][col]);
-	return ((int)row);
-}
-
 // time : O(n)
 // space: O(1)
-void	paint_gradient_fdf(t_table_fdf *table, t_gradient rgb, char dim)
+void	fill_cells_height(
+	t_table_fdf *dst,
+	int height,
+	e_bool is_overwrite,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst))
 {
 	size_t	i;
 	size_t	j;
-	int		z;
 
 	i = 0;
-	while (table != NULL && i < table->row)
+	while (i < dst->row && dst->arr != NULL)
 	{
 		j = 0;
-		while (j < table->col)
+		while (j < dst->col && dst->arr[i] != NULL)
 		{
-			z = gradient_input(*table, dim, i, j);
-			if (rgb.x1 <= z && z <= rgb.x2 && 0 <= dim && dim <= 6)
-			{
-				mixing_rgb(table->r[i] + j, rgb, z, RED);
-				mixing_rgb(table->g[i] + j, rgb, z, GREEN);
-				mixing_rgb(table->b[i] + j, rgb, z, BLUE);
-				mixing_rgb(table->a[i] + j, rgb, z, ALPHA);
-			}
+			if ((is_filtered_cell == NULL || is_filtered_cell(i, j, dst) == TRUE)
+				&& ((is_overwrite == FALSE && dst->arr[i][j] <= 0) || is_overwrite == TRUE))
+				dst->arr[i][j] = height;
 			j += 1;
 		}
 		i += 1;
@@ -119,21 +28,61 @@ void	paint_gradient_fdf(t_table_fdf *table, t_gradient rgb, char dim)
 
 // time : O(n)
 // space: O(1)
-void	reset_gradient_fdf(t_table_fdf *table)
+void	fill_cells_color(
+	t_table_fdf *dst,
+	int input_value,
+	e_5cell_channels channel,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst))
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	while (table != NULL && i < table->row)
+	while (i < dst->row && choose_5cell_channel(dst, channel, 0) != NULL)
 	{
 		j = 0;
-		while (j < table->col)
+		while (j < dst->col && choose_5cell_channel(dst, channel, i) != NULL)
 		{
-			table->r[i][j] = (unsigned char)0;
-			table->g[i][j] = (unsigned char)0;
-			table->b[i][j] = (unsigned char)0;
-			table->a[i][j] = (unsigned char)0;
+			if (is_filtered_cell == NULL || is_filtered_cell(i, j, dst) == TRUE)
+				choose_5cell_channel(dst, channel, i)[i][j] = input_value;
+			j += 1;
+		}
+		i += 1;
+	}
+}
+
+// time : O(n)
+// space: O(1)
+void	generate_cells_color(
+	t_table_fdf *dst,
+	e_5cell_channels channel,
+	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst),
+	int(*gen_color)(size_t row, size_t col, t_table_fdf *dst))
+{
+	size_t	i;
+	size_t	j;
+	int		height;
+
+	i = 0;
+	while (i < dst->row && dst->arr != NULL)
+	{
+		j = 0;
+		while (j < dst->col && dst->arr[i] != NULL)
+		{
+			if (is_filtered_cell == NULL || is_filtered_cell(i, j, dst) == TRUE)
+			{
+				height = gen_color(i, j, dst);
+				if (channel == D5_HEIGHT)
+					dst->arr[i][j] = height;
+				if (channel == D5_RED)
+					dst->r[i][j] = (unsigned char)(height % 256);
+				if (channel == D5_GREEN)
+					dst->g[i][j] = (unsigned char)(height % 256);
+				if (channel == D5_BLUE)
+					dst->b[i][j] = (unsigned char)(height % 256);
+				if (channel == D5_ALPHA)
+					dst->a[i][j] = (unsigned char)(height % 256);
+			}
 			j += 1;
 		}
 		i += 1;

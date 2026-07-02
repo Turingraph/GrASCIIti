@@ -2,11 +2,13 @@
 
 // time : O(n)
 // space: O(1)
-e_load_warning	split_to_int_arr(char **split, int *dst, size_t len)
+e_load_warning	split_to_int_arr(const char **split, int *dst, size_t len)
 {
 	size_t	i;
 	e_bool	int_warn;
 
+	if (split == NULL)
+		return (EMPTY);
 	int_warn = TRUE;
 	i = 0;
 	while (i < len)
@@ -27,15 +29,20 @@ e_load_warning	split_to_int_arr(char **split, int *dst, size_t len)
 
 // time : O(n)
 // space: O(n)
-int	*line_to_int_arr(char *line, e_load_warning *int_warn)
+int	*line_to_int_arr(const char *line, e_load_warning *int_warn)
 {
-	int		*dst;
-	char	**split;
-	size_t	len;
+	int				*dst;
+	char			**split;
+	size_t			len;
+	e_load_warning	log;
 
 	len = f_split_len(line, " \n\t\r\f\v");
 	if (len == 0)
+	{
+		if (int_warn != NULL)
+			*int_warn = EMPTY;
 		return (NULL);
+	}
 	split = f_split(line, " \t\n\r\f\v");
 	if (split == NULL)
 		return (NULL);
@@ -46,15 +53,16 @@ int	*line_to_int_arr(char *line, e_load_warning *int_warn)
 		free_2d_arr((void **)split, len);
 		return (NULL);
 	}
+	log = split_to_int_arr(split, dst, len);
 	if (int_warn != NULL)
-		*int_warn = split_to_int_arr(split, dst, len);
+		int_warn = log;
 	free_2d_arr((void **)split, len);
 	return (dst);
 }
 
 // time : O(1)
 // space: O(1)
-void	load_fdf_rgba(t_load_fdf *dst, size_t i, char *src)
+void	load_fdf_rgba(t_load_fdf *dst, size_t i, const char *src)
 {
 	size_t	len;
 	e_bool	rgb_warn;
@@ -79,13 +87,15 @@ void	load_fdf_rgba(t_load_fdf *dst, size_t i, char *src)
 
 // time : O(n)
 // space: O(1)
-void	line_to_rgb_arr(char *line, t_load_fdf *dst)
+char	line_to_rgb_arr(const char *line, t_load_fdf *dst)
 {
 	char	**split;
 	size_t	i;
 	size_t	k;
 	size_t	len;
 
+	if (dst == NULL)
+		return (0);
 	len = f_split_len(line, " \n\t\r\f\v");
 	split = NULL;
 	if (len > 0)
@@ -100,22 +110,24 @@ void	line_to_rgb_arr(char *line, t_load_fdf *dst)
 	}
 	if (split != NULL)
 		free_2d_arr((void **)split, len);
+	return (1);
 }
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	one_fdf_line(char *line)
+t_load_fdf	one_fdf_line(const char *line, e_bool is_rgb)
 {
 	t_load_fdf	dst;
 	size_t		length;
 
 	length = f_split_len(line, " \n\t\r\f\v");
-	dst = init_load_fdf(length, 1);
+	dst = init_load_fdf(length, is_rgb);
 	if (dst.int_warn == EMPTY)
 		return (dst);
 	dst.arr = line_to_int_arr(line, &(dst.int_warn));
 	if (dst.arr == NULL)
 		return (dst);
-	line_to_rgb_arr(line, &dst);
+	if (is_rgb == TRUE)
+		line_to_rgb_arr(line, &dst);
 	return (dst);
 }

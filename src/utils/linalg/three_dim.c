@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-void	cross_product_3d(float *update_v, float *vec_u)
+void	cross_product_3d(float *update_v, const float *vec_u)
 {
 	float	dim_0;
 	float	dim_1;
@@ -23,9 +23,12 @@ void	cross_product_3d(float *update_v, float *vec_u)
 // space: O(1)
 void	update_3d_vector(float *dst, float x, float y, float z)
 {
-	dst[0] = x;
-	dst[1] = y;
-	dst[2] = z;
+	if (dst != NULL)
+	{
+		dst[0] = x;
+		dst[1] = y;
+		dst[2] = z;
+	}
 }
 
 // time : O(1)

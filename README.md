@@ -325,6 +325,8 @@ as 16 times larger and apply 5x5 Gaussian convolution, or do something similar t
 	*	https://stackoverflow.com/questions/42328735/array-of-structs-vs-array-of-pointers-to-structs
 	3.	Visualizing the 4d numbers Quaternions
 	*	https://youtu.be/d4EgbgTm0Bg?si=wdYcMB8PoKzabdQJ
+	4.	Interesting New Algorithm
+	*	https://youtu.be/B9bztU1sTFA?si=WPThJWzQgdAkDBSi
 2.	import MXL42 library
 	1.  MLX42
 	*   https://github.com/codam-coding-college/MLX42#download-and-build---mlx42
@@ -403,30 +405,22 @@ as 16 times larger and apply 5x5 Gaussian convolution, or do something similar t
 	*	https://youtu.be/-hc29pbzM1A?si=P2j8dik4Lz00w28V
 	3.	Born On A Blue Day: Inside the Extraordinary Mind of an Autistic Savant
 	*	https://www.amazon.com/Born-Blue-Day-Extraordinary-Autistic/dp/1416549013
-8.	Git
+8.	Git (`git reset HEAD~`)
 	1.	Undo Last Git commit.
 	*	https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git
+	2.	Solve "Updates were rejected because the tip of your current branch is behind"
+	*	https://stackoverflow.com/questions/39399804/updates-were-rejected-because-the-tip-of-your-current-branch-is-behind-its-remot
 
 <!-- 
-To Do List
-1.	arr of pt to arr of struct
-2.	enum warning
-3.	1D array
-4.	triangle_arr
-5.	double to float
+To Do List before submission
+1.	Fix triangle_arr/ about painting part.
+2.	Makefile for unit_test/ and coding_examples/
+3.	graphic/window/ (with keyboard only UXUI)
+4.	main.c
 
-To Do List
-1.	pointer to struct arr: input/table, input/synesthesia, editor/*
-2.	enum: input/load, utils/libft, 
-3.	implement: triangle_arr
-4.	double to float: triangle_pair, triangle_arr
-
-enum warning
-1.	boolean & atoi
-2.	input/load/
-3.	input/synesthesia/
-4.	input/get_next_line/
-
-Yakiniku like level ground floor near 7-11 @onebangkok
-beef karubi rice300g.
+To Do List before 1st stable release
+1.	graphic/animation/
+2.	graphic/rasterization/
+3.	user documentation
+4.	coding review
  -->

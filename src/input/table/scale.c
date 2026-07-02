@@ -2,35 +2,37 @@
 
 // time : O(n)
 // space: O(n)
-t_table_fdf	scale_dimension_fdf(t_table_fdf src, size_t scale_row, size_t scale_col)
+t_table_fdf	scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t scale_col)
 {
 	t_table_fdf	dst;
 	size_t		i;
 	size_t		j;
 	char		is_rgb;
 
+	if (src == NULL)
+		return ((init_table_fdf(0, 0)));
 	is_rgb = 0;
-	if (src.r != NULL || src.g != NULL || src.b != NULL || src.a != NULL)
+	if (src->r != NULL || src->g != NULL || src->b != NULL || src->a != NULL)
 		is_rgb = 1;
-	dst = init_table_fdf(src.row * scale_row, src.col * scale_col, is_rgb);
+	dst = init_table_fdf(src->row * scale_row, src->col * scale_col, is_rgb);
 	if (dst.arr == NULL)
 	{
 		free_table_fdf(&dst);
 		return (dst);
 	}
 	i = 0;
-	while (i < src.row && src.arr != NULL)
+	while (i < src->row && src->arr != NULL)
 	{
 		j = 0;
 		while (j < scale_row)
 		{
-			copy_int_arr(dst.arr[i * scale_row + j], src.arr[i], src.col, scale_col);
+			copy_int_arr(dst.arr[i * scale_row + j], src->arr[i], src->col, scale_col);
 			if (is_rgb > 0)
 			{
-				copy_uchar_arr(dst.r[i * scale_row + j], src.r[i], src.col, scale_col);
-				copy_uchar_arr(dst.g[i * scale_row + j], src.g[i], src.col, scale_col);
-				copy_uchar_arr(dst.b[i * scale_row + j], src.b[i], src.col, scale_col);
-				copy_uchar_arr(dst.a[i * scale_row + j], src.a[i], src.col, scale_col);
+				copy_uchar_arr(dst.r[i * scale_row + j], src->r[i], src->col, scale_col);
+				copy_uchar_arr(dst.g[i * scale_row + j], src->g[i], src->col, scale_col);
+				copy_uchar_arr(dst.b[i * scale_row + j], src->b[i], src->col, scale_col);
+				copy_uchar_arr(dst.a[i * scale_row + j], src->a[i], src->col, scale_col);
 			}
 			j += 1;
 		}
@@ -48,7 +50,7 @@ void	scale_addition_fdf(t_table_fdf *src, int scale)
 	long	check;
 
 	i = 0;
-	while (i < src->row && src->arr != NULL)
+	while (src != NULL && i < src->row && src->arr != NULL)
 	{
 		j = 0;
 		while (j < src->col && src->arr[i] != NULL)
@@ -75,7 +77,7 @@ void	scale_hadamard_fdf(t_table_fdf *src, float scale)
 	long	check;
 
 	i = 0;
-	while (i < src->row && src->arr != NULL)
+	while (src != NULL && i < src->row && src->arr != NULL)
 	{
 		j = 0;
 		while (j < src->col && src->arr[i] != NULL)
@@ -101,7 +103,7 @@ void	scale_relu_fdf(t_table_fdf *src, int min, int max, int expect)
 	size_t	j;
 
 	i = 0;
-	while (i < src->row && src->arr != NULL)
+	while (src != NULL && i < src->row && src->arr != NULL)
 	{
 		j = 0;
 		while (j < src->col && src->arr[i] != NULL)
@@ -116,7 +118,7 @@ void	scale_relu_fdf(t_table_fdf *src, int min, int max, int expect)
 
 // time : O(n)
 // space: O(1)
-size_t	scale_positive_fdf(t_table_fdf *src, e_bool is_update)
+int	scale_positive_fdf(t_table_fdf *src, e_bool is_update)
 {
 	long	min;
 	size_t	i;
@@ -124,10 +126,10 @@ size_t	scale_positive_fdf(t_table_fdf *src, e_bool is_update)
 
 	min = 0;
 	i = 0;
-	while (i < src->row)
+	while (src != NULL && src->arr != NULL && i < src->row)
 	{
 		j = 0;
-		while (j < src->col)
+		while (j < src->col && src->arr[i] != NULL)
 		{
 			if (min > src->arr[i][j])
 				min = src->arr[i][j];
@@ -137,6 +139,8 @@ size_t	scale_positive_fdf(t_table_fdf *src, e_bool is_update)
 	}
 	min *= -1;
 	if (is_update == TRUE && min <= (long)2147483647)
-		scale_addition_fdf(src, min);
-	return (min);
+		scale_addition_fdf(src, (int)min);
+	if (min <= (long)2147483647)
+		return ((int)(min * -1));
+	return (-2147483648);
 }

@@ -4,7 +4,7 @@
 
 // time : O(n)
 // space: O(1)
-void	row_of_src_kernel_int(int *src, double *dst, size_t col, size_t max_col)
+void	row_of_src_kernel_int(const int *src, double *dst, size_t col, size_t max_col)
 {
 	size_t	i;
 	size_t	i_l;
@@ -29,7 +29,7 @@ void	row_of_src_kernel_int(int *src, double *dst, size_t col, size_t max_col)
 
 // time : O(n)
 // space: O(n)
-double	**src_kernel_int(t_table_fdf src, size_t row, size_t col, size_t half_dim)
+double	**src_kernel_int(const t_table_fdf *src, size_t row, size_t col, size_t half_dim)
 {
 	size_t	i;
 	size_t	i_w;
@@ -45,12 +45,12 @@ double	**src_kernel_int(t_table_fdf src, size_t row, size_t col, size_t half_dim
 		i_w = 0;
 		if (i <= row)
 			i_w = row - i;
-		i_s = src.row - 1;
-		if (row + i < src.row)
+		i_s = src->row - 1;
+		if (row + i < src->row)
 			i_s = row + i;
-		row_of_src_kernel_int(src.arr[i_w], dst[half_dim - i], col, src.col);
+		row_of_src_kernel_int(src->arr[i_w], dst[half_dim - i], col, src->col);
 		if (i != 0)
-			row_of_src_kernel_int(src.arr[i_s], dst[half_dim + i], col, src.col);
+			row_of_src_kernel_int(src->arr[i_s], dst[half_dim + i], col, src->col);
 		i += 1;
 	}
 	return (dst);
@@ -83,7 +83,7 @@ void	row_of_src_kernel_char(unsigned char *src, double *dst, size_t col, size_t 
 
 // time : O(n)
 // space: O(n)
-double	**src_kernel_char(t_table_rgba src, size_t row, size_t col, size_t half_dim)
+double	**src_kernel_char(const t_table_rgba *src, size_t row, size_t col, size_t half_dim)
 {
 	size_t		i;
 	size_t		i_w;
@@ -99,12 +99,12 @@ double	**src_kernel_char(t_table_rgba src, size_t row, size_t col, size_t half_d
 		i_w = 0;
 		if (i <= row)
 			i_w = row - i;
-		i_s = src.row - 1;
-		if (row + i < src.row)
+		i_s = src->row - 1;
+		if (row + i < src->row)
 			i_s = row + i;
-		row_of_src_kernel_char(src.arr[i_w], dst[half_dim - i], col, src.col);
+		row_of_src_kernel_char(src->arr[i_w], dst[half_dim - i], col, src->col);
 		if (i != 0)
-			row_of_src_kernel_char(src.arr[i_s], dst[half_dim + i], col, src.col);
+			row_of_src_kernel_char(src->arr[i_s], dst[half_dim + i], col, src->col);
 		i += 1;
 	}
 	return (dst);

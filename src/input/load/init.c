@@ -35,7 +35,7 @@ t_load_fdf	init_load_fdf(size_t line_len, e_bool is_rgb)
 	dst.g = NULL;
 	dst.b = NULL;
 	dst.a = NULL;
-	if (is_rgb > 0)
+	if (is_rgb == TRUE)
 	{
 		dst.r = malloc_talk(sizeof(unsigned char) * line_len,
 			"load/ascii.c/int_load_fdf\n");

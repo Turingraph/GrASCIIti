@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-unsigned char	f_rgb(char *str, size_t len, e_bool *rgb_warn)
+unsigned char	f_rgb(const char *str, size_t len, e_bool *rgb_warn)
 {
 	int	dst;
 
@@ -14,64 +14,4 @@ unsigned char	f_rgb(char *str, size_t len, e_bool *rgb_warn)
 	if (dst > 255)
 		return (255);
 	return ((unsigned char)dst);
-}
-
-// time : O(n)
-// space: O(n)
-void	write_load_fdf(int fd, t_load_fdf src, size_t digits, e_bool is_rgb)
-{
-	size_t	i;
-
-	i = 0;
-	while (src.arr != NULL && i < src.length)
-	{
-		ft_putnbr_fd(src.arr[i], fd, "0123456789", digits);
-		if (is_rgb == TRUE && src.r != NULL && src.g != NULL
-			&& src.b != NULL && src.a != NULL)
-		{
-			write(fd, ",0x", 3);
-			ft_putnbr_fd((int)src.r[i], fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)src.g[i], fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)src.b[i], fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)src.a[i], fd, "0123456789abcdef", 2);
-		}
-		write(fd, "\t", 1);
-		i += 1;
-	}
-	write(fd, "\n", 1);
-}
-
-// time : O(n)
-// space: O(n)
-void	write_load_fdf_arr(int fd, t_load_fdf_arr src, size_t digits, e_bool is_rgb)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < src.length && src.arr != NULL)
-	{
-		write_load_fdf(fd, src.arr[i], digits, is_rgb);
-		i += 1;
-	}
-}
-
-// time : O(1)
-// space: O(1)
-void	warning_load_fdf(t_load_fdf dst, size_t i)
-{
-	if (dst.int_warn != CORRECT || dst.rgb_warn != CORRECT)
-	{
-		write(1, "Warning: Line no. ", 19);
-		ft_putnbr_fd(i, 1, "0123456789", 1);
-		write(1, " of input Fdf file is ", 23);
-		if (dst.int_warn == EMPTY)
-			write(1, "empty", 6);
-		if (dst.int_warn == NOT_DECIMAL)
-			write(1, "not a decimal number", 21);
-		if (dst.int_warn != CORRECT && dst.rgb_warn == 'E')
-			write(1, " and ", 5);
-		if (dst.rgb_warn == NOT_HEX)
-			write(1, " not a valid hexadecimal rgb representation", 44);
-		write(1, ".\n", 2);
-	}
 }

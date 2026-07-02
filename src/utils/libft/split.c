@@ -2,11 +2,13 @@
 
 // time : O(n)
 // space: O(1)
-size_t	f_split_len(char *input, char *space)
+size_t	f_split_len(const char *input, const char *space)
 {
 	size_t	i;
 	size_t	y;
 
+	if (input == NULL || space == NULL)
+		return (0);
 	y = 0;
 	i = 0;
 	while (input[i] != '\0')
@@ -25,7 +27,7 @@ size_t	f_split_len(char *input, char *space)
 
 // time : O(n)
 // space: O(1)
-char	*f_create_copy_text(char *input, char *space)
+char	*f_create_copy_text(const char *input, const char *space)
 {
 	char	*dst;
 	size_t	dst_len;
@@ -50,7 +52,7 @@ char	*f_create_copy_text(char *input, char *space)
 
 // time : O(n)
 // space: O(1)
-char	**f_split_push(char *input, char **dst, char *space)
+char	**f_split_push(const char *input, char **dst, const char *space)
 {
 	size_t	i;
 	size_t	j;
@@ -80,12 +82,16 @@ char	**f_split_push(char *input, char **dst, char *space)
 
 // time : O(n)
 // space: O(n)
-char	**f_split(char *input, char *space)
+char	**f_split(const char *input, const char *space)
 {
 	char	**dst;
 	size_t	dst_len;
 
+	if (input == NULL || space == NULL)
+		return (NULL);
 	dst_len = f_split_len(input, space);
+	if (dst_len == 0)
+		return (NULL);
 	dst = (char **)malloc_talk(sizeof(char *) * (dst_len + 1),
 		"LIB/split.c/f_split\n");
 	if (dst == NULL)
