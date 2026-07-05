@@ -101,7 +101,14 @@ void	scale_relu_fdf(t_table_fdf *src, int min, int max, int expect)
 {
 	size_t	i;
 	size_t	j;
+	int		temp;
 
+	if (min > max)
+	{
+		temp = min;
+		min = max;
+		max = temp;
+	}
 	i = 0;
 	while (src != NULL && i < src->row && src->arr != NULL)
 	{
@@ -118,12 +125,17 @@ void	scale_relu_fdf(t_table_fdf *src, int min, int max, int expect)
 
 // time : O(n)
 // space: O(1)
-int	scale_positive_fdf(t_table_fdf *src, e_bool is_update)
+int	scale_positive_fdf(t_table_fdf *src, e_bool is_update, e_bool return_min)
 {
+	long	sign;
 	long	min;
+	long	y;
 	size_t	i;
 	size_t	j;
 
+	sign = 1;
+	if (return_min == FALSE)
+		sign = -1;
 	min = 0;
 	i = 0;
 	while (src != NULL && src->arr != NULL && i < src->row)
@@ -131,16 +143,16 @@ int	scale_positive_fdf(t_table_fdf *src, e_bool is_update)
 		j = 0;
 		while (j < src->col && src->arr[i] != NULL)
 		{
-			if (min > src->arr[i][j])
+			if (min * sign > src->arr[i][j] * sign)
 				min = src->arr[i][j];
 			j += 1;
 		}
 		i += 1;
 	}
-	min *= -1;
-	if (is_update == TRUE && min <= (long)2147483647)
+	y = (int)f_interval((float)min, -2147483648, 2147483647);
+	if (min < 0)
+		min *= -1;
+	if (is_update == TRUE)
 		scale_addition_fdf(src, (int)min);
-	if (min <= (long)2147483647)
-		return ((int)(min * -1));
-	return (-2147483648);
+	return (y);
 }

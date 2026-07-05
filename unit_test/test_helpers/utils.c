@@ -12,29 +12,6 @@ void	write_total_score(size_t score, size_t max_score)
 }
 
 // time : O(n)
-// space: O(n)
-int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
-{
-	t_temperance	*file;
-	int				dst;
-
-	if (path == NULL || *path == '\0')
-		return (open(file_name, mode));
-	file = NULL;
-	ace_of_cup(1, &file);
-	if (file == NULL)
-		return (-1);
-	three_of_cups(&file, path);
-	three_of_cups(&file, file_name);
-	if (file == NULL)
-		return (-1);
-	dst = open(file->arr, mode);
-	free(file->arr);
-	free(file);
-	return (dst);
-}
-
-// time : O(n)
 // space: O(1)
 int	compare_intarr(const int *str_1, const int *str_2, size_t n)
 {
@@ -52,4 +29,13 @@ int	compare_intarr(const int *str_1, const int *str_2, size_t n)
 		str_2 += 1;
 	}
 	return (*str_1 - *str_2);
+}
+
+// time : O(n)
+// space: O(n)
+void	warning_file_not_exists(const char *src)
+{
+	write(1, "Warning: ", 10);
+	write(1, src, f_strlen(src));
+	write(1, " is not exists.\n", 17);
 }

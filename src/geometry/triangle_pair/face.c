@@ -7,10 +7,12 @@ t_triangle	f_fdf_triangle(const t_table_fdf *src, size_t row, size_t col, char m
 	t_triangle	dst;
 
 	dst = init_triangle();
-	dst.r = triangle_face_rgb(src, row, col, RED);
-	dst.g = triangle_face_rgb(src, row, col, GREEN);
-	dst.b = triangle_face_rgb(src, row, col, BLUE);
-	dst.a = triangle_face_rgb(src, row, col, ALPHA);
+	if (src == NULL)
+		return (dst);
+	if (src->color_sampling == SAMPLE_TOP_LEFT || src->color_sampling == SAMPLE_EDGE_AVERAGE)
+		topleft_tri_face_coloring(src, row, col, &dst);
+	if (src->color_sampling == SAMPLE_AVERAGE)
+		average_tri_face_coloring(src, row, col, &dst);
 	if (mode == 1 || mode == 2)
 	{
 		update_3d_vector(dst.p1, col, row, src->arr[row][col]);
@@ -84,21 +86,25 @@ float	test_2_fdf_triangles(const t_table_fdf *src, size_t row, size_t col)
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	f_fdf_face(const t_table_fdf *src, size_t row, size_t col, e_bool is_prism)
+t_triangle_arr	f_fdf_face(const t_table_fdf *src, size_t row, size_t col, e_3d_shape shape)
 {
 	t_triangle_arr	dst;
 	char			mode;
+	int				test;
 
 	mode = 0;
-	dst = init_triangle_arr(2);
+	dst = init_triangle_arr(2, 2, 2);
 	if (row + 1 >= src->row || col + 1 >= src->col)
 		return (dst);
 	dst.length = 2;
-	if (is_prism == TRUE)
+	if (shape != ISOMETRIC)
 		dst.length = count_2_fdf_triangles(src, row, col, &mode);
 	if (dst.length == 2)
 	{
-		if (test_2_fdf_triangles(src, row, col) > 0)
+		test = (row + col) % 2;
+		if (shape == PRISM_CROSS)
+			test = test_2_fdf_triangles(src, row, col);
+		if (test > 0)
 		{
 			dst.arr[0] = f_fdf_triangle(src, row, col, 3);
 			dst.arr[1] = f_fdf_triangle(src, row, col, 4);

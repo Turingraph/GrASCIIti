@@ -4,23 +4,26 @@
 // space: O(1)
 void	write_rgb_fdf(int fd, const t_table_fdf *src, size_t row, size_t col)
 {
-	write(fd, ",0x", 3);
-	if (src->r != NULL && src->r[row] != NULL)
-		ft_putnbr_fd((int)src->r[row][col], fd, "0123456789abcdef", 2);
-	else
-		write(fd, "00", 2);
-	if (src->g != NULL && src->g[row] != NULL)
-		ft_putnbr_fd((int)src->g[row][col], fd, "0123456789abcdef", 2);
-	else
-		write(fd, "00", 2);
-	if (src->b != NULL && src->b[row] != NULL)
-		ft_putnbr_fd((int)src->b[row][col], fd, "0123456789abcdef", 2);
-	else
-		write(fd, "00", 2);
-	if (src->a != NULL && src->a[row] != NULL)
-		ft_putnbr_fd((int)src->a[row][col], fd, "0123456789abcdef", 2);
-	else
-		write(fd, "00", 2);
+	if (fd > -1)
+	{
+		write(fd, ",0x", 3);
+		if (src->r != NULL && src->r[row] != NULL)
+			ft_putnbr_fd((int)src->r[row][col], fd, "0123456789abcdef", 2);
+		else
+			write(fd, "00", 2);
+		if (src->g != NULL && src->g[row] != NULL)
+			ft_putnbr_fd((int)src->g[row][col], fd, "0123456789abcdef", 2);
+		else
+			write(fd, "00", 2);
+		if (src->b != NULL && src->b[row] != NULL)
+			ft_putnbr_fd((int)src->b[row][col], fd, "0123456789abcdef", 2);
+		else
+			write(fd, "00", 2);
+		if (src->a != NULL && src->a[row] != NULL)
+			ft_putnbr_fd((int)src->a[row][col], fd, "0123456789abcdef", 2);
+		else
+			write(fd, "00", 2);
+	}
 }
 
 // time : O(n)
@@ -31,20 +34,12 @@ void	write_table_fdf(int fd, const t_table_fdf *src, size_t digits, e_write_styl
 	size_t	j;
 
 	i = 0;
-	while (src != NULL && i < src->row)
+	while (src != NULL && src->arr != NULL && i < src->row && fd > -1)
 	{
 		j = 0;
-		while (j < src->col)
+		while (src->arr[i] != NULL && j < src->col)
 		{
-			if (src->arr != NULL && src->arr[i] != NULL)
-				ft_putnbr_fd(src->arr[i][j], fd, "0123456789", digits);
-			else
-			{
-				write(fd, "Error: src->arr == NULL from table/save/"
-					"write_table_fdf in line no.", 68);
-				ft_putnbr_fd((int)i, fd, "0123456789", 1);
-				write(fd, "\n", 1);
-			}
+			ft_putnbr_fd(src->arr[i][j], fd, "0123456789", digits);
 			if (mode == HEIGHT_RGB && mode == HEIGHT_RGBA
 				|| (mode == FDF42
 					&& FALSE == is_default_rgba(src->r, src->g, src->b, src->a)))
@@ -68,10 +63,10 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_5cell_channels channel,
 	e_bool	left_char;
 
 	i = 0;
-	while (i < src->row && ch)
+	while (src != NULL && src->arr != NULL && i < src->row && fd > -1)
 	{
 		j = 0;
-		while (j < src->col)
+		while (src->arr[i] != NULL && j < src->col)
 		{
 			left_char = TRUE;
 			if (i > src->origin_x)

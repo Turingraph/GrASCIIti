@@ -2,23 +2,25 @@
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	all_triangle_faces(t_table_fdf src, char prism)
+t_triangle_arr	all_triangle_faces(const t_table_fdf *src, e_3d_shape shape)
 {
 	size_t			i;
 	size_t			j;
 	t_triangle_arr	dst;
 	t_triangle_arr	item;
 
-	dst = init_triangle_arr(2 * (src.row - 1) * (src.col - 1));
-	if (dst.arr == NULL || src.arr == NULL)
+	if (src == NULL || src->arr == NULL)
+		return (init_triangle_arr(0, 0, 0));
+	dst = init_triangle_arr(2 * (src->row - 1) * (src->col - 1), src->row, src->col);
+	if (dst.arr == NULL || src->arr == NULL)
 		return (dst);
 	i = 0;
-	while (i < src.row - 1)
+	while (i < src->row - 1)
 	{
 		j = 0;
-		while (j < src.col - 1)
+		while (j < src->col - 1)
 		{
-			item = f_fdf_face(src, i, j, prism);
+			item = f_fdf_face(src, i, j, shape);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}
@@ -30,44 +32,47 @@ t_triangle_arr	all_triangle_faces(t_table_fdf src, char prism)
 
 // time : O(1)
 // space: O(1)
-size_t	getdim(size_t row, size_t col, char axis, char state)
+size_t	getdim(size_t row, size_t col, e_edge mode, char state)
 {
-	if (axis == 'x' && state == 'r')
+	if (mode == EDGE_X && state == 'r')
 		return (row);
-	if (axis == 'x' && state == 'c')
+	if (mode == EDGE_X && state == 'c')
 		return (col - 1);
-	if (axis == 'x' && state == 'x')
+	if (mode == EDGE_X && state == 'x')
 		return (row * (col - 1));
-	if (axis == 'y' && state == 'r')
+	if (mode == EDGE_Y && state == 'r')
 		return (row - 1);
-	if (axis == 'y' && state == 'c')
+	if (mode == EDGE_Y && state == 'c')
 		return (col);
-	if (axis == 'y' && state == 'x')
+	if (mode == EDGE_Y && state == 'x')
 		return (col * (row - 1));
 	return (0);
 }
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	all_triangle_side_xy(t_table_fdf src, char axis)
+t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode)
 {
 	size_t			i;
 	size_t			j;
 	t_triangle_arr	dst;
 	t_triangle_arr	item;
 
-	dst = init_triangle_arr(2 * getdim(src.row, src.col, axis, 'x'));
+	if (src == NULL || (mode != EDGE_X && mode != EDGE_Y))
+		return (init_triangle_arr(0, 0, 0));
+	dst = init_triangle_arr(2 * getdim(src->row, src->col, mode, 'x'),
+		getdim(src->row, src->col, mode, 'r'), getdim(src->row, src->col, mode, 'c'));
 	if (dst.arr == NULL)
 		return (dst);
-	if (dst.arr == NULL || src.arr == NULL || (axis != 'x' && axis != 'y'))
+	if (dst.arr == NULL || src->arr == NULL)
 		return (dst);
 	i = 0;
-	while (i < getdim(src.row, src.col, axis, 'r'))
+	while (i < getdim(src->row, src->col, mode, 'r'))
 	{
 		j = 0;
-		while (j < getdim(src.row, src.col, axis, 'c'))
+		while (j < getdim(src->row, src->col, mode, 'c'))
 		{
-			item = f_fdf_side(src, i, j, axis);
+			item = f_fdf_edge(src, i, j, mode);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}
@@ -79,23 +84,25 @@ t_triangle_arr	all_triangle_side_xy(t_table_fdf src, char axis)
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	all_triangle_side_lr(t_table_fdf src, char axis)
+t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 {
 	size_t			i;
 	size_t			j;
 	t_triangle_arr	dst;
 	t_triangle_arr	item;
 
-	dst = init_triangle_arr(2 * (src.row - 1) * (src.col - 1));
-	if (dst.arr == NULL || src.arr == NULL || (axis != 'l' && axis != 'r'))
+	if (src == NULL || (mode != EDGE_DIAGONAL_LEFT && mode != EDGE_DIAGONAL_RIGHT))
+		return (init_triangle_arr(0, 0, 0));
+	dst = init_triangle_arr(2 * (src->row - 1) * (src->col - 1), src->row - 1, src->col - 1);
+	if (dst.arr == NULL || src->arr == NULL)
 		return (dst);
 	i = 0;
-	while (i < src.row - 1)
+	while (i < src->row - 1)
 	{
 		j = 0;
-		while (j < src.col - 1)
+		while (j < src->col - 1)
 		{
-			item = f_fdf_side(src, i, j, axis);
+			item = f_fdf_edge(src, i, j, mode);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}

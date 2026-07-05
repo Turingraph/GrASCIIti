@@ -2,16 +2,8 @@
 # define TEST_HELPERS_H
 
 # include "stdlib.h"
-# include "../../../src/utils/libft/libft.h"
-# include "../../../src/input/get_next_line/get_next_line.h"
-
-typedef enum e_file_mode e_file_mode;
-
-enum e_file_mode
-{
-	READ = 'r',
-	APPEND = 'a',
-};
+# include "../../src/utils/libft/libft.h"
+# include "../../src/input/get_next_line/get_next_line.h"
 
 typedef struct t_intarr t_intarr;
 
@@ -52,8 +44,7 @@ char	**load_file_as_strarr(int fd, size_t total_lines);
 
 // utils.c
 void	write_total_score(size_t score, size_t max_score);
-int		open_dir_file(const char *file_name, const char *dir,
-			e_file_mode mode);
 int		compare_intarr(const int *str_1, const int *str_2, size_t n);
+void	warning_file_not_exists(const char *src);
 
 #endif

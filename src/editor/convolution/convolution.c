@@ -10,10 +10,10 @@ double	dot_product_2d(const double **a, const double **b, size_t row, size_t col
 
 	y = 0;
 	i = 0;
-	while (i < row)
+	while (i < row && a != NULL && b != NULL)
 	{
 		j = 0;
-		while (j < col)
+		while (j < col && a[i] != NULL && b[i] != NULL)
 		{
 			y += a[i][j] * b[i][j];
 			j += 1;
@@ -33,7 +33,7 @@ t_table_fdf	convolution_hight(const t_table_fdf *src, double **kernel, size_t ha
 	size_t		j;
 
 	dst = scale_dimension_fdf(src, 1, 1);
-	if (dst.arr == NULL)
+	if (dst.arr == NULL || kernel == NULL)
 		return (dst);
 	i = 0;
 	while (i < src->row)
@@ -77,7 +77,8 @@ t_table_fdf	convolution_rgb(const t_table_fdf *src, double **kernel, size_t half
 	size_t			j;
 
 	dst = scale_dimension_fdf(src, 1, 1);
-	if (dst.arr == NULL || choose_rgb_channel(&src, rgb_type, 0) == NULL)
+	if (dst.arr == NULL || kernel == NULL
+		|| choose_rgb_channel(&src, rgb_type, 0) == NULL)
 		return (dst);
 	src_arr = init_table_rgb(src->row, src->col, choose_rgb_channel(&src, rgb_type, 0));
 	i = 0;

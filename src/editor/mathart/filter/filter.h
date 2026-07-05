@@ -1,9 +1,7 @@
 #ifndef FILTER_H
 # define FILTER_H
 
-# include "../../../utils/type/type.h"
-# include "../../../utils/libft/libft.h"
-# include "../../../utils/math/math.h"
+# include "../mathart.h"
 
 /*
 I will finish this folder after submit fdf42 project.

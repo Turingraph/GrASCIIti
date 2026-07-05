@@ -2,8 +2,10 @@
 
 // time : O(1)
 // space: O(1)
-unsigned char	get_rgb_input(e_rgba rgba_type, t_rgb_input *src)
+unsigned char	get_rgba(e_rgba rgb_type, t_rgba *src)
 {
+	if (src == NULL)
+		return (0);
 	if (rgb_type == RED)
 		return (src->r);
 	if (rgb_type == GREEN)
@@ -26,9 +28,9 @@ unsigned char	gradient_smooth(e_rgba rgb_type, t_gradient *gradient_input, int i
 	float	y2;
 
 	if (gradient_input->start_value == gradient_input->end_value)
-		return (get_rgb_input(rgb_type, gradient_input->start_rgb));
-	y1 = (float)(get_rgb_input(rgb_type, gradient_input->start_rgb));
-	y2 = (float)(get_rgb_input(rgb_type, gradient_input->end_rgb));
+		return (get_rgba(rgb_type, gradient_input->start_rgb));
+	y1 = (float)(get_rgba(rgb_type, gradient_input->start_rgb));
+	y2 = (float)(get_rgba(rgb_type, gradient_input->end_rgb));
 	dx = float(gradient_input->end_value - gradient_input->start_value);
 	dy = float(y2 - y1);
 	y = (((float)(input_threshold - gradient_input->start_value)) / dx) * dy + y1;

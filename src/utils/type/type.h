@@ -107,6 +107,15 @@ struct t_load_fdf_arr
 	size_t		capacity;
 };
 
+typedef enum e_sampling_rgba e_sampling_rgba;
+
+enum e_sampling_rgba
+{
+	SAMPLE_TOP_LEFT,
+	SAMPLE_AVERAGE,
+	SAMPLE_EDGE_AVERAGE
+};
+
 // input/table/
 
 typedef struct t_table_fdf t_table_fdf;
@@ -117,6 +126,7 @@ struct t_table_fdf
 	size_t			col;
 	size_t			origin_x;
 	size_t			origin_y;
+	e_sampling_rgba	color_sampling;
 	int				**arr;
 	unsigned char	**r;
 	unsigned char	**g;
@@ -126,9 +136,9 @@ struct t_table_fdf
 
 // editor/paint/
 
-typedef struct t_rgb_input t_rgb_input;
+typedef struct t_rgba t_rgba;
 
-struct t_rgb_input
+struct t_rgba
 {
 	unsigned char	r;
 	unsigned char	g;
@@ -175,23 +185,5 @@ struct t_complex
 	float	re;
 	float	im;
 };
-
-// ascii.c
-char			mirror_tune(char a, e_bool is_left);
-int				f_ctoi(char a, const char *dict);
-void			ft_put_ascii_fd(int fd, int cell, const char *dict,
-					e_bool is_left);
-
-// table.c
-unsigned char	**choose_rgb_channel(const t_table_fdf *src, e_rgba rgb_type,
-					size_t row);
-void			**choose_5cell_channel(const t_table_fdf *src,
-					e_5cell_channels channel, size_t row);
-e_bool			is_rgbah_table_not_null(const t_table_fdf *src, size_t row);
-t_complex		get_table_fdf_coordinate(size_t row, size_t col,
-					const t_table_fdf *dst);
-e_bool			is_default_rgba(const unsigned char **r,
-					const unsigned char **g,
-					const unsigned char **b, const unsigned char **a);
 
 #endif

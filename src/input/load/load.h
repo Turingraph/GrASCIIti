@@ -3,7 +3,6 @@
 
 #include "../get_next_line/get_next_line.h"
 #include "../../utils/libft/libft.h"
-#include "../../utils/type/type.h"
 
 // all_files.c
 t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*one_line)(char *line));
@@ -33,7 +32,7 @@ t_load_fdf		bw_fdf_line(const char *line);
 unsigned char	f_rgb(const char *str, size_t len, e_bool *rgb_warn);
 void			write_load_fdf_arr(int fd, const t_load_fdf_arr *src,
 					size_t digits, e_write_style write_style);
-void			warning_load_fdf(t_load_fdf *dst, size_t i);
+void			warning_load_fdf(const t_load_fdf *src, size_t i);
 void			write_load_ascii_arr(int fd, const t_load_fdf_arr *src,
 					const char *dict);
 

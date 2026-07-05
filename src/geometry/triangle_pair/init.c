@@ -67,7 +67,7 @@ t_triangle	init_triangle(void)
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	init_triangle_arr(size_t length)
+t_triangle_arr	init_triangle_arr(size_t length, size_t row, size_t col)
 {
 	t_triangle_arr	dst;
 
@@ -76,8 +76,8 @@ t_triangle_arr	init_triangle_arr(size_t length)
 	dst.width_x = 0.0;
 	dst.width_y = 0.0;
 	dst.width_z = 0.0;
-	dst.table_row = 0;
-	dst.table_col = 0;
+	dst.table_row = row;
+	dst.table_col = col;
 	dst.arr = NULL;
 	if (length > 0)
 		dst.arr = malloc_talk(sizeof(t_triangle) * length,

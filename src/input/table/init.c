@@ -41,6 +41,7 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, e_bool is_rgb)
 	dst.col = col;
 	dst.origin_x = col / 2;
 	dst.origin_y = row / 2;
+	dst.color_sampling = SAMPLE_TOP_LEFT;
 	if (is_rgb == TRUE)
 	{
 		dst.r = init_2d_uchar_arr(row, col);

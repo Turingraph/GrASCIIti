@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-float	update_width_of_triangle_arr(t_triangle_arr *src, size_t axis)
+float	update_width_of_triangle_arr(t_triangle_arr *src, e_axis axis)
 {
 	size_t	i;
 	float	min;
@@ -21,11 +21,11 @@ float	update_width_of_triangle_arr(t_triangle_arr *src, size_t axis)
 			min = width_of_triangle(src->arr[i], axis, 0);
 		i += 1;
 	}
-	if (axis == 0)
+	if (axis == AXIS_X)
 		src->width_x = max - min;
-	if (axis == 1)
+	if (axis == AXIS_Y)
 		src->width_y = max - min;
-	if (axis == 2)
+	if (axis == AXIS_Z)
 		src->width_z = max - min;
 	return (min);
 }
@@ -51,7 +51,7 @@ float	center_triangle_arr(t_triangle_arr *src, size_t axis)
 
 // time : O(n)
 // space: O(1)
-float	average_triangle_arr(t_triangle_arr *src, size_t axis, char update)
+float	average_triangle_arr(t_triangle_arr *src, size_t axis, e_bool is_update)
 {
 	size_t	i;
 	float	y;
@@ -70,7 +70,7 @@ float	average_triangle_arr(t_triangle_arr *src, size_t axis, char update)
 	}
 	if (src->length > 0)
 		y /= 3 * src->length;
-	if (update == 0)
+	if (is_update == FALSE)
 		return (y);
 	shift_triangle_arr(src, -1 * y, axis);
 	return (y);

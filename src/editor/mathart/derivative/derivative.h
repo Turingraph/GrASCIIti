@@ -1,9 +1,7 @@
 #ifndef DERIVATIVE_H
 # define DERIVATIVE_H
 
-# include "../../../utils/type/type.h"
-# include "../../../utils/libft/libft.h"
-# include "../../../utils/math/math.h"
+# include "../mathart.h"
 
 // filter.c
 e_bool	is_evenodd_curl(size_t row, size_t col, t_table_fdf *dst);

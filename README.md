@@ -423,4 +423,7 @@ To Do List before 1st stable release
 2.	graphic/rasterization/
 3.	user documentation
 4.	coding review
- -->
+
+I also add the feature that allow user to convert ASCII text (including Figlet output) as fdf42 input files, and display them as prism (with Z buffer) instead of isometric projection that looks like boring chocolate (as I see in original fdf42). The user can choose the origin of x and y on the tables of integers, also paint those prism with complex conformal map as rgba value on each cells, and use Gaussian convolution when they wish to do it and also save it as new fdf42 files. Also I plan to make it utilize mainly OpenGL/GLFW directly. The reason I do this is because I have grapheme color synesthesia, I never use Blender, and I want to show audience what is the color of alphabet and display it as 3D typography for pure artistic reason and as IT job portfolio. Moreover, I think I can use 3D typography as the symbolism of random thought when I meditate, or some random feeling that I try to be more aware. If I were to ordinate for a month in the future, I could mixing this Git repo with my personal experience with buddhism.
+
+-->

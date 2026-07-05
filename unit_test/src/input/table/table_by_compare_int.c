@@ -8,7 +8,6 @@ int	main(void)
 	e_bool			is_correct;
 	size_t			score;
 	size_t			max_score = 10;
-	t_load_fdf_arr	fdf_file;
 	t_table_fdf     table;
     size_t          is_rgb;
 	t_intarr_tester	arr[] = {
@@ -222,10 +221,9 @@ int	main(void)
 		while (k < 2)
 		{
 			if (k == 0)
-				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", bw_fdf_line);
+				table = open_table_fdf_file(arr[i].file_name, "input_examples/fdf/", bw_fdf_line, FALSE);
 			else
-				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", rgba_fdf_line);
-            table = load_table_fdf(&fdf_file, is_rgb);
+				table = open_table_fdf_file(arr[i].file_name, "input_examples/fdf/", rgba_fdf_line, TRUE);
 			if (table.row == arr[i].length)
 			{
 				is_correct = TRUE;
@@ -241,7 +239,6 @@ int	main(void)
 				if (is_correct == TRUE)
 					score += 1;
 			}
-			free_load_fdf_arr(&fdf_file);
             free_table_fdf(&table);
 			k += 1;
 		}

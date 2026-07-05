@@ -8,8 +8,12 @@
 // arr.c
 void			free_2d_arr(void **arr, size_t len);
 void			*malloc_talk(size_t elem_size, const char *comment);
-void			copy_uchar_arr(unsigned char *dst, const unsigned char *src, size_t len, size_t scale_dim);
-unsigned char	**init_2d_uchar_arr(size_t row, size_t col);
+
+// ascii.c
+char			mirror_tune(char a, e_bool is_left);
+int				f_ctoi(char a, const char *dict);
+void			ft_put_ascii_fd(int fd, int cell, const char *dict,
+					e_bool is_left);
 
 // atoi.c
 int				f_atoi(char *src, e_bool *is_int, const char *base, size_t digits);

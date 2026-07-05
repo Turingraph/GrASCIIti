@@ -20,6 +20,7 @@ t_table_fdf	convolution_rgb(const t_table_fdf *src, double **kernel, size_t half
 double		**blur_kernel_2d(size_t dim, double scale);
 double		*gaussian_kernel_1d(size_t half_dim);
 double		**outer_product_kernel(const double *vec_v, const double *vec_u, size_t dim);
+double		**gaussian_kernel_2d(size_t	half_dim);
 
 // src_kernel.c
 void		row_of_src_kernel_int(const int *src, double *dst, size_t col, size_t max_col);

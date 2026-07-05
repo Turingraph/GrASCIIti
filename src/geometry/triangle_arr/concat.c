@@ -29,12 +29,9 @@ t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length)
 	t_triangle_arr	dst;
 	size_t			i;
 
-	dst = init_triangle_arr(length);
 	if (length == 0 || dst.arr == NULL || src->arr == NULL)
-	{
-		free_triangle_arr(src);
-		return (dst);
-	}
+		return (init_triangle_arr(0, 0, 0));
+	dst = init_triangle_arr(length, src->table_row, src->col);
 	i = 0;
 	while (i < src->length && i < dst.capacity)
 	{
@@ -56,14 +53,14 @@ t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length)
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	clone_triangle_arr(t_triangle_arr *src, size_t length)
+t_triangle_arr	clone_triangle_arr(const t_triangle_arr *src, size_t length)
 {
 	t_triangle_arr	dst;
 	size_t			i;
 
-	dst = init_triangle_arr(length);
 	if (length == 0 || dst.arr == NULL || src->arr == NULL)
-		return (dst);
+		return (init_triangle_arr(0, 0, 0));
+	dst = init_triangle_arr(length, src->row, src->col);
 	i = 0;
 	while (i < src->length && i < dst.capacity)
 	{

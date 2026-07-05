@@ -87,3 +87,20 @@ double	**outer_product_kernel(const double *vec_v, const double *vec_u, size_t d
 	}
 	return (kernel);
 }
+
+// time : O(n^2)
+// space: O(n^2)
+double	**gaussian_kernel_2d(size_t	half_dim)
+{
+	double	*vec;
+	double	**dst;
+
+	if (half_dim < 1)
+		return (NULL);
+	vec = gaussian_kernel_1d(half_dim);
+	if (vec == NULL)
+		return (NULL);
+	dst = outer_product_kernel(vec, vec, 2 * half_dim + 1);
+	free(vec);
+	return (dst);
+}

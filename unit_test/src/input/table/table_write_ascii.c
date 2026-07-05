@@ -7,7 +7,6 @@ int	main(void)
     size_t          is_rgb;
 	size_t			score;
 	size_t			max_score = 49;
-	t_load_fdf_arr	fdf_file;
 	t_table_fdf     table;
 	char			*arr[] = {
 		"0.txt",
@@ -71,33 +70,27 @@ int	main(void)
 		while (k < 3)
 		{
 			if (k == 0)
-				fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", cheche01_ascii_line);
+				table = open_table_fdf_file(arr[i], "input_examples/font/rozzo/", cheche01_ascii_line, is_rgb);
 			if (k == 1)
-				fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", standard_ascii_line);
+				table = open_table_fdf_file(arr[i], "input_examples/font/rozzo/", standard_ascii_line, );
 			if (k == 2)
-				fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", chungaloider_ascii_line);
-			table = load_table_fdf(&fdf_file, is_rgb);
+				table = open_table_fdf_file(arr[i], "input_examples/font/rozzo/", chungaloider_ascii_line);
 			clone_examples = open_dir_file(arr[i], "clone_examples/", APPEND);
 			if (clone_examples > -1)
 			{
 				if (k == 0)
-					write_table_ascii(clone_examples, &table, 
-						" `'.,:_-;~!^\"/|(rvcil+xustf<=[*?{17L"
-						"TC23%Yoyhk4$5IF&XUGSEwampbgPAKO680DQRHNB#WM@");
+					write_table_ascii_cheche01(clone_examples, &table);
 				if (k == 1)
-					write_table_ascii(clone_examples, &table,
-						" .'`^\",:;Il!i<~+_-?[{1(|/tfrxuvcs="
-						"7T23y45FXYUCLQ0OmwpbkhaoGSEgPA*#MW&8%K6DRHNB@$");
+					write_table_ascii_standard(clone_examples, &table);
 				if (k == 2)
-					write_table_ascii(clone_examples, &table,
-						" `.-~'\":_,^=;<+!rc*/?sLTv(7|FiC{fI3"
-						"1tluo5Yxya[2ESwkP6h4pOGbUAKXHm8RD#$Bg0MNWQ%&@");
+					write_table_ascii_chungaloider(clone_examples, &table);
 				if (assert_files_ascii(arr[i], arr[i],
 						"input_examples/font/rozzo/", "clone_examples/") == TRUE)
 					score += 1;
 			}
+			else
+				warning_file_not_exists(arr[i]);
 			free_table_fdf(&table);
-			free_load_fdf_arr(&fdf_dst);
 			k += 1;
 		}
 		i += 1;

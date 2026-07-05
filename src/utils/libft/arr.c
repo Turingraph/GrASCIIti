@@ -42,7 +42,3 @@ void	free_2d_arr(void **arr, size_t len)
 	}
 	free(arr);
 }
-
-// time : O(1)
-// space: O(1)
-int	access_item_

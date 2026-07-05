@@ -30,8 +30,8 @@ void	fill_cells_height(
 // space: O(1)
 void	fill_cells_color(
 	t_table_fdf *dst,
-	int input_value,
-	e_5cell_channels channel,
+	unsigned char input_value,
+	e_rgba rgb_type,
 	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst))
 {
 	size_t	i;
@@ -44,7 +44,7 @@ void	fill_cells_color(
 		while (j < dst->col && choose_5cell_channel(dst, channel, i) != NULL)
 		{
 			if (is_filtered_cell == NULL || is_filtered_cell(i, j, dst) == TRUE)
-				choose_5cell_channel(dst, channel, i)[i][j] = input_value;
+				choose_rgb_channel(dst, channel, i)[i][j] = input_value;
 			j += 1;
 		}
 		i += 1;

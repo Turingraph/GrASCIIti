@@ -10,53 +10,23 @@ void	set_table_fdf_origin(t_table_fdf *dst, e_axis direction, size_t ith_positio
 		dst->origin_y = (dst->row / max_position) * ith_position;
 }
 
-// time : O(1)
-// space: O(1)
-void	set_table_fdf_origin_4(t_table_fdf *dst, e_axis direction, char level)
-{
-	set_table_fdf_origin(dst, direction, level, 4);
-}
-
-// time : O(n^2)
-// space: O(1)
-void	copy_int_arr(int *dst, const int *src, size_t len, size_t scale_dim)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (dst != NULL && src != NULL && i < len)
-	{
-		j = 0;
-		while (j < scale_dim)
-		{
-			dst[i * scale_dim + j] = src[i];
-			j += 1;
-		}
-		i += 1;
-	}
-}
-
+// options for one_line
+// 1.	cheche01_ascii_line(const char *line) (from txt files)
+// 2.	standard_ascii_line(const char *line) (from txt files)
+// 3.	chungaloider_ascii_line(const char *line) (from txt files)
+// 4.	bw_fdf_line(const char *line) (from fdf files)
+// 5.	rgba_fdf_line(const char *line) (the only option that load rgb color from fdf files)
 // time : O(n)
 // space: O(n)
-int	**init_2d_int_arr(size_t row, size_t col)
+t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
+	t_load_fdf (*one_line)(char *line), e_bool is_rgb)
 {
-	size_t	i;
-	int		**dst;
+	t_table_fdf		dst;
+	t_load_fdf_arr	src;
 
-	dst = (int **)malloc_talk(sizeof(int **) * row, "table/arr.c/init_null_char_arr\n");
-	if (dst == NULL)
-		return (NULL);
-	i = 0;
-	while (i < row)
-	{
-		dst[i] = (int *)malloc_talk(sizeof(int *) * col, "table/arr.c/init_null_char_arr\n");
-		if (dst[i] == NULL)
-		{
-			free_2d_arr((void *)dst, i);
-			return (NULL);
-		}
-		i += 1;
-	}
+	src = open_fdf_file(file_name, dir, one_line);
+	dst = load_table_fdf(&src, is_rgb);
+	free_load_fdf_arr(&src);
 	return (dst);
 }
+

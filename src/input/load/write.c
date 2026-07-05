@@ -79,20 +79,20 @@ void	write_load_ascii_arr(int fd, const t_load_fdf_arr *src,
 
 // time : O(1)
 // space: O(1)
-void	warning_load_fdf(t_load_fdf *dst, size_t i)
+void	warning_load_fdf(const t_load_fdf *src, size_t i)
 {
-	if (dst->int_warn != CORRECT || dst->rgb_warn != CORRECT)
+	if (src->int_warn != CORRECT || src->rgb_warn != CORRECT)
 	{
 		write(1, "Warning: Line no. ", 19);
 		ft_putnbr_fd(i, 1, "0123456789", 1);
 		write(1, " of input Fdf file is ", 23);
-		if (dst->int_warn == EMPTY)
+		if (src->int_warn == EMPTY)
 			write(1, "empty", 6);
-		if (dst->int_warn == NOT_DECIMAL)
+		if (src->int_warn == NOT_DECIMAL)
 			write(1, "not a decimal number", 21);
-		if (dst->int_warn != CORRECT && dst->rgb_warn == 'E')
+		if (src->int_warn != CORRECT && src->rgb_warn == 'E')
 			write(1, " and ", 5);
-		if (dst->rgb_warn == NOT_HEX)
+		if (src->rgb_warn == NOT_HEX)
 			write(1, " not a valid hexadecimal rgb representation", 44);
 		write(1, ".\n", 2);
 	}

@@ -8,7 +8,6 @@ int	main(void)
 	size_t			k;
 	size_t			score;
 	size_t			max_score = 23;
-	t_load_fdf_arr	fdf_file;
 	t_table_fdf     table;
 	char			*arr[] = {
 		"100-6.fdf",
@@ -45,15 +44,14 @@ int	main(void)
 		{
 			if (k == 0)
 			{
-				fdf_file = open_fdf_file(arr[i], "input_examples/fdf/", bw_fdf_line);
+				table = open_table_fdf_file(arr[i], "input_examples/fdf/", bw_fdf_line, FALSE);
 				is_rgb = FALSE;
 			}
 			else
 			{
-				fdf_file = open_fdf_file(arr[i], "input_examples/fdf/", rgba_fdf_line);
+				table = open_table_fdf_file(arr[i], "input_examples/fdf/", rgba_fdf_line, TRUE);
 				is_rgb = TRUE;
 			}
-			table = load_table_fdf(&fdf_file, is_rgb);
 			fdf_dst = open_dir_file(arr[i], "clone_examples/", APPEND);
 			if (fdf_dst > -1)
 			{
@@ -62,8 +60,9 @@ int	main(void)
 						"input_examples/fdf/", "clone_examples/") == TRUE)
 					score += 1;
 			}
+			else
+				warning_file_not_exists(arr[i]);
 			free_table_fdf(&table);
-			free_load_fdf_arr(&fdf_dst);
 			k += 1;
 		}
 		i += 1;

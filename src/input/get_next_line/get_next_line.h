@@ -28,14 +28,26 @@ enum e_dream
 	STOP_NEWLINE
 };
 
+typedef enum e_file_mode e_file_mode;
+
+enum e_file_mode
+{
+	READ = 'r',
+	APPEND = 'a',
+};
+
+// get_next_line.c
+t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup);
+char			*get_next_line(int fd, e_dream anchor);
+
+// open_file.c
+int				open_dir_file(const char *file_name,
+					const char *dir, e_file_mode mode);
+
 // utils.c
 size_t			knight_of_coin(const char *str, char stop);
 void			*queen_of_coin(size_t elem_size, const char *comment);
 char			*ace_of_coin(const char *src, size_t length, size_t capacity);
 t_temperance	**three_of_cups(t_temperance **group, const char *friends);
-
-// get_next_line.c
-t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup);
-char			*get_next_line(int fd, e_dream anchor);
 
 #endif
