@@ -1,0 +1,5 @@
+# *** What is the different between := and = ? ***
+# Simple assignment :=, evaluated one time.
+# Recursive assignment =, valuated everytime the variable is encountered in the code., 
+# for examples,when GCC=c++, then CC = ${GCC} {FLAGS} also change its value.
+# https://stackoverflow.com/questions/4879592/whats-the-difference-between-and-in-makefile
