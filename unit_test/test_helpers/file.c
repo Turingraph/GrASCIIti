@@ -1,4 +1,4 @@
-#include"assert_string.h"
+#include"test_helpers.h"
 
 // time : O(n)
 // space: O(n)
@@ -7,7 +7,7 @@ size_t	total_lines_of_file(int fd)
 	size_t	total_lines;
 	char	*line;
 
-	total_lines = 0;
+	total_lines = 1;
 	line = get_next_line(fd, CONTINUE);
 	if (line == NULL)
 		return (0);
@@ -40,7 +40,7 @@ e_bool	assert_files(const char *file_name_1, const char *file_name_2,
 	strarr_1 = load_file_as_strarr(fd, length);
 	fd = open_dir_file(file_name_2, dir_name_2, READ);
 	strarr_2 = load_file_as_strarr(fd, length);
-	result = assert_strarr(strarr_1, strarr_2, length, TRUE);
+	result = assert_strarr((const char **)strarr_1, (const char **)strarr_2, length, TRUE);
 	free_2d_arr((void **)strarr_1, length);
 	free_2d_arr((void **)strarr_2, length);
 	return (result);
@@ -53,10 +53,7 @@ e_bool	is_file_empty(int fd)
 	char	*actual_y;
 
 	if (fd < 0)
-	{
-		*correct = FALSE;
-		return (NULL);
-	}
+		return (FALSE);
 	actual_y = get_next_line(fd, CONTINUE);
 	if (actual_y == NULL)
 		return (TRUE);
@@ -70,7 +67,7 @@ e_bool	is_file_empty(int fd)
 char	*assert_gnl_and_line(char *actual_line,
 	const char *expected_line, int fd)
 {
-	if (compare_strings(actual_line,
+	if (compare_string(actual_line,
 			expected_line, f_strlen(expected_line), FALSE) != 0
 		|| f_strlen(actual_line) != f_strlen(expected_line))
 	{
@@ -90,22 +87,24 @@ e_bool	assert_file_with_strarr(int fd, const char **strarr, size_t total_lines)
 	char	*line;
 	char	*next_line;
 	size_t	i;
+	size_t	len;
 
-	if (strarr == NULL || fd < 0
-		|| strarr[0] == NULL)
+	if (fd < 0)
 		return (FALSE);
-	if (strarr[0] == NULL)
+	if (strarr == NULL || strarr[0] == NULL)
 		return (is_file_empty(fd));
 	line = get_next_line(fd, CONTINUE);
 	i = 0;
-	while (line != NULL && (i < total_lines || total_lines == 0))
+	while (line != NULL && ((i < total_lines && total_lines > 0) || (total_lines == 0)))
 	{
 		next_line = assert_gnl_and_line(line, strarr[i], fd);
 		line = next_line;
 		i += 1;
 	}
+	len = length_of_strarr(strarr);
+	free(line);
 	get_next_line(fd, STOP_GNL);
-	if (i != length_of_strarr(strarr))
-		return (FALSE);
-	return (TRUE);
+	if (i == len)
+		return (TRUE);
+	return (FALSE);
 }

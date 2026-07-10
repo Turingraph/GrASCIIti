@@ -1,17 +1,17 @@
-#include"assert_string.h"
+#include"test_helpers.h"
 
 // time : O(n)
 // space: O(1)
-int	compare_strings(const char *str_1,
+int	compare_string(const char *str_1,
 	const char *str_2, size_t n, e_bool ignore_space)
 {
 	size_t	i;
 
-	i = 0;
 	if (str_1 == NULL && str_2 == NULL)
 		return (0);
 	if ((str_1 == NULL && str_2 != NULL) || (str_1 != NULL && str_2 == NULL))
 		return (-1);
+	i = 0;
 	while (i < n && *str_1 == *str_2 && *str_1 != '\0')
 	{
 		i += 1;
@@ -35,7 +35,9 @@ size_t	length_of_strarr(const char **src)
 
 	i = 0;
 	while (src != NULL && src[i] != NULL)
+	{
 		i += 1;
+	}
 	return (i);
 }
 
@@ -44,18 +46,17 @@ size_t	length_of_strarr(const char **src)
 e_bool	assert_strarr(const char **strarr_1,
 	const char **strarr_2, size_t length, e_bool ignore_space)
 {
-	size_t	y;
 	size_t	i;
 
-	y = 0;
-	i = 0;
 	if (strarr_1 == NULL && strarr_2 == NULL)
 		return (TRUE);
-	if (strarr_1 != NULL || strarr_2 != NULL)
+	if ((strarr_1 == NULL && strarr_2 != NULL)
+		|| (strarr_2 == NULL && strarr_1 != NULL))
 		return (FALSE);
+	i = 0;
 	while (i < length && strarr_1[i] != NULL && strarr_2[i] != NULL)
 	{
-		if (compare_strings(strarr_1[i], strarr_2[i],
+		if (compare_string(strarr_1[i], strarr_2[i],
 				f_strlen(strarr_1[i]), ignore_space) != 0)
 			return (FALSE);
 		i += 1;
@@ -90,7 +91,6 @@ size_t	write_strarr(const char **strarr, size_t length, int fd)
 char	**load_file_as_strarr(int fd, size_t total_lines)
 {
 	char	**dst;
-	char	*line;
 	size_t	i;
 
 	if (total_lines == 0)
@@ -104,7 +104,7 @@ char	**load_file_as_strarr(int fd, size_t total_lines)
 	if (dst[0] == NULL)
 		return (dst);
 	i = 1;
-	while (dst[i - 1] != NULL && i < total_lines)
+	while (i < total_lines)
 	{
 		dst[i] = get_next_line(fd, CONTINUE);
 		i += 1;

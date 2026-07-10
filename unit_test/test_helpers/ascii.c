@@ -1,4 +1,4 @@
-#include "assert_string.h"
+#include "test_helpers.h"
 
 // time : O(n)
 // space: O(1)
@@ -19,8 +19,8 @@ int		compare_string_ascii(const char *str_1, const char *str_2, size_t n)
 		str_1 += 1;
 		str_2 += 1;
 	}
-	if (f_isspace(*src_1, dict) == 1 && f_isspace(*src_2, dict) == 1)
-		return (mirror_tune(*src_1, TRUE) - mirror_tune(*src_2, TRUE));
+	if (f_isspace(*str_1, dict) == 1 && f_isspace(*str_2, dict) == 1)
+		return (mirror_tune(*str_1, TRUE) - mirror_tune(*str_2, TRUE));
 	return (*str_1 - *str_2);
 }
 
@@ -29,10 +29,8 @@ int		compare_string_ascii(const char *str_1, const char *str_2, size_t n)
 e_bool	assert_strarr_ascii(const char **strarr_1,
 	const char **strarr_2, size_t length)
 {
-	size_t	y;
 	size_t	i;
 
-	y = 0;
 	i = 0;
 	if (strarr_1 == NULL && strarr_2 == NULL)
 		return (TRUE);
@@ -40,7 +38,7 @@ e_bool	assert_strarr_ascii(const char **strarr_1,
 		return (FALSE);
 	while (i < length && strarr_1[i] != NULL && strarr_2[i] != NULL)
 	{
-		if (compare_strings_ascii(strarr_1[i], strarr_2[i],
+		if (compare_string_ascii(strarr_1[i], strarr_2[i],
 				f_strlen(strarr_1[i])) != 0)
 			return (FALSE);
 		i += 1;
@@ -72,7 +70,7 @@ e_bool	assert_files_ascii(const char *file_name_1, const char *file_name_2,
 	strarr_1 = load_file_as_strarr(fd, length);
 	fd = open_dir_file(file_name_2, dir_name_2, READ);
 	strarr_2 = load_file_as_strarr(fd, length);
-	result = assert_strarr_ascii(strarr_1, strarr_2, length);
+	result = assert_strarr_ascii((const char **)strarr_1, (const char **)strarr_2, length);
 	free_2d_arr((void **)strarr_1, length);
 	free_2d_arr((void **)strarr_2, length);
 	return (result);

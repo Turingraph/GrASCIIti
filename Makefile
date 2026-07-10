@@ -4,148 +4,169 @@ CC = cc -Wall -Wextra -Werror
 BUFFER_SIZE = 42
 
 # https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
-rwildcard=$(foreach d,$(wildcard $(1 =/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+# rwildcard=$(foreach d,$(wildcard $(1 =/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
-CODING_EXAMPLES = coding_examples/
+# `call` command is explained in Function section of the Makefile tutorial
+# https://makefiletutorial-com.translate.goog/?_x_tr_sl=en&_x_tr_tl=th&_x_tr_hl=th&_x_tr_pto=tc#first-functions
+remove_slash = $(patsubst %/,%,$1)
 
+#-----------------------------------------------------------------------------------------------
 # https://stackoverflow.com/questions/9488256/use-directory-path-of-target-in-list-of-prerequisites-in-makefile
 # https://www.gnu.org/software/make/manual/make.html#Secondary-Expansion
 .SECONDEXPANSION:
 
-# *** elementary ***
-SRC_libft = $(wildcard src/utils/libft/*)
-SRC_math = $(wildcard src/utils/math/*)
-SRC_gnl = $(wildcard src/input/get_next_line/*)
+# *** atom src ***
+SRC_libft = $(wildcard src/utils/libft/*.c)
+SRC_math = $(wildcard src/utils/math/*.c)
+SRC_get_next_line = $(wildcard src/input/get_next_line/*.c)
 
-# *** not elementary ***
-SRC_linalg = $(wildcard src/utils/linalg/*)
-SRC_load = $(wildcard src/input/load/*)
-SRC_table = $(wildcard src/input/table/*)
+# *** composed src ***
+SRC_linalg = $(wildcard src/utils/linalg/*.c)
+SRC_load = $(wildcard src/input/load/*.c)
+SRC_table = $(wildcard src/input/table/*.c)
 
-SRC_convolution = $(wildcard src/editor/convolution/*)
-SRC_mathart = $(rwildcard,src/editor/mathart,*c)
-SRC_paint = $(wildcard src/editor/paint/*)
+SRC_convolution = $(wildcard src/editor/convolution/*.c)
+SRC_copy = $(wildcard src/editor/copy/*.c)
+SRC_mathart = $(wildcard src/editor/mathart/*/*.c)
+SRC_paint = $(wildcard src/editor/paint/*.c)
 
-SRC_triangle_pair = $(wildcard src/geometry/triangle_pair/*)
-SRC_triangle_arr = $(wildcard src/geometry/triangle_arr/*)
+SRC_triangle_pair = $(wildcard src/geometry/triangle_pair/*.c)
+SRC_triangle_arr = $(wildcard src/geometry/triangle_arr/*.c)
 
-# *** elementary ***
-BUILD_libft = $(patsubst src/%.c, build/%.o, $(SRC_libft))
-BUILD_math = $(patsubst src/%.c, build/%.o, $(SRC_math))
-BUILD_gnl = $(patsubst src/%.c, build/%.o, $(SRC_gnl))
+#-----------------------------------------------------------------------------------------------
+# *** elementary bin ***
+BIN_libft = $(patsubst src/%.c, bin/%.o, $(SRC_libft))
+BIN_math = $(patsubst src/%.c, bin/%.o, $(SRC_math))
+BIN_get_next_line = $(patsubst src/%.c, bin/%.o, $(SRC_get_next_line))
 
-# *** not elementary ***
-BUILD_linalg = $(patsubst src/%.c, build/%.o, $(SRC_linalg)) $(BUILD_math)
-BUILD_load = $(patsubst src/%.c, build/%.o, $(SRC_load)) $(BUILD_libft) $(BUILD_gnl)
-BUILD_table = $(patsubst src/%.c, build/%.o, $(SRC_table)) $(BUILD_load) $(BUILD_math)
+# *** composed bin ***
+BIN_linalg = $(patsubst src/%.c, bin/%.o, $(SRC_linalg)) $(BIN_math)
+BIN_load = $(patsubst src/%.c, bin/%.o, $(SRC_load)) $(BIN_libft) $(BIN_get_next_line)
+BIN_table = $(patsubst src/%.c, bin/%.o, $(SRC_table)) $(BIN_load) $(BIN_math)
 
-BUILD_convolution = $(patsubst src/%.c, build/%.o, $(SRC_convolution)) $(BUILD_table)
-BUILD_mathart = $(patsubst src/%.c, build/%.o, $(SRC_mathart)) $(BUILD_table)
-BUILD_paint = $(patsubst src/%.c, build/%.o, $(SRC_paint)) $(BUILD_table)
+BIN_convolution = $(patsubst src/%.c, bin/%.o, $(SRC_convolution)) $(BIN_table)
+BIN_copy = $(patsubst src/%.c, bin/%.o, $(SRC_copy))
+BIN_mathart = $(patsubst src/%.c, bin/%.o, $(SRC_mathart)) $(BIN_table)
+BIN_paint = $(patsubst src/%.c, bin/%.o, $(SRC_paint)) $(BIN_table)
 
-BUILD_triangle_pair = $(patsubst src/%.c, build/%.o, $(SRC_triangle_pair)) $(BUILD_libft) $(BUILD_linalg)
-BUILD_triangle_arr = $(patsubst src/%.c, build/%.o, $(SRC_triangle_arr)) $(BUILD_triangle_pair)
+BIN_triangle_pair = $(patsubst src/%.c, bin/%.o, $(SRC_triangle_pair)) $(BIN_libft) $(BIN_linalg)
+BIN_triangle_arr = $(patsubst src/%.c, bin/%.o, $(SRC_triangle_arr)) $(BIN_triangle_pair)
 
+#-----------------------------------------------------------------------------------------------
+# *** coding coding_examples src ***
+EXAMPLE_SRC_TRIANGLES = $(wildcard coding_examples/src/geometry/*/*.c)
+EXAMPLE_BIN_TRIANGLES = $(patsubst coding_examples/src/%.c, coding_examples/bin/%.out, $(EXAMPLE_SRC_TRIANGLES))
+EXAMPLE_SRC_PAINT = $(wildcard coding_examples/src/editor/paint/*.c)
+EXAMPLE_BIN_PAINT = $(patsubst coding_examples/src/%.c, coding_examples/bin/%.out, $(EXAMPLE_SRC_PAINT))
+# https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile
+EXAMPLE_SRC = $(filter-out $(EXAMPLE_SRC_PAINT) $(EXAMPLE_SRC_TRIANGLES), $(wildcard coding_examples/src/*/*/*.c))
+EXAMPLE_BIN = $(patsubst coding_examples/src/%.c, coding_examples/bin/%.out, $(EXAMPLE_SRC))
+
+#-----------------------------------------------------------------------------------------------
+# *** coding unit_test src ***
+TEST_SRC = $(wildcard unit_test/src/*/*/*.c)
+TEST_BIN = $(patsubst unit_test/src/%.c, unit_test/bin/%.out, $(TEST_SRC))
+TEST_HELPER_SRC = $(wildcard unit_test/test_helpers/*.c)
+TEST_HELPER_BIN = $(patsubst unit_test/test_helpers/%.c, unit_test/bin/test_helpers/%.o, $(TEST_HELPER_SRC))
+
+#-----------------------------------------------------------------------------------------------
+# *** clone_examples (for unit_test) ***
+# unfinished
+
+#-----------------------------------------------------------------------------------------------
+# *** create clone_examples (for unit_test) ***
+# unfinished
+
+#-----------------------------------------------------------------------------------------------
 # *** create unit_test ***
 
+all_unit_tests: $(TEST_BIN)
+
+$(TEST_BIN): unit_test/bin/%.out: lib/$$(call remove_slash,$$(dir $$*)).a lib/test_helper.a unit_test/bin/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $(filter %.o, $^) -L. $(filter %.a, $^)
+
+unit_test/bin/%.o: unit_test/src/%.c
+	@mkdir -p $(@D)
+	$(CC) -c $< -o $@
+
+lib/test_helper.a: $(TEST_HELPER_BIN) $(BIN_libft) $(BIN_get_next_line)
+	@mkdir -p $(@D)
+	ar rcs $@ $^
+
+unit_test/bin/test_helpers/%.o: unit_test/test_helpers/%.c
+	@mkdir -p $(@D)
+	$(CC) -c $< -o $@
+
+#-----------------------------------------------------------------------------------------------
 # *** create coding_examples ***
 
-coding_examples/bin/geometry/triangle_pair/%.out: lib/geometry/triangle_pair.a lib/input/table.a
+# https://www.gnu.org/software/make/manual/make.html#Static-Pattern
+all_coding_examples: $(EXAMPLE_BIN) $(EXAMPLE_BIN_PAINT) $(EXAMPLE_BIN_TRIANGLES)
+
+# https://stackoverflow.com/questions/519342/what-is-the-difference-between-i-and-l-in-makefile
+# https://www.geeksforgeeks.org/c/how-to-create-a-static-library-in-c/
+# https://youtu.be/3RmIVDgPmGk?si=IKgavhDbLhuG3TO8
+# https://stackoverflow.com/questions/48549272/gnu-make-get-and-modify-target-name-in-prerequisites
+# -L is the path to the directories containing the libraries. A search path for libraries.
+# -l is the name of the library you want to link to.
+
+$(EXAMPLE_BIN_PAINT): coding_examples/bin/%.out: lib/$$(call remove_slash,$$(dir $$*)).a lib/editor/mathart.a coding_examples/bin/%.o
 	@mkdir -p $(@D)
-	$(CC) $(patsubst $(CODING_EXAMPLES)bin/%.out, $(CODING_EXAMPLES)src/%.c, $@) $^ -o $@
-	chmod +x $@
+	$(CC) -o $@ $(filter %.o, $^) -L. $(filter %.a, $^)
 
-# https://stackoverflow.com/questions/25589586/why-does-patsubst-stop-working-when-using-secondary-expansion-of
+$(EXAMPLE_BIN_TRIANGLES): coding_examples/bin/%.out: lib/$$(call remove_slash,$$(dir $$*)).a lib/input/table.a coding_examples/bin/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $(filter %.o, $^) -L. $(filter %.a, $^)
 
-# Fix this.
-coding_examples/bin/%.out: $$(dir $$@)
-	echo lib/$(patsubst coding_examples/bin/%/,%,$^).a
-# 	@echo lib/$(patsubst coding_examples/bin/%/,%,$(dir $@)).a
-# 	@echo lib/$(notdir $(patsubst %/,%,$(dir $@))).a
-# 	@mkdir -p $(@D)
+$(EXAMPLE_BIN): coding_examples/bin/%.out: lib/$$(call remove_slash,$$(dir $$*)).a coding_examples/bin/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $(filter %.o, $^) -L. $(filter %.a, $^)
 
-# LIB_PATH = $(dir $(dir $@:%/=%))
-# LIB := $(LIB_PATH:%/=%).a
-# coding_examples/bin/%.out:
-# 	@echo $(LIB_PATH)
-# 	@echo lib/$(notdir $(patsubst %/,%,$(dir $@))).a
-
-# https://stackoverflow.com/questions/9488256/use-directory-path-of-target-in-list-of-prerequisites-in-makefile
-
-# lib/$(patsubst coding_examples/bin/%/, lib/%.a, $(dir $@)).a
-
-# Search Idea
-# 1.	makefile remove prefix of prerequisite
-
-# coding_examples/bin/%.out: $$(subst coding_examples/bin/$%,lib/$%.a,$$(dir $$@))
-# 	echo $^
-# 	@mkdir -p $(@D)
-# 	$(CC) $(patsubst $(CODING_EXAMPLES)bin/%.out, $(CODING_EXAMPLES)src/%.c, $@) $^ -o $@
-# 	chmod +x $@
+coding_examples/bin/%.o: coding_examples/src/%.c
+	@mkdir -p $(@D)
+	$(CC) -c $< -o $@
 
 # *** create library ***
-
-# my previous solution
-
-# lib/%.a: $$(BUILD_$(patsubst $(@D)/%.a,%,$@))
-# 	echo $$(BUILD_$(patsubst $(@D)/%.a,%,$@))
-# 	@mkdir -p $(@D)
-# 	ar rcs $@ $^
-
-# ChatGPT said that my solution isn't working because $ inside
-# BUILD_$(patsubst $(@D)/%.a,%,$@) is activated too early.
-# The reason that echo print something is because
-# Makefile create the variable name for Shell, but not for Makefile themselves.
-
-# ChatGPT recommended me to use notdir and basename command.
-
-# $(notdir names...)
-# Extracts all but the directory-part of each file name in names. 
-# If the file name contains no slash, it is left unchanged. 
-
-# $(basename names...)
-# extracts all but the suffix of each file name in names.
-
-# Even if my solution were working correctly, 
-# ChatGPT solution in this case work better because 
-# it use shortcut from notdir and basename command, which improve readability,
-# and thus easier to maintain.
-
+# ChatGPT recommended me this solution.
 # The takes away is reading the functions for files name section of Makefile manual first
 # (a.k.a. https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_node/make_79.html )
 # if you have to manipulating the string of the files/folders name according to correct 
 # format like this, for example you might want to split string as arrays of string,
 # with `,` or `/` as the separators.
-
-lib/%.a: $$(BUILD_$$(notdir $$(basename $$@)))
-	echo $^
+lib/%.a: $$(BIN_$$(notdir $$(basename $$@)))
 	@mkdir -p $(@D)
 	ar rcs $@ $^
 
 # *** create object files. ***
-
-build/%.o: src/%.c
+# https://stackoverflow.com/questions/1950926/create-directories-using-make-file
+bin/%.o: src/%.c
 	@mkdir -p $(@D)
 	$(CC) -c $< -o $@
 
-# https://stackoverflow.com/questions/1950926/create-directories-using-make-file
-
-build/input/get_next_line/%.o: src/input/get_next_line/%.c
+bin/input/get_next_line/%.o: src/input/get_next_line/%.c
 	@mkdir -p $(@D)
 	$(CC) -D BUFFER_SIZE=$(BUFFER_SIZE) -c $< -o $@
 
 # *** clean ***
-
 # https://askubuntu.com/questions/802996/how-to-remove-directory-with-all-of-its-contents
 clean:
-	rm -r lib/
-	rm -r build/
-	rm -r $(CODING_EXAMPLES)bin/
+	rm -r -f lib/
+	rm -r -f bin/
+	rm -r -f coding_examples/bin/
+	rm -r -f unit_test/bin/
+	rm -r -f clone_examples/
 
-clean_coding_examples:
-	rm -r $(CODING_EXAMPLES)bin/
+clean_all_unit_tests:
+	rm -r -f unit_test/bin/
+	rm -r -f clone_examples/
 
-.PHONY: all clean test clean_coding_examples
+clean_all_clone_examples:
+	rm -r -f clone_examples/
 
-# To Do Now
-# Read this. https://stackoverflow.com/questions/25589586/why-does-patsubst-stop-working-when-using-secondary-expansion-of
+clean_all_coding_examples:
+	rm -r -f coding_examples/bin/
+
+# Lol, both Makefile tutorial and Suisei already cover .PHONY
+# https://youtu.be/N029UUlH1Dc?si=8PragRfDm3MzFOBc
+.PHONY: all clean test clean_all_coding_examples all_coding_examples clean_all_unit_tests all_unit_tests

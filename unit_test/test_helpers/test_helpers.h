@@ -9,16 +9,16 @@ typedef struct t_intarr t_intarr;
 
 struct t_intarr
 {
-	size_t	length;
-	int		*arr;
+	size_t		length;
+	const int	*arr;
 };
 
 typedef struct t_intarr_tester t_intarr_tester;
 
 struct t_intarr_tester
 {
-	t_intarr		*arr;
-	char			*file_name;
+	const t_intarr	*arr;
+	const char		*file_name;
 	size_t			length;
 };
 
@@ -34,7 +34,7 @@ e_bool	assert_file_with_strarr(int fd, const char **strarr,
 			size_t total_lines);
 
 // strarr.c
-int		compare_strings(const char *str_1, const char *str_2,
+int		compare_string(const char *str_1, const char *str_2,
 			size_t n, e_bool ignore_space);
 size_t	length_of_strarr(const char **src);
 e_bool	assert_strarr(const char **strarr_1, const char **strarr_2,

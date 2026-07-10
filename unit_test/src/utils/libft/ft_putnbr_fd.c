@@ -1,4 +1,4 @@
-#include"libft_tester.h"
+#include"libft.h"
 
 int	main(void)
 {
@@ -38,3 +38,7 @@ int	main(void)
 	write_total_score(score, max_score);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/utils/libft/ft_putnbr_fd.out
+*/

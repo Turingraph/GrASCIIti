@@ -1,8 +1,8 @@
-#include"libft_tester.h"
+#include"libft.h"
 
 // time : O(1)
 // space: O(1)
-int	assert_atoi(const char *strmin, const char *strmax, e_bool *err)
+e_bool	assert_atoi(const char *strmin, const char *strmax, e_bool *err)
 {
 	int		min;
 	int		max;
@@ -83,3 +83,7 @@ int	main(void)
 	write_total_score(score, max_score);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/utils/libft/atoi.out
+*/
