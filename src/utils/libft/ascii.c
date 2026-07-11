@@ -54,19 +54,22 @@ int	f_ctoi(char a, const char *dict)
 void	ft_put_ascii_fd(int fd, int cell, const char *dict, e_bool is_left)
 {
 	size_t	i;
-	char	doppelganger;
+	char	right_twin;
+	char	left_twin;
 
 	if (cell <= 0)
 		write(fd, " ", 1);
 	else
 	{
 		i = 0;
-		while (dict[i] != '\0' && cell != i
+		while (dict[i] != '\0' && cell != (int)i
 			&& dict[i] != mirror_tune(dict[i], TRUE))
 			i += 1;
-		if (is_left == FALSE && dict[i] == mirror_tune(dict[i], TRUE)
+		left_twin = mirror_tune(dict[i], TRUE);
+		right_twin = mirror_tune(dict[i], FALSE);
+		if (is_left == FALSE && dict[i] == left_twin
 			&& dict[i] != '\0')
-			write(fd, &(mirror_tune(dict[i], FALSE)), 1);
+			write(fd, &right_twin, 1);
 		else if (dict[i] != '\0')
 			write(fd, dict + i, 1);
 	}

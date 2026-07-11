@@ -46,10 +46,10 @@ t_complex	complex_reciprocal(t_complex a)
 // space: O(1)
 double	complex_magnitude(t_complex a, char is_square)
 {
-	float	y;
+	double	y;
 
 	y = a.re * a.re + a.im * a.im;
 	if (is_square > 0)
 		return (y);
-	return (newton_method(y, 2, 12));
+	return (f_root_finding(y, 2));
 }

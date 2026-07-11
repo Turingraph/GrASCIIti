@@ -10,7 +10,7 @@ int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
 	t_temperance	*file;
 	int				dst;
 
-	if (path == NULL || *path == '\0')
+	if (dir == NULL || *dir == '\0')
 	{
 		dst = open(file_name, mode);
 		if (dst < 1)
@@ -21,7 +21,7 @@ int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
 	ace_of_cup(1, &file);
 	if (file == NULL)
 		return (1);
-	three_of_cups(&file, path);
+	three_of_cups(&file, dir);
 	three_of_cups(&file, file_name);
 	if (file == NULL)
 		return (1);

@@ -19,23 +19,24 @@ double	f_pow(double x, size_t a)
 
 // https://youtu.be/-RdOwhmqP5s?si=HZMppRY9tGm3OjL-
 
-// approximate x ^ (1 / a) where a >= 1
+// Newton method approximates x ^ (1 / a) where a >= 1
 // x_(n+1) = x_n - f(x_n) / f'(x_n)
+// where f(x) = x^a - c, such that x^a = f(x) + c, x^a = c
 // time : O(n)
 // space: O(1)
-double	newton_method(double x, size_t a, size_t accuracy)
+double	f_root_finding(double x, size_t a)
 {
-	size_t	i;
 	double	y;
+	double	err;
 
-	if (a == 0)
-		return (1.0);
-	y = 1 / (double)a;
-	i = 0;
-	while (i < accuracy)
+	if (a == 0 || x == 0)
+		return (0);
+	y = x;
+	err = (f_pow(y, a) - x) / ((double)a * f_pow(y, a - 1));
+	while (f_abs(err) > 1e-8)
 	{
-		y = y - (f_pow(y, a) - x)/((double)a * y);
-		i += 1;
+		y -= err;
+		err = (f_pow(y, a) - x) / ((double)a * f_pow(y, a - 1));
 	}
 	return (y);
 }
@@ -57,59 +58,99 @@ Then
 
 Therefore, we can approximate e^x as 1 + x/1 + x^2/2! + ... + x^n/n!
 
+Note that ChatGPT recommended me to remove accuracy argument
+and truncate the Taylor series based on acceptable error rate.
+You can also use Taylor inequality to approximate the error more accurately
+but this approach is more difficult to implement and debug.
+
 Reference
 1.	https://youtu.be/eX1hvWxmJVE?si=9jQUq-r2TJ8hPvIb
 2.	https://mathworld.wolfram.com/TaylorSeries.html
+3.	https://youtu.be/Cqi-b3nQdKM?si=qxGl29v81BEl0xbz
 */
 
 // time : O(n)
 // space: O(1)
-double	f_exp(double x, size_t accuracy)
+double	f_exp(double x)
 {
-	size_t	i;
 	double	y;
 	double	term;
 	double	div;
+	size_t	i;
 
 	div = 1;
 	term = x;
 	y = 1;
-	i = 0;
-	while (i < accuracy)
+	i = 1;
+	while (div != 0 && f_abs(term / div) > 1e-8)
 	{
 		y += term / div;
-		i += 1;
 		term *= x;
+		i += 1;
 		div *= (double)i;
+	}
+	return (y);
+}
+
+/*
+You can use Laylor series to approximate Trigonometry function.
+https://blog.devgenius.io/the-magic-behind-trigonometric-functions-using-taylor-series-in-programming-f4cae34d3729
+*/
+
+// time : O(n)
+// space: O(1)
+double	f_sin(double x)
+{
+	double	y;
+	double	div;
+	double	term;
+	double	pi;
+	size_t	i;
+
+	i = 0;
+	pi = 3.141592653;
+	x = x - f_floor(x / (2 * pi)) * 2 * pi;
+	term = x;
+	div = 1;
+	y = 0;
+	while (div != 0 && f_abs(term / div) > 1e-8)
+	{
+		if (i % 2 == 0)
+			y += term / div;
+		else
+			y -= term / div;
+		i += 1;
+		div *= ((double)i * 2) * ((double)i * 2 + 1);
+		term *= x * x;
 	}
 	return (y);
 }
 
 // time : O(n)
 // space: O(1)
-double	normal_distribution_function(double std, double means, double x)
+double	f_cos(double x)
 {
-	size_t	ac;
-	double	up;
-	double	down;
+	double	y;
+	double	div;
+	double	term;
 	double	pi;
+	size_t	i;
 
+	i = 1;
 	pi = 3.141592653;
-	ac = 12;
-	if (std == 0)
-		return (0);
-	down = std * newton_method(2 * pi, 2, ac);
-	up = f_exp(-1 * f_pow(x - means, 2) / (2 * std * std), ac);
-	return (up / down);
+	x = x - f_floor(x / (2 * pi)) * 2 * pi;
+	term = x * x;
+	div = 2;
+	y = 1;
+	while (div != 0 && f_abs(term / div) > 1e-8)
+	{
+		if (i % 2 == 0)
+			y += term / div;
+		else
+			y -= term / div;
+		i += 1;
+		div *= ((double)i * 2) * ((double)i * 2 - 1);
+		term *= x * x;
+	}
+	return (y);
 }
-
-/*
-// the larger large_num the better the approximation.
-// https://math.stackexchange.com/questions/977586/is-there-an-approximation-to-the-natural-log-function-at-large-values
-// time : O(n)
-// space: O(1)
-double	natural_log(double x, double large_num, size_t accuracy)
-{
-	return (large_num * newton_method(x, large_num, accuracy) - large_num);
-}
-*/

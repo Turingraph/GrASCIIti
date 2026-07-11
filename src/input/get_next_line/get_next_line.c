@@ -45,6 +45,8 @@ e_dream	the_lost_treasure(e_dream *ambition, char **coin, t_temperance **angel)
 // space: O(n)
 e_dream	king_gnu(char **coin, e_dream *ambition, e_dream anchor, t_temperance **angel)
 {
+	if (anchor == CONTINUE)
+		*ambition = CONTINUE;
 	if (anchor == STOP_GNL || BUFFER_SIZE <= 0 || *ambition == STOP_GNL)
 		return (the_lost_treasure(ambition, coin, angel));
 	if (ace_of_cup(1, angel) == NULL)

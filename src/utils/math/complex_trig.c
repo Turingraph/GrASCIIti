@@ -6,11 +6,9 @@
 t_complex	complex_exp(t_complex a)
 {
 	t_complex	dst;
-	size_t		accuracy;
 
-	accuracy = 12;
-	dst.re = f_cos(a.im, accuracy) * f_exp(a.re, accuracy);
-	dst.im = f_sin(a.im, accuracy) * f_exp(a.re, accuracy);
+	dst.re = f_cos(a.im) * f_exp(a.re);
+	dst.im = f_sin(a.im) * f_exp(a.re);
 	return (dst);
 }
 
@@ -50,8 +48,8 @@ t_complex	complex_cos(t_complex a)
 	x1.re = -1 * a.im;
 	x1.im = a.re;
 	e1 = complex_exp(x1);
-	xx.re = a.im;
-	xx.im = -1 * a.re;
+	x2.re = a.im;
+	x2.im = -1 * a.re;
 	e2 = complex_exp(x2);
 	y.re = (e1.re + e2.re) / 2;
 	y.im = (e1.im + e2.im) / 2;
@@ -71,8 +69,8 @@ t_complex	complex_sin(t_complex a)
 	x1.re = a.im;
 	x1.im = -1 * a.re;
 	e1 = complex_exp(x1);
-	xx.re = -1 * a.im;
-	xx.im = a.re;
+	x2.re = -1 * a.im;
+	x2.im = a.re;
 	e2 = complex_exp(x2);
 	y.re = (e1.re - e2.re) / 2;
 	y.im = (e1.im - e2.im) / 2;

@@ -121,23 +121,20 @@ size_t	ft_putnbr_fd(int n, int fd, const char *base, size_t digits)
 
 	if (base != NULL)
 	{
+		i = 0;
 		j = 0;
 		if (n > 0)
 			j = display_int(fd, (long)n, base, 0);
 		else if (n < 0)
 		{
 			n *= -1;
-			j = 1 + display_int(fd, n, base, 0);
-			write(fd, "-", 1);
+			j = display_int(fd, n, base, 0);
+			i += (size_t)write(fd, "-", 1);
 		}
-		i = 0;
 		if (j > digits)
 			j = digits;
 		while (i < digits - j)
-		{
-			write(fd, base, 1);
-			i += 1;
-		}
+			i += (size_t)write(fd, base, 1);
 		if (n != 0)
 			i += display_int(fd, n, base, 1);
 		return (i);
