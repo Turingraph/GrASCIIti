@@ -8,18 +8,18 @@ typedef struct t_gnl_tester t_gnl_tester;
 
 struct t_gnl_tester
 {
-	char	*file_name;
-	char	**arr;
-	size_t	total_lines;
-	e_bool	read_entire_file;
+	const char	*file_name;
+	const char	**arr;
+	size_t		total_lines;
+	e_bool		read_entire_file;
 };
 
 typedef struct t_file_tester t_file_tester;
 
 struct t_file_tester
 {
-	char	*file_name;
-	size_t	total_lines;
+	const char	*file_name;
+	size_t		total_lines;
 };
 
 #endif

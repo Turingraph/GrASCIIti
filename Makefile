@@ -69,18 +69,14 @@ TEST_BIN = $(patsubst unit_test/src/%.c, unit_test/bin/%.out, $(TEST_SRC))
 TEST_HELPER_SRC = $(wildcard unit_test/test_helpers/*.c)
 TEST_HELPER_BIN = $(patsubst unit_test/test_helpers/%.c, unit_test/bin/test_helpers/%.o, $(TEST_HELPER_SRC))
 
-#-----------------------------------------------------------------------------------------------
-# *** clone_examples (for unit_test) ***
-# unfinished
-
-#-----------------------------------------------------------------------------------------------
-# *** create clone_examples (for unit_test) ***
-# unfinished
+INPUT_CLONE_SRC = $(wildcard input_examples/*/*)
+INPUT_CLONE_SRC_FONT = $(wildcard input_examples/*/*/*)
+INPUT_CLONE_BIN = $(patsubst input_examples/%, clone_examples/%, $(INPUT_CLONE_SRC) $(INPUT_CLONE_SRC_FONT))
 
 #-----------------------------------------------------------------------------------------------
 # *** create unit_test ***
 
-all_unit_tests: $(TEST_BIN)
+all_unit_tests: $(TEST_BIN) $(INPUT_CLONE_BIN)
 
 $(TEST_BIN): unit_test/bin/%.out: lib/$$(call remove_slash,$$(dir $$*)).a lib/test_helper.a unit_test/bin/%.o
 	@mkdir -p $(@D)
@@ -97,6 +93,12 @@ lib/test_helper.a: $(TEST_HELPER_BIN) $(BIN_libft) $(BIN_get_next_line)
 unit_test/bin/test_helpers/%.o: unit_test/test_helpers/%.c
 	@mkdir -p $(@D)
 	$(CC) -c $< -o $@
+
+all_clone_examples: $(INPUT_CLONE_BIN)
+
+clone_examples/%: input_examples/%
+	@mkdir -p $(@D)
+	@touch $@
 
 #-----------------------------------------------------------------------------------------------
 # *** create coding_examples ***
@@ -169,4 +171,4 @@ clean_all_coding_examples:
 
 # Lol, both Makefile tutorial and Suisei already cover .PHONY
 # https://youtu.be/N029UUlH1Dc?si=8PragRfDm3MzFOBc
-.PHONY: all clean test clean_all_coding_examples all_coding_examples clean_all_unit_tests all_unit_tests
+.PHONY: all clean test clean_all_coding_examples all_coding_examples clean_all_unit_tests all_unit_tests clean_all_clone_examples all_clone_examples
