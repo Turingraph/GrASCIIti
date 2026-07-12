@@ -5,8 +5,8 @@
 t_load_fdf	cheche01_ascii_line(const char *line)
 {
 	return (one_ascii_line(line,
-		" `'.,:_-;~!^\"/|(rvcil+xustf<=[*?{17L"
-		"TC23%Yoyhk4$5IF&XUGSEwampbgPAKO680DQRHNB#WM@"
+		" `'.,:_-;~!^\"\\|)rvcilj+xnzt>=]*?}17JTC23"
+		"%Yoyhk4$5IF&XVUGZEwemqdgPKO980DQRHNB#WM@"
 	));
 }
 
@@ -15,8 +15,8 @@ t_load_fdf	cheche01_ascii_line(const char *line)
 t_load_fdf	standard_ascii_line(const char *line)
 {
 	return (one_ascii_line(line,
-		" .'`^\",:;Il!i<~+_-?[{1(|/tfrxuvcs="
-		"7T23y45FXYUCLQ0OmwpbkhaoGSEgPA*#MW&8%K6DRHNB@$"
+		" .'`^\",:;Il!i>~+_-?]}1)|\\tjrxnvcz=7T23y"
+		"45FXYUJCQ0OZmwqdkhoVGEegP*#MW&8%K9DRHNB@$"
 	));
 }
 
@@ -25,8 +25,8 @@ t_load_fdf	standard_ascii_line(const char *line)
 t_load_fdf	chungaloider_ascii_line(const char *line)
 {
 	return (one_ascii_line(line,
-		" `.-~'\":_,^=;<+!rc*/?sLTv(7|FiC{fI3"
-		"1tluo5Yxya[2ESwkP6h4pOGbUAKXHm8RD#$Bg0MNWQ%&@"
+		" `.-~'\":_,^=;>+!rc*\\z?TvJ7)|FiC}I31tlneoZ5Yxjy]"
+		"2EwqkPh9d4VOGUKXHm8RD#$Bg0MNWQ%&@"
 	));
 }
 

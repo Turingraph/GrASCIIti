@@ -11,16 +11,17 @@ void	write_load_fdf(int fd, const t_load_fdf *src,
 	while (src != NULL && src->arr != NULL && i < src->length)
 	{
 		ft_putnbr_fd(src->arr[i], fd, "0123456789", digits);
-		if (mode == HEIGHT_RGB || mode == HEIGHT_RGBA
-			|| (mode == FDF42 && FALSE == is_default_rgba(&(src->r + i),
-					&(src->g + i), &(src->b + i), &(src->a + i))))
+		if (mode == HEIGHT_RGB || mode == HEIGHT_RGBA)
 		{
 			write(fd, ",0x", 3);
-			ft_putnbr_fd((int)src->r[i], fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)src->g[i], fd, "0123456789abcdef", 2);
-			ft_putnbr_fd((int)src->b[i], fd, "0123456789abcdef", 2);
+			if (src->r != NULL)
+				ft_putnbr_fd((int)src->r[i], fd, "0123456789abcdef", 2);
+			if (src->g != NULL)
+				ft_putnbr_fd((int)src->g[i], fd, "0123456789abcdef", 2);
+			if (src->b != NULL)
+				ft_putnbr_fd((int)src->b[i], fd, "0123456789abcdef", 2);
 		}
-		if (mode == HEIGHT_RGBA)
+		if (mode == HEIGHT_RGBA && src->a != NULL)
 			ft_putnbr_fd((int)src->a[i], fd, "0123456789abcdef", 2);
 		write(fd, "\t", 1);
 		i += 1;
@@ -38,7 +39,7 @@ void	write_load_fdf_arr(int fd,
 	i = 0;
 	while (src != NULL && i < src->length && src->arr != NULL)
 	{
-		write_load_fdf(fd, src->arr[i], digits, mode);
+		write_load_fdf(fd, (const t_load_fdf *)&(src->arr[i]), digits, mode);
 		i += 1;
 	}
 }
@@ -67,12 +68,11 @@ void	write_load_ascii_arr(int fd, const t_load_fdf_arr *src,
 			const char *dict)
 {
 	size_t	i;
-	e_bool	is_left;
 
 	i = 0;
 	while (src != NULL && i < src->length && src->arr != NULL)
 	{
-		write_load_ascii(fd, src->arr[i], dict);
+		write_load_ascii(fd, (const t_load_fdf *)&(src->arr[i]), dict);
 		i += 1;
 	}
 }

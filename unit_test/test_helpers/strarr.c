@@ -11,6 +11,12 @@ int	compare_string(const char *str_1,
 		return (0);
 	if ((str_1 == NULL && str_2 != NULL) || (str_1 != NULL && str_2 == NULL))
 		return (-1);
+	while (f_isspace(*str_1, " \n\t\r\f\v") == 1
+		&& *str_1 != '\0' && ignore_space == TRUE)
+		str_1 += 1;
+	while (f_isspace(*str_2, " \n\t\r\f\v") == 1
+		&& *str_2 != '\0' && ignore_space == TRUE)
+		str_2 += 1;
 	i = 0;
 	while (i < n && *str_1 == *str_2 && *str_1 != '\0')
 	{
@@ -63,7 +69,7 @@ e_bool	assert_strarr(const char **strarr_1,
 	}
 	if (strarr_1[i] == NULL && strarr_2[i] == NULL)
 		return (TRUE);
-	if (strarr_1[i] != NULL || strarr_2[i] != NULL)
+	if (strarr_1[i] == NULL || strarr_2[i] == NULL)
 		return (FALSE);
 	return (TRUE);
 }

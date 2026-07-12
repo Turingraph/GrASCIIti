@@ -2,34 +2,31 @@
 
 // https://paulbourke.net/dataformats/asciiart/
 
-// time : O(n)
+// time : O(1)
 // space: O(1)
 char	mirror_tune(char a, e_bool is_left)
 {
 	size_t	i;
-	char	*dict;
-	size_t	dict_len;
+	char	*left_dict;
+	char	*right_dict;
+	size_t	half_dict_len;
 
-	dict_len = 15;
-	dict = "ASLbpsuaf[({</6VZJdqznej])}>\\9";
+	half_dict_len = 15;
+	left_dict = "VZJdqznej])}>\\9";
+	right_dict = "ASLbpsuaf[({</6";
 	i = 0;
-	while (i < dict_len)
+	while (i < half_dict_len)
 	{
-		if (is_left == TRUE && dict[i] == a)
-			return (a);
-		if (is_left == FALSE && dict[i] == a)
-			return (dict[dict_len + i]);
+		if (left_dict[i] == a || right_dict[i] == a)
+		{
+			if (is_left == TRUE)
+				return (left_dict[i]);
+			else
+				return (right_dict[i]);
+		}
 		i += 1;
 	}
-	while (i < dict_len * 2)
-	{
-		if (is_left == FALSE && dict[i] == a)
-			return (a);
-		if (is_left == TRUE && dict[i] == a)
-			return (dict[dict_len - i]);
-		i += 1;
-	}
-	return ('\0');
+	return (a);
 }
 
 
@@ -42,10 +39,8 @@ int	f_ctoi(char a, const char *dict)
 	if (a == '\0')
 		return (0);
 	i = 0;
-	while (dict[i] != '\0' && dict[i] != a && dict[i] != mirror_tune(a, FALSE))
+	while (dict[i] != '\0' && dict[i] != a && dict[i] != mirror_tune(a, TRUE))
 		i += 1;
-	if (dict[i] == '\0')
-		return (0);
 	return ((int)i);
 }
 
@@ -62,15 +57,32 @@ void	ft_put_ascii_fd(int fd, int cell, const char *dict, e_bool is_left)
 	else
 	{
 		i = 0;
-		while (dict[i] != '\0' && cell != (int)i
-			&& dict[i] != mirror_tune(dict[i], TRUE))
+		while (dict[i] != '\0' && cell != (int)i)
 			i += 1;
 		left_twin = mirror_tune(dict[i], TRUE);
 		right_twin = mirror_tune(dict[i], FALSE);
-		if (is_left == FALSE && dict[i] == left_twin
-			&& dict[i] != '\0')
+		if (is_left == TRUE)
+			write(fd, &left_twin, 1);
+		if (is_left == FALSE)
 			write(fd, &right_twin, 1);
-		else if (dict[i] != '\0')
-			write(fd, dict + i, 1);
 	}
 }
+
+/*
+		// write(1, ">>> ", 4);
+		// ft_putnbr_fd(i, 1, "0123456789", 1);
+		// write(1, "\n", 1);
+		left_twin = mirror_tune(dict[i], TRUE);
+		right_twin = mirror_tune(dict[i], FALSE);
+		if (is_left == FALSE)
+		{
+			write(1, &right_twin, 1);
+			write(fd, &right_twin, 1);
+		}
+		else if (dict[i] != '\0')
+		{
+			write(1, &left_twin, 1);
+			write(fd, &left_twin, 1);
+		}
+	}
+*/

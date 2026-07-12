@@ -1,4 +1,4 @@
-#include"load_tester.h"
+#include"load.h"
 
 int	main(void)
 {
@@ -27,6 +27,7 @@ int	main(void)
 		},
 		{
 			(const t_intarr[]){
+				(const t_intarr){11, (const int[]){0,0,1,2,3,4,5,6,7,8,9}},
 				(const t_intarr){11, (const int[]){0,0,0,1,2,3,4,5,6,7,8}},
 				(const t_intarr){11, (const int[]){0,0,0,0,1,2,3,4,5,6,7}},
 				(const t_intarr){11, (const int[]){0,0,0,0,0,1,2,3,4,5,6}},
@@ -34,7 +35,6 @@ int	main(void)
 				(const t_intarr){11, (const int[]){0,0,0,0,0,0,0,1,2,3,4}},
 				(const t_intarr){11, (const int[]){0,0,0,0,0,0,0,0,1,2,3}},
 				(const t_intarr){11, (const int[]){0,0,0,0,0,0,0,0,0,1,2}},
-				(const t_intarr){11, (const int[]){0,0,1,2,3,4,5,6,7,8,9}},
 				(const t_intarr){11, (const int[]){0,0,0,0,0,0,0,0,0,0,1}},
 			},
 			"basictest.fdf", 9
@@ -222,17 +222,40 @@ int	main(void)
 				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", bw_fdf_line);
 			else
 				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", rgba_fdf_line);
-			if (fdf_file.capacity == fdf_file.length
-				&& fdf_file.capacity == arr[i].length)
+			// write(1, "fdf_file.length\t= ", 19);
+			// ft_putnbr_fd(fdf_file.length, 1, "0123456789", 1);
+			// write(1, "\narr[i].length\t= ", 18);
+			// ft_putnbr_fd(arr[i].length, 1, "0123456789", 1);
+			// write(1, "\n", 1);
+			if (fdf_file.length == arr[i].length)
 			{
 				is_correct = TRUE;
 				j = 0;
 				while (j < arr[i].length && is_correct == TRUE)
 				{
-					if (arr[i].arr[i].length != fdf_file.arr[i].length)
+					// write(1, "fdf_file.arr[j].length\t=\t", 26);
+					// ft_putnbr_fd(fdf_file.arr[j].length, 1, "0123456789", 1);
+					// write(1, "\narr[i].arr[j].length\t=\t", 25);
+					// ft_putnbr_fd(arr[i].arr[j].length, 1, "0123456789", 1);
+					// write(1, "\n", 1);
+					if (arr[i].arr[j].length != fdf_file.arr[j].length)
+					{
+						write(1, "Not Equal Length\t", 18);
+						write(1, arr[i].file_name, f_strlen(arr[i].file_name));
+						write(1, "\t", 1);
+						ft_putnbr_fd(k, 1, "0123456789", 1);
+						write(1, "\n", 1);
 						is_correct = FALSE;
-					else if (compare_intarr(arr[i].arr[i].arr, fdf_file.arr[i].arr, fdf_file.arr[i].length) != 0)
+					}
+					else if (compare_intarr(arr[i].arr[j].arr, fdf_file.arr[j].arr, fdf_file.arr[j].length) != 0)
+					{
+						write(1, "Not Identical\t", 15);
+						write(1, arr[i].file_name, f_strlen(arr[i].file_name));
+						write(1, "\t", 1);
+						ft_putnbr_fd(k, 1, "0123456789", 1);
+						write(1, "\n", 1);
 						is_correct = FALSE;
+					}
 					j += 1;
 				}
 				if (is_correct == TRUE)
@@ -246,3 +269,7 @@ int	main(void)
 	write_total_score(score, 2 * max_score);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/load/fdf_by_compare_int.out
+*/

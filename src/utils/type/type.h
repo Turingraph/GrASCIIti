@@ -66,8 +66,7 @@ enum e_write_style
 {
 	HEIGHT_ONLY,
 	HEIGHT_RGBA,
-	HEIGHT_RGB,
-	FDF42
+	HEIGHT_RGB
 };
 
 // input/load/
@@ -182,8 +181,8 @@ typedef struct t_complex t_complex;
 
 struct t_complex
 {
-	float	re;
-	float	im;
+	double	re;
+	double	im;
 };
 
 #endif

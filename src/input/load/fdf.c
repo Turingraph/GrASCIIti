@@ -13,7 +13,7 @@ e_load_warning	split_to_int_arr(const char **split, int *dst, size_t len)
 	i = 0;
 	while (i < len)
 	{
-		dst[i] = f_atoi(split[i], &int_warn, "0123456789", knight_of_coin(split[i], ','));
+		dst[i] = f_atoi((const char *)split[i], &int_warn, "0123456789", knight_of_coin(split[i], ','));
 		i += 1;
 	}
 	if (int_warn == TRUE)
@@ -53,9 +53,9 @@ int	*line_to_int_arr(const char *line, e_load_warning *int_warn)
 		free_2d_arr((void **)split, len);
 		return (NULL);
 	}
-	log = split_to_int_arr(split, dst, len);
+	log = split_to_int_arr((const char **)split, dst, len);
 	if (int_warn != NULL)
-		int_warn = log;
+		*int_warn = log;
 	free_2d_arr((void **)split, len);
 	return (dst);
 }

@@ -15,3 +15,4 @@ unsigned char	f_rgb(const char *str, size_t len, e_bool *rgb_warn)
 		return (255);
 	return ((unsigned char)dst);
 }
+

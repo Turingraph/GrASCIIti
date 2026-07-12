@@ -5,23 +5,24 @@
 int		compare_string_ascii(const char *str_1, const char *str_2, size_t n)
 {
 	size_t	i;
-	char	*dict;
 
-	dict = "ASLbpsuaf[({</6VZJdqznej])}>\\9";
 	i = 0;
 	if (str_1 == NULL && str_2 == NULL)
 		return (0);
 	if ((str_1 == NULL && str_2 != NULL) || (str_1 != NULL && str_2 == NULL))
 		return (-1);
-	while (i < n && *str_1 == *str_2 && *str_1 != '\0')
+	while (i < n && *str_1 != '\0'
+		&& mirror_tune(*str_1, TRUE) == mirror_tune(*str_2, TRUE))
 	{
 		i += 1;
 		str_1 += 1;
 		str_2 += 1;
+		while (*str_1 == '\n')
+			str_1 += 1;
+		while (*str_2 == '\n')
+			str_2 += 1;
 	}
-	if (f_isspace(*str_1, dict) == 1 && f_isspace(*str_2, dict) == 1)
-		return (mirror_tune(*str_1, TRUE) - mirror_tune(*str_2, TRUE));
-	return (*str_1 - *str_2);
+	return (mirror_tune(*str_1, TRUE) - mirror_tune(*str_2, TRUE));
 }
 
 // time : O(n)
@@ -34,7 +35,7 @@ e_bool	assert_strarr_ascii(const char **strarr_1,
 	i = 0;
 	if (strarr_1 == NULL && strarr_2 == NULL)
 		return (TRUE);
-	if (strarr_1 != NULL || strarr_2 != NULL)
+	if (strarr_1 == NULL || strarr_2 == NULL)
 		return (FALSE);
 	while (i < length && strarr_1[i] != NULL && strarr_2[i] != NULL)
 	{
@@ -63,7 +64,7 @@ e_bool	assert_files_ascii(const char *file_name_1, const char *file_name_2,
 
 	fd = open_dir_file(file_name_1, dir_name_1, READ);
 	length = total_lines_of_file(fd);
-	fd = open_dir_file(file_name_2, dir_name_2, READ);
+	fd = open_dir_file(file_name_2, dir_name_2, READ);	
 	if (length != total_lines_of_file(fd))
 		return (FALSE);
 	fd = open_dir_file(file_name_1, dir_name_1, READ);
