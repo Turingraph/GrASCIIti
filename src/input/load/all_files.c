@@ -39,7 +39,7 @@ t_load_fdf_arr	copy_load_fdf_arr(const t_load_fdf_arr *src, size_t length)
 
 // time : O(1)
 // space: O(1)
-t_load_fdf_arr	push_load_fdf_arr(t_load_fdf_arr *src, t_load_fdf *item)
+t_load_fdf_arr	load_fdf_arr_push(t_load_fdf_arr *src, t_load_fdf *item)
 {
 	t_load_fdf_arr	dst;
 
@@ -60,7 +60,7 @@ t_load_fdf_arr	push_load_fdf_arr(t_load_fdf_arr *src, t_load_fdf *item)
 	{
 		free(src->arr);
 		*src = dst;
-		return (push_load_fdf_arr(src, item));
+		return (load_fdf_arr_push(src, item));
 	}
 	free_load_fdf(item);
 	return (*src);
@@ -68,25 +68,25 @@ t_load_fdf_arr	push_load_fdf_arr(t_load_fdf_arr *src, t_load_fdf *item)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*one_line)(const char *line))
+t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*parse_line)(const char *line))
 {
 	t_load_fdf_arr	dst;
 	t_load_fdf		item;
 	char			*line;
 
-	if (one_line == NULL || fd < 1)
+	if (parse_line == NULL || fd < 1)
 		return (init_load_fdf_arr(0));
 	dst = init_load_fdf_arr(1);
-	if (one_line == NULL)
+	if (parse_line == NULL)
 	{
-		write(1, "Warning: one_line is NULL\n", 27);
+		write(1, "Warning: parse_line is NULL\n", 29);
 		return (dst);
 	}
 	line = get_next_line(fd, CONTINUE);
 	while (line != NULL)
 	{
-		item = one_line(line);
-		push_load_fdf_arr(&dst, &item);
+		item = parse_line(line);
+		load_fdf_arr_push(&dst, &item);
 		if (dst.length > 0 && dst.arr != NULL)
 			warning_load_fdf(&dst.arr[dst.length - 1], dst.length - 1);
 		free(line);
@@ -97,7 +97,7 @@ t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*one_line)(const char *lin
 	return (dst);
 }
 
-// options for one_line
+// options for parse_line
 // 1.	cheche01_ascii_line(const char *line) (from txt files)
 // 2.	standard_ascii_line(const char *line) (from txt files)
 // 3.	chungaloider_ascii_line(const char *line) (from txt files)
@@ -106,13 +106,13 @@ t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*one_line)(const char *lin
 // time : O(n)
 // space: O(n)
 t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
-		t_load_fdf (*one_line)(const char *line))
+		t_load_fdf (*parse_line)(const char *line))
 {
 	t_temperance	*file;
 	int				dst;
 
 	if (dir == NULL || *dir == '\0')
-		return (load_all_fdf_lines(open(file_name, READ), one_line));
+		return (load_all_fdf_lines(open(file_name, READ), parse_line));
 	file = NULL;
 	ace_of_cup(1, &file);
 	if (file == NULL)
@@ -124,9 +124,5 @@ t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 	dst = open(file->arr, READ);
 	free(file->arr);
 	free(file);
-	return (load_all_fdf_lines(dst, one_line));
+	return (load_all_fdf_lines(dst, parse_line));
 }
-
-	// write(1, "<<< ", 4);
-	// write(1, file->arr, file->length);
-	// write(1, "\n", 1);

@@ -219,47 +219,29 @@ int	main(void)
 		while (k < 2)
 		{
 			if (k == 0)
-				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", bw_fdf_line);
+				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_bw);
 			else
-				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", rgba_fdf_line);
-			// write(1, "fdf_file.length\t= ", 19);
-			// ft_putnbr_fd(fdf_file.length, 1, "0123456789", 1);
-			// write(1, "\narr[i].length\t= ", 18);
-			// ft_putnbr_fd(arr[i].length, 1, "0123456789", 1);
-			// write(1, "\n", 1);
+				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba);
 			if (fdf_file.length == arr[i].length)
 			{
 				is_correct = TRUE;
 				j = 0;
 				while (j < arr[i].length && is_correct == TRUE)
 				{
-					// write(1, "fdf_file.arr[j].length\t=\t", 26);
-					// ft_putnbr_fd(fdf_file.arr[j].length, 1, "0123456789", 1);
-					// write(1, "\narr[i].arr[j].length\t=\t", 25);
-					// ft_putnbr_fd(arr[i].arr[j].length, 1, "0123456789", 1);
-					// write(1, "\n", 1);
 					if (arr[i].arr[j].length != fdf_file.arr[j].length)
-					{
-						write(1, "Not Equal Length\t", 18);
-						write(1, arr[i].file_name, f_strlen(arr[i].file_name));
-						write(1, "\t", 1);
-						ft_putnbr_fd(k, 1, "0123456789", 1);
-						write(1, "\n", 1);
 						is_correct = FALSE;
-					}
 					else if (compare_intarr(arr[i].arr[j].arr, fdf_file.arr[j].arr, fdf_file.arr[j].length) != 0)
-					{
-						write(1, "Not Identical\t", 15);
-						write(1, arr[i].file_name, f_strlen(arr[i].file_name));
-						write(1, "\t", 1);
-						ft_putnbr_fd(k, 1, "0123456789", 1);
-						write(1, "\n", 1);
 						is_correct = FALSE;
-					}
 					j += 1;
 				}
 				if (is_correct == TRUE)
 					score += 1;
+				else
+				{
+					write(1, "Incorrect: ", 12);
+					write(1, arr[i].file_name, f_strlen(arr[i].file_name));
+					write(1, "\n", 1);
+				}
 			}
 			free_load_fdf_arr(&fdf_file);
 			k += 1;

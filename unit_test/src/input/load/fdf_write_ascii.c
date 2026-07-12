@@ -50,7 +50,7 @@ int	main(void)
 	i = 0;
 	while (i < max_score)
 	{
-		fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", cheche01_ascii_line);
+		fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", parse_ascii_line_cheche01);
 		// fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", standard_ascii_line);
 		// fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", chungaloider_ascii_line);
 		

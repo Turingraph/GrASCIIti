@@ -20,7 +20,7 @@ char	f_strncmp(const char *dst, const char *src, size_t n)
 // space: O(1)
 char	f_isspace(char s, const char *space)
 {
-	while (*space != '\0')
+	while (space != NULL && *space != '\0')
 	{
 		if (*space == s)
 			return (1);

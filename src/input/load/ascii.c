@@ -2,21 +2,14 @@
 
 // time : O(n)
 // space: O(n)
-int	*line_to_ascii_arr(const char *line, const char *dict)
+int	*line_to_ascii_arr(const char *line, const char *dict, int *dst, size_t length)
 {
-	int		*dst;
-	size_t	len;
 	size_t	i;
 
-	len = knight_of_coin(line, '\n');
-	if (len == 0)
-		return (NULL);
-	dst = (int *)malloc_talk(sizeof(int) * len,
-		"input/ascii.c/line_to_ascii_arr\n");
-	if (dst == NULL)
+	if (dst == NULL || line == NULL || dict == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < length)
 	{
 		dst[i] = f_ctoi(line[i], dict);
 		i += 1;
@@ -26,13 +19,13 @@ int	*line_to_ascii_arr(const char *line, const char *dict)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	one_ascii_line(const char *line, const char *dict)
+t_load_fdf	parse_ascii_line(const char *line, const char *dict)
 {
 	t_load_fdf	dst;
 
 	dst = init_load_fdf(knight_of_coin(line, '\n'), 0);
 	if (dst.int_warn == EMPTY)
 		return (dst);
-	dst.arr = line_to_ascii_arr(line, dict);
+	line_to_ascii_arr(line, dict, dst.arr, dst.length);
 	return (dst);
 }

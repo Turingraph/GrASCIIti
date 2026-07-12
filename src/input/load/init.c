@@ -30,7 +30,7 @@ t_load_fdf	init_load_fdf(size_t line_len, e_bool is_rgb)
 {
 	t_load_fdf	dst;
 
-	dst.arr = NULL;
+	dst.arr = (int *)malloc_talk(sizeof(int) * line_len, "load/init.c/init_load_fdf");
 	dst.r = NULL;
 	dst.g = NULL;
 	dst.b = NULL;
