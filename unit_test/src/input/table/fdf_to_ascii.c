@@ -65,9 +65,16 @@ int	main(void)
 	while (i < length)
 	{
 		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, FALSE);
+		scale_positive_fdf(&table);
 		fdf_dst = open_dir_file(arrdst[i], "input_examples/ascii/", APPEND);
 		if(fdf_dst > -1)
+		{
+			write(1, "\n*** ", 5);
+			write(1, arr[i], f_strlen(arr[i]));
+			write(1, " ***\n", 5);
+			write_table_fdf(1, &table, 3, HEIGHT_ONLY);
 			write_table_ascii_cheche01(fdf_dst, &table, D5_HEIGHT);
+		}
 		else
 			warning_file_not_exists(arr[i]);
 		free_table_fdf(&table);
@@ -79,6 +86,6 @@ int	main(void)
 /*
 valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/table/fdf_to_ascii.out
 
-14:03:40
-14:04:23
+14:24:00
+14:25:05
 */

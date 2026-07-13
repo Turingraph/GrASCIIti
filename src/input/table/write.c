@@ -84,7 +84,7 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_5cell_channels channel,
 		while (j < src->col)
 		{
 			left_char = TRUE;
-			if (i > src->origin_x)
+			if (j >= src->origin_x)
 				left_char = FALSE;
 			arr = choose_5cell_channel(src, channel);
 			if (src->arr != NULL && channel == D5_HEIGHT)

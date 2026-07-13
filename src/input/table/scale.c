@@ -135,5 +135,9 @@ void	scale_positive_fdf(t_table_fdf *dst)
 	int	y;
 
 	y = get_minmax_from_table_fdf(dst, FALSE, D5_HEIGHT);
+	if (y < 0 && y > -2147483648)
+		y *= -1;
+	else if (y == -2147483648)
+		y = 0;
 	scale_addition_fdf(dst, y, D5_HEIGHT);
 }
