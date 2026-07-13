@@ -75,20 +75,3 @@ char	matrix_times_vec(const float **matrix, float *update_v, size_t dim)
 	free(temp);
 	return (1);
 }
-
-// time : O(n)
-// space: O(1)
-float	f_sum(const float *vec_v, size_t dim)
-{
-	size_t	i;
-	float	y;
-
-	y = 0;
-	i = 0;
-	while (i < dim)
-	{
-		y += vec_v[i];
-		i += 1;
-	}
-	return (y);
-}

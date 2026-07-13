@@ -19,13 +19,13 @@ void	set_table_fdf_origin(t_table_fdf *dst, e_axis direction, size_t ith_positio
 // time : O(n)
 // space: O(n)
 t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
-	t_load_fdf (*one_line)(char *line), e_bool is_rgb)
+	t_load_fdf (*one_line)(const char *line), e_bool is_rgba)
 {
 	t_table_fdf		dst;
 	t_load_fdf_arr	src;
 
 	src = open_fdf_file(file_name, dir, one_line);
-	dst = load_table_fdf(&src, is_rgb);
+	dst = load_table_fdf(&src, is_rgba);
 	free_load_fdf_arr(&src);
 	return (dst);
 }

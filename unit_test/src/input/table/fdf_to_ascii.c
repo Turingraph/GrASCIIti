@@ -1,0 +1,84 @@
+#include"table.h"
+
+int	main(void)
+{
+	int				fdf_dst;
+	size_t			i;
+	size_t			length = 25;
+	t_table_fdf		table;
+	char			*arr[] = {
+		"100-6.fdf",
+		"20-60.fdf",
+		"basictest.fdf",
+		"elem.fdf",
+		"julia.fdf",
+		"pentenegpos.fdf",
+		"prism_pyramid.fdf",
+		"pyramide.fdf",
+		"10-2.fdf",
+		"42.fdf",
+		"convolution_9.fdf",
+		"elem2.fdf",
+		"elem-fract.fdf",
+		"large_plat.fdf",
+		"plat.fdf",
+		"pylone.fdf",
+		"t1.fdf",
+		"10-70.fdf",
+		"50-4.fdf",
+		"elem-col.fdf",
+		"empty.fdf",
+		"mars.fdf",
+		"pnp_flat.fdf",
+		"pyra.fdf",
+		"t2.fdf",
+	};
+	char			*arrdst[] = {
+		"100-6.txt",
+		"20-60.txt",
+		"basictest.txt",
+		"elem.txt",
+		"julia.txt",
+		"pentenegpos.txt",
+		"prism_pyramid.txt",
+		"pyramide.txt",
+		"10-2.txt",
+		"42.txt",
+		"convolution_9.txt",
+		"elem2.txt",
+		"elem-fract.txt",
+		"large_plat.txt",
+		"plat.txt",
+		"pylone.txt",
+		"t1.txt",
+		"10-70.txt",
+		"50-4.txt",
+		"elem-col.txt",
+		"empty.txt",
+		"mars.txt",
+		"pnp_flat.txt",
+		"pyra.txt",
+		"t2.txt",
+	};
+
+	i = 0;
+	while (i < length)
+	{
+		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, FALSE);
+		fdf_dst = open_dir_file(arrdst[i], "input_examples/ascii/", APPEND);
+		if(fdf_dst > -1)
+			write_table_ascii_cheche01(fdf_dst, &table, D5_HEIGHT);
+		else
+			warning_file_not_exists(arr[i]);
+		free_table_fdf(&table);
+		i += 1;
+	}
+	return (0);
+}
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/table/fdf_to_ascii.out
+
+14:03:40
+14:04:23
+*/

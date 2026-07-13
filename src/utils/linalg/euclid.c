@@ -21,7 +21,7 @@ float	euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char s
 	}
 	if (square == 1)
 		return (y);
-	return ((float)newton_method(y, 2, 12));
+	return ((float)f_root_finding(y, 2, 12));
 }
 
 // time : O(n)
@@ -43,7 +43,7 @@ void	vector_projection(float *update_v, const float *vec_u, size_t dim)
 	float	div;
 	float	scale;
 
-	if (update_3d != NULL && vec_u != NULL)
+	if (update_v != NULL && vec_u != NULL)
 	{
 		div = euclid_distance(update_v, NULL, dim, 1);
 		if (div != 0)

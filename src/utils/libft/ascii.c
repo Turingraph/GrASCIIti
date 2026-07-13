@@ -59,6 +59,8 @@ void	ft_put_ascii_fd(int fd, int cell, const char *dict, e_bool is_left)
 		i = 0;
 		while (dict[i] != '\0' && cell != (int)i)
 			i += 1;
+		if (dict[i] == '\0' && i > 0)
+			i -= 1;
 		left_twin = mirror_tune(dict[i], TRUE);
 		right_twin = mirror_tune(dict[i], FALSE);
 		if (is_left == TRUE)

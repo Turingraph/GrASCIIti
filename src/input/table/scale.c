@@ -1,40 +1,51 @@
-#include"table.h"
+#include "table.h"
 
-// time : O(n)
-// space: O(n)
+// time : O(n^3)
+// space: O(n^3)
 t_table_fdf	scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t scale_col)
 {
 	t_table_fdf	dst;
 	size_t		i;
+	size_t		ii;
 	size_t		j;
-	char		is_rgb;
+	size_t		jj;
 
-	if (src == NULL)
-		return ((init_table_fdf(0, 0)));
-	is_rgb = 0;
-	if (src->r != NULL || src->g != NULL || src->b != NULL || src->a != NULL)
-		is_rgb = 1;
-	dst = init_table_fdf(src->row * scale_row, src->col * scale_col, is_rgb);
-	if (dst.arr == NULL)
-	{
-		free_table_fdf(&dst);
-		return (dst);
-	}
 	i = 0;
-	while (i < src->row && src->arr != NULL)
+	j = 0;
+	if (src != NULL)
 	{
-		j = 0;
-		while (j < scale_row)
+		i = src->row * scale_row;
+		j = src->col * scale_col;
+	}
+	dst = init_table_fdf(i, j, TRUE);
+	if (dst.arr == NULL || src == NULL || src->arr == NULL)
+		return (dst);
+	i = 0;
+	while (i < src->row)
+	{
+		ii = 0;
+		while (ii < scale_row)
 		{
-			copy_int_arr(dst.arr[i * scale_row + j], src->arr[i], src->col, scale_col);
-			if (is_rgb > 0)
+			j = 0;
+			while (j < src->col)
 			{
-				copy_uchar_arr(dst.r[i * scale_row + j], src->r[i], src->col, scale_col);
-				copy_uchar_arr(dst.g[i * scale_row + j], src->g[i], src->col, scale_col);
-				copy_uchar_arr(dst.b[i * scale_row + j], src->b[i], src->col, scale_col);
-				copy_uchar_arr(dst.a[i * scale_row + j], src->a[i], src->col, scale_col);
+				jj = 0;
+				while (jj < scale_col && dst.arr != NULL && src->arr != NULL)
+				{
+					dst.arr[scale_col * (dst.col * (scale_row * i + ii) + j) + jj] = src->arr[src->col * i + j];
+					if (dst.r != NULL && src->r != NULL)
+						dst.r[scale_col * (dst.col * (scale_row * i + ii) + j) + jj] = src->r[src->col * i + j];
+					if (dst.g != NULL && src->g != NULL)
+						dst.g[scale_col * (dst.col * (scale_row * i + ii) + j) + jj] = src->g[src->col * i + j];
+					if (dst.b != NULL && src->b != NULL)
+						dst.b[scale_col * (dst.col * (scale_row * i + ii) + j) + jj] = src->b[src->col * i + j];
+					if (dst.a != NULL && src->a != NULL)
+						dst.a[scale_col * (dst.col * (scale_row * i + ii) + j) + jj] = src->a[src->col * i + j];
+					jj += 1;
+				}
+				j += 1;
 			}
-			j += 1;
+			ii += 1;
 		}
 		i += 1;
 	}
@@ -43,116 +54,86 @@ t_table_fdf	scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t
 
 // time : O(n)
 // space: O(1)
-void	scale_addition_fdf(t_table_fdf *src, int scale)
+void	scale_multiplication_fdf(t_table_fdf *dst, float scale, e_5cell_channels channels)
 {
 	size_t	i;
-	size_t	j;
-	long	check;
 
 	i = 0;
-	while (src != NULL && i < src->row && src->arr != NULL)
+	while (dst != NULL && i < dst->row * dst->col)
 	{
-		j = 0;
-		while (j < src->col && src->arr[i] != NULL)
-		{
-			check = src->arr[i][j] + scale;
-			if (check > (long)2147483647)
-				write(1, "Warning: Some Integer of the Table is greater than 2147483647.\n", 64);
-			else if (check < (long)-2147483648)
-				write(1, "Warning: Some Integer of the Table is less than -2147483648.\n", 62);
-			else
-				src->arr[i][j] = (int)check;
-			j += 1;
-		}
+		if (dst->arr != NULL && channels == D5_HEIGHT)
+			dst->arr[i] = (int)f_interval(f_round((float)dst->arr[i] * scale), -2147483648.0, 2147483647);
+		if (dst->r != NULL && channels == D5_RED)
+			dst->r[i] = (unsigned char)f_interval((float)dst->r[i]* scale, 0, 255);
+		if (dst->g != NULL && channels == D5_GREEN)
+			dst->g[i] = (unsigned char)f_interval((float)dst->g[i]* scale, 0, 255);
+		if (dst->b != NULL && channels == D5_BLUE)
+			dst->b[i] = (unsigned char)f_interval((float)dst->b[i]* scale, 0, 255);
+		if (dst->a != NULL && channels == D5_ALPHA)
+			dst->a[i] = (unsigned char)f_interval((float)dst->a[i]* scale, 0, 255);
 		i += 1;
 	}
 }
 
 // time : O(n)
 // space: O(1)
-void	scale_hadamard_fdf(t_table_fdf *src, float scale)
+void	scale_addition_fdf(t_table_fdf *dst, int input, e_5cell_channels channels)
 {
 	size_t	i;
-	size_t	j;
-	long	check;
 
 	i = 0;
-	while (src != NULL && i < src->row && src->arr != NULL)
+	while (dst != NULL && i < dst->row * dst->col)
 	{
-		j = 0;
-		while (j < src->col && src->arr[i] != NULL)
-		{
-			check = (long)f_floor((float)src->arr[i][j] * scale);
-			if (check > (long)2147483647)
-				write(1, "Warning: Some Integer of the Table is greater than 2147483647.\n", 64);
-			else if (check < (long)-2147483648)
-				write(1, "Warning: Some Integer of the Table is less than -2147483648.\n", 62);
-			else
-				src->arr[i][j] = (int)check;
-			j += 1;
-		}
+		if (dst->arr != NULL && channels == D5_HEIGHT)
+			dst->arr[i] = (int)f_interval(f_round(dst->arr[i] + input), -2147483648.0, 2147483647);
+		if (dst->r != NULL && channels == D5_RED)
+			dst->r[i] = (unsigned char)f_interval((int)dst->r[i] + input, 0, 255);
+		if (dst->g != NULL && channels == D5_GREEN)
+			dst->g[i] = (unsigned char)f_interval((int)dst->g[i] + input, 0, 255);
+		if (dst->b != NULL && channels == D5_BLUE)
+			dst->b[i] = (unsigned char)f_interval((int)dst->b[i] + input, 0, 255);
+		if (dst->a != NULL && channels == D5_ALPHA)
+			dst->a[i] = (unsigned char)f_interval((int)dst->a[i] + input, 0, 255);
 		i += 1;
 	}
 }
 
 // time : O(n)
 // space: O(1)
-void	scale_relu_fdf(t_table_fdf *src, int min, int max, int expect)
+int	get_minmax_from_table_fdf(t_table_fdf *dst, e_bool is_max, e_5cell_channels channels)
 {
+	int		sign;
 	size_t	i;
-	size_t	j;
-	int		temp;
+	int		y;
 
-	if (min > max)
-	{
-		temp = min;
-		min = max;
-		max = temp;
-	}
-	i = 0;
-	while (src != NULL && i < src->row && src->arr != NULL)
-	{
-		j = 0;
-		while (j < src->col && src->arr[i] != NULL)
-		{
-			if (min <= src->arr[i][j] && src->arr[i][j] <= max)
-				src->arr[i][j] = expect;
-			j += 1;
-		}
-		i += 1;
-	}
-}
-
-// time : O(n)
-// space: O(1)
-int	scale_positive_fdf(t_table_fdf *src, e_bool is_update, e_bool return_min)
-{
-	long	sign;
-	long	min;
-	long	y;
-	size_t	i;
-	size_t	j;
-
+	y = 0;
 	sign = 1;
-	if (return_min == FALSE)
+	if (is_max == FALSE)
 		sign = -1;
-	min = 0;
 	i = 0;
-	while (src != NULL && src->arr != NULL && i < src->row)
+	while (dst != NULL && i < dst->row * dst->col)
 	{
-		j = 0;
-		while (j < src->col && src->arr[i] != NULL)
-		{
-			if (min * sign > src->arr[i][j] * sign)
-				min = src->arr[i][j];
-			j += 1;
-		}
+		if (dst->arr != NULL && y * sign < dst->arr[i] * sign && channels == D5_HEIGHT)
+			y = dst->arr[i];
+		if (dst->r != NULL && y * sign < (int)(dst->r[i] * sign) && channels == D5_RED)
+			y = (int)dst->r[i];
+		if (dst->g != NULL && y * sign < (int)(dst->g[i] * sign) && channels == D5_GREEN)
+			y = (int)dst->g[i];
+		if (dst->b != NULL && y * sign < (int)(dst->b[i] * sign) && channels == D5_BLUE)
+			y = (int)dst->b[i];
+		if (dst->a != NULL && y * sign < (int)(dst->a[i] * sign) && channels == D5_ALPHA)
+			y = (int)dst->a[i];
 		i += 1;
 	}
-	y = (int)f_interval((float)min, -2147483648, 2147483647);
-	if (min < 0)
-		min *= -1;
-	if (is_update == TRUE)
-		scale_addition_fdf(src, (int)min);
 	return (y);
+}
+
+// time : O(n)
+// space: O(1)
+void	scale_positive_fdf(t_table_fdf *dst)
+{
+	int	y;
+
+	y = get_minmax_from_table_fdf(dst, FALSE, D5_HEIGHT);
+	scale_addition_fdf(dst, y, D5_HEIGHT);
 }

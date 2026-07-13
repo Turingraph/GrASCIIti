@@ -126,23 +126,12 @@ struct t_table_fdf
 	size_t			origin_x;
 	size_t			origin_y;
 	e_sampling_rgba	color_sampling;
-	int				**arr;
-	unsigned char	**r;
-	unsigned char	**g;
-	unsigned char	**b;
-	unsigned char	**a;
-};
-
-// editor/paint/
-
-typedef struct t_rgba t_rgba;
-
-struct t_rgba
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned char	a;
+	float			zoom;
+	int				*arr;
+	unsigned char	*r;
+	unsigned char	*g;
+	unsigned char	*b;
+	unsigned char	*a;
 };
 
 // graphic/triangle_pair/
