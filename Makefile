@@ -69,14 +69,15 @@ TEST_BIN = $(patsubst unit_test/src/%.c, unit_test/bin/%.out, $(TEST_SRC))
 TEST_HELPER_SRC = $(wildcard unit_test/test_helpers/*.c)
 TEST_HELPER_BIN = $(patsubst unit_test/test_helpers/%.c, unit_test/bin/test_helpers/%.o, $(TEST_HELPER_SRC))
 
-INPUT_CLONE_SRC = $(wildcard input_examples/*/*)
+INPUT_CLONE_SRC = $(filter-out $(wildcard input_examples/font/*), $(wildcard input_examples/*/*))
 INPUT_CLONE_SRC_FONT = $(wildcard input_examples/*/*/*)
 INPUT_CLONE_BIN = $(patsubst input_examples/%, clone_examples/%, $(INPUT_CLONE_SRC) $(INPUT_CLONE_SRC_FONT))
+INPUT_FDFASCII = $(patsubst input_examples/fdf/%.fdf, input_examples/ascii/%.txt, $(wildcard input_examples/fdf/*))
 
 #-----------------------------------------------------------------------------------------------
 # *** create unit_test ***
 
-all_unit_tests: $(TEST_BIN) $(INPUT_CLONE_BIN)
+all_unit_tests: $(TEST_BIN) $(INPUT_CLONE_BIN) $(INPUT_FDFASCII)
 
 $(TEST_BIN): unit_test/bin/%.out: lib/$$(call remove_slash,$$(dir $$*)).a lib/test_helper.a unit_test/bin/%.o
 	@mkdir -p $(@D)
@@ -96,9 +97,15 @@ unit_test/bin/test_helpers/%.o: unit_test/test_helpers/%.c
 
 all_clone_examples: $(INPUT_CLONE_BIN)
 
+all_fdfascii_examples: $(INPUT_FDFASCII)
+
+input_examples/ascii/%.txt: input_examples/fdf/%.fdf
+	@mkdir -p $(@D)
+	touch $@
+
 clone_examples/%: input_examples/%
 	@mkdir -p $(@D)
-	@touch $@
+	touch $@
 
 #-----------------------------------------------------------------------------------------------
 # *** create coding_examples ***
@@ -158,6 +165,7 @@ clean:
 	rm -r -f coding_examples/bin/
 	rm -r -f unit_test/bin/
 	rm -r -f clone_examples/
+	rm -r -f input_examples/ascii/
 
 clean_all_unit_tests:
 	rm -r -f unit_test/bin/
@@ -169,6 +177,9 @@ clean_all_clone_examples:
 clean_all_coding_examples:
 	rm -r -f coding_examples/bin/
 
+clean_all_fdfascii_examples:
+	rm -r -f input_examples/ascii/
+
 # Lol, both Makefile tutorial and Suisei already cover .PHONY
 # https://youtu.be/N029UUlH1Dc?si=8PragRfDm3MzFOBc
-.PHONY: all clean test clean_all_coding_examples all_coding_examples clean_all_unit_tests all_unit_tests clean_all_clone_examples all_clone_examples
+.PHONY: all clean test clean_all_coding_examples all_coding_examples clean_all_unit_tests all_unit_tests clean_all_clone_examples all_clone_examples clean_all_fdfascii_examples
