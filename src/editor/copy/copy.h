@@ -13,6 +13,6 @@ https://youtu.be/6Qb6QtC6QMs?si=0_aDuTbljGgzBPhO
 # include"unistd.h"
 
 // copy.c
-void	print_copy();
+void	print_copy(void);
 
 #endif

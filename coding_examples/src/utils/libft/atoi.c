@@ -3,16 +3,16 @@
 // f_atoi
 int	main(int len, char **str)
 {
-	e_bool	err;
+	bool	err;
 	int		min;
 	int		max;
 
-	err = TRUE;
+	err = true;
 	if (len < 3)
 		return (0);
 	min = f_atoi(str[1], &err, "0123456789", f_strlen(str[1]));
 	max = f_atoi(str[2], &err, "0123456789", f_strlen(str[2]));
-	if (err == FALSE)
+	if (err == false)
 	{
 		write(1, "input is invalid.\n", 18);
 		return (0);
@@ -27,3 +27,6 @@ int	main(int len, char **str)
 	return (0);
 }
 
+/*
+
+*/

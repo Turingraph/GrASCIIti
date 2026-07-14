@@ -43,3 +43,25 @@ void	scale_positive_fdf(t_table_fdf *dst)
 		y = 0;
 	scale_addition_fdf(dst, y, HEIGHT);
 }
+
+// time : O(n)
+// space: O(1)
+void	scale_relu_fdf(t_table_fdf *dst, int min, int max, int expect)
+{
+	size_t	i;
+	int		temp;
+
+	if (min > max)
+	{
+		temp = min;
+		min = max;
+		max = temp;
+	}
+	i = 0;
+	while (dst != NULL && dst->arr != NULL && i < dst->row * dst->col)
+	{
+		if (min <= dst->arr[i] && dst->arr[i] <= max)
+			dst->arr[i] = expect;
+		i += 1;
+	}
+}

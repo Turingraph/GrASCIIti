@@ -1,4 +1,5 @@
 #include"libft.h"
+# include <fcntl.h>
 
 int	main(int len, char **str)
 {
@@ -23,6 +24,6 @@ int	main(int len, char **str)
 		write(fd, "\n", 1);
 		i += 1;
 	}
-	free_nest_arr((void **) split_arr, split_len);
+	free_2d_arr((void **) split_arr, split_len);
 	return (0);
 }

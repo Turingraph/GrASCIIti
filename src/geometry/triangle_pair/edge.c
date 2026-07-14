@@ -2,13 +2,13 @@
 
 // time : O(1)
 // space: O(1)
-void	get_edge_indexing(size_t *row, size_t *col, e_edge mode)
+void	get_edge_indexing(size_t *row, size_t *col, e_edge topology)
 {
-	if (mode == EDGE_X || mode == EDGE_DIAGONAL_RIGHT)
+	if (topology == EDGE_X || topology == EDGE_DIAGONAL_RIGHT)
 		*col += 1;
-	if (mode == EDGE_Y)
+	if (topology == EDGE_Y)
 		*row += 1;
-	if (mode == EDGE_DIAGONAL_LEFT)
+	if (topology == EDGE_DIAGONAL_LEFT)
 	{
 		*row += 1;
 		*col += 1;
@@ -17,17 +17,21 @@ void	get_edge_indexing(size_t *row, size_t *col, e_edge mode)
 
 // time : O(1)
 // space: O(1)
-void	init_edge_positions(t_triangle_arr *dst, size_t row, size_t col, e_edge mode)
+void	init_edge_positions(t_triangle_arr *dst, size_t index, e_edge topology, size_t src_col)
 {
+	size_t	row;
+	size_t	col;
 	size_t	row_2;
 	size_t	col_2;
 
-	if (dst != NULL && dst->capacity > 1 && dst->arr != NULL)
+	if (dst != NULL && dst->capacity > 1 && dst->arr != NULL && index < dst->length)
 	{
+		row = index / src_col;
+		col = index % src_col;
 		row_2 = row;
 		col_2 = col;
-		get_edge_indexing(&row_2, &col_2, mode);
-		if (mode == EDGE_DIAGONAL_RIGHT)
+		get_edge_indexing(&row_2, &col_2, topology);
+		if (topology == EDGE_DIAGONAL_RIGHT)
 			row += 1;
 		update_3d_vector(dst->arr[0].p1, (float)col, (float)row, 1.0);
 		update_3d_vector(dst->arr[0].p2, (float)col, (float)row, 0);
@@ -41,89 +45,98 @@ void	init_edge_positions(t_triangle_arr *dst, size_t row, size_t col, e_edge mod
 
 // time : O(1)
 // space: O(1)
-e_edge	fdf_edge_detection(const t_table_fdf *src, size_t row, size_t col, e_edge mode)
+e_edge	fdf_edge_detection(const t_table_fdf *src, size_t index, e_edge topology)
 {
-	if (row >= src->row || col >= src->col)
+	size_t	row;
+	size_t	col;
+
+	if (src == NULL || index >= src->row * src->col
+		|| topology == EDGE_DIAGONAL_LEFT || topology == EDGE_DIAGONAL_RIGHT)
 		return (EDGE_INVALID);
-	if ((mode == EDGE_DIAGONAL_LEFT || mode == EDGE_DIAGONAL_RIGHT) && (row + 1 >= src->row || col + 1 >= src->col))
-		return (EDGE_INVALID);
-	if (mode == EDGE_X && row < src->row && col + 1 < src->col
-		&& src->arr[row][col] > 0 && src->arr[row][col + 1] > 0 && ((row == 0)
-		|| (row > 0 && src->arr[row - 1][col] <= 0 && src->arr[row - 1][col + 1] <= 0)
-		|| (row < src->row - 1 && src->arr[row + 1][col] <= 0 && src->arr[row + 1][col + 1] <= 0)
+	row = index / src->col;
+	col = index % src->col;
+	if (topology == EDGE_X && row < src->row && col + 1 < src->col
+		&& src->arr[index] > 0 && src->arr[index + 1] > 0 && ((row == 0)
+		|| (row > 0 && src->arr[index - src->col] <= 0 && src->arr[index - src->col + 1] <= 0)
+		|| (row < src->row - 1 && src->arr[index + src->col] <= 0 && src->arr[index + src->col + 1] <= 0)
 		|| (row + 1 == src->row - 1)))
 		return (EDGE_X);
-	if (mode == EDGE_X && row + 1 < src->row && col < src->col
-		&& src->arr[row][col] > 0 && src->arr[row + 1][col] > 0 && ((col == 0)
-		|| (col > 0 && src->arr[row][col - 1] <= 0 && src->arr[row + 1][col - 1] <= 0)
-		|| (col < src->col - 1 && src->arr[row][col + 1] <= 0 && src->arr[row + 1][col + 1] <= 0)
+	if (topology == EDGE_X
+		&& src->arr[index] > 0 && src->arr[index + src->col] > 0 && ((col == 0)
+		|| (col > 0 && src->arr[index - 1] <= 0 && src->arr[index + src->col - 1] <= 0)
+		|| (col < src->col - 1 && src->arr[index + 1] <= 0 && src->arr[index + src->col + 1] <= 0)
 		|| (col + 1 == src->col - 1)))
 		return (EDGE_X);
-	if (mode == EDGE_DIAGONAL_LEFT && row + 1 < src->row && col + 1 < src->col
-		&& src->arr[row][col] > 0 && src->arr[row + 1][col + 1] > 0
-		&& (src->arr[row][col + 1] <= 0 || src->arr[row + 1][col] <= 0))
+	if (topology == EDGE_DIAGONAL_LEFT
+		&& src->arr[index] > 0 && src->arr[index + src->col + 1] > 0
+		&& (src->arr[index + 1] <= 0 || src->arr[index + src->col] <= 0))
 		return (EDGE_DIAGONAL_LEFT);
-	if ((mode == EDGE_DIAGONAL_RIGHT && row + 1 < src->row && col + 1 < src->col
-		&& src->arr[row + 1][col] > 0 && src->arr[row][col + 1] > 0)
-		&& ((src->arr[row][col] <= 0 || src->arr[row + 1][col + 1] <= 0)))
+	if ((topology == EDGE_DIAGONAL_RIGHT
+		&& src->arr[index + src->col] > 0 && src->arr[index + 1] > 0)
+		&& ((src->arr[index] <= 0 || src->arr[index + src->col + 1] <= 0)))
 		return (EDGE_DIAGONAL_RIGHT);
 	return (EDGE_INVALID);
 }
 
 // time : O(1)
 // space: O(1)
-void	*f_fdf_edge_coloring(const t_table_fdf *src, size_t row, size_t col, t_triangle_arr *dst)
+void	*f_fdf_edge_coloring(const t_table_fdf *src, size_t index, t_triangle_arr *dst)
 {
-	if (src == NULL || row >= src->row || col >= src->col || dst == NULL
-		|| src->r == NULL || src->r[row] == NULL
-		|| src->g == NULL || src->g[row] == NULL
-		|| src->b == NULL || src->b[row] == NULL
-		|| src->a == NULL || src->a[row] == NULL)
+	unsigned char	y;
+
+	if (src == NULL || index >= (src->row - 1) * (src->col - 1) || dst == NULL)
 		return (NULL);
-	dst->arr[0].r = src->r[row][col];
-	dst->arr[0].g = src->r[row][col];
-	dst->arr[0].b = src->r[row][col];
-	dst->arr[0].a = src->r[row][col];
-	dst->arr[1].r = src->r[row][col];
-	dst->arr[1].g = src->r[row][col];
-	dst->arr[1].b = src->r[row][col];
-	dst->arr[1].a = src->r[row][col];
+	y = 0;
+	if (src->r != NULL)
+		y = src->r[index];
+	dst->arr[0].r = y;
+	dst->arr[1].r = y;
+	y = 0;
+	if (src->g != NULL)
+		y = src->g[index];
+	dst->arr[0].g = y;
+	dst->arr[1].g = y;
+	y = 0;
+	if (src->b != NULL)
+		y = src->b[index];
+	dst->arr[0].b = y;
+	dst->arr[1].b = y;
+	y = 0;
+	if (src->a != NULL)
+		y = src->a[index];
+	dst->arr[0].a = y;
+	dst->arr[1].a = y;
 	if (src->color_sampling == SAMPLE_AVERAGE
 		|| src->color_sampling == SAMPLE_EDGE_AVERAGE)
-	{
-		edge_average_tri_coloring(src->r, dst, RED);
-		edge_average_tri_coloring(src->g, dst, GREEN);
-		edge_average_tri_coloring(src->b, dst, BLUE);
-		edge_average_tri_coloring(src->a, dst, ALPHA);
-	}
+		edge_average_tri_coloring(src, dst);
 	return (NULL);
 }
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t row, size_t col, e_edge mode)
+t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge topology)
 {
 	t_triangle_arr	dst;
 
-	mode = fdf_edge_detection(src, row, col, mode);
+	topology = fdf_edge_detection(src, index, topology);
 	dst = init_triangle_arr(2, 0, 0);
-	if (dst.arr == NULL)
+	if (dst.arr == NULL || src == NULL || src->arr == NULL)
 		return (dst);
 	dst.arr[0] = init_triangle();
 	dst.arr[1] = init_triangle();
-	if (mode == EDGE_INVALID)
+	if (topology == EDGE_INVALID)
 	{
 		free_triangle_arr(&dst);
 		return (dst);
 	}
-	init_edge_positions(&dst, row, col, mode);
+	init_edge_positions(&dst, index, topology, src->col);
 	if (dst.arr[0].p1[0] < src->col && dst.arr[0].p1[1] < src->row
 		&& dst.arr[1].p2[0] < src->col && dst.arr[1].p2[1] < src->row)
 	{
-		dst.arr[0].p1[2] = src->arr[dst.arr[0].p1[1]][dst.arr[0].p1[0]];
+		dst.arr[0].p1[2] = src->arr[(int)f_floor(dst.arr[0].p1[1] * src->col + dst.arr[0].p1[0])];
 		dst.arr[1].p1[2] = dst.arr[0].p1[2];
-		dst.arr[1].p2[2] = src->arr[dst.arr[1].p2[1]][dst.arr[1].p2[0]];
+		dst.arr[1].p2[2] = src->arr[(int)f_floor(dst.arr[1].p2[1] * src->col + dst.arr[1].p2[0])];
 	}
-	f_fdf_edge_coloring(src, row, col, &dst);
+	f_fdf_edge_coloring(src, index, &dst);
 	return (dst);
 }

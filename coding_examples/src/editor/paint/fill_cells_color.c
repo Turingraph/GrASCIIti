@@ -3,15 +3,21 @@
 int	main(int len, char **str)
 {
 	t_table_fdf	table;
-	double		**kernel;
 	int			output;
 
 	if (len < 3)
 		return (0);
 	output = open_dir_file(str[2], NULL, APPEND);
-	table = open_table_fdf_file(str[1], NULL, bw_fdf_line, TRUE);
-	fill_cells_color(&table, 123, RED, is_conformal_sin);
-	write_table_ascii_standard(output, &table, D5_RED);
+	table = open_table_fdf_file(str[1], NULL, parse_fdf_line_bw, true);
+	fill_cells_color(&table, 123, RED, is_complex_sin);
+	write_table_ascii_standard(output, &table, RED);
 	free_table_fdf(&table);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all
+./coding_examples/bin/editor/paint/color_cells_gradient.out
+input_examples/fdf/100-6.fdf
+output_examples/paint/100-6.fdf
+*/

@@ -2,7 +2,7 @@
 
 // time : O(n)
 // sapce: O(n)
-t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, e_bool is_2faces)
+t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, bool is_2faces)
 {
 	t_triangle_arr	dst;
 	t_triangle_arr	tsd;
@@ -16,7 +16,7 @@ t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, e_bool 
 		dst = all_triangle_edge_xy(src, 'y');
 	if (dst.arr != NULL && dst.length > 0)
 		setwidth_triangle_arr(&dst, width, 2);
-	if (is_2faces == TRUE && dst.arr != NULL && dst.length > 0)
+	if (is_2faces == true && dst.arr != NULL && dst.length > 0)
 	{
 		tsd = clone_triangle_arr(&dst, dst.length);
 		concat_triangle_arr(&dst, &tsd);
@@ -26,7 +26,7 @@ t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, e_bool 
 
 // time : O(n)
 // sapce: O(n)
-t_triangle_arr	push_back_to_triangle_arr(t_triangle_arr *src, float width, e_bool is_2faces)
+t_triangle_arr	push_back_to_triangle_arr(t_triangle_arr *src, float width, bool is_2faces)
 {
 	t_triangle_arr	crs;
 
@@ -34,7 +34,7 @@ t_triangle_arr	push_back_to_triangle_arr(t_triangle_arr *src, float width, e_boo
 	if (src->arr != NULL && src->length > 0)
 	{
 		crs = clone_triangle_arr(src, src->length);
-		if (is_2faces == TRUE)
+		if (is_2faces == true)
 			hadamard_triangle_arr(&crs, -1.0, 2);
 		else
 		{
@@ -49,7 +49,7 @@ t_triangle_arr	push_back_to_triangle_arr(t_triangle_arr *src, float width, e_boo
 
 // time : O(n)
 // sapce: O(n)
-t_triangle_arr	table_to_prism(const t_table_fdf *src, float width, e_bool is_2faces, e_3d_shape shape)
+t_triangle_arr	table_to_prism(const t_table_fdf *src, float width, bool is_2faces, e_3d_shape shape)
 {
 	t_triangle_arr	dst;
 	t_triangle_arr	items;

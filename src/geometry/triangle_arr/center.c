@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-float	update_width_of_triangle_arr(t_triangle_arr *src, e_axis axis)
+float	update_width_of_triangle_arr(t_triangle_arr *src, size_t axis)
 {
 	size_t	i;
 	float	min;
@@ -11,21 +11,21 @@ float	update_width_of_triangle_arr(t_triangle_arr *src, e_axis axis)
 	min = 0;
 	max = 0;
 	if (src->arr != NULL && 0 < src->length && axis <= 2)
-		min = width_of_triangle(src->arr[0], axis, 0);
+		min = height_of_triangle((const t_triangle *)&(src->arr[0]), axis, 0);
 	i = 0;
 	while (src->arr != NULL && i < src->length && axis <= 2)
 	{
-		if (max < width_of_triangle(src->arr[i], axis, 1))
-			max = width_of_triangle(src->arr[i], axis, 1);
-		if (min > width_of_triangle(src->arr[i], axis, 0))
-			min = width_of_triangle(src->arr[i], axis, 0);
+		if (max < height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 1))
+			max = height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 1);
+		if (min > height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 0))
+			min = height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 0);
 		i += 1;
 	}
-	if (axis == AXIS_X)
+	if (axis == 0)
 		src->width_x = max - min;
-	if (axis == AXIS_Y)
+	if (axis == 1)
 		src->width_y = max - min;
-	if (axis == AXIS_Z)
+	if (axis == 2)
 		src->width_z = max - min;
 	return (min);
 }
@@ -51,7 +51,7 @@ float	center_triangle_arr(t_triangle_arr *src, size_t axis)
 
 // time : O(n)
 // space: O(1)
-float	average_triangle_arr(t_triangle_arr *src, size_t axis, e_bool is_update)
+float	average_triangle_arr(t_triangle_arr *src, size_t axis, bool is_update)
 {
 	size_t	i;
 	float	y;
@@ -70,7 +70,7 @@ float	average_triangle_arr(t_triangle_arr *src, size_t axis, e_bool is_update)
 	}
 	if (src->length > 0)
 		y /= 3 * src->length;
-	if (is_update == FALSE)
+	if (is_update == false)
 		return (y);
 	shift_triangle_arr(src, -1 * y, axis);
 	return (y);

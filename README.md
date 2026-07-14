@@ -3,27 +3,37 @@
 This project name as `GrASCIIfi` which is inspired by 42 Coding School, Graffiti art, ASCII art, 3D Typography, and my personal experience with Grapheme Color Synesthesia.
 
 <!-- 
-Keyword
-1.	vulkan
+I plan to make fdf42, and I also add the feature that allow user to convert ASCII text (including Figlet output) as fdf42 input files, and display them as prism (with Z buffer) instead of isometric projection that looks like boring chocolate (as I see in original fdf42). The user can choose the origin of x and y on the tables of integers, also paint those prism with complex conformal map as rgba value on each cells, and use Gaussian convolution when they wish to do it and also save it as new fdf42 files. Also I plan to make it utilize mainly OpenGL/GLFW directly. The reason I do this is because I have grapheme color synesthesia, I never use Blender, and I want to show audience what is the color of alphabet and display it as 3D typography for pure artistic reason and as IT job portfolio. 
 
-TO DO LIST
-1.	Add enum in graphic/triangle_arr/ and input/synesthesia/
-2.	study basic OpenGL/GLFW (including dynamic linking)
-3.	plan MVP
+Moreover, I think I can use 3D typography as the symbolism of random thought when I meditate, or some random feeling that I try to be more aware. If I were to ordinate for a month in the future, I could mixing this Git repo with my personal experience with buddhism.
 
-MVP
-1.	Should input/load/ be optimized ?
-2.	simple rotation matrix animation
-3.	user able to click, see, and rotating the 3 circles around the 3D object. (this feature is inspired by EA Spore game where the player can create the creature and also rotate the creature's limbs/organs with the 3 circles) (Gizmo system)
+Another interesting idea is that I can also show the audience about my personal experience with how learning 3rd language and synesthesia experience interact with each other, if I have opportunity to learn 3rd language consistently.
 
-What not to do
-1.	Z Buffer
-2.	Quaternion rotation (use simple rotating matrix animation instead).
-3.	throttle (but I might add)
-4.	string "hello world" to 3D "HELLO WORLD" with synesthesia coloring system
+Thing I already finish today which is flating every table of data as 1D array
 
-Note
-*	Replace `--z_buffer` `--triangle` and `--isometric` with pure rgb system
+Thing to do before Submission
+1.	graphic/window/ (with only keyboard based UXUI)
+2.	user tutorial and README.md
+3.	fix some part of coding_examples/
+
+coding_examples/
+1.	editor/gauss_rgb.c
+2.	editor/paint
+3.	editor/mathart
+4.	geometry/
+
+Release First Stable Version
+1.	paint thue_morse and outlier (based on std)
+2.	editor/copy/ (transfer rgba height channel from one table to another table)
+3.	graphic/rasterization/ with z buffer
+4.	detvolve, matrix multiplication, and matrix determinant
+
+Thing to do "after" the first stable version, to avoid scope creep.
+1.	editor/mathart/derivative/
+2.	editor/fractal/ (including Julia, Newton fractal etc.)
+3.	mouse based UXUI and throttle
+4.	Figlet in other languages and language specialized related features e.g. Thai, Japanese, Chinese, Arabic, conlang etc.
+5.	synesthesia, language, meditation visualization etc.
  -->
 
 ## What is GrASCIIfi ?
@@ -412,18 +422,8 @@ as 16 times larger and apply 5x5 Gaussian convolution, or do something similar t
 	*	https://stackoverflow.com/questions/39399804/updates-were-rejected-because-the-tip-of-your-current-branch-is-behind-its-remot
 
 <!-- 
-To Do List before submission
-1.	Fix triangle_arr/ about painting part.
-2.	Makefile for unit_test/ and coding_examples/
-3.	graphic/window/ (with keyboard only UXUI)
-4.	main.c
-
-To Do List before 1st stable release
-1.	graphic/animation/
-2.	graphic/rasterization/
-3.	user documentation
-4.	coding review
-
-I also add the feature that allow user to convert ASCII text (including Figlet output) as fdf42 input files, and display them as prism (with Z buffer) instead of isometric projection that looks like boring chocolate (as I see in original fdf42). The user can choose the origin of x and y on the tables of integers, also paint those prism with complex conformal map as rgba value on each cells, and use Gaussian convolution when they wish to do it and also save it as new fdf42 files. Also I plan to make it utilize mainly OpenGL/GLFW directly. The reason I do this is because I have grapheme color synesthesia, I never use Blender, and I want to show audience what is the color of alphabet and display it as 3D typography for pure artistic reason and as IT job portfolio. Moreover, I think I can use 3D typography as the symbolism of random thought when I meditate, or some random feeling that I try to be more aware. If I were to ordinate for a month in the future, I could mixing this Git repo with my personal experience with buddhism.
-
+I plan to make fdf42, and I also add the feature that allow user to convert ASCII text (including Figlet output) as fdf42 input files, and display them as prism (with Z buffer) instead of isometric projection that looks like boring chocolate (as I see in original fdf42). The user can choose the origin of x and y on the tables of integers, also paint those prism with complex conformal map as rgba value on each cells, and use Gaussian convolution when they wish to do it and also save it as new fdf42 files. Also I plan to make it utilize mainly OpenGL/GLFW directly. The reason I do this is because I have grapheme color synesthesia, I never use Blender, and I want to show audience what is the color of alphabet and display it as 3D typography for pure artistic reason and as IT job portfolio. 
+Moreover, I think I can use 3D typography as the symbolism of random thought when I meditate, or some random feeling that I try to be more aware. If I were to ordinate for a month in the future, I could mixing this Git repo with my personal experience with buddhism.
+Another interesting idea is that I can also show the audience about my personal experience with how learning 3rd language and synesthesia experience interact with each other, if I have opportunity to learn 3rd language consistently.
+What is the genre of this type of content ?
 -->

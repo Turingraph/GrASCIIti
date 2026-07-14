@@ -13,6 +13,7 @@ t_table_fdf		load_table_fdf(const t_load_fdf_arr *src, bool is_rgba);
 // positive.c
 int				get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_rgba channels);
 void			scale_positive_fdf(t_table_fdf *dst);
+void			scale_relu_fdf(t_table_fdf *dst, int min, int max, int expect);
 
 // scale.c
 t_table_fdf		scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t scale_col);
@@ -27,7 +28,7 @@ void			write_table_ascii_chungaloider(int fd, const t_table_fdf *src, e_rgba cha
 // utils.c
 void			set_table_fdf_origin(t_table_fdf *dst, size_t direction, size_t ith_position, size_t max_position);
 t_table_fdf		open_table_fdf_file(const char *file_name, const char *dir,
-					t_load_fdf (*one_line)(const char *line), bool is_rgba);
+					t_load_fdf (*one_line)(char *line), bool is_rgba);
 t_complex		get_table_fdf_coordinate(const t_table_fdf *dst, size_t index);
 unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type);
 

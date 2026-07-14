@@ -16,15 +16,15 @@ ChatGPT Function Naming Recommendation
 */
 
 // all_files.c
-t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*parse_line)(const char *line));
+t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*parse_line)(char *line));
 t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
-					t_load_fdf (*parse_line)(const char *line));
+					t_load_fdf (*parse_line)(char *line));
 
 // ascii.c
-t_load_fdf		parse_ascii_line(const char *line, const char *dict);
+t_load_fdf		parse_ascii_line(char *line, const char *dict);
 
 // fdf.c
-t_load_fdf		parse_fdf_line(const char *line, bool is_rgb);
+t_load_fdf		parse_fdf_line(char *line, bool is_rgb);
 
 // init.c
 void			*free_load_fdf(t_load_fdf *src);
@@ -33,15 +33,15 @@ void			*free_load_fdf_arr(t_load_fdf_arr *src);
 t_load_fdf_arr	init_load_fdf_arr(size_t length);
 
 // parse.c
-t_load_fdf		parse_ascii_line_cheche01(const char *line);
-t_load_fdf		parse_ascii_line_standard(const char *line);
-t_load_fdf		parse_ascii_line_chungaloider(const char *line);
-t_load_fdf		parse_fdf_line_rgba(const char *line);
-t_load_fdf		parse_fdf_line_bw(const char *line);
+t_load_fdf		parse_ascii_line_cheche01(char *line);
+t_load_fdf		parse_ascii_line_standard(char *line);
+t_load_fdf		parse_ascii_line_chungaloider(char *line);
+t_load_fdf		parse_fdf_line_rgba(char *line);
+t_load_fdf		parse_fdf_line_bw(char *line);
 
 // rgba.c
-size_t	count_hex_digits(const char *line, size_t max);
-void	update_rgba(const char *line, t_load_fdf *dst, size_t index);
+size_t	count_hex_digits(char *line, size_t max);
+void	update_rgba(char *line, t_load_fdf *dst, size_t index);
 
 // write_ascii.c
 void	write_load_ascii_arr_cheche01(int fd, const t_load_fdf_arr *src);

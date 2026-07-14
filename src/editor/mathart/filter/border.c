@@ -2,20 +2,20 @@
 
 // time : O(1)
 // space: O(1)
-int	count_2_fdf_triangles_bool(t_table_fdf *src, size_t row, size_t col)
+int	count_2_fdf_triangles_bool(const t_table_fdf *dst, size_t index)
 {
 	int		y;
 
 	y = 0;
-	if (src->row < 2 || src->col < 2 || src->row <= row + 1 || src->col <= col + 1)
+	if (index >= (dst->row - 1) * (dst->col - 1))
 		return (-1);
-	if (src->arr[row][col] > 0)
+	if (dst->arr[index] > 0)
 		y += 1;
-	if (src->arr[row + 1][col] > 0)
+	if (dst->arr[index / dst->col + index % dst->col + dst->col] > 0)
 		y += 1;
-	if (src->arr[row + 1][col + 1] > 0)
+	if (dst->arr[index / dst->col + index % dst->col + dst->col + 1] > 0)
 		y += 1;
-	if (src->arr[row][col + 1] > 0)
+	if (dst->arr[index / dst->col + index % dst->col + 1] > 0)
 		y += 1;
 	if (y >= 3)
 		return (y / 2);
@@ -24,36 +24,60 @@ int	count_2_fdf_triangles_bool(t_table_fdf *src, size_t row, size_t col)
 
 // time : O(1)
 // space: O(1)
-e_bool	is_in_prism_border(size_t row, size_t col, t_table_fdf *dst)
+bool	is_in_prism_border(const t_table_fdf *dst, size_t index)
 {
 	int	y;
 
-	if (row >= dst->row || col >= dst->col)
-		return (FALSE);
-	if (row == dst->row - 1)
-		row -= 1;
-	if (col == dst->col - 1)
-		col -= 1;
-	y = count_2_fdf_triangles_bool(dst, row, col);
+	if (dst == NULL || index >= (dst->row - 1) * (dst->col - 1))
+		return (false);
+	y = count_2_fdf_triangles_bool(dst, index);
 	if (y == 1)
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 // time : O(1)
 // space: O(1)
-e_bool	is_in_prism_terrain(size_t row, size_t col, t_table_fdf *dst)
+bool	is_in_prism_terrain(const t_table_fdf *dst, size_t index)
 {
 	int	y;
 
-	if (row >= dst->row || col >= dst->col)
-		return (FALSE);
-	if (row == dst->row - 1)
-		row -= 1;
-	if (col == dst->col - 1)
-		col -= 1;
-	y = count_2_fdf_triangles_bool(dst, row, col);
+	if (dst == NULL || index >= dst->row * dst->col)
+		return (false);
+	y = count_2_fdf_triangles_bool(dst, index);
 	if (y == 2)
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_greater_than_magnitude(const t_table_fdf *dst, size_t index)
+{
+	int			y;
+	t_complex	coordinate;
+
+	if (dst == NULL || index >= dst->row * dst->col)
+		return (false);
+	coordinate = get_table_fdf_coordinate(dst, index);
+	y = complex_magnitude(coordinate, false);
+	if (dst->arr[index] > y)
+		return (true);
+	return (false);
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_greater_than_conjugate(const t_table_fdf *dst, size_t index)
+{
+	int			y;
+	t_complex	coordinate;
+
+	if (dst == NULL || index >= dst->row * dst->col)
+		return (false);
+	coordinate = get_table_fdf_coordinate(dst, index);
+	y = coordinate.re * coordinate.re - coordinate.im * coordinate.im;
+	if (dst->arr[index] > y)
+		return (true);
+	return (false);
 }

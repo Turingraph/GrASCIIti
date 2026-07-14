@@ -10,22 +10,45 @@ List of unfinished function that I will implement after submit fdf42.
 2.	thue_morse.c
 */
 
+typedef enum e_7cell_channels e_7cell_channels;
+
+enum e_7cell_channels
+{
+	D7_RED,
+	D7_GREEN,
+	D7_BLUE,
+	D7_ALPHA,
+	D7_ROW,
+	D7_COL,
+	D7_HEIGHT
+};
+
+typedef struct t_rgba t_rgba;
+
+struct t_rgba
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+};
+
 typedef struct t_gradient t_gradient;
 
 struct t_gradient
 {
-	t_rgba				start_rgb;
-	t_rgba				end_rgb;
+	t_rgba				rgba_start;
+	t_rgba				rgba_end;
 	e_7cell_channels	cell_channel;
-	int					start_value;
-	int					end_value;
+	int					input_start;
+	int					input_end;
 };
 
 // gradient.c
 void	color_cells_gradient(t_table_fdf *dst,
-	t_gradient *gradient_input,
-	e_bool is_overwrite,
-	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst));
+	t_gradient gradient_input,
+	bool is_overwrite,
+	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index));
 
 // outlier.c
 void	print_outlier(void);
@@ -34,18 +57,18 @@ void	print_outlier(void);
 void	fill_cells_height(
 	t_table_fdf *dst,
 	int height,
-	e_bool is_overwrite,
-	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst));
-void	generate_cells_color(
-	t_table_fdf *dst,
-	e_5cell_channels channel,
-	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst),
-	int(*gen_color)(size_t row, size_t col, t_table_fdf *dst));
+	bool is_overwrite,
+	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index));
 void	fill_cells_color(
 	t_table_fdf *dst,
 	unsigned char input_value,
-	e_rgba rgb_type,
-	e_bool(*is_filtered_cell)(size_t row, size_t col, t_table_fdf *dst));
+	e_rgba rgba_type,
+	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index));
+void	generate_cells_color(
+	t_table_fdf *dst,
+	e_rgba channel,
+	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index),
+	int(*gen_color)(const t_table_fdf *dst, size_t index));
 
 // thue_morse.c
 void	print_thue_morse(void);

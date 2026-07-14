@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_ascii_line_cheche01(const char *line)
+t_load_fdf	parse_ascii_line_cheche01(char *line)
 {
 	return (parse_ascii_line(line,
 		" `'.,:_-;~!^\"\\|)rvcilj+xnzt>=]*?}17JTC23"
@@ -12,7 +12,7 @@ t_load_fdf	parse_ascii_line_cheche01(const char *line)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_ascii_line_standard(const char *line)
+t_load_fdf	parse_ascii_line_standard(char *line)
 {
 	return (parse_ascii_line(line,
 		" .'`^\",:;Il!i>~+_-?]}1)|\\tjrxnvcz=7T23y"
@@ -22,7 +22,7 @@ t_load_fdf	parse_ascii_line_standard(const char *line)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_ascii_line_chungaloider(const char *line)
+t_load_fdf	parse_ascii_line_chungaloider(char *line)
 {
 	return (parse_ascii_line(line,
 		" `.-~'\":_,^=;>+!rc*\\z?TvJ7)|FiC}I31tlneoZ5Yxjy]"
@@ -32,14 +32,14 @@ t_load_fdf	parse_ascii_line_chungaloider(const char *line)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_fdf_line_rgba(const char *line)
+t_load_fdf	parse_fdf_line_rgba(char *line)
 {
 	return (parse_fdf_line(line, true));
 }
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_fdf_line_bw(const char *line)
+t_load_fdf	parse_fdf_line_bw(char *line)
 {
 	return (parse_fdf_line(line, false));
 }

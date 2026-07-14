@@ -39,7 +39,7 @@ size_t	count_fdf_columns(const char *line)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_fdf_line(const char *line, bool is_rgba)
+t_load_fdf	parse_fdf_line(char *line, bool is_rgba)
 {
 	t_load_fdf	dst;
 	size_t		length;

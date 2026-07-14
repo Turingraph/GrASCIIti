@@ -19,13 +19,13 @@ int	*line_to_ascii_arr(const char *line, const char *dict, int *dst, size_t leng
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_ascii_line(const char *line, const char *dict)
+t_load_fdf	parse_ascii_line(char *line, const char *dict)
 {
 	t_load_fdf	dst;
 
-	dst = init_load_fdf(knight_of_coin(line, '\n'), 0);
+	dst = init_load_fdf(knight_of_coin((const char *)line, '\n'), 0);
 	if (dst.int_warn == EMPTY)
 		return (dst);
-	line_to_ascii_arr(line, dict, dst.arr, dst.length);
+	line_to_ascii_arr((const char *)line, dict, dst.arr, dst.length);
 	return (dst);
 }

@@ -20,7 +20,7 @@ t_triangle_arr	all_triangle_faces(const t_table_fdf *src, e_3d_shape shape)
 		j = 0;
 		while (j < src->col - 1)
 		{
-			item = f_fdf_face(src, i, j, shape);
+			item = f_fdf_face(src, i * src->col + j, shape);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}
@@ -72,7 +72,7 @@ t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode)
 		j = 0;
 		while (j < getdim(src->row, src->col, mode, 'c'))
 		{
-			item = f_fdf_edge(src, i, j, mode);
+			item = f_fdf_edge(src, i * src->col + j, mode);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}
@@ -102,7 +102,7 @@ t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 		j = 0;
 		while (j < src->col - 1)
 		{
-			item = f_fdf_edge(src, i, j, mode);
+			item = f_fdf_edge(src, i * src->col + j, mode);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}

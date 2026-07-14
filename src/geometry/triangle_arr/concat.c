@@ -29,9 +29,14 @@ t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length)
 	t_triangle_arr	dst;
 	size_t			i;
 
-	if (length == 0 || dst.arr == NULL || src->arr == NULL)
+	if (length == 0 || src == NULL || src->arr == NULL)
 		return (init_triangle_arr(0, 0, 0));
-	dst = init_triangle_arr(length, src->table_row, src->col);
+	dst = init_triangle_arr(length, src->table_row, src->table_col);
+	if (dst.arr == NULL)
+	{
+		free_triangle_arr(&dst);
+		return (init_triangle_arr(0, 0, 0));
+	}
 	i = 0;
 	while (i < src->length && i < dst.capacity)
 	{
@@ -58,18 +63,23 @@ t_triangle_arr	clone_triangle_arr(const t_triangle_arr *src, size_t length)
 	t_triangle_arr	dst;
 	size_t			i;
 
-	if (length == 0 || dst.arr == NULL || src->arr == NULL)
+	if (length == 0 || src->arr == NULL)
 		return (init_triangle_arr(0, 0, 0));
-	dst = init_triangle_arr(length, src->row, src->col);
+	dst = init_triangle_arr(length, src->table_row, src->table_col);
+	if (dst.arr == NULL)
+	{
+		free_triangle_arr(&dst);
+		return (init_triangle_arr(0, 0, 0));
+	}
 	i = 0;
 	while (i < src->length && i < dst.capacity)
 	{
 		dst.arr[i] = copy_triangle(&(src->arr[i]));
 		if (src->arr[i].p1 != NULL && src->arr[i].p2 != NULL && src->arr[i].p3 != NULL)
 		{
-			dst.arr[i].p1 = create_3d_vector(src->arr[i].p1[0], src->arr[i].p1[1], src->arr[i].p1[2]);
-			dst.arr[i].p2 = create_3d_vector(src->arr[i].p2[0], src->arr[i].p2[1], src->arr[i].p2[2]);
-			dst.arr[i].p3 = create_3d_vector(src->arr[i].p3[0], src->arr[i].p3[1], src->arr[i].p3[2]);
+			dst.arr[i].p1 = init_3d_vector(src->arr[i].p1[0], src->arr[i].p1[1], src->arr[i].p1[2]);
+			dst.arr[i].p2 = init_3d_vector(src->arr[i].p2[0], src->arr[i].p2[1], src->arr[i].p2[2]);
+			dst.arr[i].p3 = init_3d_vector(src->arr[i].p3[0], src->arr[i].p3[1], src->arr[i].p3[2]);
 		}
 		i += 1;
 	}

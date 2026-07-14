@@ -9,9 +9,9 @@ t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode);
 t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode);
 
 // center.c
-float			update_width_of_triangle_arr(t_triangle_arr *src, e_axis axis);
+float			update_width_of_triangle_arr(t_triangle_arr *src, size_t axis);
 float			center_triangle_arr(t_triangle_arr *src, size_t axis);
-float			average_triangle_arr(t_triangle_arr *src, size_t axis, e_bool is_update);
+float			average_triangle_arr(t_triangle_arr *src, size_t axis, bool is_update);
 
 // concat.c
 t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length);
@@ -19,7 +19,7 @@ t_triangle_arr	clone_triangle_arr(const t_triangle_arr *src, size_t length);
 t_triangle_arr	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src);
 
 // prism.c
-t_triangle_arr	table_to_prism(const t_table_fdf *src, float width, e_bool is_2faces, e_3d_shape shape);
+t_triangle_arr	table_to_prism(const t_table_fdf *src, float width, bool is_2faces, e_3d_shape shape);
 
 // scale.c
 void			hadamard_triangle_arr(t_triangle_arr *src, float scale, size_t axis);

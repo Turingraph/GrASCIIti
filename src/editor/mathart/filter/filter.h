@@ -1,8 +1,8 @@
 #ifndef FILTER_H
 # define FILTER_H
 
-# include "../mathart.h"
-
+#include"../../../input/table/table.h"
+#include"../../../utils/libft/libft.h"
 /*
 I will finish this folder after submit fdf42 project.
 
@@ -36,42 +36,42 @@ and then mod by 2, in FILTER (because f_round() % 2 isn't linear operator).
 
 /*
 List of unfinished function that I will implement after submit fdf42.
-1.	is_conformal_x_log
-2.	is_conformal_log
-3.	every functions from derivertive.c
+1.	is_conjugate_log
+2.	is_complex_log
 */
 
 // border.c
-e_bool	is_in_prism_border(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_in_prism_terrain(size_t row, size_t col, t_table_fdf *dst);
+bool	is_in_prism_border(const t_table_fdf *dst, size_t index);
+bool	is_in_prism_terrain(const t_table_fdf *dst, size_t index);
 
-// conformal_x.c
-e_bool	is_conformal_x_square(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_x_cube(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_x_sin(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_x_reciprocal(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_x_log(size_t row, size_t col, t_table_fdf *dst);
+// conjugate.c
+bool	is_conjugate_square(const t_table_fdf *dst, size_t index);
+bool	is_conjugate_cube(const t_table_fdf *dst, size_t index);
+bool	is_conjugate_sin(const t_table_fdf *dst, size_t index);
+bool	is_conjugate_reciprocal(const t_table_fdf *dst, size_t index);
+bool	is_conjugate_log(const t_table_fdf *dst, size_t index);
 
-// conformal.c
-e_bool	is_conformal_square(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_cube(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_sin(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_log(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_reciprocal(size_t row, size_t col, t_table_fdf *dst);
+// complex.c
+bool	is_complex_square(const t_table_fdf *dst, size_t index);
+bool	is_complex_cube(const t_table_fdf *dst, size_t index);
+bool	is_complex_sin(const t_table_fdf *dst, size_t index);
+bool	is_complex_log(const t_table_fdf *dst, size_t index);
+bool	is_complex_reciprocal(const t_table_fdf *dst, size_t index);
 
 // discrete_math.c
-e_bool	is_collatz_coloring(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_collatz_x_coloring(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_binary_search_coloring(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_binary_search_x_coloring(size_t row, size_t col, t_table_fdf *dst);
+bool	is_collatz_coloring(const t_table_fdf *dst, size_t index);
+bool	is_collatz_x_coloring(const t_table_fdf *dst, size_t index);
+bool	is_binary_search_coloring(const t_table_fdf *dst, size_t index);
+bool	is_binary_search_x_coloring(const t_table_fdf *dst, size_t index);
+bool	is_chess_cell(const t_table_fdf *dst, size_t index);
 
 // utils.c
-e_bool	is_colored_cell(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_positive_cell(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_chess_cell(size_t row, size_t col, t_table_fdf *dst);
-e_bool	is_conformal_x_func(size_t row, size_t col,
-	t_table_fdf *dst, t_complex (*complex_func)(t_complex a));
-e_bool	is_conformal_func(size_t row, size_t col,
-	t_table_fdf *dst, t_complex (*complex_func)(t_complex a));
+bool	is_positive_cell(const t_table_fdf *dst, size_t index);
+bool	is_conjugate_func(const t_table_fdf *dst, size_t index,
+	t_complex (*complex_func)(t_complex a));
+bool	is_conjugate(const t_table_fdf *dst, size_t index);
+bool	is_complex_func(const t_table_fdf *dst, size_t index,
+	t_complex (*complex_func)(t_complex a));
+bool	is_complex(const t_table_fdf *dst, size_t index);
 
 #endif

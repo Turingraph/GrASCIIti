@@ -59,9 +59,9 @@ t_triangle	init_triangle(void)
 	dst.g = (unsigned char)255;
 	dst.b = (unsigned char)255;
 	dst.a = (unsigned char)0;
-	dst.p1 = create_3d_vector(0, 0, 0);
-	dst.p2 = create_3d_vector(0, 0, 0);
-	dst.p3 = create_3d_vector(0, 0, 0);
+	dst.p1 = init_3d_vector(0, 0, 0);
+	dst.p2 = init_3d_vector(0, 0, 0);
+	dst.p3 = init_3d_vector(0, 0, 0);
 	return (dst);
 }
 
@@ -87,7 +87,7 @@ t_triangle_arr	init_triangle_arr(size_t length, size_t row, size_t col)
 
 // time : O(1)
 // space: O(1)
-float	width_of_triangle(const t_triangle *src, size_t axis, e_bool is_greater)
+float	height_of_triangle(const t_triangle *src, size_t axis, bool is_greater)
 {
 	float	dst;
 	float	sign;
@@ -97,7 +97,7 @@ float	width_of_triangle(const t_triangle *src, size_t axis, e_bool is_greater)
 		return (0.0);
 	dst = src->p1[axis];
 	sign = 1;
-	if (is_greater == FALSE)
+	if (is_greater == false)
 		sign *= -1;
 	if (dst * sign < sign * src->p2[axis])
 		dst = src->p2[axis];

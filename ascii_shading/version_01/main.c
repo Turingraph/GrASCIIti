@@ -44,14 +44,16 @@ int	main(void)
 	char	*my_dict;
 	char	*std_dict;
 	char	*their_dict;
+	char	*mir_dict;
 
+	mir_dict = "ASLbpsuaf[({</6";
 	my_dict = " `'.,:_-;~!^\"/\\|()rvcilj+xunzstf><=[]*?{}17LJTC23%Yoyhk4$5IF&XVUGSZEwaemqpdbgPAKO6980DQRHNB#WM@";
 	std_dict = " .'`^\",:;Il!i><~+_-?[]{}1()|\\/tfjrxnuvczs=7T23y45FXYUJCLQ0OZmwqpdbkhaoVGSEegPA*#MW&8%K69DRHNB@$";
 	their_dict = " `.-~'\":_,^=;><+!rc*\\/z?sLTv(J7)|FiC{}fI31tluneoZ5Yxjya[]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
 	i = 0;
 	while (my_dict[i] != '\0')
 	{
-		if (f_isspace(my_dict[i], "VZJdqznej])}>\\9") == 0)
+		if (f_isspace(my_dict[i], mir_dict) == 0)
 			write(1, my_dict + i, 1);
 		i += 1;
 	}
@@ -59,7 +61,7 @@ int	main(void)
 	i = 0;
 	while (std_dict[i] != '\0')
 	{
-		if (f_isspace(std_dict[i], "VZJdqznej])}>\\9") == 0)
+		if (f_isspace(std_dict[i], mir_dict) == 0)
 			write(1, std_dict + i, 1);
 		i += 1;
 	}
@@ -67,7 +69,7 @@ int	main(void)
 	i = 0;
 	while (their_dict[i] != '\0')
 	{
-		if (f_isspace(their_dict[i], "VZJdqznej])}>\\9") == 0)
+		if (f_isspace(their_dict[i], mir_dict) == 0)
 			write(1, their_dict + i, 1);
 		i += 1;
 	}
