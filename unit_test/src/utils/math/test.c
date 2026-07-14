@@ -37,7 +37,7 @@ double	test_normal(double x)
 
 // time : O(n)
 // space: O(1)
-e_bool	math_tester(size_t max_score, const double **arr,
+bool	math_tester(size_t max_score, const double **arr,
 	double (*math_func)(double x))
 {
 	size_t	i;
@@ -55,8 +55,8 @@ e_bool	math_tester(size_t max_score, const double **arr,
 	}
 	write_total_score(score, max_score);
 	if (score == max_score)
-		return (TRUE);
-	return (FALSE);
+		return (true);
+	return (false);
 }
 
 int	main(void)
@@ -116,21 +116,21 @@ int	main(void)
 	};
 
 	score = 0;
-	if (math_tester(4, (const double **)arr_identity_tester, test_identity) == TRUE)
+	if (math_tester(4, (const double **)arr_identity_tester, test_identity) == true)
 		score += 1;
-	if (math_tester(6, (const double **)arr_sqrt_tester, test_sqrt) == TRUE)
+	if (math_tester(6, (const double **)arr_sqrt_tester, test_sqrt) == true)
 		score += 1;
-	if (math_tester(4, (const double **)arr_sin_tester, f_sin) == TRUE)
+	if (math_tester(4, (const double **)arr_sin_tester, f_sin) == true)
 		score += 1;
-	if (math_tester(4, (const double **)arr_cos_tester, f_cos) == TRUE)
+	if (math_tester(4, (const double **)arr_cos_tester, f_cos) == true)
 		score += 1;
-	if (math_tester(4, (const double **)arr_exp_tester, f_exp) == TRUE)
+	if (math_tester(4, (const double **)arr_exp_tester, f_exp) == true)
 		score += 1;
-	if (math_tester(6, (const double **)arr_cubrt_tester, test_cubrt) == TRUE)
+	if (math_tester(6, (const double **)arr_cubrt_tester, test_cubrt) == true)
 		score += 1;
-	if (math_tester(4, (const double **)arr_cube_tester, test_cube) == TRUE)
+	if (math_tester(4, (const double **)arr_cube_tester, test_cube) == true)
 		score += 1;
-	if (math_tester(4, (const double **)arr_normal_tester, test_normal) == TRUE)
+	if (math_tester(4, (const double **)arr_normal_tester, test_normal) == true)
 		score += 1;
 	if (score == 8)
 		write(1, "The utils/math/ module works correctly.\n", 41);

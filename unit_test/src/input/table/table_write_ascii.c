@@ -47,7 +47,7 @@ int	main(void)
 		"y.txt"
 	};
 
-    is_rgb = FALSE;
+    is_rgb = false;
 	score = 0;
 	i = 0;
 	while (i < max_score)
@@ -58,7 +58,7 @@ int	main(void)
 		{
 			write_table_ascii_cheche01(clone_examples, &table, D5_HEIGHT);
 			if (assert_files_ascii(arr[i], arr[i],
-					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == TRUE)
+					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == true)
 				score += 1;
 			else
 			{

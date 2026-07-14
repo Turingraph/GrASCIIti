@@ -17,7 +17,7 @@ t_table_fdf	scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t
 		i = src->row * scale_row;
 		j = src->col * scale_col;
 	}
-	dst = init_table_fdf(i, j, TRUE);
+	dst = init_table_fdf(i, j, true);
 	if (dst.arr == NULL || src == NULL || src->arr == NULL)
 		return (dst);
 	i = 0;
@@ -100,7 +100,7 @@ void	scale_addition_fdf(t_table_fdf *dst, int input, e_5cell_channels channels)
 
 // time : O(n)
 // space: O(1)
-int	get_minmax_from_table_fdf(t_table_fdf *dst, e_bool is_max, e_5cell_channels channels)
+int	get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_5cell_channels channels)
 {
 	int		sign;
 	size_t	i;
@@ -108,7 +108,7 @@ int	get_minmax_from_table_fdf(t_table_fdf *dst, e_bool is_max, e_5cell_channels 
 
 	y = 0;
 	sign = 1;
-	if (is_max == FALSE)
+	if (is_max == false)
 		sign = -1;
 	i = 0;
 	while (dst != NULL && i < dst->row * dst->col)
@@ -134,7 +134,7 @@ void	scale_positive_fdf(t_table_fdf *dst)
 {
 	int	y;
 
-	y = get_minmax_from_table_fdf(dst, FALSE, D5_HEIGHT);
+	y = get_minmax_from_table_fdf(dst, false, D5_HEIGHT);
 	if (y < 0 && y > -2147483648)
 		y *= -1;
 	else if (y == -2147483648)

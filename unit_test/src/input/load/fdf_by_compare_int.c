@@ -5,7 +5,7 @@ int	main(void)
 	size_t			i;
 	size_t			j;
 	size_t			k;
-	e_bool			is_correct;
+	bool			is_correct;
 	size_t			score;
 	size_t			max_score = 10;
 	t_load_fdf_arr	fdf_file;
@@ -224,17 +224,17 @@ int	main(void)
 				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba);
 			if (fdf_file.length == arr[i].length)
 			{
-				is_correct = TRUE;
+				is_correct = true;
 				j = 0;
-				while (j < arr[i].length && is_correct == TRUE)
+				while (j < arr[i].length && is_correct == true)
 				{
 					if (arr[i].arr[j].length != fdf_file.arr[j].length)
-						is_correct = FALSE;
+						is_correct = false;
 					else if (compare_intarr(arr[i].arr[j].arr, fdf_file.arr[j].arr, fdf_file.arr[j].length) != 0)
-						is_correct = FALSE;
+						is_correct = false;
 					j += 1;
 				}
-				if (is_correct == TRUE)
+				if (is_correct == true)
 					score += 1;
 				else
 				{

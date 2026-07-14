@@ -26,7 +26,7 @@ void	*free_load_fdf(t_load_fdf *src)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	init_load_fdf(size_t line_len, e_bool is_rgb)
+t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
 {
 	t_load_fdf	dst;
 
@@ -35,7 +35,7 @@ t_load_fdf	init_load_fdf(size_t line_len, e_bool is_rgb)
 	dst.g = NULL;
 	dst.b = NULL;
 	dst.a = NULL;
-	if (is_rgb == TRUE)
+	if (is_rgb == true)
 	{
 		dst.r = malloc_talk(sizeof(unsigned char) * line_len,
 			"load/ascii.c/int_load_fdf\n");

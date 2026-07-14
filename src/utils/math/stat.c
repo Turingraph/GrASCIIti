@@ -18,14 +18,14 @@ double	normal_distribution_function(double std, double means, double x)
 
 // time : O(n)
 // space: O(1)
-double	f_sum(const double *vec_v, size_t dim)
+float	f_sum(const float *vec_v, size_t dim)
 {
 	size_t	i;
-	double	y;
+	float	y;
 
 	y = 0;
 	i = 0;
-	while (i < dim)
+	while (i < dim && vec_v != NULL)
 	{
 		y += vec_v[i];
 		i += 1;

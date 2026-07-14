@@ -3,7 +3,7 @@
 // time : O(n)
 // space: O(1)
 int	compare_string(const char *str_1,
-	const char *str_2, size_t n, e_bool ignore_space)
+	const char *str_2, size_t n, bool ignore_space)
 {
 	size_t	i;
 
@@ -12,10 +12,10 @@ int	compare_string(const char *str_1,
 	if ((str_1 == NULL && str_2 != NULL) || (str_1 != NULL && str_2 == NULL))
 		return (-1);
 	while (f_isspace(*str_1, " \n\t\r\f\v") == 1
-		&& *str_1 != '\0' && ignore_space == TRUE)
+		&& *str_1 != '\0' && ignore_space == true)
 		str_1 += 1;
 	while (f_isspace(*str_2, " \n\t\r\f\v") == 1
-		&& *str_2 != '\0' && ignore_space == TRUE)
+		&& *str_2 != '\0' && ignore_space == true)
 		str_2 += 1;
 	i = 0;
 	while (i < n && *str_1 == *str_2 && *str_1 != '\0')
@@ -24,10 +24,10 @@ int	compare_string(const char *str_1,
 		str_1 += 1;
 		str_2 += 1;
 		while (f_isspace(*str_1, " \n\t\r\f\v") == 1
-			&& *str_1 != '\0' && ignore_space == TRUE)
+			&& *str_1 != '\0' && ignore_space == true)
 			str_1 += 1;
 		while (f_isspace(*str_2, " \n\t\r\f\v") == 1
-			&& *str_2 != '\0' && ignore_space == TRUE)
+			&& *str_2 != '\0' && ignore_space == true)
 			str_2 += 1;
 	}
 	return (*str_1 - *str_2);
@@ -49,29 +49,29 @@ size_t	length_of_strarr(const char **src)
 
 // time : O(n)
 // space: O(1)
-e_bool	assert_strarr(const char **strarr_1,
-	const char **strarr_2, size_t length, e_bool ignore_space)
+bool	assert_strarr(const char **strarr_1,
+	const char **strarr_2, size_t length, bool ignore_space)
 {
 	size_t	i;
 
 	if (strarr_1 == NULL && strarr_2 == NULL)
-		return (TRUE);
+		return (true);
 	if ((strarr_1 == NULL && strarr_2 != NULL)
 		|| (strarr_2 == NULL && strarr_1 != NULL))
-		return (FALSE);
+		return (false);
 	i = 0;
 	while (i < length && strarr_1[i] != NULL && strarr_2[i] != NULL)
 	{
 		if (compare_string(strarr_1[i], strarr_2[i],
 				f_strlen(strarr_1[i]), ignore_space) != 0)
-			return (FALSE);
+			return (false);
 		i += 1;
 	}
 	if (strarr_1[i] == NULL && strarr_2[i] == NULL)
-		return (TRUE);
+		return (true);
 	if (strarr_1[i] == NULL || strarr_2[i] == NULL)
-		return (FALSE);
-	return (TRUE);
+		return (false);
+	return (true);
 }
 
 // time : O(n)

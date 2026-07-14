@@ -36,7 +36,7 @@ int	main(void)
 		total_lines = total_lines_of_file(fd_length);
 		load = load_file_as_strarr(fd, total_lines);
 		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
-		if (assert_file_with_strarr(fd, (const char **)load, total_lines) == TRUE)
+		if (assert_file_with_strarr(fd, (const char **)load, total_lines) == true)
 			score += 1;
 		else
 		{
@@ -49,7 +49,7 @@ int	main(void)
 		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
 		load = load_file_as_strarr(fd, 1);
 		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
-		if (assert_file_with_strarr(fd, (const char **)load, 1) == TRUE)
+		if (assert_file_with_strarr(fd, (const char **)load, 1) == true)
 			score += 1;
 		else
 		{
@@ -62,7 +62,7 @@ int	main(void)
 		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
 		load = load_file_as_strarr(fd, 3);
 		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
-		if (assert_file_with_strarr(fd, (const char **)load, 3) == TRUE)
+		if (assert_file_with_strarr(fd, (const char **)load, 3) == true)
 			score += 1;
 		else
 		{

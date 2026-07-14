@@ -34,12 +34,12 @@ t_load_fdf	parse_ascii_line_chungaloider(const char *line)
 // space: O(n)
 t_load_fdf	parse_fdf_line_rgba(const char *line)
 {
-	return (parse_fdf_line(line, TRUE));
+	return (parse_fdf_line(line, true));
 }
 
 // time : O(n)
 // space: O(n)
 t_load_fdf	parse_fdf_line_bw(const char *line)
 {
-	return (parse_fdf_line(line, FALSE));
+	return (parse_fdf_line(line, false));
 }

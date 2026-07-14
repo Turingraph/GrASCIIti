@@ -30,13 +30,13 @@ int	main(void)
 	i = 0;
 	while (i < max_score)
 	{
-		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, FALSE);
+		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, false);
 		fdf_dst = open_dir_file(arr[i], "clone_examples/fdf/", APPEND);
 		if (fdf_dst > -1)
 		{
 			write_table_fdf(fdf_dst, &table, 1, HEIGHT_ONLY);
 			if (assert_files(arr[i], arr[i],
-					"input_examples/fdf/", "clone_examples/fdf/") == TRUE)
+					"input_examples/fdf/", "clone_examples/fdf/") == true)
 				score += 1;
 			else
 			{

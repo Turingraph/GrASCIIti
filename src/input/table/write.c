@@ -75,7 +75,7 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_5cell_channels channel,
 	size_t			j;
 	unsigned char	*arr;
 	int				rgb95;
-	e_bool			left_char;
+	bool			left_char;
 
 	i = 0;
 	while (src != NULL && i < src->row && fd > -1)
@@ -83,9 +83,9 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_5cell_channels channel,
 		j = 0;
 		while (j < src->col)
 		{
-			left_char = TRUE;
+			left_char = true;
 			if (j >= src->origin_x)
-				left_char = FALSE;
+				left_char = false;
 			arr = choose_5cell_channel(src, channel);
 			if (src->arr != NULL && channel == D5_HEIGHT)
 				ft_put_ascii_fd(fd, (int)src->arr[i * src->col + j], dict, left_char);

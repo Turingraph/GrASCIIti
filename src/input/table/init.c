@@ -18,6 +18,8 @@ void	*free_table_fdf(t_table_fdf *src)
 	src->a = NULL;
 	src->row = 0;
 	src->col = 0;
+	src->origin_x = 0;
+	src->origin_y = 0;
 	src->color_sampling = SAMPLE_TOP_LEFT;
 	src->zoom = 1;
 	return (NULL);
@@ -25,7 +27,7 @@ void	*free_table_fdf(t_table_fdf *src)
 
 // time : O(n)
 // space: O(n)
-t_table_fdf	init_table_fdf(size_t row, size_t col, e_bool is_rgba)
+t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 {
 	t_table_fdf	dst;
 
@@ -35,7 +37,7 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, e_bool is_rgba)
 	dst.origin_x = col / 2;
 	dst.origin_y = row / 2;
 	dst.color_sampling = SAMPLE_TOP_LEFT;
-	if (is_rgba == FALSE)
+	if (is_rgba == false)
 		row = 0;
 	dst.r = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
 	dst.g = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
@@ -83,14 +85,14 @@ void	load_rgba_for_table_fdf(const t_load_fdf *src, t_table_fdf *dst, size_t row
 
 // time : O(n)
 // space: O(1)
-t_table_fdf	load_table_fdf(const t_load_fdf_arr *src, e_bool is_rgba)
+t_table_fdf	load_table_fdf(const t_load_fdf_arr *src, bool is_rgba)
 {
 	t_table_fdf	dst;
 	size_t		i;
 	size_t		j;
 
 	if (src == NULL || src->arr == NULL || src->length == 0 || src->capacity == 0)
-		return (init_table_fdf(0, 0, FALSE));
+		return (init_table_fdf(0, 0, false));
 	dst = init_table_fdf(src->length, load_fdf_col(src), is_rgba);
 	if (dst.arr == NULL)
 		return (dst);
@@ -101,7 +103,7 @@ t_table_fdf	load_table_fdf(const t_load_fdf_arr *src, e_bool is_rgba)
 		while (j < src->arr[i].length && src->arr[i].arr != NULL)
 		{
 			dst.arr[dst.col * i + j] = src->arr[i].arr[j];
-			if (is_rgba == TRUE)
+			if (is_rgba == true)
 				load_rgba_for_table_fdf(&(src->arr[i]), &dst, i, j);
 			j += 1;
 		}

@@ -33,7 +33,7 @@ void	update_3d_vector(float *dst, float x, float y, float z)
 
 // time : O(1)
 // space: O(1)
-float	*create_3d_vector(float x, float y, float z)
+float	*init_3d_vector(float x, float y, float z)
 {
 	float	*dst;
 

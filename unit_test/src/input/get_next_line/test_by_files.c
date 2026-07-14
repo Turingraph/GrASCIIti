@@ -45,7 +45,7 @@ int	main(void)
 			{
 				write_strarr((const char **)load, length_of_strarr((const char **)load), fd);
 				if (assert_files(arr[i], arr[i],
-					"input_examples/gnl_tester/", "clone_examples/gnl_tester/") == TRUE)
+					"input_examples/gnl_tester/", "clone_examples/gnl_tester/") == true)
 					score += 1;
 			}
 			else

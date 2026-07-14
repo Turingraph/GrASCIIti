@@ -21,7 +21,7 @@ float	euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char s
 	}
 	if (square == 1)
 		return (y);
-	return ((float)f_root_finding(y, 2, 12));
+	return ((float)f_root_finding(y, 2));
 }
 
 // time : O(n)
@@ -49,7 +49,7 @@ void	vector_projection(float *update_v, const float *vec_u, size_t dim)
 		if (div != 0)
 		{
 			scale = dot_product(update_v, vec_u, dim) / div;
-			scale_vec(update_v, scale, dim);
+			vector_scale(update_v, scale, dim);
 		}
 	}
 }

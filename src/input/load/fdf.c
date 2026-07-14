@@ -39,21 +39,21 @@ size_t	count_fdf_columns(const char *line)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf	parse_fdf_line(const char *line, e_bool is_rgba)
+t_load_fdf	parse_fdf_line(const char *line, bool is_rgba)
 {
 	t_load_fdf	dst;
 	size_t		length;
 	size_t		i;
 	size_t		j;
-	e_bool		is_int;
+	bool		is_int;
 
 	length = count_fdf_columns(line);
 	if (line == NULL || length == 0)
-		return (init_load_fdf(0, FALSE));
+		return (init_load_fdf(0, false));
 	dst = init_load_fdf(length, is_rgba);
 	if (dst.arr == NULL)
 		return (dst);
-	is_int = TRUE;
+	is_int = true;
 	i = 0;
 	while (i < length && *line != '\0')
 	{
@@ -62,14 +62,14 @@ t_load_fdf	parse_fdf_line(const char *line, e_bool is_rgba)
 		j = count_decimal_digits(line, 10);
 		dst.arr[i] = f_atoi(line, &is_int, "0123456789", j);
 		line += j;
-		if (is_rgba == TRUE)
+		if (is_rgba == true)
 			update_rgba(line, &dst, i);
 		j = count_hex_digits(line, 8);
 		if (j > 0)
 			line += j + 3;
 		i += 1;
 	}
-	if (is_int == FALSE)
+	if (is_int == false)
 		dst.int_warn = NOT_DECIMAL;
 	return (dst);
 }

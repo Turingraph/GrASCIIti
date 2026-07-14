@@ -60,7 +60,7 @@ int	main(void)
 		if (length_of_strarr((const char **)strarr_dst) == length_dst
 			&& length_dst == arr[i].expected_length
 			&& (assert_strarr((const char **)arr[i].expected_output,
-				(const char **)strarr_dst, length_dst, TRUE) == TRUE || arr[i].expected_output[0] == (const char *)strarr_dst))
+				(const char **)strarr_dst, length_dst, true) == true || arr[i].expected_output[0] == (const char *)strarr_dst))
 			score += 1;
 		free_2d_arr((void**)strarr_dst, length_dst);
 		i += 1;

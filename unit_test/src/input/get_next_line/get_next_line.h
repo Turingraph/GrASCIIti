@@ -11,7 +11,7 @@ struct t_gnl_tester
 	const char	*file_name;
 	const char	**arr;
 	size_t		total_lines;
-	e_bool		read_entire_file;
+	bool		read_entire_file;
 };
 
 typedef struct t_file_tester t_file_tester;

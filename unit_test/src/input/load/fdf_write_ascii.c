@@ -67,7 +67,7 @@ int	main(void)
 			// write_load_ascii_arr_chungaloider(clone_examples, &fdf_file);
 			
 			if (assert_files_ascii(arr[i], arr[i],
-					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == TRUE)
+					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == true)
 				score += 1;
 			else
 			{

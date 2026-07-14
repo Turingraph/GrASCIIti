@@ -54,9 +54,9 @@ void	write_load_ascii(int fd, const t_load_fdf *src, const char *dict)
 	while (src != NULL && src->arr != NULL && i < src->length)
 	{
 		if (i < src->length / 2)
-			ft_put_ascii_fd(fd, src->arr[i], dict, TRUE);
+			ft_put_ascii_fd(fd, src->arr[i], dict, true);
 		else
-			ft_put_ascii_fd(fd, src->arr[i], dict, FALSE);
+			ft_put_ascii_fd(fd, src->arr[i], dict, false);
 		i += 1;
 	}
 	write(fd, "\n", 1);

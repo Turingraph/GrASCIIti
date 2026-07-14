@@ -24,11 +24,11 @@ t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 t_load_fdf		parse_ascii_line(const char *line, const char *dict);
 
 // fdf.c
-t_load_fdf		parse_fdf_line(const char *line, e_bool is_rgb);
+t_load_fdf		parse_fdf_line(const char *line, bool is_rgb);
 
 // init.c
 void			*free_load_fdf(t_load_fdf *src);
-t_load_fdf		init_load_fdf(size_t line_len, e_bool is_rgb);
+t_load_fdf		init_load_fdf(size_t line_len, bool is_rgb);
 void			*free_load_fdf_arr(t_load_fdf_arr *src);
 t_load_fdf_arr	init_load_fdf_arr(size_t length);
 

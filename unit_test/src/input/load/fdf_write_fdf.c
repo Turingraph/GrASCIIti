@@ -38,7 +38,7 @@ int	main(void)
 		{
 			write_load_fdf_arr(clone_examples, &fdf_file, 1, HEIGHT_ONLY);
 			if (assert_files(arr[i], arr[i],
-					"input_examples/fdf/", "clone_examples/fdf/") == TRUE)
+					"input_examples/fdf/", "clone_examples/fdf/") == true)
 				score += 1;
 		}
 		free_load_fdf_arr(&fdf_file);

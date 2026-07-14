@@ -240,9 +240,9 @@ int	main(void)
 		while (k < 2)
 		{
 			if (k == 0)
-				table = open_table_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_bw, FALSE);
+				table = open_table_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_bw, false);
 			else
-				table = open_table_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba, TRUE);
+				table = open_table_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba, true);
 			if (table.row * table.col == arr[i].length && table.arr != NULL
 				&& compare_intarr(table.arr, arr[i].arr[0].arr, arr[i].length) == 0)
 					score += 1;

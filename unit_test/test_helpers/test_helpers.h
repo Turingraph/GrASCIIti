@@ -23,22 +23,22 @@ struct t_intarr_tester
 };
 
 // ascii.c
-e_bool	assert_files_ascii(const char *file_name_1, const char *file_name_2,
+bool	assert_files_ascii(const char *file_name_1, const char *file_name_2,
 			const char *dir_name_1, const char *dir_name_2);
 
 // file.c
 size_t	total_lines_of_file(int fd);
-e_bool	assert_files(const char *file_name_1, const char *file_name_2,
+bool	assert_files(const char *file_name_1, const char *file_name_2,
 			const char *dir_name_1, const char *dir_name_2);
-e_bool	assert_file_with_strarr(int fd, const char **strarr,
+bool	assert_file_with_strarr(int fd, const char **strarr,
 			size_t total_lines);
 
 // strarr.c
 int		compare_string(const char *str_1, const char *str_2,
-			size_t n, e_bool ignore_space);
+			size_t n, bool ignore_space);
 size_t	length_of_strarr(const char **src);
-e_bool	assert_strarr(const char **strarr_1, const char **strarr_2,
-			size_t length, e_bool ignore_space);
+bool	assert_strarr(const char **strarr_1, const char **strarr_2,
+			size_t length, bool ignore_space);
 size_t	write_strarr(const char **strarr, size_t length, int fd);
 char	**load_file_as_strarr(int fd, size_t total_lines);
 

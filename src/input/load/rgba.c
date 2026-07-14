@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-unsigned char	f_rgba(const char *str, size_t len, e_bool *rgb_warn)
+unsigned char	f_rgba(const char *str, size_t len, bool *rgb_warn)
 {
 	int	dst;
 
@@ -37,9 +37,9 @@ size_t	count_hex_digits(const char *line, size_t max)
 void	update_rgba(const char *line, t_load_fdf *dst, size_t index)
 {
 	size_t	length;
-	e_bool	is_rgba;
+	bool	is_rgba;
 
-	is_rgba = TRUE;
+	is_rgba = true;
 	length = count_hex_digits(line, 8);
 	if (length > 0 && length < 5 && dst != NULL)
 	{
@@ -63,6 +63,6 @@ void	update_rgba(const char *line, t_load_fdf *dst, size_t index)
 		if (length > 3 && dst->a != NULL)
 			dst->a[index] = f_rgba(line + 3 + 6, 1, &is_rgba);
 	}
-	if (dst != NULL && is_rgba == FALSE)
+	if (dst != NULL && is_rgba == false)
 		dst->rgb_warn = NOT_HEX;
 }

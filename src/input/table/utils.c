@@ -2,11 +2,11 @@
 
 // time : O(1)
 // space: O(1)
-void	set_table_fdf_origin(t_table_fdf *dst, e_axis direction, size_t ith_position, size_t max_position)
+void	set_table_fdf_origin(t_table_fdf *dst, size_t direction, size_t ith_position, size_t max_position)
 {
-	if (direction == AXIS_X && dst != NULL && ith_position <= max_position && max_position <= dst->col)
+	if (direction == 0 && dst != NULL && ith_position <= max_position && max_position <= dst->col)
 		dst->origin_x = (dst->col / max_position) * ith_position;
-	if (direction == AXIS_Y && dst != NULL && ith_position <= max_position && max_position <= dst->col)
+	if (direction == 1 && dst != NULL && ith_position <= max_position && max_position <= dst->col)
 		dst->origin_y = (dst->row / max_position) * ith_position;
 }
 
@@ -19,7 +19,7 @@ void	set_table_fdf_origin(t_table_fdf *dst, e_axis direction, size_t ith_positio
 // time : O(n)
 // space: O(n)
 t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
-	t_load_fdf (*one_line)(const char *line), e_bool is_rgba)
+	t_load_fdf (*one_line)(const char *line), bool is_rgba)
 {
 	t_table_fdf		dst;
 	t_load_fdf_arr	src;
@@ -30,3 +30,34 @@ t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
 	return (dst);
 }
 
+// time : O(1)
+// space: O(1)
+t_complex	get_table_fdf_coordinate(const t_table_fdf *dst, size_t index)
+{
+	t_complex	y;
+
+	y.re = 0;
+	y.im = 0;
+	if (dst == NULL || index >= dst->row * dst->col)
+		return (y);
+	y.re = f_floor(f_floor(index / dst->col) - (float)dst->origin_x) * dst->zoom;
+	y.im = f_floor((float)dst->origin_y - f_floor(index % dst->col)) * dst->zoom;
+	return (y);
+}
+
+// time : O(1)
+// space: O(1)
+unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type)
+{
+	if (src == NULL)
+		return (NULL);
+	if (src->r != NULL && rgba_type == RED)
+		return (src->r);
+	if (src->g != NULL && rgba_type == GREEN)
+		return (src->g);
+	if (src->b != NULL && rgba_type == BLUE)
+		return (src->b);
+	if (src->a != NULL && rgba_type == ALPHA)
+		return (src->a);
+	return (NULL);
+}

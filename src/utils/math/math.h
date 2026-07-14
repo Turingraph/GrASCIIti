@@ -32,7 +32,7 @@ double	f_cos(double x);
 
 // stat.c
 double	normal_distribution_function(double std, double means, double x);
-double	f_sum(const double *vec_v, size_t dim);
+float	f_sum(const float *vec_v, size_t dim);
 
 // utils.c
 size_t	collatz_max_point(size_t x);

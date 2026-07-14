@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(1)
-size_t	f_atoonei(char c, const char *base, e_bool *is_int)
+size_t	f_atoonei(char c, const char *base, bool *is_int)
 {
 	size_t	i;
 	char	big_c;
@@ -22,7 +22,7 @@ size_t	f_atoonei(char c, const char *base, e_bool *is_int)
 	if (*base == '\0' || *base == '-' || *base == '+')
 	{
 		if (is_int != NULL)
-			*is_int = FALSE;
+			*is_int = false;
 		return (0);
 	}
 	return (i);
@@ -30,7 +30,7 @@ size_t	f_atoonei(char c, const char *base, e_bool *is_int)
 
 // time : O(1)
 // space: O(1)
-long int	f_atolongi(const char *src, e_bool *is_int, const char *base, size_t digits)
+long int	f_atolongi(const char *src, bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
 	size_t		i;
@@ -39,10 +39,10 @@ long int	f_atolongi(const char *src, e_bool *is_int, const char *base, size_t di
 		digits = f_strlen(src);
 	i = 0;
 	y = 0;
-	while ((is_int == NULL || *is_int != FALSE) && *src != '\0' && i < digits)
+	while ((is_int == NULL || *is_int != false) && *src != '\0' && i < digits)
 	{
 		y += (long int)f_atoonei(*src, base, is_int);
-		if (is_int != NULL && *is_int == FALSE)
+		if (is_int != NULL && *is_int == false)
 			return (-1);
 		y *= f_strlen(base);
 		src += 1;
@@ -54,7 +54,7 @@ long int	f_atolongi(const char *src, e_bool *is_int, const char *base, size_t di
 
 // time : O(1)
 // space: O(1)
-int	f_atoi(const char *src, e_bool *is_int, const char *base, size_t digits)
+int	f_atoi(const char *src, bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
 	size_t		sign;
@@ -62,7 +62,7 @@ int	f_atoi(const char *src, e_bool *is_int, const char *base, size_t digits)
 	if (src == NULL || base == NULL)
 	{
 		if (is_int != NULL)
-			*is_int = FALSE;
+			*is_int = false;
 		return (0);
 	}
 	if (src[0] == '0' && src[1] == '\0')
@@ -76,7 +76,7 @@ int	f_atoi(const char *src, e_bool *is_int, const char *base, size_t digits)
 	if (y < -2147483648 || y > 2147483647)
 	{
 		if (is_int != NULL)
-			*is_int = FALSE;
+			*is_int = false;
 		return (-1);
 	}
 	return ((int) y);
@@ -84,7 +84,7 @@ int	f_atoi(const char *src, e_bool *is_int, const char *base, size_t digits)
 
 // time : O(1)
 // space: O(1)
-size_t	display_int(int fd, long x, const char *base, e_bool is_write)
+size_t	display_int(int fd, long x, const char *base, bool is_write)
 {
 	size_t	i;
 	long	d;
@@ -103,7 +103,7 @@ size_t	display_int(int fd, long x, const char *base, e_bool is_write)
 	while (d > 0)
 	{
 		coef = base[x / d];
-		if (is_write == TRUE)
+		if (is_write == true)
 			write(fd, &coef, 1);
 		x = x % d;
 		d /= len;

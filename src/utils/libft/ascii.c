@@ -4,7 +4,7 @@
 
 // time : O(1)
 // space: O(1)
-char	mirror_tune(char a, e_bool is_left)
+char	mirror_tune(char a, bool is_left)
 {
 	size_t	i;
 	char	*left_dict;
@@ -19,7 +19,7 @@ char	mirror_tune(char a, e_bool is_left)
 	{
 		if (left_dict[i] == a || right_dict[i] == a)
 		{
-			if (is_left == TRUE)
+			if (is_left == true)
 				return (left_dict[i]);
 			else
 				return (right_dict[i]);
@@ -39,14 +39,14 @@ int	f_ctoi(char a, const char *dict)
 	if (a == '\0')
 		return (0);
 	i = 0;
-	while (dict[i] != '\0' && dict[i] != a && dict[i] != mirror_tune(a, TRUE))
+	while (dict[i] != '\0' && dict[i] != a && dict[i] != mirror_tune(a, true))
 		i += 1;
 	return ((int)i);
 }
 
 // time : O(1)
 // space: O(1)
-void	ft_put_ascii_fd(int fd, int cell, const char *dict, e_bool is_left)
+void	ft_put_ascii_fd(int fd, int cell, const char *dict, bool is_left)
 {
 	size_t	i;
 	char	right_twin;
@@ -61,11 +61,11 @@ void	ft_put_ascii_fd(int fd, int cell, const char *dict, e_bool is_left)
 			i += 1;
 		if (dict[i] == '\0' && i > 0)
 			i -= 1;
-		left_twin = mirror_tune(dict[i], TRUE);
-		right_twin = mirror_tune(dict[i], FALSE);
-		if (is_left == TRUE)
+		left_twin = mirror_tune(dict[i], true);
+		right_twin = mirror_tune(dict[i], false);
+		if (is_left == true)
 			write(fd, &left_twin, 1);
-		if (is_left == FALSE)
+		if (is_left == false)
 			write(fd, &right_twin, 1);
 	}
 }

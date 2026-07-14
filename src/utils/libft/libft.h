@@ -10,13 +10,13 @@ void			free_2d_arr(void **arr, size_t len);
 void			*malloc_talk(size_t elem_size, const char *comment);
 
 // ascii.c
-char			mirror_tune(char a, e_bool is_left);
+char			mirror_tune(char a, bool is_left);
 int				f_ctoi(char a, const char *dict);
 void			ft_put_ascii_fd(int fd, int cell, const char *dict,
-					e_bool is_left);
+					bool is_left);
 
 // atoi.c
-int				f_atoi(const char *src, e_bool *is_int, const char *base, size_t digits);
+int				f_atoi(const char *src, bool *is_int, const char *base, size_t digits);
 size_t			ft_putnbr_fd(int n, int fd, const char *base, size_t digits);
 
 // split.c

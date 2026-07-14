@@ -68,7 +68,8 @@ t_load_fdf_arr	load_fdf_arr_push(t_load_fdf_arr *src, t_load_fdf *item)
 
 // time : O(n)
 // space: O(n)
-t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*parse_line)(const char *line))
+t_load_fdf_arr	load_all_fdf_lines(int fd,
+	t_load_fdf (*parse_line)(const char *line))
 {
 	t_load_fdf_arr	dst;
 	t_load_fdf		item;

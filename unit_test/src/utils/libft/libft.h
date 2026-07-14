@@ -10,8 +10,8 @@ struct t_atoi_tester
 {
 	char	*min_input;
 	char	*max_input;
-	e_bool	is_eq_or_less;
-	e_bool	is_number;
+	bool	is_eq_or_less;
+	bool	is_number;
 };
 
 typedef struct t_putnbr_tester t_putnbr_tester;

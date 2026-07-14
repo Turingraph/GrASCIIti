@@ -4,21 +4,38 @@
 # include "stdlib.h"
 # include "../math/math.h"
 
+typedef struct t_matrix t_matrix;
+
+struct t_matrix
+{
+	size_t	row;
+	size_t	col;
+	float	*arr;
+};
+
 // euclid.c
-float	euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char square);
-float	cos_between_2_vectors(const float *vec_v, const float *vec_u, size_t dim);
-void	vector_projection(float *update_v, const float *vec_u, size_t dim);
-float	scale_projection(const float *vec_v, const float *vec_u, size_t dim);
+float		euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char square);
+float		cos_between_2_vectors(const float *vec_v, const float *vec_u, size_t dim);
+void		vector_projection(float *update_v, const float *vec_u, size_t dim);
+float		scale_projection(const float *vec_v, const float *vec_u, size_t dim);
+
+// matrix_product.c
+float		matrix_product(void);
+
+// matrix.c
+void		*free_matrix(t_matrix *src);
+t_matrix	init_matrix(size_t row, size_t col, float scale);
+t_matrix	outer_product_matrix(const float *vec_v, const float *vec_u, size_t dim);
 
 // three_dim.c
-void	cross_product_3d(float *update_v, const float *vec_u);
-void	update_3d_vector(float *dst, float x, float y, float z);
-float	*create_3d_vector(float x, float y, float z);
+void		cross_product_3d(float *update_v, const float *vec_u);
+void		update_3d_vector(float *dst, float x, float y, float z);
+float		*init_3d_vector(float x, float y, float z);
 
 // vector.c
-void	vec_add(float *update_v, const float *vec_u, size_t dim);
-void	scale_vec(float *update_v, float s, size_t dim);
-float	dot_product(const float *vec_v, const float *vec_u, size_t dim);
-char	matrix_times_vec(const float **matrix, float *update_v, size_t dim);
+float		*vector_add(float *update_v, const float *vec_u, size_t dim);
+float		*hadamard_product(float *update_v, const float *vec_u, size_t dim);
+void		vector_scale(float *update_v, float s, size_t dim);
+float		dot_product(const float *vec_v, const float *vec_u, size_t dim);
 
 #endif

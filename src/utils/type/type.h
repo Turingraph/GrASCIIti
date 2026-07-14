@@ -2,20 +2,7 @@
 # define TYPE_H
 
 #include <stdlib.h>
-
-/*
-lack enum
-1.	input/synesthesia/
-2.	graphic/triangle_arr/
-*/
-
-typedef enum e_bool e_bool;
-
-enum e_bool
-{
-	FALSE,
-	TRUE
-};
+#include <stdbool.h>
 
 typedef enum e_rgba e_rgba;
 
@@ -25,39 +12,6 @@ enum e_rgba
 	GREEN,
 	BLUE,
 	ALPHA
-};
-
-typedef enum e_axis e_axis;
-
-enum e_axis
-{
-	AXIS_X,
-	AXIS_Y,
-	AXIS_Z
-};
-
-typedef enum e_5cell_channels e_5cell_channels;
-
-enum e_5cell_channels
-{
-	D5_RED,
-	D5_GREEN,
-	D5_BLUE,
-	D5_ALPHA,
-	D5_HEIGHT
-};
-
-typedef enum e_7cell_channels e_7cell_channels;
-
-enum e_7cell_channels
-{
-	D7_RED,
-	D7_GREEN,
-	D7_BLUE,
-	D7_ALPHA,
-	D7_ROW,
-	D7_COL,
-	D7_HEIGHT
 };
 
 typedef enum e_write_style e_write_style;

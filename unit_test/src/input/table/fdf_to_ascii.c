@@ -64,7 +64,7 @@ int	main(void)
 	i = 0;
 	while (i < length)
 	{
-		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, FALSE);
+		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, false);
 		scale_positive_fdf(&table);
 		fdf_dst = open_dir_file(arrdst[i], "input_examples/ascii/", APPEND);
 		if(fdf_dst > -1)
@@ -86,6 +86,6 @@ int	main(void)
 /*
 valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/table/fdf_to_ascii.out
 
-14:24:00
-14:25:05
+10:49:50
+10:51:00
 */
