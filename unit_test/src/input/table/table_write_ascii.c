@@ -56,7 +56,7 @@ int	main(void)
 		clone_examples = open_dir_file(arr[i], "clone_examples/font/rozzo/", APPEND);
 		if (clone_examples > -1)
 		{
-			write_table_ascii_cheche01(clone_examples, &table, D5_HEIGHT);
+			write_table_ascii_cheche01(clone_examples, &table, HEIGHT);
 			if (assert_files_ascii(arr[i], arr[i],
 					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == true)
 				score += 1;

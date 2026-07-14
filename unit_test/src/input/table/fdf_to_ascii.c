@@ -73,7 +73,7 @@ int	main(void)
 			write(1, arr[i], f_strlen(arr[i]));
 			write(1, " ***\n", 5);
 			write_table_fdf(1, &table, 3, HEIGHT_ONLY);
-			write_table_ascii_cheche01(fdf_dst, &table, D5_HEIGHT);
+			write_table_ascii_cheche01(fdf_dst, &table, HEIGHT);
 		}
 		else
 			warning_file_not_exists(arr[i]);

@@ -2,7 +2,7 @@
 
 // time : O(n)
 // space: O(n)
-void	write_table_ascii_cheche01(int fd, const t_table_fdf *src, e_5cell_channels channel)
+void	write_table_ascii_cheche01(int fd, const t_table_fdf *src, e_rgba channel)
 {
 	char	*dict;
 	
@@ -14,7 +14,7 @@ void	write_table_ascii_cheche01(int fd, const t_table_fdf *src, e_5cell_channels
 
 // time : O(n)
 // space: O(n)
-void	write_table_ascii_standard(int fd, const t_table_fdf *src, e_5cell_channels channel)
+void	write_table_ascii_standard(int fd, const t_table_fdf *src, e_rgba channel)
 {
 	char	*dict;
 	
@@ -25,7 +25,7 @@ void	write_table_ascii_standard(int fd, const t_table_fdf *src, e_5cell_channels
 
 // time : O(n)
 // space: O(n)
-void	write_table_ascii_chungaloider(int fd, const t_table_fdf *src, e_5cell_channels channel)
+void	write_table_ascii_chungaloider(int fd, const t_table_fdf *src, e_rgba channel)
 {
 	char	*dict;
 	

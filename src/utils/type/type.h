@@ -11,7 +11,8 @@ enum e_rgba
 	RED,
 	GREEN,
 	BLUE,
-	ALPHA
+	ALPHA,
+	HEIGHT
 };
 
 typedef enum e_write_style e_write_style;

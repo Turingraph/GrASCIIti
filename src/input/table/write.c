@@ -52,24 +52,24 @@ void	write_table_fdf(int fd, const t_table_fdf *src, size_t digits, e_write_styl
 
 // time : O(1)
 // space: O(1)
-unsigned char	*choose_5cell_channel(const t_table_fdf *src, e_5cell_channels channel)
+unsigned char	*choose_rgba_channel(const t_table_fdf *src, e_rgba channel)
 {
 	if (src == NULL)
 		return (NULL);
-	if (channel == D5_RED && src->r != NULL)
+	if (channel == RED && src->r != NULL)
 		return (src->r);
-	if (channel == D5_GREEN && src->g != NULL)
+	if (channel == GREEN && src->g != NULL)
 		return (src->g);
-	if (channel == D5_BLUE && src->b != NULL)
+	if (channel == BLUE && src->b != NULL)
 		return (src->b);
-	if (channel == D5_ALPHA && src->a != NULL)
+	if (channel == ALPHA && src->a != NULL)
 		return (src->a);
 	return (NULL);
 }
 
 // time : O(n)
 // space: O(n)
-void	write_table_ascii(int fd, const t_table_fdf *src, e_5cell_channels channel, const char *dict)
+void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const char *dict)
 {
 	size_t			i;
 	size_t			j;
@@ -86,10 +86,10 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_5cell_channels channel,
 			left_char = true;
 			if (j >= src->origin_x)
 				left_char = false;
-			arr = choose_5cell_channel(src, channel);
-			if (src->arr != NULL && channel == D5_HEIGHT)
+			arr = choose_rgba_channel(src, channel);
+			if (src->arr != NULL && channel == HEIGHT)
 				ft_put_ascii_fd(fd, (int)src->arr[i * src->col + j], dict, left_char);
-			else if (arr != NULL && channel != D5_HEIGHT)
+			else if (arr != NULL && channel != HEIGHT)
 			{
 				rgb95 = (int)f_interval(f_round((float)arr[i * src->col + j] * 95.0 / 255),
 					0, 255);
