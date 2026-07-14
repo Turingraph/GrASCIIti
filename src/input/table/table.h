@@ -10,12 +10,14 @@ void			*free_table_fdf(t_table_fdf *src);
 t_table_fdf		init_table_fdf(size_t row, size_t col, bool is_rgba);
 t_table_fdf		load_table_fdf(const t_load_fdf_arr *src, bool is_rgba);
 
+// positive.c
+int				get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_rgba channels);
+void			scale_positive_fdf(t_table_fdf *dst);
+
 // scale.c
 t_table_fdf		scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t scale_col);
 void			scale_multiplication_fdf(t_table_fdf *dst, float scale, e_rgba channels);
 void			scale_addition_fdf(t_table_fdf *dst, int input, e_rgba channels);
-int				get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_rgba channels);
-void			scale_positive_fdf(t_table_fdf *dst);
 
 // shade.c
 void			write_table_ascii_cheche01(int fd, const t_table_fdf *src, e_rgba channel);

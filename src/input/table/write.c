@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-void	write_rgb_fdf(int fd, const t_table_fdf *src, size_t index)
+void	write_rgba_fdf(int fd, const t_table_fdf *src, size_t index)
 {
 	if (fd > -1 && src != NULL)
 	{
@@ -41,7 +41,7 @@ void	write_table_fdf(int fd, const t_table_fdf *src, size_t digits, e_write_styl
 		{
 			ft_putnbr_fd(src->arr[src->col * i + j], fd, "0123456789", digits);
 			if (mode == HEIGHT_RGB || mode == HEIGHT_RGBA)
-				write_rgb_fdf(fd, src, src->col * i + j);
+				write_rgba_fdf(fd, src, src->col * i + j);
 			write(fd, "\t", 1);
 			j += 1;
 		}
