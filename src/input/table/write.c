@@ -19,16 +19,13 @@ void	write_rgba_fdf(int fd, const t_table_fdf *src, size_t index)
 			ft_putnbr_fd((int)src->b[index], fd, "0123456789abcdef", 2);
 		else
 			write(fd, "00", 2);
-		if (src->a != NULL)
-			ft_putnbr_fd((int)src->a[index], fd, "0123456789abcdef", 2);
-		else
-			write(fd, "00", 2);
 	}
 }
 
 // time : O(n)
 // space: O(n)
-void	write_table_fdf(int fd, const t_table_fdf *src, size_t digits, e_write_style mode)
+void	write_table_fdf(int fd, const t_table_fdf *src,
+	size_t digits, e_write_style mode)
 {
 	size_t	i;
 	size_t	j;
@@ -42,6 +39,11 @@ void	write_table_fdf(int fd, const t_table_fdf *src, size_t digits, e_write_styl
 			ft_putnbr_fd(src->arr[src->col * i + j], fd, "0123456789", digits);
 			if (mode == HEIGHT_RGB || mode == HEIGHT_RGBA)
 				write_rgba_fdf(fd, src, src->col * i + j);
+			if (src->a != NULL && mode == HEIGHT_RGBA)
+				ft_putnbr_fd((int)src->a[src->col * i + j],
+					fd, "0123456789abcdef", 2);
+			else if (src->a == NULL && mode == HEIGHT_RGBA)
+				write(fd, "00", 2);
 			write(fd, "\t", 1);
 			j += 1;
 		}
