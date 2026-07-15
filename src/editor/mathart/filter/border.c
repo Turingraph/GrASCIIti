@@ -11,11 +11,11 @@ int	count_2_fdf_triangles_bool(const t_table_fdf *dst, size_t index)
 		return (-1);
 	if (dst->arr[index] > 0)
 		y += 1;
-	if (dst->arr[index / dst->col + index % dst->col + dst->col] > 0)
+	if (dst->arr[index + dst->col] > 0)
 		y += 1;
-	if (dst->arr[index / dst->col + index % dst->col + dst->col + 1] > 0)
+	if (dst->arr[index + dst->col + 1] > 0)
 		y += 1;
-	if (dst->arr[index / dst->col + index % dst->col + 1] > 0)
+	if (dst->arr[index + 1] > 0)
 		y += 1;
 	if (y >= 3)
 		return (y / 2);

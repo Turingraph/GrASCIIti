@@ -40,8 +40,8 @@ t_complex	get_table_fdf_coordinate(const t_table_fdf *dst, size_t index)
 	y.im = 0;
 	if (dst == NULL || index >= dst->row * dst->col)
 		return (y);
-	y.re = f_floor(f_floor(index / dst->col) - (float)dst->origin_x) * dst->zoom;
-	y.im = f_floor((float)dst->origin_y - f_floor(index % dst->col)) * dst->zoom;
+	y.re = f_floor(f_floor(index % dst->col) - (float)dst->origin_x) * dst->zoom;
+	y.im = f_floor((float)dst->origin_y - f_floor(index / dst->col)) * dst->zoom;
 	return (y);
 }
 

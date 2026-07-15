@@ -4,13 +4,14 @@
 // space: O(1)
 int	gen_collatz_coloring(const t_table_fdf *dst, size_t index)
 {
-	int		input;
-	size_t	max;
+	int			input;
+	size_t		max;
+	t_complex	position;
 
 	if (dst == NULL || index >= dst->row * dst->col)
 		return (0);
-	input = (int)f_round(complex_magnitude(
-		get_table_fdf_coordinate(dst, index), 0));
+	position = get_table_fdf_coordinate(dst, index);
+	input = (int)f_round(complex_magnitude(position, index));
 	if (input < 0)
 		input *= -1;
 	max = collatz_max_point((size_t)input);

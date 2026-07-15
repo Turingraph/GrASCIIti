@@ -36,6 +36,7 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 	dst.col = col;
 	dst.origin_x = col / 2;
 	dst.origin_y = row / 2;
+	dst.zoom = 1;
 	dst.color_sampling = SAMPLE_TOP_LEFT;
 	if (is_rgba == false)
 		row = 0;

@@ -35,7 +35,7 @@ t_complex	complex_reciprocal(t_complex a)
 
 	dst.re = 0;
 	dst.im = 0;
-	if (a.re == 0 && a.im == 0)
+	if ((a.re < 0.01 && a.re > -0.01) && (a.im < 0.01 && a.im > -0.01))
 		return (dst);
 	dst.re = a.re / (a.re * a.re + a.im * a.im);
 	dst.im = -1 * a.im / (a.re * a.re + a.im * a.im);

@@ -1,4 +1,5 @@
 #include"math.h"
+#include<unistd.h>
 
 // time : O(n)
 // space: O(1)
@@ -28,15 +29,18 @@ double	f_root_finding(double x, size_t a)
 {
 	double	y;
 	double	err;
+	size_t	i;
 
 	if (a == 0 || x == 0)
 		return (0);
 	y = x;
+	i = 0;
 	err = (f_pow(y, a) - x) / ((double)a * f_pow(y, a - 1));
-	while (f_abs(err) > 1e-8)
+	while (f_abs(err) > 1e-8 && i < 64)
 	{
 		y -= err;
 		err = (f_pow(y, a) - x) / ((double)a * f_pow(y, a - 1));
+		i += 1;
 	}
 	return (y);
 }
@@ -82,7 +86,7 @@ double	f_exp(double x)
 	term = x;
 	y = 1;
 	i = 1;
-	while (div != 0 && f_abs(term / div) > 1e-8)
+	while (div != 0 && f_abs(term / div) > 1e-8 && i < 64)
 	{
 		y += term / div;
 		term *= x;
@@ -113,7 +117,7 @@ double	f_sin(double x)
 	term = x;
 	div = 1;
 	y = 0;
-	while (div != 0 && f_abs(term / div) > 1e-8)
+	while (div != 0 && f_abs(term / div) > 1e-8 && i < 64)
 	{
 		if (i % 2 == 0)
 			y += term / div;
@@ -142,7 +146,7 @@ double	f_cos(double x)
 	term = x * x;
 	div = 2;
 	y = 1;
-	while (div != 0 && f_abs(term / div) > 1e-8)
+	while (div != 0 && f_abs(term / div) > 1e-8 && i < 64)
 	{
 		if (i % 2 == 0)
 			y += term / div;

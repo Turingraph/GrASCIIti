@@ -33,7 +33,7 @@ Thing to do "after" the first stable version, to avoid scope creep.
 2.	editor/fractal/ (including Julia, Newton fractal etc.)
 3.	mouse based UXUI and throttle
 4.	Figlet in other languages and language specialized related features e.g. Thai, Japanese, Chinese, Arabic, conlang etc.
-5.	synesthesia, language, meditation visualization etc.
+5.	synesthesia, language, meditation visualization, written conlang etc.
  -->
 
 ## What is GrASCIIfi ?

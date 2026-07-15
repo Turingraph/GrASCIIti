@@ -87,9 +87,9 @@ void	color_cells_gradient(t_table_fdf *dst,
 	unsigned char	alpha;
 
 	i = 0;
-	while (dst != NULL && i < dst->row * dst->col)
+	while (dst != NULL && i < dst->row * dst->col && dst->arr != NULL)
 	{
-		threshold = get_gradient_input((const t_table_fdf *)&dst, gradient_input.cell_channel, i);
+		threshold = get_gradient_input((const t_table_fdf *)dst, gradient_input.cell_channel, i);
 		alpha = 0;
 		if (dst->a != NULL && is_overwrite == false)
 			alpha = dst->a[i];
