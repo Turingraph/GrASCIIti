@@ -1,9 +1,30 @@
 #include "table.h"
 
-// forget to copy rgba channel.
 // time : O(n)
 // space: O(1)
-void	copy_duplicated_row(const int *src, int *dst, size_t max_col, size_t scale_col)
+void	copy_duplicated_row_rgba(const unsigned char *src, unsigned char *dst,
+	size_t max_col, size_t scale_col)
+{
+	size_t	i;
+	size_t	ii;
+
+	i = 0;
+	while (src != NULL && dst != NULL && i < max_col)
+	{
+		ii = 0;
+		while (ii < scale_col)
+		{
+			*(dst + scale_col * i + ii) = *(src + i);
+			ii += 1;
+		}
+		i += 1;
+	}
+}
+
+// time : O(n)
+// space: O(1)
+void	copy_duplicated_row(const int *src, int *dst,
+	size_t max_col, size_t scale_col)
 {
 	size_t	i;
 	size_t	ii;
@@ -40,6 +61,18 @@ t_table_fdf	scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t
 		{
 			copy_duplicated_row(src->arr + i * src->col,
 				dst.arr + (i * scale_row + ii) * dst.col, src->col, scale_col);
+			if (src->r != NULL && dst.r != NULL)
+				copy_duplicated_row_rgba(src->r + i * src->col,
+				dst.r + (i * scale_row + ii) * dst.col, src->col, scale_col);
+			if (src->g != NULL && dst.g != NULL)
+				copy_duplicated_row_rgba(src->g + i * src->col,
+				dst.g + (i * scale_row + ii) * dst.col, src->col, scale_col);
+			if (src->b != NULL && dst.b != NULL)
+				copy_duplicated_row_rgba(src->b + i * src->col,
+				dst.b + (i * scale_row + ii) * dst.col, src->col, scale_col);
+			if (src->a != NULL && dst.a != NULL)
+				copy_duplicated_row_rgba(src->a + i * src->col,
+				dst.a + (i * scale_row + ii) * dst.col, src->col, scale_col);
 			ii += 1;
 		}
 		i += 1;

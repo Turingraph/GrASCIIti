@@ -11,14 +11,14 @@ int	main(int len, char **str)
 	if (len < 3)
 		return (0);
 	output = open_dir_file(str[2], NULL, APPEND);
-	half_dim = 1;
+	half_dim = 3;
 	table_a = open_table_fdf_file(str[1], NULL, parse_fdf_line_rgba, true);
 	table_b = scale_dimension_fdf((const t_table_fdf *)&table_a, 3, 3);
 	free_table_fdf(&table_a);
 	kernel = init_matrix(2 * half_dim + 1, 2 * half_dim + 1,
-		1.0/(double)((2 * half_dim + 1) * (2 * half_dim + 1)));
+			1.0 / (double)((2 * half_dim + 1) * (2 * half_dim + 1)));
 	table_a = convolve_rgba(&table_b, kernel, RED);
-	write_table_ascii_cheche01(output, &table_a, RED);
+	write_table_fdf(output, (const t_table_fdf *)&table_a, 2, HEIGHT_RGBA);
 	free_table_fdf(&table_a);
 	free_table_fdf(&table_b);
 	free_matrix(&kernel);
@@ -26,5 +26,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/convolve/kernel_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1.fdf
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/convolve/kernel_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1_red_ave.fdf
 */

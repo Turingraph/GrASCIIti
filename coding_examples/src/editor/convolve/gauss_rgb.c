@@ -16,9 +16,8 @@ int	main(int len, char **str)
 	table_b = scale_dimension_fdf((const t_table_fdf *)&table_a, 1, 1);
 	free_table_fdf(&table_a);
 	kernel = gaussian_kernel(half_dim, 0.4, 0.5);
-	// table_a = convolve_hight(&table_b, kernel);
-	table_a = convolve_rgba(&table_b, kernel, RED);
-	write_table_ascii_cheche01(output, &table_a, RED);
+	table_a = convolve_rgba(&table_b, kernel, GREEN);
+	write_table_ascii_cheche01(output, &table_a, GREEN);
 	free_table_fdf(&table_a);
 	free_table_fdf(&table_b);
 	free_matrix(&kernel);
@@ -26,7 +25,7 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/convolve/gauss_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1_red.txt
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/convolve/gauss_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1_green.txt
 
 */
 
