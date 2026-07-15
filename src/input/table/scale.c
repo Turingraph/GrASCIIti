@@ -57,7 +57,7 @@ void	scale_multiplication_fdf(t_table_fdf *dst, float scale, e_rgba channels)
 	while (dst != NULL && i < dst->row * dst->col)
 	{
 		if (dst->arr != NULL && channels == HEIGHT)
-			dst->arr[i] = (int)f_interval(f_round((float)dst->arr[i] * scale), -2147483648.0, 2147483647);
+			dst->arr[i] = (int)f_interval(f_round((float)dst->arr[i] * scale), -2147483648.0, 2147483647.0);
 		if (dst->r != NULL && channels == RED)
 			dst->r[i] = (unsigned char)f_interval((float)dst->r[i]* scale, 0, 255);
 		if (dst->g != NULL && channels == GREEN)
@@ -80,7 +80,7 @@ void	scale_addition_fdf(t_table_fdf *dst, int input, e_rgba channels)
 	while (dst != NULL && i < dst->row * dst->col)
 	{
 		if (dst->arr != NULL && channels == HEIGHT)
-			dst->arr[i] = (int)f_interval(f_round(dst->arr[i] + input), -2147483648.0, 2147483647);
+			dst->arr[i] = (int)f_interval(f_round(dst->arr[i] + input), -2147483648.0, 2147483647.0);
 		if (dst->r != NULL && channels == RED)
 			dst->r[i] = (unsigned char)f_interval((int)dst->r[i] + input, 0, 255);
 		if (dst->g != NULL && channels == GREEN)
