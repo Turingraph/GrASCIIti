@@ -6,9 +6,9 @@ int	main(int len, char **str)
 	char	*line;
 	int		output;
 
-	if (len < 3)
+	if (len < 2)
 		return (0);
-	output = open_dir_file(str[2], NULL, APPEND);
+	output = 1;
 	fd = open_dir_file(str[1], NULL, READ);
 	line = get_next_line(fd, CONTINUE);
 	if (line == NULL)
@@ -22,3 +22,10 @@ int	main(int len, char **str)
 	}
 	return (0);
 }
+
+// output = open_dir_file(str[2], NULL, APPEND);
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/input/get_next_line/all_lines.out input_examples/mathart_gradient/rozzo_a_404.txt
+
+*/

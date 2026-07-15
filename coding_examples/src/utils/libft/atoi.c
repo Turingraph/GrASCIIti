@@ -28,5 +28,6 @@ int	main(int len, char **str)
 }
 
 /*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/utils/libft/atoi.out 100 200
 
 */
