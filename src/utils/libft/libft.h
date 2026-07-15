@@ -8,6 +8,7 @@
 // arr.c
 void			free_2d_arr(void **arr, size_t len);
 void			*malloc_talk(size_t elem_size, const char *comment);
+void			write_2d_index(int max_col, int row, int col);
 
 // ascii.c
 char			mirror_tune(char a, bool is_left);

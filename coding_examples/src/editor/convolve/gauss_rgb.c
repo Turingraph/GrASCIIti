@@ -28,10 +28,3 @@ int	main(int len, char **str)
 valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/convolve/gauss_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1_green.txt
 
 */
-
-/*
-	if (table_a.r == NULL)
-		write(1, "NULL\n", 5);
-	else
-		write(1, "Yoasobi\n", 9);
-*/

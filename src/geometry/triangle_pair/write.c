@@ -78,15 +78,15 @@ void	write_triangle_arr_meta(int fd, const t_triangle_arr *src)
 // space: O(1)
 void	write_triangle_pair_geometry(const t_table_fdf *src, size_t index)
 {
-	if (src != NULL && index < src->col * src->row && src->arr != NULL)
+	if (src != NULL && index < (src->col - 1) * (src->row - 1) && src->arr != NULL)
 	{
 		ft_putnbr_fd(src->arr[index], 1, "0123456789", 1);
 		write(1, "\t", 1);
 		ft_putnbr_fd(src->arr[index + 1], 1, "0123456789", 1);
 		write(1, "\n", 1);
-		ft_putnbr_fd(src->arr[index + src->row], 1, "0123456789", 1);
+		ft_putnbr_fd(src->arr[index + src->col], 1, "0123456789", 1);
 		write(1, "\t", 1);
-		ft_putnbr_fd(src->arr[index + src->row + 1], 1, "0123456789", 1);
+		ft_putnbr_fd(src->arr[index + src->col + 1], 1, "0123456789", 1);
 		write(1, "\n", 1);
 	}
 }
