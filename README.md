@@ -26,7 +26,7 @@ Release First Stable Version
 1.	paint thue_morse and outlier (based on std)
 2.	editor/copy/ (transfer rgba height channel from one table to another table)
 3.	graphic/rasterization/ with z buffer
-4.	detvolve, matrix multiplication, and matrix determinant
+4.	detvolve (determanent based image filtering) , matrix multiplication, and matrix determinant
 
 Thing to do "after" the first stable version, to avoid scope creep.
 1.	editor/mathart/derivative/
