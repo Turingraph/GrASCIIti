@@ -5,6 +5,6 @@ draft_*/
 trash_*/
 
 clone_examples/
-bin/
-build/
+obj/
+out/
 lib/
