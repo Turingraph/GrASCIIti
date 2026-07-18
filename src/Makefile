@@ -4,10 +4,6 @@
 CC = cc -Wall -Wextra -Werror
 BUFFER_SIZE = 42
 
-# `call` command is explained in Function section of the Makefile tutorial
-# https://makefiletutorial-com.translate.goog/?_x_tr_sl=en&_x_tr_tl=th&_x_tr_hl=th&_x_tr_pto=tc#first-functions
-remove_slash = $(patsubst %/,%,$1)
-
 #-----------------------------------------------------------------------------------------------
 # https://stackoverflow.com/questions/9488256/use-directory-path-of-target-in-list-of-prerequisites-in-makefile
 # https://www.gnu.org/software/make/manual/make.html#Secondary-Expansion

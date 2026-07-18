@@ -40,7 +40,7 @@ OUTPUT = $(patsubst ../input_examples/%, $(OUTPUT_DIR)%, $(INPUT) $(INPUT_FONT))
 OUTPUT_FDFASCII = $(patsubst ../input_examples/fdf/%.fdf, $(INPUT_FDFASCII_DIR)%.txt, $(wildcard ../input_examples/fdf/*))
 
 #-----------------------------------------------------------------------------------------------
-# *** obj and lib ***
+# *** obj, out, and lib ***
 all: all_out all_output
 
 all_out: $(OUT_ALL) $(OUT_LINE)

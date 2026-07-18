@@ -18,6 +18,6 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/input/table/scale_dimension_fdf.out input_examples/font/isometric2/u.txt input_examples/modified/isometric2_u_23.txt
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/input/table/scale_dimension_fdf.out input_examples/font/isometric2/u.txt input_examples/modified/isometric2_u_23.txt
 
 */

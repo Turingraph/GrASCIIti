@@ -18,6 +18,6 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all coding_examples/bin/editor/paint/draw_3xplusx.out input_examples/mathart_gen/3xplusx
+valgrind --leak-check=full --show-leak-kinds=all coding_examples/out/editor/paint/draw_3xplusx.out input_examples/mathart_gen/3xplusx
 
 */

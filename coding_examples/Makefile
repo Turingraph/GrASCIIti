@@ -1,0 +1,50 @@
+#-----------------------------------------------------------------------------------------------
+# *** coding coding_examples src ***
+
+CC = cc -Wall -Wextra -Werror
+remove_slash = $(patsubst %/,%,$1)
+get_obj_files = $(filter %.o, $1)
+get_lib_a_files = $(filter %.a, $^)
+
+.SECONDEXPANSION:
+
+SRC_DIR = src/
+OUT_DIR = out/
+SRC_TRIANGLES = $(wildcard $(SRC_DIR)geometry/*/*.c)
+SRC_LINE = $(wildcard $(SRC_DIR)editor/line/*.c)
+OUT_USE_TABLE = $(patsubst $(SRC_DIR)%.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
+SRC_PAINT = $(wildcard $(SRC_DIR)editor/paint/*.c)
+OUT_PAINT = $(patsubst $(SRC_DIR)%.c, $(OUT_DIR)%.out, $(SRC_PAINT))
+# https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile
+SRC = $(filter-out $(SRC_PAINT) $(SRC_TRIANGLES) $(SRC_LINE), $(wildcard $(SRC_DIR)*/*/*.c))
+OUT = $(patsubst $(SRC_DIR)%.c, $(OUT_DIR)%.out, $(SRC))
+
+#-----------------------------------------------------------------------------------------------
+# *** obj and out ***
+all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE)
+	@echo $^
+
+$(OUT_PAINT): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $(call get_obj_files, $^) -L. $(call get_lib_a_files, $^) ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/mathart.a
+
+$(OUT_USE_TABLE): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $(call get_obj_files, $^) -L. $(call get_lib_a_files, $^) ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a
+
+$(OUT): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $(call get_obj_files, $^) -L. $(call get_lib_a_files, $^) ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a
+
+obj/%.o: src/%.c
+	@mkdir -p $(@D)
+	$(CC) -c $< -o $@
+
+#-----------------------------------------------------------------------------------------------
+# *** clean ***
+clean:
+	rm -r -f out/
+	rm -r -f lib/
+	rm -r -f obj/
+
+.PHONY: all clean

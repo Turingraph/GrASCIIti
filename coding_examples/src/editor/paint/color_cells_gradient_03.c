@@ -38,7 +38,7 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/paint/color_cells_gradient_03.out input_examples/fdf/t1.fdf input_examples/mathart_gradient/t1.fdf
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/paint/color_cells_gradient_03.out input_examples/fdf/t1.fdf input_examples/mathart_gradient/t1.fdf
 
 ~ 13:33 s
 */

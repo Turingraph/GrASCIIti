@@ -46,5 +46,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/paint/color_cells_gradient_02.out input_examples/font/rozzo/comma.txt input_examples/mathart_gradient/comma.fdf
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/paint/color_cells_gradient_02.out input_examples/font/rozzo/comma.txt input_examples/mathart_gradient/comma.fdf
 */
