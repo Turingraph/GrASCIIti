@@ -53,12 +53,12 @@ int	main(void)
 	while (i < max_score)
 	{
 		table = open_table_fdf_file(arr[i], "input_examples/font/rozzo/", parse_ascii_line_cheche01, is_rgb);
-		clone_examples = open_dir_file(arr[i], "clone_examples/font/rozzo/", APPEND);
+		clone_examples = open_dir_file(arr[i], "unit_test/clone_examples/font/rozzo/", APPEND);
 		if (clone_examples > -1)
 		{
 			write_table_ascii_cheche01(clone_examples, &table, HEIGHT);
 			if (assert_files_ascii(arr[i], arr[i],
-					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == true)
+					"input_examples/font/rozzo/", "unit_test/clone_examples/font/rozzo/") == true)
 				score += 1;
 			else
 			{
@@ -77,5 +77,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/table/table_write_ascii.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/table/table_write_ascii.out
 */

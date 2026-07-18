@@ -139,5 +139,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/utils/math/test.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/utils/math/test.out
 */

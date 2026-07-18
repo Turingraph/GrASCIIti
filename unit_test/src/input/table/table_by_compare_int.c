@@ -264,5 +264,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/table/table_by_compare_int.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/table/table_by_compare_int.out
 */

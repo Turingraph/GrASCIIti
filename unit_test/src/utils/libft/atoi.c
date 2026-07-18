@@ -85,5 +85,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/utils/libft/atoi.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/utils/libft/atoi.out
 */

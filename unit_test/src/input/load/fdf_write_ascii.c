@@ -54,7 +54,7 @@ int	main(void)
 		// fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", standard_ascii_line);
 		// fdf_file = open_fdf_file(arr[i], "input_examples/font/rozzo/", chungaloider_ascii_line);
 		
-		clone_examples = open_dir_file(arr[i], "clone_examples/font/rozzo/", APPEND);
+		clone_examples = open_dir_file(arr[i], "unit_test/clone_examples/font/rozzo/", APPEND);
 		// write(1, ">>> ", 4);
 		// ft_putnbr_fd(clone_examples, 1, "0123456789", 1);
 		// write(1, "\n", 1);
@@ -67,7 +67,7 @@ int	main(void)
 			// write_load_ascii_arr_chungaloider(clone_examples, &fdf_file);
 			
 			if (assert_files_ascii(arr[i], arr[i],
-					"input_examples/font/rozzo/", "clone_examples/font/rozzo/") == true)
+					"input_examples/font/rozzo/", "unit_test/clone_examples/font/rozzo/") == true)
 				score += 1;
 			else
 			{
@@ -84,5 +84,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/load/fdf_write_ascii.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/load/fdf_write_ascii.out
 */

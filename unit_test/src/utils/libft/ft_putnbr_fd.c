@@ -40,5 +40,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/utils/libft/ft_putnbr_fd.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/utils/libft/ft_putnbr_fd.out
 */

@@ -31,12 +31,12 @@ int	main(void)
 	while (i < max_score)
 	{
 		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, false);
-		fdf_dst = open_dir_file(arr[i], "clone_examples/fdf/", APPEND);
+		fdf_dst = open_dir_file(arr[i], "unit_test/clone_examples/fdf/", APPEND);
 		if (fdf_dst > -1)
 		{
 			write_table_fdf(fdf_dst, &table, 1, HEIGHT_ONLY);
 			if (assert_files(arr[i], arr[i],
-					"input_examples/fdf/", "clone_examples/fdf/") == true)
+					"input_examples/fdf/", "unit_test/clone_examples/fdf/") == true)
 				score += 1;
 			else
 			{
@@ -55,5 +55,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/table/table_write_fdf.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/table/table_write_fdf.out
 */

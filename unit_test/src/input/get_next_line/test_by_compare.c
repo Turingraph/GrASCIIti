@@ -281,5 +281,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/get_next_line/test_by_compare.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/get_next_line/test_by_compare.out
 */

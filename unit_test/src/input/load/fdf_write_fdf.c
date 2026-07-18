@@ -33,12 +33,12 @@ int	main(void)
 	{
 		fdf_file = open_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw);
 		// fdf_file = open_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_rgba);
-		clone_examples = open_dir_file(arr[i], "clone_examples/fdf/", APPEND);
+		clone_examples = open_dir_file(arr[i], "unit_test/clone_examples/fdf/", APPEND);
 		if (clone_examples > -1)
 		{
 			write_load_fdf_arr(clone_examples, &fdf_file, 1, HEIGHT_ONLY);
 			if (assert_files(arr[i], arr[i],
-					"input_examples/fdf/", "clone_examples/fdf/") == true)
+					"input_examples/fdf/", "unit_test/clone_examples/fdf/") == true)
 				score += 1;
 		}
 		free_load_fdf_arr(&fdf_file);
@@ -49,5 +49,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/load/fdf_write_fdf.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/load/fdf_write_fdf.out
 */

@@ -37,7 +37,7 @@ int	main(void)
 			total_lines = total_lines_of_file(fd);
 			fd = open_dir_file(arr[i], "input_examples/gnl_tester/", READ);
 			load = load_file_as_strarr(fd, total_lines);
-			fd = open_dir_file(arr[i], "clone_examples/gnl_tester/", APPEND);
+			fd = open_dir_file(arr[i], "unit_test/clone_examples/gnl_tester/", APPEND);
 			// write(1, ">>> ", 4);
 			// ft_putnbr_fd(fd, 1, "0123456789", 1);
 			// write(1, "\n", 1);
@@ -45,7 +45,7 @@ int	main(void)
 			{
 				write_strarr((const char **)load, length_of_strarr((const char **)load), fd);
 				if (assert_files(arr[i], arr[i],
-					"input_examples/gnl_tester/", "clone_examples/gnl_tester/") == true)
+					"input_examples/gnl_tester/", "unit_test/clone_examples/gnl_tester/") == true)
 					score += 1;
 			}
 			else
@@ -60,5 +60,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/get_next_line/test_by_files.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/get_next_line/test_by_files.out
 */

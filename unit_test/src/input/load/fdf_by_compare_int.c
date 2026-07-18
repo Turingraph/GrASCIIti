@@ -253,5 +253,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/bin/input/load/fdf_by_compare_int.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/load/fdf_by_compare_int.out
 */
