@@ -70,7 +70,4 @@ void	generate_cells_color(
 	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index),
 	int(*gen_color)(const t_table_fdf *dst, size_t index));
 
-// thue_morse.c
-void	print_thue_morse(void);
-
 #endif
