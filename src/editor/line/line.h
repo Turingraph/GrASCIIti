@@ -2,6 +2,7 @@
 # define PAINT_H
 
 # include "../../utils/math/math.h"
+# include "../../utils/libft/libft.h"
 # include<unistd.h>
 
 typedef struct t_ink t_ink;
@@ -29,6 +30,23 @@ struct t_line
 	t_2d_int	p2;
 };
 
+typedef struct t_boundary t_boundary;
+
+struct t_boundary
+{
+	t_2d_int	all_area;
+	t_line		sub_area;
+};
+
+typedef struct t_circle t_circle;
+
+struct t_circle
+{
+	int	x;
+	int	y;
+	int	radius;
+};
+
 typedef struct t_2d_polygon t_2d_polygon;
 
 struct t_2d_polygon
@@ -38,17 +56,9 @@ struct t_2d_polygon
 	bool		is_loop;
 };
 
-typedef struct t_2d_polygon_arr t_2d_polygon_arr;
+typedef enum e_line_dir e_line_dir;
 
-struct t_2d_polygon_arr
-{
-	t_2d_polygon	*arr;
-	size_t			length;
-};
-
-typedef enum e_line_direction e_line_direction;
-
-enum e_line_direction
+enum e_line_dir
 {
 	LINE_XY_INVALID,
 	LINE_X_POSITIVE_Y,
@@ -57,18 +67,38 @@ enum e_line_direction
 	LINE_Y_NEGATIVE_X,
 };
 
+// bresenham_int.c
+void		bresenham_int_x(int *dst, t_line line, t_boundary boundary, int color);
+void		bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color);
+void		bresenham_int_x_thick(int *dst, t_line line, t_boundary boundary, t_ink ink);
+void		bresenham_int_y_thick(int *dst, t_line line, t_boundary boundary, t_ink ink);
+
+// bresenham_uchar.c
+void		bresenham_uchar_x(unsigned char *dst, t_line line, t_boundary boundary, unsigned char color);
+void		bresenham_uchar_y(unsigned char *dst, t_line line, t_boundary boundary, unsigned char color);
+void		bresenham_uchar_x_thick(unsigned char *dst, t_line line, t_boundary boundary, t_ink ink);
+void		bresenham_uchar_y_thick(unsigned char *dst, t_line line, t_boundary boundary, t_ink ink);
+
+// circle.c
+void		midpoint_circle_int(int *arr, int color, t_circle point, t_boundary boundary);
+void		midpoint_circle_uchar(unsigned char *arr, unsigned char color, t_circle point, t_boundary boundary);
+
 // init.c
-void				sort_2d_points(t_line *line);
-e_line_direction	init_swap_bresenham_y(t_line *line,
-						int *delta_x, int *delta_y);
-e_line_direction	init_swap_bresenham_x(t_line *line,
-						int *delta_x, int *delta_y);
-void				init_rectangle_boundary(t_line *boundary,
-						t_2d_int *table_dim);
-t_line				init_int_line(t_line src, t_line boundary);
+int			init_swap_bresenham_y(t_line *line, int *delta_x, int *delta_y);
+int			init_swap_bresenham_x(t_line *line, int *delta_x, int *delta_y);
+t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col);
+t_line		init_first_line(t_line src, t_boundary boundary);
+
+// line.c
+void		draw_straight_line(t_table_fdf *dst, t_line line, t_line rectangle_boundary, t_ink ink);
 
 // polygon.c
-t_line				init_float_line(t_complex point_1, t_complex point_2,
-						t_line boundary);
+void		draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line rectangle_boundary);
+void		draw_square_tiling(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_2d_int tiling_area);
+void		draw_kusama_circle(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d_int tiling_area);
+
+// utils.c
+void		sort_2d_points(t_line *line);
+bool		is_in_boundary(int x, int y, t_line boundary);
 
 #endif

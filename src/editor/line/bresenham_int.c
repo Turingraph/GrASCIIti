@@ -36,34 +36,105 @@ Reference
 
 // time : O(n)
 // space: O(1)
-void	bresenham_int_x(int *dst, t_line line, t_2d_int table_dim, int ink)
+void	bresenham_int_x(int *dst, t_line line, t_boundary boundary, int color)
 {
 	int	pivot;
 	int	delta_x;
 	int	delta_y;
 	int	sign;
 
-	init_swap_bresenham_x()
-	// ...
+	sign = init_swap_bresenham_x(&line, &delta_x, &delta_y);
+	pivot = 2 * delta_y - delta_x;
+	while (dst != NULL && line.p1.x <= line.p2.x
+		&& line.p1.y * boundary.all_area.x + line.p1.x < boundary.all_area.x * boundary.all_area.y)
+	{
+		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
+			dst[line.p1.y * boundary.all_area.x + line.p1.x] = color;
+		if (0 < sign * pivot)
+		{
+			pivot -= 2 * delta_x * sign;
+			line.p1.y += sign;
+		}
+		pivot += 2 * delta_y;
+		line.p1.x += 1;
+	}
+}
+
+// time : O(n)
+// space: O(1)
+void	bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color)
+{
+	int	pivot;
+	int	delta_x;
+	int	delta_y;
+	int	sign;
+
+	sign = init_swap_bresenham_y(&line, &delta_x, &delta_y);
+	pivot = 2 * delta_y - delta_x;
+	while (dst != NULL && line.p1.y <= line.p2.y
+		&& line.p1.x * boundary.all_area.x + line.p1.y < boundary.all_area.x * boundary.all_area.y)
+	{
+		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
+			dst[line.p1.y * boundary.all_area.x + line.p1.x] = color;
+		if (0 < sign * pivot)
+		{
+			pivot -= 2 * delta_x * sign;
+			line.p1.x += sign;
+		}
+		pivot += 2 * delta_y;
+		line.p1.y += 1;
+	}
 }
 
 // time : O(n * thickness)
 // space: O(1)
-void	draw_straight_line(t_table_fdf *dst, t_line line, t_line boundary, t_ink ink)
+void	bresenham_int_x_thick(int *dst, t_line line, t_boundary boundary, t_ink ink)
 {
-	//
+	size_t	i;
+	t_line	parallel;
+
+	if (dst != NULL && ink.channel == HEIGHT
+		&& f_abs(line.p2.x - line.p1.x) >= f_abs(line.p2.y - line.p1.y))
+	{
+		bresenham_int_x(dst, line, boundary, ink.color);
+		parallel = line;
+		i = 0;
+		while (i < ink.thickness / 2)
+		{
+			line.p1.y += 1;
+			line.p2.y += 1;
+			bresenham_int_x(dst, line, boundary, ink.color);
+			parallel.p1.y -= 1;
+			parallel.p2.y -= 1;
+			bresenham_int_x(dst, parallel, boundary, ink.color);
+			i += 1;
+		}
+	}
 }
 
 // time : O(n * thickness)
 // space: O(1)
-void	draw_islamic_art_row(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, size_t ith_row)
+void	bresenham_int_y_thick(int *dst, t_line line, t_boundary boundary, t_ink ink)
 {
-	//
+	size_t	i;
+	t_line	parallel;
+
+	if (dst != NULL && ink.channel == HEIGHT
+		&& f_abs(line.p2.x - line.p1.x) < f_abs(line.p2.y - line.p1.y))
+	{
+		bresenham_int_y(dst, line, boundary, ink.color);
+		parallel = line;
+		i = 0;
+		while (i < ink.thickness / 2)
+		{
+			line.p1.x += 1;
+			line.p2.x += 1;
+			bresenham_int_y(dst, line, boundary, ink.color);
+			parallel.p1.x -= 1;
+			parallel.p2.x -= 1;
+			bresenham_int_y(dst, parallel, boundary, ink.color);
+			i += 1;
+		}
+	}
 }
 
-// time : O(n * thickness)
-// space: O(1)
-void	draw_islamic_art(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink)
-{
-	//
-}

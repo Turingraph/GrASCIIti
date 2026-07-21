@@ -4,12 +4,6 @@
 # include "../../input/table/table.h"
 # include <fcntl.h>
 
-/*
-List of unfinished function that I will implement after submit fdf42.
-1.	outlier.c
-2.	thue_morse.c
-*/
-
 typedef enum e_7cell_channels e_7cell_channels;
 
 enum e_7cell_channels

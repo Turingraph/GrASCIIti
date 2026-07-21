@@ -2,29 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-void	sort_2d_points(t_line *line)
-{
-	int		temp;
-	int		delta_x;
-	int		delta_y;
-
-	delta_y = (int)f_abs(line->p2.x - line->p1.x);
-	delta_x = (int)f_abs(line->p2.y - line->p1.y);
-	if (line != NULL && (delta_x >= delta_y && line->p2.x < line->p1.x)
-			|| (line->p2.y < line->p1.y && delta_x < delta_y))
-	{
-		temp = line->p2.x;
-		line->p2.x = line->p1.x;
-		line->p1.x = temp;
-		temp = line->p2.y;
-		line->p2.y = line->p1.y;
-		line->p1.y = temp;
-	}
-}
-
-// time : O(1)
-// space: O(1)
-e_line_direction	init_swap_bresenham_y(t_line *line,
+int	init_swap_bresenham_y(t_line *line,
 	int *delta_x, int *delta_y)
 {
 	if (line != NULL && delta_x != NULL && delta_y != NULL
@@ -39,15 +17,18 @@ e_line_direction	init_swap_bresenham_y(t_line *line,
 			sort_2d_points(line);
 		}
 		if (*delta_y < 0)
-			return (LINE_Y_NEGATIVE_X);
-		return (LINE_Y_POSITIVE_X);
+		{
+			*delta_y += 1;
+			return (-1);
+		}
+		return (1);
 	}
-	return (LINE_XY_INVALID);
+	return (0);
 }
 
 // time : O(1)
 // space: O(1)
-e_line_direction	init_swap_bresenham_x(t_line *line,
+int	init_swap_bresenham_x(t_line *line,
 	int *delta_x, int *delta_y)
 {
 	if (line != NULL && delta_x != NULL && delta_y != NULL
@@ -62,55 +43,56 @@ e_line_direction	init_swap_bresenham_x(t_line *line,
 			sort_2d_points(line);
 		}
 		if (*delta_y < 0)
-			return (LINE_X_NEGATIVE_Y);
-		return (LINE_X_POSITIVE_Y);
+		{
+			*delta_y += 1;
+			return (-1);
+		}
+		return (1);
 	}
-	return (LINE_XY_INVALID);
+	return (0);
 }
 
 // time : O(1)
 // space: O(1)
-void	init_rectangle_boundary(t_line *boundary, t_2d_int *table_dim)
+t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col)
 {
-	int	temp;
+	int			temp;
+	t_boundary	dst;
 
-	if (boundary != NULL && table_dim != NULL
-		&& table_dim->x >= 0 && table_dim->y >= 0)
+	dst.all_area.x = f_abs(col);
+	dst.all_area.y = f_abs(row);
+	dst.sub_area.p1.x = (int)f_interval(sub_area.p1.x, 0, col);
+	dst.sub_area.p1.y = (int)f_interval(sub_area.p1.y, 0, row);
+	dst.sub_area.p2.x = (int)f_interval(sub_area.p2.x, 0, col);
+	dst.sub_area.p2.y = (int)f_interval(sub_area.p2.y, 0, row);
+	if (dst.sub_area.p1.x > dst.sub_area.p2.x)
 	{
-		table_dim->x = f_abs(table_dim->x);
-		table_dim->y = f_abs(table_dim->y);
-		boundary->p1.x = (int)f_interval(boundary->p1.x, 0, table_dim->x);
-		boundary->p1.y = (int)f_interval(boundary->p1.y, 0, table_dim->y);
-		boundary->p2.x = (int)f_interval(boundary->p2.x, 0, table_dim->x);
-		boundary->p2.y = (int)f_interval(boundary->p2.y, 0, table_dim->y);
+		temp = dst.sub_area.p1.x;
+		dst.sub_area.p1.x = dst.sub_area.p2.x;
+		dst.sub_area.p2.x = temp;
 	}
-	if (boundary != NULL && boundary->p1.x > boundary->p2.x)
+	if (dst.sub_area.p1.y > dst.sub_area.p2.y)
 	{
-		temp = boundary->p1.x;
-		boundary->p1.x = boundary->p2.x;
-		boundary->p2.x = temp;
+		temp = dst.sub_area.p1.y;
+		dst.sub_area.p1.y = dst.sub_area.p2.y;
+		dst.sub_area.p2.y = temp;
 	}
-	if (boundary != NULL && boundary->p1.y > boundary->p2.y)
-	{
-		temp = boundary->p1.y;
-		boundary->p1.y = boundary->p2.y;
-		boundary->p2.y = temp;
-	}
+	return (dst);
 }
 
 // time : O(1)
 // space: O(1)
-t_line	init_int_line(t_line src, t_line boundary)
+t_line	init_first_line(t_line src, t_boundary boundary)
 {
 	t_line	dst;
 
 	dst.p1.x = (int)f_interval(src.p1.x, 0,
-			boundary.p2.x - boundary.p1.x) + boundary.p1.x;
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
 	dst.p2.x = (int)f_interval(src.p2.x, 0,
-			boundary.p2.x - boundary.p1.x) + boundary.p1.x;
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
 	dst.p1.y = (int)f_interval(src.p1.y, 0,
-			boundary.p2.y - boundary.p1.y) + boundary.p1.y;
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
 	dst.p2.y = (int)f_interval(src.p2.y, 0,
-			boundary.p2.y - boundary.p1.y) + boundary.p1.y;
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
 	return (dst);
 }
