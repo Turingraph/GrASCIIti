@@ -35,5 +35,7 @@ unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type);
 // write.c
 void			write_table_fdf(int fd, const t_table_fdf *src, size_t digits, e_write_style mode);
 void			write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const char *dict);
+void			write_push_swap_fdf(int fd, const t_table_fdf *src,
+					size_t digits);
 
 #endif

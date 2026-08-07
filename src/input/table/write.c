@@ -103,3 +103,26 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const cha
 		i += 1;
 	}
 }
+
+// time : O(n)
+// space: O(n)
+void	write_push_swap_fdf(int fd, const t_table_fdf *src,
+	size_t digits)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (src != NULL && src->arr != NULL && i < src->row && fd > -1)
+	{
+		j = 0;
+		while (j < src->col)
+		{
+			ft_putnbr_fd(src->arr[src->col * i + j], fd, "0123456789", digits);
+			write(fd, ",\t", 2);
+			j += 1;
+		}
+		write(fd, "\n", 1);
+		i += 1;
+	}
+}
