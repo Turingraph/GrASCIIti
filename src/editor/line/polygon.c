@@ -2,16 +2,18 @@
 
 // time : O(1)
 // space: O(1)
-t_2d_int	f_complex_to_2d_position(t_complex src,
-	t_line boundary)
+int	f_complex_to_2d_position(t_complex src,
+	t_line boundary, int point)
 {
-	t_2d_int	dst;
+	t_complex	dst;
 
-	src.re = f_interval(src.re, 0, 1);
-	src.im = f_interval(src.im, 0, 1);
-	dst.x = (int)f_floor(src.re * (boundary.p2.x - boundary.p1.x)) + boundary.p1.x;
-	dst.y = (int)f_floor(src.im * (boundary.p2.y - boundary.p1.y)) + boundary.p1.y;
-	return (dst);
+	dst.re = f_interval(src.re, 0, 1);
+	dst.im = f_interval(src.im, 0, 1);
+	if (point == 0)
+		return ((int)f_floor(dst.re * (boundary.p2.x - boundary.p1.x)) + boundary.p1.x);
+	if (point == 1)
+		return ((int)f_floor(dst.im * (boundary.p2.y - boundary.p1.y)) + boundary.p1.y);
+	return (0);
 }
 
 // time : O(1)
@@ -21,8 +23,12 @@ t_line	init_float_line(t_complex point_1, t_complex point_2,
 {
 	t_line	dst;
 
-	dst.p1 = f_complex_to_2d_position(point_1, boundary);
-	dst.p2 = f_complex_to_2d_position(point_2, boundary);
+	dst.p1.x = f_complex_to_2d_position(point_1, boundary, 0);
+	dst.p1.y = f_complex_to_2d_position(point_1, boundary, 1);
+	dst.p2.x = f_complex_to_2d_position(point_2, boundary, 0);
+	dst.p2.y = f_complex_to_2d_position(point_2, boundary, 1);
+	if (point_1.im > point_2.re && boundary.p1.x > 1000)
+		write(1, "wwww\n", 5);
 	sort_2d_points(&dst);
 	write(1, ">>> [", 5);
 	ft_putnbr_fd(dst.p1.x, 1, "0123456789", 2);
@@ -41,19 +47,19 @@ t_line	init_float_line(t_complex point_1, t_complex point_2,
 void	draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line rectangle_boundary)
 {
 	size_t		i;
-	t_line		line;
+	// t_line		line;
 
 	i = 0;
-	while (dst != NULL && polygon != NULL && i < polygon->length - 1)
+	while (dst != NULL && polygon != NULL && i < polygon->length - 1 && ink.channel == HEIGHT)
 	{
-		line = init_float_line(polygon->arr[i], polygon->arr[i + 1], rectangle_boundary);
-		draw_straight_line(dst, line, rectangle_boundary, ink);
+		init_float_line(polygon->arr[i], polygon->arr[i + 1], rectangle_boundary);
+		// draw_straight_line(dst, line, rectangle_boundary, ink);
 		i += 1;
 	}
-	if (dst != NULL && polygon != NULL && i == polygon->length - 1 && polygon->is_loop == true)
+	if (dst != NULL && polygon != NULL && i == polygon->length - 1 && polygon->is_loop == true && ink.channel == HEIGHT)
 	{
-		line = init_float_line(polygon->arr[i], polygon->arr[0], rectangle_boundary);
-		draw_straight_line(dst, line, rectangle_boundary, ink);
+		init_float_line(polygon->arr[i], polygon->arr[0], rectangle_boundary);
+		// draw_straight_line(dst, line, rectangle_boundary, ink);
 	}
 }
 

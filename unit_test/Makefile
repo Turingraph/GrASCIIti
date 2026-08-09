@@ -63,7 +63,8 @@ $(OUTPUT_DIR)%: ../input_examples/%
 
 #-----------------------------------------------------------------------------------------------
 # *** clean ***
-clean: clean_out clean_output
+clean: clean_out
+# clean: clean_out clean_output
 
 clean_out:
 	rm -r -f out/
