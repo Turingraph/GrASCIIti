@@ -2,8 +2,8 @@
 # define TEST_HELPERS_H
 
 # include "stdlib.h"
-# include "../../src/utils/libft/libft.h"
-# include "../../src/input/get_next_line/get_next_line.h"
+# include "../../utils/libft/libft.h"
+# include "../../input/get_next_line/get_next_line.h"
 
 typedef struct t_intarr t_intarr;
 

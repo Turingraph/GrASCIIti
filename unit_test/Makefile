@@ -3,14 +3,14 @@
 
 CC = cc -Wall -Wextra -Werror
 remove_slash = $(patsubst %/,%,$1)
-get_obj_files = $(filter %.o, $1)
-get_lib_a_files = $(filter %.a, $^)
+# get_obj_files = $(filter %.o, $1)
+# get_lib_a_files = $(filter %.a, $^)
 
-SRC_get_next_line = $(wildcard src/input/get_next_line/*.c)
-SRC_load = $(wildcard src/input/load/*.c)
-SRC_table = $(wildcard src/input/table/*.c)
-SRC_libft = $(wildcard src/utils/libft/*.c)
-SRC_math = $(wildcard src/utils/math/*.c)
+SRC_get_next_line = $(wildcard input/get_next_line/*.c)
+SRC_load = $(wildcard input/load/*.c)
+SRC_table = $(wildcard input/table/*.c)
+SRC_libft = $(wildcard utils/libft/*.c)
+SRC_math = $(wildcard utils/math/*.c)
 
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
 SRC_HELPER_get_next_line = $(wildcard ../src/input/get_next_line/*.c)
@@ -20,7 +20,7 @@ OBJ_HELPER_get_next_line = $(patsubst ../src/%.c, ../src/obj/%.o, $(SRC_HELPER_g
 HELPER_SRC = $(wildcard test_helpers/*.c)
 HELPER_OBJ = $(patsubst %.c, obj/%.o, $(HELPER_SRC))
 
-OUT_ALL = $(patsubst src/%.c, out/%.out,	\
+OUT_ALL = $(patsubst %.c, out/%.out,	\
 	$(SRC_get_next_line)	\
 	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_math))
 
@@ -41,19 +41,11 @@ all: all_out all_output
 all_out: $(OUT_ALL)
 	@echo $^
 
-$(OUT_ALL): out/%.out: lib/test_helpers.a obj/%.o
+$(OUT_ALL): out/%.out: obj/%.o
 	@mkdir -p $(@D)
-	$(CC) -o $@ $(call get_obj_files, $^) -L. $(call get_lib_a_files, $^) ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a
+	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a
 
-lib/test_helpers.a: $(HELPER_OBJ)
-	@mkdir -p $(@D)
-	ar rcs $@ $^ $(OBJ_HELPER_libft) $(OBJ_HELPER_get_next_line)
-
-obj/test_helpers/%.o: test_helpers/%.c
-	@mkdir -p $(@D)
-	$(CC) -c $< -o $@
-
-obj/%.o: src/%.c
+obj/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) -c $< -o $@
 
