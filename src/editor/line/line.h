@@ -56,17 +56,6 @@ struct t_2d_polygon
 	bool		is_loop;
 };
 
-typedef enum e_line_dir e_line_dir;
-
-enum e_line_dir
-{
-	LINE_XY_INVALID,
-	LINE_X_POSITIVE_Y,
-	LINE_X_NEGATIVE_Y,
-	LINE_Y_POSITIVE_X,
-	LINE_Y_NEGATIVE_X,
-};
-
 // bresenham_int.c
 void		bresenham_int_x(int *dst, t_line line, t_boundary boundary, int color);
 void		bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color);
@@ -84,6 +73,7 @@ void		midpoint_circle_int(int *arr, int color, t_circle point, t_boundary bounda
 void		midpoint_circle_uchar(unsigned char *arr, unsigned char color, t_circle point, t_boundary boundary);
 
 // init.c
+int			float_to_2d_int(float src, t_line boundary, char mode);
 int			init_swap_bresenham_y(t_line *line, int *delta_x, int *delta_y);
 int			init_swap_bresenham_x(t_line *line, int *delta_x, int *delta_y);
 t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col);

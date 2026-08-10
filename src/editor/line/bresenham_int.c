@@ -45,8 +45,7 @@ void	bresenham_int_x(int *dst, t_line line, t_boundary boundary, int color)
 
 	sign = init_swap_bresenham_x(&line, &delta_x, &delta_y);
 	pivot = 2 * delta_y - delta_x;
-	while (dst != NULL && line.p1.x <= line.p2.x
-		&& line.p1.y * boundary.all_area.x + line.p1.x < boundary.all_area.x * boundary.all_area.y)
+	while (dst != NULL && line.p1.x <= line.p2.x)
 	{
 		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
 			dst[line.p1.y * boundary.all_area.x + line.p1.x] = color;
@@ -71,8 +70,7 @@ void	bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color)
 
 	sign = init_swap_bresenham_y(&line, &delta_x, &delta_y);
 	pivot = 2 * delta_y - delta_x;
-	while (dst != NULL && line.p1.y <= line.p2.y
-		&& line.p1.x * boundary.all_area.x + line.p1.y < boundary.all_area.x * boundary.all_area.y)
+	while (dst != NULL && line.p1.y <= line.p2.y)
 	{
 		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
 			dst[line.p1.y * boundary.all_area.x + line.p1.x] = color;

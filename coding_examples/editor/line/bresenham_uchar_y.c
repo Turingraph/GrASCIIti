@@ -30,5 +30,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/line/bresenham_uchar_y.out input_examples/line/line_int_y.txt
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/line/bresenham_uchar_y.out input_examples/line/line_uchar_y.txt
 */

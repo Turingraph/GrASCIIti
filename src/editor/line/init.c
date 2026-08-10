@@ -59,8 +59,8 @@ t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col)
 	int			temp;
 	t_boundary	dst;
 
-	dst.all_area.x = f_abs(col);
-	dst.all_area.y = f_abs(row);
+	dst.all_area.x = (int)col;
+	dst.all_area.y = (int)row;
 	dst.sub_area.p1.x = (int)f_interval(sub_area.p1.x, 0, col);
 	dst.sub_area.p1.y = (int)f_interval(sub_area.p1.y, 0, row);
 	dst.sub_area.p2.x = (int)f_interval(sub_area.p2.x, 0, col);
@@ -80,6 +80,31 @@ t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col)
 	return (dst);
 }
 
+/*
+I compute 
+dst.p1.x = (int)f_interval(src.p1.x, 0,
+	boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
+
+instead of compute
+dst.p1.x = (int)f_interval(src.p1.x, 0,
+	boundary.sub_area.p2.x - boundary.sub_area.p1.x);
+
+because I want to "move" the entire line within the sub area of
+the entire canvas (a.k.a. table_fdf).
+*/
+
+/*
+I also compute
+
+boundary.sub_area.p2.x -= 1;
+
+because sometimes user want their sub_area to be entire area where
+boundary.sub_area.p1.x = 0
+boundary.sub_area.p1.y = 0
+boundary.sub_area.p2.x = table.col
+boundary.sub_area.p2.y = table.row
+*/
+
 // time : O(1)
 // space: O(1)
 t_line	init_first_line(t_line src, t_boundary boundary)
@@ -95,4 +120,29 @@ t_line	init_first_line(t_line src, t_boundary boundary)
 	dst.p2.y = (int)f_interval(src.p2.y, 0,
 			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
 	return (dst);
+}
+
+/*
+Note that I compute
+
+return (int)f_floor(dst * (boundary.p2.y - boundary.p1.y));
+
+instead of compute
+
+return (int)f_floor(dst * (boundary.p2.y - boundary.p1.y)) + boundary.p1.y;
+
+because I want to avoid adding the boundary.p1.y twice,
+given that init_first_line already compute this term.
+*/
+
+// time : O(1)
+// space: O(1)
+int	float_to_2d_int(float src, t_line boundary, char mode)
+{
+	float	dst;
+
+	dst = f_interval(src, 0, 1);
+	if (mode == 1)
+		return (int)f_floor(dst * (boundary.p2.y - 1 - boundary.p1.y));
+	return (int)f_floor(dst * (boundary.p2.x - 1 - boundary.p1.x));
 }
