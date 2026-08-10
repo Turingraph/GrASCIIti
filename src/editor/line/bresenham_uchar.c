@@ -59,7 +59,7 @@ void	bresenham_uchar_x_thick(unsigned char *dst, t_line line, t_boundary boundar
 	unsigned char	ink_color;
 
 	ink_color = (unsigned char)f_interval(ink.color, 0, 255);
-	if (dst != NULL && ink.channel == HEIGHT
+	if (dst != NULL && ink.channel != HEIGHT
 		&& f_abs(line.p2.x - line.p1.x) >= f_abs(line.p2.y - line.p1.y))
 	{
 		bresenham_uchar_x(dst, line, boundary, ink_color);
@@ -87,7 +87,7 @@ void	bresenham_uchar_y_thick(unsigned char *dst, t_line line, t_boundary boundar
 	unsigned char	ink_color;
 
 	ink_color = (unsigned char)f_interval(ink.color, 0, 255);
-	if (dst != NULL && ink.channel == HEIGHT
+	if (dst != NULL && ink.channel != HEIGHT
 		&& f_abs(line.p2.x - line.p1.x) < f_abs(line.p2.y - line.p1.y))
 	{
 		bresenham_uchar_y(dst, line, boundary, ink_color);

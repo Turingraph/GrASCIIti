@@ -23,13 +23,13 @@ void	draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line rec
 	t_line		line;
 
 	i = 0;
-	while (dst != NULL && polygon != NULL && i < polygon->length - 1 && ink.channel == HEIGHT)
+	while (dst != NULL && polygon != NULL && i < polygon->length - 1)
 	{
 		line = init_float_line(polygon->arr[i], polygon->arr[i + 1], rectangle_boundary);
 		draw_straight_line(dst, line, rectangle_boundary, ink);
 		i += 1;
 	}
-	if (dst != NULL && polygon != NULL && i == polygon->length - 1 && polygon->is_loop == true && ink.channel == HEIGHT)
+	if (dst != NULL && polygon != NULL && i == polygon->length - 1 && polygon->is_loop == true)
 	{
 		line = init_float_line(polygon->arr[i], polygon->arr[0], rectangle_boundary);
 		draw_straight_line(dst, line, rectangle_boundary, ink);

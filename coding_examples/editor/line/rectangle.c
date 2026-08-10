@@ -17,17 +17,11 @@ int	main(int len, char **str)
 	int				output;
 	t_line			boundary;
 	t_ink			ink;
-	// float			cx = 0.5;
-	// float			cy = 0.5;
 	t_complex		arr[] = {
 		{.re = 0, .im = 0},
 		{.re = 1, .im = 0},
 		{.re = 1, .im = 1},
 		{.re = 0, .im = 1},
-		// {.re = f_cos((1 / 4) * 3.1415) / 2 + cx, .im = f_sin(3.1415 / 4 * 1.) / 2 + cy},
-		// {.re = f_cos((1 / 4) * 3.1415) / 2 + cx, .im = f_sin(3.1415 / 4 * -1) / 2 + cy},
-		// {.re = f_cos((3 / 4) * 3.1415) / 2 + cx, .im = f_sin(3.1415 / 4 * 1.) / 2 + cy},
-		// {.re = f_cos((3 / 4) * 3.1415) / 2 + cx, .im = f_sin(3.1415 / 4 * -1) / 2 + cy},
 	};
 	t_2d_polygon	polygon;
 
@@ -52,5 +46,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/line/polygon.out input_examples/line/polygon.txt
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/line/rectangle.out input_examples/line/rectangle.txt
 */

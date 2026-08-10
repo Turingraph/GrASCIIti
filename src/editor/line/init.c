@@ -93,18 +93,6 @@ because I want to "move" the entire line within the sub area of
 the entire canvas (a.k.a. table_fdf).
 */
 
-/*
-I also compute
-
-boundary.sub_area.p2.x -= 1;
-
-because sometimes user want their sub_area to be entire area where
-boundary.sub_area.p1.x = 0
-boundary.sub_area.p1.y = 0
-boundary.sub_area.p2.x = table.col
-boundary.sub_area.p2.y = table.row
-*/
-
 // time : O(1)
 // space: O(1)
 t_line	init_first_line(t_line src, t_boundary boundary)

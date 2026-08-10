@@ -25,7 +25,7 @@ void	draw_uchar_straight_line(t_table_fdf *dst, t_line line, t_line rectangle_bo
 	unsigned char	*arr;
 	t_circle		end_point;
 
-	if (dst != NULL)
+	if (dst != NULL&& ink.channel != HEIGHT)
 	{
 		boundary = init_rectangle_boundary(rectangle_boundary, dst->row, dst->col);
 		line = init_first_line(line, boundary);
