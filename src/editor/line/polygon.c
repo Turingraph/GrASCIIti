@@ -11,7 +11,6 @@ t_line	init_float_line(t_complex point_1, t_complex point_2,
 	dst.p1.y = float_to_2d_int(point_1.im, boundary, 1);
 	dst.p2.x = float_to_2d_int(point_2.re, boundary, 0);
 	dst.p2.y = float_to_2d_int(point_2.im, boundary, 1);
-	sort_2d_points(&dst);
 	return (dst);
 }
 

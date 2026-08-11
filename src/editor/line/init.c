@@ -5,6 +5,9 @@
 int	init_swap_bresenham_y(t_line *line,
 	int *delta_x, int *delta_y)
 {
+	int	y;
+
+	y = 1;
 	if (line != NULL && delta_x != NULL && delta_y != NULL
 		&& f_abs(line->p2.x - line->p1.x) < f_abs(line->p2.y - line->p1.y))
 	{
@@ -14,14 +17,14 @@ int	init_swap_bresenham_y(t_line *line,
 		{
 			*delta_y = line->p1.x - line->p2.x;
 			*delta_x = line->p1.y - line->p2.y;
-			sort_2d_points(line);
+			y = 2;
 		}
 		if (*delta_y < 0)
 		{
 			*delta_y += 1;
-			return (-1);
+			return (y * -1);
 		}
-		return (1);
+		return (y);
 	}
 	return (0);
 }
@@ -31,6 +34,9 @@ int	init_swap_bresenham_y(t_line *line,
 int	init_swap_bresenham_x(t_line *line,
 	int *delta_x, int *delta_y)
 {
+	int	y;
+
+	y = 1;
 	if (line != NULL && delta_x != NULL && delta_y != NULL
 		&& f_abs(line->p2.x - line->p1.x) >= f_abs(line->p2.y - line->p1.y))
 	{
@@ -40,14 +46,14 @@ int	init_swap_bresenham_x(t_line *line,
 		{
 			*delta_x = line->p1.x - line->p2.x;
 			*delta_y = line->p1.y - line->p2.y;
-			sort_2d_points(line);
+			y = 2;
 		}
 		if (*delta_y < 0)
 		{
 			*delta_y += 1;
-			return (-1);
+			return (y * -1);
 		}
-		return (1);
+		return (y);
 	}
 	return (0);
 }

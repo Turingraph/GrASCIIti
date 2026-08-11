@@ -40,7 +40,7 @@ void	draw_uchar_straight_line(t_table_fdf *dst, t_line line,
 			bresenham_uchar_x_thick(arr, line, boundary, ink);
 		else if (arr != NULL)
 			bresenham_uchar_y_thick(arr, line, boundary, ink);
-		end_point.radius = ink.thickness / 2;
+		end_point.radius = ink.thickness / 2 - 1;
 		end_point.x = line.p1.x;
 		end_point.y = line.p1.y;
 		if (arr != NULL && ink.thickness > 1)
@@ -70,7 +70,7 @@ void	draw_int_straight_line(t_table_fdf *dst, t_line line,
 			bresenham_int_x_thick(dst->arr, line, boundary, ink);
 		else if (dst->arr != NULL)
 			bresenham_int_y_thick(dst->arr, line, boundary, ink);
-		end_point.radius = ink.thickness / 2;
+		end_point.radius = ink.thickness / 2 - 1;
 		end_point.x = line.p1.x;
 		end_point.y = line.p1.y;
 		if (dst->arr != NULL && ink.thickness > 1)

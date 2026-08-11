@@ -2,33 +2,6 @@
 
 // time : O(1)
 // space: O(1)
-void	sort_2d_points(t_line *line)
-{
-	int		temp;
-	int		delta_x;
-	int		delta_y;
-
-	delta_y = 0;
-	delta_x = 0;
-	if (line != NULL)
-	{
-		delta_y = (int)f_abs(line->p2.x - line->p1.x);
-		delta_x = (int)f_abs(line->p2.y - line->p1.y);
-	}
-	if (line != NULL && ((delta_x >= delta_y && line->p2.x < line->p1.x)
-			|| (line->p2.y < line->p1.y && delta_x <= delta_y)))
-	{
-		temp = line->p2.x;
-		line->p2.x = line->p1.x;
-		line->p1.x = temp;
-		temp = line->p2.y;
-		line->p2.y = line->p1.y;
-		line->p1.y = temp;
-	}
-}
-
-// time : O(1)
-// space: O(1)
 bool	is_in_boundary(int x, int y, t_line boundary)
 {
 	if (x >= boundary.p1.x
@@ -69,3 +42,15 @@ t_line	define_circle_boundary(t_circle point, int ix, int iy, char mode)
 	return (dst);
 }
 
+// time : O(1)
+// space: O(1)
+t_line	reverse_line(t_line line)
+{
+	t_line	dst;
+
+	dst.p1.x = line.p2.x;
+	dst.p1.y = line.p2.y;
+	dst.p2.x = line.p1.x;
+	dst.p2.y = line.p1.y;
+	return (dst);
+}

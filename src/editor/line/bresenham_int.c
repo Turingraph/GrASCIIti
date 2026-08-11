@@ -44,6 +44,11 @@ void	bresenham_int_x(int *dst, t_line line, t_boundary boundary, int color)
 	int	sign;
 
 	sign = init_swap_bresenham_x(&line, &delta_x, &delta_y);
+	if (sign == 2 || sign == -2)
+	{
+		line = reverse_line(line);
+		sign /= 2;
+	}
 	pivot = 2 * delta_y - delta_x;
 	while (dst != NULL && line.p1.x <= line.p2.x)
 	{
@@ -69,6 +74,11 @@ void	bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color)
 	int	sign;
 
 	sign = init_swap_bresenham_y(&line, &delta_x, &delta_y);
+	if (sign == 2 || sign == -2)
+	{
+		line = reverse_line(line);
+		sign /= 2;
+	}
 	pivot = 2 * delta_y - delta_x;
 	while (dst != NULL && line.p1.y <= line.p2.y)
 	{

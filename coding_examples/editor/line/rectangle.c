@@ -26,7 +26,7 @@ int	main(int len, char **str)
 	t_2d_polygon	polygon;
 
 	polygon.length = 4;
-	polygon.is_loop = true;
+	polygon.is_loop = false;
 	polygon.arr = arr;
 	ink.channel = HEIGHT;
 	ink.color = 10;

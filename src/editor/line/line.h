@@ -102,9 +102,9 @@ void		draw_kusama_circle(t_table_fdf *dst,
 				t_circle circle, t_ink ink, t_2d_int tiling_area);
 
 // utils.c
-void		sort_2d_points(t_line *line);
 bool		is_in_boundary(int x, int y, t_line boundary);
 t_line		define_circle_boundary(t_circle point,
 				int ix, int iy, char mode);
+t_line		reverse_line(t_line line);
 
 #endif
