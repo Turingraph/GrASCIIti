@@ -38,3 +38,34 @@ bool	is_in_boundary(int x, int y, t_line boundary)
 		return (true);
 	return (false);
 }
+
+// time : O(1)
+// space: O(1)
+t_line	define_circle_boundary(t_circle point, int ix, int iy, char mode)
+{
+	t_line	dst;
+
+	dst.p1.x = point.x - ix;
+	dst.p1.y = point.y + iy;
+	dst.p2.x = point.x + ix;
+	dst.p2.y = point.y + iy;
+	if (mode == 1)
+	{
+		dst.p1.y = point.y - iy;
+		dst.p2.y = point.y - iy;
+	}
+	if (mode == 2 || mode == 3)
+	{
+		dst.p1.x = point.x - iy;
+		dst.p1.y = point.y + ix;
+		dst.p2.x = point.x + iy;
+		dst.p2.y = point.y + ix;
+	}
+	if (mode == 3)
+	{
+		dst.p1.y = point.y - ix;
+		dst.p2.y = point.y - ix;
+	}
+	return (dst);
+}
+

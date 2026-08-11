@@ -4,14 +4,19 @@
 // space: O(1)
 t_circle	init_circle_in_boundary(t_circle point, t_boundary boundary)
 {
-	point.x = (int)f_interval(point.x, 0, boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
-	point.y = (int)f_interval(point.y, 0, boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
+	point.x = (int)f_interval(point.x, 0,
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x)
+		+ boundary.sub_area.p1.x;
+	point.y = (int)f_interval(point.y, 0,
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y)
+		+ boundary.sub_area.p1.y;
 	return (point);
 }
 
 // time : O(n)
 // space: O(1)
-void	draw_horizontal_int(int *arr, t_line line, int color, t_boundary boundary)
+void	draw_horizontal_int(int *arr, t_line line,
+	int color, t_boundary boundary)
 {
 	int	temp;
 
@@ -34,7 +39,8 @@ void	draw_horizontal_int(int *arr, t_line line, int color, t_boundary boundary)
 
 // time : O(n)
 // space: O(1)
-void	draw_horizontal_uchar(unsigned char *arr, t_line line, unsigned char color, t_boundary boundary)
+void	draw_horizontal_uchar(unsigned char *arr,
+	t_line line, unsigned char color, t_boundary boundary)
 {
 	int	temp;
 
@@ -56,11 +62,14 @@ void	draw_horizontal_uchar(unsigned char *arr, t_line line, unsigned char color,
 }
 
 /*
-In order to draw the circle, this equation must be satisfy x^2 + (y + 0.5)^2 = r^2, where
+In order to draw the circle,
+this equation must be satisfy x^2 + (y + 0.5)^2 = r^2, where
 *	r = radius
-*	y + 0.5 because there are 50% chance that we color the pixel on the y + 1 th row.
+*	y + 0.5 because there are 50% chance
+		that we color the pixel on the y + 1 th row.
 
-We can check if the point outside the circle or not by using Pythagorian theorem, such that
+We can check if the point outside the circle
+or not by using Pythagorian theorem, such that
 *	if x^2 + y^2 > r^2 means the point is outside the circle.
 
 if (x^2 + (y + 0.5)^2 > r^2)
@@ -77,7 +86,8 @@ if (x^2 + (y + 0.5)^2 - r^2 > 0)
 
 During first iteration
 *	x = 0
-*	y = -r (because we have to calculate the 2d position of the top point of the circle)
+*	y = -r (because we have to calculate the 2d position
+		of the top point of the circle)
 
 Calculating this inequality when y = -r and x = 0.
 *	x^2 + (y + 0.5)^2 - r^2 > 0
@@ -123,7 +133,8 @@ Reference
 
 // time : O(r^2)
 // space: O(1)
-void	midpoint_circle_int(int *arr, int color, t_circle point, t_boundary boundary)
+void	midpoint_circle_int(int *arr,
+	int color, t_circle point, t_boundary boundary)
 {
 	int		ix;
 	int		iy;
@@ -135,27 +146,18 @@ void	midpoint_circle_int(int *arr, int color, t_circle point, t_boundary boundar
 	ix = 0;
 	while (arr != NULL && ix <= -1 * iy)
 	{
-		line.p1.x = point.x - ix;
-		line.p1.y = point.y + iy;
-		line.p2.x = point.x + ix;
-		line.p2.y = point.y + iy;
+		line = define_circle_boundary(point, ix, iy, 0);
 		draw_horizontal_int(arr, line, color, boundary);
-		line.p1.y = point.y - iy;
-		line.p2.y = point.y - iy;
+		line = define_circle_boundary(point, ix, iy, 1);
 		draw_horizontal_int(arr, line, color, boundary);
-		line.p1.x = point.x - iy;
-		line.p1.y = point.y + ix;
-		line.p2.x = point.x + iy;
-		line.p2.y = point.y + ix;
+		line = define_circle_boundary(point, ix, iy, 2);
 		draw_horizontal_int(arr, line, color, boundary);
-		line.p1.y = point.y - ix;
-		line.p2.y = point.y - ix;
+		line = define_circle_boundary(point, ix, iy, 3);
 		draw_horizontal_int(arr, line, color, boundary);
 		if (pivot > 0)
-		{
 			iy += 1;
+		if (pivot > 0)
 			pivot += 2 * iy + 2;
-		}
 		ix += 1;
 		pivot += 2 * ix + 1;
 	}
@@ -163,7 +165,8 @@ void	midpoint_circle_int(int *arr, int color, t_circle point, t_boundary boundar
 
 // time : O(r^2)
 // space: O(1)
-void	midpoint_circle_uchar(unsigned char *arr, unsigned char color, t_circle point, t_boundary boundary)
+void	midpoint_circle_uchar(unsigned char *arr,
+	unsigned char color, t_circle point, t_boundary boundary)
 {
 	int		ix;
 	int		iy;
@@ -175,27 +178,18 @@ void	midpoint_circle_uchar(unsigned char *arr, unsigned char color, t_circle poi
 	ix = 0;
 	while (arr != NULL && ix <= -1 * iy)
 	{
-		line.p1.x = point.x - ix;
-		line.p1.y = point.y + iy;
-		line.p2.x = point.x + ix;
-		line.p2.y = point.y + iy;
+		line = define_circle_boundary(point, ix, iy, 0);
 		draw_horizontal_uchar(arr, line, color, boundary);
-		line.p1.y = point.y - iy;
-		line.p2.y = point.y - iy;
+		line = define_circle_boundary(point, ix, iy, 1);
 		draw_horizontal_uchar(arr, line, color, boundary);
-		line.p1.x = point.x - iy;
-		line.p1.y = point.y + ix;
-		line.p2.x = point.x + iy;
-		line.p2.y = point.y + ix;
+		line = define_circle_boundary(point, ix, iy, 2);
 		draw_horizontal_uchar(arr, line, color, boundary);
-		line.p1.y = point.y - ix;
-		line.p2.y = point.y - ix;
+		line = define_circle_boundary(point, ix, iy, 3);
 		draw_horizontal_uchar(arr, line, color, boundary);
 		if (pivot > 0)
-		{
 			iy += 1;
+		if (pivot > 0)
 			pivot += 2 * iy + 2;
-		}
 		ix += 1;
 		pivot += 2 * ix + 1;
 	}

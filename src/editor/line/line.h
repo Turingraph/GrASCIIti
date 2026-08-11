@@ -57,20 +57,30 @@ struct t_2d_polygon
 };
 
 // bresenham_int.c
-void		bresenham_int_x(int *dst, t_line line, t_boundary boundary, int color);
-void		bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color);
-void		bresenham_int_x_thick(int *dst, t_line line, t_boundary boundary, t_ink ink);
-void		bresenham_int_y_thick(int *dst, t_line line, t_boundary boundary, t_ink ink);
+void		bresenham_int_x(int *dst,
+				t_line line, t_boundary boundary, int color);
+void		bresenham_int_y(int *dst,
+				t_line line, t_boundary boundary, int color);
+void		bresenham_int_x_thick(int *dst,
+				t_line line, t_boundary boundary, t_ink ink);
+void		bresenham_int_y_thick(int *dst,
+				t_line line, t_boundary boundary, t_ink ink);
 
 // bresenham_uchar.c
-void		bresenham_uchar_x(unsigned char *dst, t_line line, t_boundary boundary, unsigned char color);
-void		bresenham_uchar_y(unsigned char *dst, t_line line, t_boundary boundary, unsigned char color);
-void		bresenham_uchar_x_thick(unsigned char *dst, t_line line, t_boundary boundary, t_ink ink);
-void		bresenham_uchar_y_thick(unsigned char *dst, t_line line, t_boundary boundary, t_ink ink);
+void		bresenham_uchar_x(unsigned char *dst,
+				t_line line, t_boundary boundary, unsigned char color);
+void		bresenham_uchar_y(unsigned char *dst,
+				t_line line, t_boundary boundary, unsigned char color);
+void		bresenham_uchar_x_thick(unsigned char *dst,
+				t_line line, t_boundary boundary, t_ink ink);
+void		bresenham_uchar_y_thick(unsigned char *dst,
+				t_line line, t_boundary boundary, t_ink ink);
 
 // circle.c
-void		midpoint_circle_int(int *arr, int color, t_circle point, t_boundary boundary);
-void		midpoint_circle_uchar(unsigned char *arr, unsigned char color, t_circle point, t_boundary boundary);
+void		midpoint_circle_int(int *arr,
+				int color, t_circle point, t_boundary boundary);
+void		midpoint_circle_uchar(unsigned char *arr,
+				unsigned char color, t_circle point, t_boundary boundary);
 
 // init.c
 int			float_to_2d_int(float src, t_line boundary, char mode);
@@ -80,15 +90,21 @@ t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col);
 t_line		init_first_line(t_line src, t_boundary boundary);
 
 // line.c
-void		draw_straight_line(t_table_fdf *dst, t_line line, t_line rectangle_boundary, t_ink ink);
+void		draw_straight_line(t_table_fdf *dst,
+				t_line line, t_line rectangle_boundary, t_ink ink);
 
 // polygon.c
-void		draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line rectangle_boundary);
-void		draw_square_tiling(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_2d_int tiling_area);
-void		draw_kusama_circle(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d_int tiling_area);
+void		draw_polygon(t_table_fdf *dst,
+				t_2d_polygon *polygon, t_ink ink, t_line rectangle_boundary);
+void		draw_square_tiling(t_table_fdf *dst,
+				t_2d_polygon *polygon, t_ink ink, t_2d_int tiling_area);
+void		draw_kusama_circle(t_table_fdf *dst,
+				t_circle circle, t_ink ink, t_2d_int tiling_area);
 
 // utils.c
 void		sort_2d_points(t_line *line);
 bool		is_in_boundary(int x, int y, t_line boundary);
+t_line		define_circle_boundary(t_circle point,
+				int ix, int iy, char mode);
 
 #endif
