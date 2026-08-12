@@ -4,28 +4,23 @@ int	main(int len, char **str)
 {
 	t_table_fdf	table;
 	int			output;
-	t_line		line;
-	t_boundary	boundary;
-	t_ink		ink;
+	t_line		line = {
+		.p1 = {.x = 2, .y = 13},
+		.p2 = {.x = 28, .y = 20}
+	};
+	t_boundary	boundary = {
+		.all_area = {.x = 30, .y = 40},
+		.sub_area = {
+			.p1 = {.x = 0, .y = 0},
+			.p2 = {.x = 30, .y = 40}
+		}
+	};
+	t_ink		ink = {.channel = HEIGHT, .color = 10, .thickness = 4};
 
-	ink.channel = HEIGHT;
-	ink.color = 10;
-	ink.thickness = 4;
 	if (len < 2)
 		return (0);
 	output = open_dir_file(str[1], NULL, APPEND);
 	table = init_table_fdf(40, 30, false);
-	// table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, false);
-	boundary.all_area.x = table.col;
-	boundary.all_area.y = table.row;
-	boundary.sub_area.p1.x = 0;
-	boundary.sub_area.p1.y = 0;
-	boundary.sub_area.p2.x = table.col;
-	boundary.sub_area.p2.y = table.row;
-	line.p1.x = 2;
-	line.p1.y = 13;
-	line.p2.x = 28;
-	line.p2.y = 20;
 	bresenham_int_x_thick(table.arr, line, boundary, ink);
 	ink.color = 50;
 	ink.thickness = 1;

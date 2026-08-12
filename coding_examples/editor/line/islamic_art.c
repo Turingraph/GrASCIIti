@@ -45,8 +45,8 @@ int	main(int len, char **str)
 		{.re = 1 - 2 * u_0, .im = 1 - 0},
 		{.re = 1 - 0, .im = 1 - 0}
 	};
-	t_2d_int		tiling;
-	t_ink			ink;
+	t_2d_int		tiling = {.x = 24, .y = 12};
+	t_ink			ink = {.channel = HEIGHT, .color = 3, .thickness = 5};
 	t_2d_polygon	polygon_00 = {.arr = shape_00, .is_loop = false, .length = 5};
 	t_2d_polygon	polygon_01 = {.arr = shape_01, .is_loop = false, .length = 5};
 	t_2d_polygon	polygon_02 = {.arr = shape_02, .is_loop = false, .length = 5};
@@ -76,11 +76,6 @@ int	main(int len, char **str)
 		return (0);
 	output = open_dir_file(str[1], NULL, APPEND);
 	table = init_table_fdf(240, 240, false);
-	tiling.x = 24;
-	tiling.y = 12;
-	ink.channel = HEIGHT;
-	ink.color = 3;
-	ink.thickness = 5;
 	draw_square_tiling(&table, &thickline_arr_00, ink, tiling);
 	draw_square_tiling(&table, &thickline_arr_01, ink, tiling);
 	draw_square_tiling(&table, &thickline_arr_02, ink, tiling);

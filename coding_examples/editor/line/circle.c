@@ -5,22 +5,19 @@ int	main(int len, char **str)
 	t_table_fdf	table;
 	t_table_fdf	table_2;
 	int			output;
-	t_circle	circle;
-	t_boundary	boundary;
+	t_circle	circle = {.x = 12, .y = 12, .radius = 6};
+	t_boundary	boundary = {
+		.all_area = {.x = 49, .y = 30},
+		.sub_area = {
+			.p1 = {.x = 0, .y = 0},
+			.p2 = {.x = 49, .y = 30}
+		}
+	};
 
 	if (len < 2)
 		return (0);
 	output = open_dir_file(str[1], NULL, APPEND);
 	table = init_table_fdf(30, 49, false);
-	boundary.all_area.x = table.col;
-	boundary.all_area.y = table.row;
-	boundary.sub_area.p1.x = 0;
-	boundary.sub_area.p1.y = 0;
-	boundary.sub_area.p2.x = table.col;
-	boundary.sub_area.p2.y = table.row;
-	circle.x = 12;
-	circle.y = 12;
-	circle.radius = 6;
 	midpoint_circle_int(table.arr, 10, circle, boundary);
 	table_2 = scale_dimension_fdf(&table, 2, 1);
 	table_2.row /= 2;

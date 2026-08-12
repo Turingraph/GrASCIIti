@@ -4,25 +4,19 @@ int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	int				output;
-	t_line			rectangle_boundary;
-	t_ink			ink;
-	t_2d_polygon	polygon;
+	t_line			rectangle_boundary = {
+		.p1 = {.x = 0, .y = 0},
+		.p2 = {.x = 101,.y = 49}
+	};
+	t_ink			ink = {.channel = HEIGHT, .color = 10, .thickness = 5};
 	t_complex		arr[] = {
 		{.re = 0, .im = 0},
 		{.re = 1, .im = 0},
 		{.re = 1, .im = 3.0f / 4.0f},
 	};
 
-	polygon.is_loop = true;
-	polygon.length = 3;
-	polygon.arr = arr;
-	ink.channel = HEIGHT;
-	ink.color = 10;
-	ink.thickness = 5;
-	rectangle_boundary.p1.x = 0;
-	rectangle_boundary.p1.y = 0;
-	rectangle_boundary.p2.x = 101;
-	rectangle_boundary.p2.y = 49;
+	t_2d_polygon	polygon = {.is_loop = true, .length = 3, .arr = arr};
+
 	if (len < 2)
 		return (0);
 	output = open_dir_file(str[1], NULL, APPEND);
