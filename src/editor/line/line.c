@@ -5,7 +5,7 @@
 unsigned char	*get_rgba_of_table_fdf2(const t_table_fdf *src,
 	e_rgba rgba_type, int *color)
 {
-	if (color != NULL)
+	if (color != NULL && rgba_type != HEIGHT)
 		*color = (int)f_interval(*color, 0, 255);
 	if (src == NULL)
 		return (NULL);

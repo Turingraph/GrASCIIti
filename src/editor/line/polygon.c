@@ -49,10 +49,7 @@ void	draw_square_tiling(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_2d
 		j = 0;
 		while (tiling_area.x > 0 && j < f_floor(dst->col / tiling_area.x) + 1)
 		{
-			tiling.p1.x = tiling_area.x * j;
-			tiling.p1.y = tiling_area.y * i;
-			tiling.p2.x = tiling_area.x * (j + 1);
-			tiling.p2.y = tiling_area.y * (i + 1);
+			tiling = get_tiling(tiling_area, i, j);
 			draw_polygon(dst, polygon, ink, tiling);
 			j += 1;
 		}
@@ -62,7 +59,7 @@ void	draw_square_tiling(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_2d
 
 // time : O(n)
 // sapce: O(1)
-void	draw_kusama_circle(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d_int tiling_area)
+void	draw_kusama_circle_int(t_table_fdf *dst, t_circle circle, int ink, t_2d_int tiling_area)
 {
 	size_t		i;
 	size_t		j;
@@ -70,38 +67,56 @@ void	draw_kusama_circle(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d_int t
 	t_circle	point;
 	t_boundary	boundary;
 
-	if (ink.channel != HEIGHT)
-		ink.color = (int)f_interval(ink.color, 0, 255);
 	point.radius = circle.radius;
 	i = 0;
-	while (dst != NULL && tiling_area.y > 0 && tiling_area.x > 0
+	while (dst != NULL && dst->arr != NULL && tiling_area.y > 0 && tiling_area.x > 0
 		&& i < f_floor(dst->row / tiling_area.y) + 1)
 	{
 		j = 0;
 		while (j < f_floor(dst->col / tiling_area.x) + 1)
 		{
-			tiling.p1.x = tiling_area.x * j;
-			tiling.p1.y = tiling_area.y * i;
-			tiling.p2.x = tiling_area.x * (j + 1);
-			tiling.p2.y = tiling_area.y * (i + 1);
+			tiling = get_tiling(tiling_area, i, j);
 			boundary = init_rectangle_boundary(tiling, dst->row, dst->col);
 			point.x = (int)f_interval(circle.x, 0,
 					boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
 			point.y = (int)f_interval(circle.y, 0,
 					boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
-			if (ink.channel == HEIGHT && dst->arr != NULL)
-				midpoint_circle_int(dst->arr, ink.color, point, boundary);
-			if (ink.channel == RED && dst->r != NULL)
-				midpoint_circle_uchar(dst->r, (unsigned char)ink.color, point, boundary);
-			if (ink.channel == GREEN && dst->g != NULL)
-				midpoint_circle_uchar(dst->g, (unsigned char)ink.color, point, boundary);
-			if (ink.channel == BLUE && dst->b != NULL)
-				midpoint_circle_uchar(dst->b, (unsigned char)ink.color, point, boundary);
-			if (ink.channel == ALPHA && dst->a != NULL)
-				midpoint_circle_uchar(dst->a, (unsigned char)ink.color, point, boundary);
+			midpoint_circle_int(dst->arr, ink, point, boundary);
 			j += 1;
 		}
 		i += 1;
 	}
 }
 
+// time : O(n)
+// sapce: O(1)
+void	draw_kusama_circle_uchar(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d_int tiling_area)
+{
+	size_t		i;
+	size_t		j;
+	t_line		tiling;
+	t_circle	point;
+	t_boundary	boundary;
+
+	point.radius = circle.radius;
+	i = 0;
+	while (dst != NULL && tiling_area.y > 0 && tiling_area.x > 0
+		&& get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color)) != NULL
+		&& i < f_floor(dst->row / tiling_area.y) + 1)
+	{
+		j = 0;
+		while (j < f_floor(dst->col / tiling_area.x) + 1)
+		{
+			tiling = get_tiling(tiling_area, i, j);
+			boundary = init_rectangle_boundary(tiling, dst->row, dst->col);
+			point.x = (int)f_interval(circle.x, 0,
+					boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
+			point.y = (int)f_interval(circle.y, 0,
+					boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
+			midpoint_circle_uchar(get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color)),
+				(unsigned char)ink.color, point, boundary);
+			j += 1;
+		}
+		i += 1;
+	}
+}

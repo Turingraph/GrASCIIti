@@ -54,3 +54,16 @@ t_line	reverse_line(t_line line)
 	dst.p2.y = line.p1.y;
 	return (dst);
 }
+
+// time : O(1)
+// space: O(1)
+t_line	get_tiling(t_2d_int tiling_area, size_t i, size_t j)
+{
+	t_line	tiling;
+
+	tiling.p1.x = tiling_area.x * j;
+	tiling.p1.y = tiling_area.y * i;
+	tiling.p2.x = tiling_area.x * (j + 1);
+	tiling.p2.y = tiling_area.y * (i + 1);
+	return (tiling);
+}
