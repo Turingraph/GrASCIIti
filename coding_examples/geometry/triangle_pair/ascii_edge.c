@@ -15,24 +15,26 @@ int	main(int len, char **str)
 	col = f_atoi(str[3], &is_int, "0123456789", f_strlen(str[3]));
 	if (is_int == false)
 		return (0);
-	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, false);
+	table = open_table_fdf_file(str[1], NULL, parse_fdf_line_rgba, false);
 	if (table.arr == NULL)
 		return (0);
 	row = (int)f_interval((float)row, 0.0, (float)(table.row - 1));
 	col = (int)f_interval((float)col, 0.0, (float)(table.col - 1));
+	write(1, "\nwrite_2d_index\n", 17);
 	write_2d_index(table.col, row, col);
 	row = row * table.col + col;
+	write(1, "\nwrite_triangle_pair_geometry\n", 31);
 	write_triangle_pair_geometry(&table, (size_t)row);
 	output = f_fdf_edge((const t_table_fdf *)&table, row, EDGE_X);
 	free_table_fdf(&table);
+	write(1, "\nwrite_triangle_arr\n", 21);
 	write_triangle_arr(1, (const t_triangle_arr *)&output);
+	write(1, "\nwrite_triangle_arr_meta\n", 26);
 	write_triangle_arr_meta(1, (const t_triangle_arr *)&output);
 	free_triangle_arr(&output);
 	return (0);
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/geometry/triangle_pair/ascii_edge.out input_examples/mathart_gen/cube_x
-
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/geometry/triangle_pair/ascii_edge.out input_examples/mathart_gradient/rozzo_a_404.txt 11 0
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/geometry/triangle_pair/ascii_edge.out input_examples/mathart_gradient/rozzo_a_404.txt 11 0
 */

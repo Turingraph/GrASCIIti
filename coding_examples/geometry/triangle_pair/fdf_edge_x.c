@@ -5,6 +5,7 @@ int	main(int len, char **str)
 	t_table_fdf		table;
 	int				row;
 	int				col;
+	size_t			index;
 	bool			is_int;
 	t_triangle_arr	output;
 
@@ -20,11 +21,21 @@ int	main(int len, char **str)
 		return (0);
 	row = (int)f_interval((float)row, 0.0, (float)(table.row - 1));
 	col = (int)f_interval((float)col, 0.0, (float)(table.col - 1));
-	write_triangle_pair_geometry(&table, (size_t)row);
-	output = f_fdf_edge((const t_table_fdf *)&table, row, EDGE_DIAGONAL_LEFT);
+	write(1, "\nwrite_2d_index\n", 17);
+	write_2d_index(table.col, row, col);
+	index = row * table.col + col;
+	write(1, "\nwrite_triangle_pair_geometry\n", 31);
+	write_triangle_pair_geometry(&table, (size_t)index);
+	output = f_fdf_edge((const t_table_fdf *)&table, index, EDGE_X);
 	free_table_fdf(&table);
+	write(1, "\nwrite_triangle_arr\n", 21);
 	write_triangle_arr(1, (const t_triangle_arr *)&output);
+	write(1, "\nwrite_triangle_arr_meta\n", 26);
 	write_triangle_arr_meta(1, (const t_triangle_arr *)&output);
 	free_triangle_arr(&output);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/geometry/triangle_pair/fdf_edge_x.out input_examples/fdf/prism_pyramid.fdf 0 0
+*/

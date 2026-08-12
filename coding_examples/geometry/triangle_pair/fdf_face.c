@@ -18,16 +18,26 @@ int	main(int len, char **str)
 	table = open_table_fdf_file(str[1], NULL, parse_fdf_line_rgba, true);
 	if (table.arr == NULL)
 		return (0);
+	table.color_sampling = SAMPLE_AVERAGE;
 	row = (int)f_interval((float)row, 0.0, (float)(table.row - 1));
 	col = (int)f_interval((float)col, 0.0, (float)(table.col - 1));
+	write(1, "\nwrite_2d_index\n", 17);
+	write_2d_index(table.col, row, col);
 	row = row * table.col + col;
 	if (row < 0)
 		row *= -1;
+	write(1, "\nwrite_triangle_pair_geometry\n", 31);
 	write_triangle_pair_geometry(&table, (size_t)row);
 	output = f_fdf_face((const t_table_fdf *)&table, row, ISOMETRIC);
 	free_table_fdf(&table);
+	write(1, "\nwrite_triangle_arr\n", 21);
 	write_triangle_arr(1, (const t_triangle_arr *)&output);
+	write(1, "\nwrite_triangle_arr_meta\n", 26);
 	write_triangle_arr_meta(1, (const t_triangle_arr *)&output);
 	free_triangle_arr(&output);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/geometry/triangle_pair/fdf_face.out input_examples/fdf/prism_pyramid.fdf 7 11
+*/

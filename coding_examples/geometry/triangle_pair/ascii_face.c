@@ -31,3 +31,7 @@ int	main(int len, char **str)
 	free_triangle_arr(&output);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/geometry/triangle_pair/ascii_face.out input_examples/mathart_gradient/rozzo_a_404.txt 11 0
+*/

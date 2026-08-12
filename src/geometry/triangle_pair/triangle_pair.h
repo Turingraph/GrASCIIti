@@ -21,8 +21,15 @@ enum e_3d_shape
 {
 	ISOMETRIC,
 	PRISM_MODE2,
-	PRISM_CROSS
+	PRISM_CROSS,
+	PRISM_VOXEL,
+	VOXEL
 };
+
+// bool.c
+bool			is_edge_x(const t_table_fdf *src, size_t index, bool is_voxel);
+bool			is_edge_y(const t_table_fdf *src, size_t index, bool is_voxel);
+bool			is_edge_diagonal_lr(const t_table_fdf *src, size_t index, bool is_left);
 
 // color.c
 void			average_tri_coloring(const t_table_fdf *src, size_t index, t_triangle *dst);
