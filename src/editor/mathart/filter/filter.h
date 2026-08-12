@@ -65,6 +65,12 @@ bool	is_binary_search_coloring(const t_table_fdf *dst, size_t index);
 bool	is_binary_search_x_coloring(const t_table_fdf *dst, size_t index);
 bool	is_chess_cell(const t_table_fdf *dst, size_t index);
 
+// ormod.c
+bool	is_ormod_square(const t_table_fdf *dst, size_t index);
+bool	is_ormod_cube(const t_table_fdf *dst, size_t index);
+bool	is_ormod_sin(const t_table_fdf *dst, size_t index);
+bool	ormod_collatz_coloring(const t_table_fdf *dst, size_t index);
+
 // utils.c
 bool	is_positive_cell(const t_table_fdf *dst, size_t index);
 bool	is_conjugate_func(const t_table_fdf *dst, size_t index,
