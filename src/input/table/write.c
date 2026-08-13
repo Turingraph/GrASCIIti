@@ -93,8 +93,7 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const cha
 				ft_put_ascii_fd(fd, (int)src->arr[i * src->col + j], dict, left_char);
 			else if (arr != NULL && channel != HEIGHT)
 			{
-				rgb95 = (int)f_interval(f_round((float)arr[i * src->col + j] * 95.0 / 255),
-					0, 255);
+				rgb95 = (int)f_interval(f_round((float)arr[i * src->col + j]), 0, 255);
 				ft_put_ascii_fd(fd, rgb95, dict, left_char);
 			}
 			j += 1;
