@@ -76,7 +76,7 @@ int	main(void)
 	i = 0;
 	while (i < max_score)
 	{
-		table = open_table_fdf_file(testers[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba, false);
+		table = open_table_fdf_file(testers[i].file_name, "input_examples/fdf_positive/", parse_fdf_line_rgba, false);
 		index = testers[i].row * table.col + testers[i].col;
 		output = f_fdf_edge((const t_table_fdf *)&table, index, edge_mode, true);
 		if (compare_3dpoint_edge_tester(&output, &testers[i]) == true)

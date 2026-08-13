@@ -10,8 +10,8 @@ bool	compare_3dpoint_edge(const t_triangle *src, t_3d_point point_0, t_3d_point 
 		return (false);
 	if (are_2_3dpoint_same(src->p1, point_0.x, point_0.y, point_0.z) == true
 		&& ((are_2_3dpoint_same(src->p2, point_0.x, point_0.y, 0.0) == true && triangle_index == 0)
-			|| (are_2_3dpoint_same(src->p3, point_1.x, point_1.y, point_1.z) == true && triangle_index == 1))
-		&& are_2_3dpoint_same(src->p3, point_1.x, point_1.y, point_1.z) == true)
+			|| (are_2_3dpoint_same(src->p2, point_1.x, point_1.y, point_1.z) == true && triangle_index == 1))
+		&& are_2_3dpoint_same(src->p3, point_1.x, point_1.y, 0.0) == true)
 		return (true);
 	return (false);
 }
@@ -73,6 +73,13 @@ bool	compare_table_edge_3d_arr(const t_table_fdf *table,
 {
 	if (table == NULL && src == NULL)
 		return (true);
+	if (src->length != 2)
+	{
+		write(1, "compare_table_edge_3d_arr is incompatible with "
+			"`t_triangle_arr *arr` argument because it does not check if the "
+			"surrounding cells exists or not (a.k.a. if it >= 0).\n", 165);
+		return (false);
+	}
 	if (table == NULL || src->arr == NULL || table->arr == NULL
 		|| index >= table->col * table->row || src == NULL)
 		return (false);

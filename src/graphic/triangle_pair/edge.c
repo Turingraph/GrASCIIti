@@ -47,6 +47,8 @@ void	init_edge_positions(t_triangle_arr *dst, size_t index, e_edge topology, siz
 // space: O(1)
 bool	fdf_edge_detection(const t_table_fdf *src, size_t index, e_edge topology, bool is_voxel)
 {
+	if (src == NULL || src->arr == NULL || index >= src->col * src->row)
+		return (false);
 	if (topology == EDGE_X && is_edge_x(src, index, is_voxel) == true)
 		return (true);
 	if (topology == EDGE_Y && is_edge_y(src, index, is_voxel) == true)

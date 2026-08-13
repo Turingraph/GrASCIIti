@@ -38,7 +38,8 @@ int	main(void)
 	while (i < length)
 	{
 		table = open_table_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw, false);
-		fdf_dst = open_dir_file(arr[i], "input_examples/fdf_tab/", APPEND);
+		scale_positive_fdf(&table);
+		fdf_dst = open_dir_file(arr[i], "input_examples/fdf_positive/", APPEND);
 		if(fdf_dst > -1)
 		{
 			write(1, "\n*** ", 5);
