@@ -28,7 +28,7 @@ coding_examples/
 1.	editor/gauss_rgb.c
 2.	editor/paint
 3.	editor/mathart
-4.	geometry/
+4.	graphic/
 
 Release First Stable Version
 3.	graphic/rasterization/ with z buffer

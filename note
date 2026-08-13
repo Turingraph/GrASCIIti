@@ -15,8 +15,8 @@ EXAMPLE_table = $(wildcard coding_examples/src/input/table/*)
 EXAMPLE_convolution = $(wildcard coding_examples/src/editor/convolution/*)
 EXAMPLE_paint = $(wildcard coding_examples/src/editor/paint/*)
 
-EXAMPLE_triangle_pair = $(wildcard coding_examples/src/geometry/triangle_pair/*)
-EXAMPLE_triangle_arr = $(wildcard coding_examples/src/geometry/triangle_arr/*)
+EXAMPLE_triangle_pair = $(wildcard coding_examples/src/graphic/triangle_pair/*)
+EXAMPLE_triangle_arr = $(wildcard coding_examples/src/graphic/triangle_arr/*)
 
 
 #-----------------------------------------------------------------------------------------------

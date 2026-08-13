@@ -39,12 +39,12 @@ editor/paint/
 
 *********************************************
 
-geometry/triangle_pair/
+graphic/triangle_pair/
 1.	utils/linalg/
 2.	utils/libft/
 
-geometry/triangle_arr/
-1.	geometry/triangle_pair/
+graphic/triangle_arr/
+1.	graphic/triangle_pair/
 
 *********************************************
 *********************************************

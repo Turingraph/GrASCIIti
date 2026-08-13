@@ -54,6 +54,6 @@ void			write_3d_vector(int fd, const float *vec_v);
 void			write_triangle(int fd, const t_triangle *src);
 void			write_triangle_arr(int fd, const t_triangle_arr *src);
 void			write_triangle_arr_meta(int fd, const t_triangle_arr *src);
-void			write_triangle_pair_geometry(const t_table_fdf *src, size_t index);
+void			write_triangle_pair_graphic(const t_table_fdf *src, size_t index);
 
 #endif

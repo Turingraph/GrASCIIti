@@ -76,7 +76,7 @@ void	write_triangle_arr_meta(int fd, const t_triangle_arr *src)
 
 // time : O(1)
 // space: O(1)
-void	write_triangle_pair_geometry(const t_table_fdf *src, size_t index)
+void	write_triangle_pair_graphic(const t_table_fdf *src, size_t index)
 {
 	if (src != NULL && index < (src->col - 1) * (src->row - 1) && src->arr != NULL)
 	{

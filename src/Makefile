@@ -30,8 +30,8 @@ SRC_mathart = $(wildcard editor/mathart/*/*.c)
 SRC_paint = $(wildcard editor/paint/*.c)
 SRC_line = $(wildcard editor/line/*.c)
 
-SRC_triangle_pair = $(wildcard geometry/triangle_pair/*.c)
-SRC_triangle_arr = $(wildcard geometry/triangle_arr/*.c)
+SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
+SRC_triangle_arr = $(wildcard graphic/triangle_arr/*.c)
 
 #-----------------------------------------------------------------------------------------------
 

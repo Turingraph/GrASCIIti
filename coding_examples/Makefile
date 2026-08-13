@@ -9,7 +9,7 @@ get_lib_a_files = $(filter %.a, $^)
 .SECONDEXPANSION:
 
 OUT_DIR = out/
-SRC_TRIANGLES = $(wildcard geometry/*/*.c)
+SRC_TRIANGLES = $(wildcard graphic/*/*.c)
 SRC_LINE = $(wildcard editor/line/*.c)
 OUT_USE_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
 SRC_PAINT = $(wildcard editor/paint/*.c)

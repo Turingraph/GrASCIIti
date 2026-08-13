@@ -26,8 +26,8 @@ int	main(int len, char **str)
 	row = row * table.col + col;
 	if (row < 0)
 		row *= -1;
-	write(1, "\nwrite_triangle_pair_geometry\n", 31);
-	write_triangle_pair_geometry(&table, (size_t)row);
+	write(1, "\nwrite_triangle_pair_graphic\n", 30);
+	write_triangle_pair_graphic(&table, (size_t)row);
 	output = f_fdf_face((const t_table_fdf *)&table, row, ISOMETRIC);
 	free_table_fdf(&table);
 	write(1, "\nwrite_triangle_arr\n", 21);
@@ -39,5 +39,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/geometry/triangle_pair/fdf_face.out input_examples/fdf/prism_pyramid.fdf 7 11
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/triangle_pair/fdf_face.out input_examples/fdf/prism_pyramid.fdf 7 11
 */

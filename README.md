@@ -29,7 +29,7 @@ Thing to do "after" the first stable version, to avoid scope creep.
 5.	Content about my personal experience with synesthesia, language, my experience with meditation while observing random thought, my experience with learning 3rd language and how this experience interact with my synesthesia experience and vise versa, written conlang (and neography), etymology, preserving endangered language, Phenomenology, Calligraphy based Tarot cards etc.
 6.	Blender/Piskel/Jpg/PDF compatible file
 7.	React Typescript user friendly Frontend
-8.	Font topology/geometry related analysis
+8.	Font topology/graphic related analysis
 
 Sunset at 4.42 pm
 ปิตาภรณ์
