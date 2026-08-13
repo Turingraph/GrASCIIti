@@ -11,7 +11,7 @@ BUFFER_SIZE = 42
 
 # *** library ***
 LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table \
-	convolve copy mathart paint line triangle_pair triangle_arr debug)
+	convolve copy mathart paint line triangle_pair triangle_arr debug debug_triangle)
 
 # *** atom src ***
 SRC_libft = $(wildcard utils/libft/*.c)
@@ -20,6 +20,7 @@ SRC_get_next_line = $(wildcard input/get_next_line/*.c)
 
 # *** composed src ***
 SRC_debug = $(wildcard debug/debug/*.c)
+SRC_debug_triangle = $(wildcard debug/debug_triangle/*.c)
 SRC_linalg = $(wildcard utils/linalg/*.c)
 SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
@@ -42,6 +43,7 @@ OBJ_get_next_line = $(patsubst %.c, obj/%.o, $(SRC_get_next_line))
 
 # *** composed obj ***
 OBJ_debug = $(patsubst %.c, obj/%.o, $(SRC_debug)) $(OBJ_libft) $(OBJ_get_next_line)
+OBJ_debug_triangle = $(patsubst %.c, obj/%.o, $(SRC_debug_triangle))
 OBJ_linalg = $(patsubst %.c, obj/%.o, $(SRC_linalg)) $(OBJ_math)
 OBJ_load = $(patsubst %.c, obj/%.o, $(SRC_load)) $(OBJ_libft) $(OBJ_get_next_line)
 OBJ_table = $(patsubst %.c, obj/%.o, $(SRC_table)) $(OBJ_load) $(OBJ_math)

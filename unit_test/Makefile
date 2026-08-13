@@ -11,6 +11,7 @@ SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
 SRC_libft = $(wildcard utils/libft/*.c)
 SRC_math = $(wildcard utils/math/*.c)
+SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
 
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
 SRC_HELPER_get_next_line = $(wildcard ../src/input/get_next_line/*.c)
@@ -23,6 +24,8 @@ HELPER_OBJ = $(patsubst %.c, obj/%.o, $(HELPER_SRC))
 OUT_ALL = $(patsubst %.c, out/%.out,	\
 	$(SRC_get_next_line)	\
 	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_math))
+
+OUT_triangle = $(patsubst %.c, out/%.out, $(SRC_triangle_pair))
 
 #-----------------------------------------------------------------------------------------------
 # *** get input file ***
@@ -38,8 +41,13 @@ OUTPUT_FDFASCII = $(patsubst ../input_examples/fdf/%.fdf, $(INPUT_FDFASCII_DIR)%
 # *** obj, out, and lib ***
 all: all_out all_output
 
-all_out: $(OUT_ALL)
+all_out: $(OUT_ALL) $(OUT_triangle)
 	@echo $^
+
+$(OUT_triangle): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	@echo Yorushika said that $^
+	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/debug_triangle.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a ../src/lib/table.a
 
 $(OUT_ALL): out/%.out: obj/%.o
 	@mkdir -p $(@D)
