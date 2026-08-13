@@ -66,7 +66,7 @@ void	*f_fdf_edge_coloring(const t_table_fdf *src, size_t index, t_triangle_arr *
 {
 	unsigned char	y;
 
-	if (src == NULL || index >= (src->row - 1) * (src->col - 1) || dst == NULL)
+	if (src == NULL || index >= src->row * src->col || dst == NULL)
 		return (NULL);
 	y = 0;
 	if (src->r != NULL)
