@@ -2,7 +2,7 @@
 
 // time : O(n)
 // sapce: O(n)
-t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, bool is_2faces)
+t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, bool is_2faces, bool is_voxel)
 {
 	t_triangle_arr	dst;
 	t_triangle_arr	tsd;
@@ -11,9 +11,9 @@ t_triangle_arr	table_to_one_d_prism(const t_table_fdf *src, float width, bool is
 	if (src == NULL || (src->row < 2 && src->col < 2) || src->arr == NULL)
 		return (dst);
 	if (src->row == 1 && src->col > 1)
-		dst = all_triangle_edge_xy(src, 'x');
+		dst = all_triangle_edge_xy(src, EDGE_X, is_voxel);
 	if (src->col == 1 && src->row > 1)
-		dst = all_triangle_edge_xy(src, 'y');
+		dst = all_triangle_edge_xy(src, 'y', is_voxel);
 	if (dst.arr != NULL && dst.length > 0)
 		setwidth_triangle_arr(&dst, width, 2);
 	if (is_2faces == true && dst.arr != NULL && dst.length > 0)
@@ -53,20 +53,22 @@ t_triangle_arr	table_to_prism(const t_table_fdf *src, float width, bool is_2face
 {
 	t_triangle_arr	dst;
 	t_triangle_arr	items;
+	bool			is_voxel;
 
+	is_voxel = false;
 	if (src == NULL || src->arr == NULL)
 		return (init_triangle_arr(0, 0, 0));
 	if ((src->row < 2 && src->col < 2)
 		|| (src->row == 1 && src->col > 1) || (src->col == 1 && src->row > 1))
-		return (table_to_one_d_prism(src, width, is_2faces));
+		return (table_to_one_d_prism(src, width, is_2faces, is_voxel));
 	dst = init_triangle_arr(1, src->row, src->col);
 	items = all_triangle_faces(src, shape);
 	push_back_to_triangle_arr(&items, width, is_2faces);
 	concat_triangle_arr(&dst, &items);
-	items = all_triangle_edge_xy(src, 'x');
+	items = all_triangle_edge_xy(src, 'x', is_voxel);
 	push_back_to_triangle_arr(&items, width, is_2faces);
 	concat_triangle_arr(&dst, &items);
-	items = all_triangle_edge_xy(src, 'y');
+	items = all_triangle_edge_xy(src, 'y', is_voxel);
 	push_back_to_triangle_arr(&items, width, is_2faces);
 	concat_triangle_arr(&dst, &items);
 	items = all_triangle_edge_lr(src, 'l');

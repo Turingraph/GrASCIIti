@@ -45,11 +45,8 @@ void	init_edge_positions(t_triangle_arr *dst, size_t index, e_edge topology, siz
 
 // time : O(1)
 // space: O(1)
-bool	fdf_edge_detection(const t_table_fdf *src, size_t index, e_edge topology)
+bool	fdf_edge_detection(const t_table_fdf *src, size_t index, e_edge topology, bool is_voxel)
 {
-	bool	is_voxel;
-
-	is_voxel = false;
 	if (topology == EDGE_X && is_edge_x(src, index, is_voxel) == true)
 		return (true);
 	if (topology == EDGE_Y && is_edge_y(src, index, is_voxel) == true)
@@ -97,13 +94,13 @@ void	*f_fdf_edge_coloring(const t_table_fdf *src, size_t index, t_triangle_arr *
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge topology)
+t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge topology, bool is_voxel)
 {
 	t_triangle_arr	dst;
 
 	dst = init_triangle_arr(2, 0, 0);
 	if (dst.arr == NULL || src == NULL || src->arr == NULL
-		|| fdf_edge_detection(src, index, topology) == false)
+		|| fdf_edge_detection(src, index, topology, is_voxel) == false)
 		return (dst);
 	dst.arr[0] = init_triangle();
 	dst.arr[1] = init_triangle();

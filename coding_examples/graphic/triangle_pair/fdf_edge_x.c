@@ -34,7 +34,7 @@ int	main(int len, char **str)
 	index = row * table.col + col;
 	write(1, "\nwrite_triangle_pair_graphic\n", 30);
 	write_triangle_pair_graphic(&table, (size_t)index);
-	output = f_fdf_edge((const t_table_fdf *)&table, index, EDGE_X);
+	output = f_fdf_edge((const t_table_fdf *)&table, index, EDGE_X, false);
 	free_table_fdf(&table);
 	write(1, "\nwrite_triangle_arr\n", 21);
 	write_triangle_arr(1, (const t_triangle_arr *)&output);

@@ -5,7 +5,7 @@
 
 // all_faces.c
 t_triangle_arr	all_triangle_faces(const t_table_fdf *src, e_3d_shape shape);
-t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode);
+t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode, bool is_voxel);
 t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode);
 
 // center.c

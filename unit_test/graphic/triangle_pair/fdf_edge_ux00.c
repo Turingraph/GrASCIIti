@@ -78,7 +78,7 @@ int	main(void)
 	{
 		table = open_table_fdf_file(testers[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba, false);
 		index = testers[i].row * table.col + testers[i].col;
-		output = f_fdf_edge((const t_table_fdf *)&table, index, edge_mode);
+		output = f_fdf_edge((const t_table_fdf *)&table, index, edge_mode, false);
 		if (compare_3dpoint_edge_tester(&output, &testers[i]) == true)
 			score += 1;
 		else
@@ -95,5 +95,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic/triangle_pair/fdf_edge_x_nop.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic/triangle_pair/fdf_edge_ux00.out
 */

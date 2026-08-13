@@ -51,7 +51,7 @@ size_t	getdim(size_t row, size_t col, e_edge mode, char state)
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode)
+t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode, bool is_voxel)
 {
 	size_t			i;
 	size_t			j;
@@ -72,7 +72,7 @@ t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode)
 		j = 0;
 		while (j < getdim(src->row, src->col, mode, 'c'))
 		{
-			item = f_fdf_edge(src, i * src->col + j, mode);
+			item = f_fdf_edge(src, i * src->col + j, mode, is_voxel);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}
@@ -90,7 +90,9 @@ t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 	size_t			j;
 	t_triangle_arr	dst;
 	t_triangle_arr	item;
+	bool			is_voxel;
 
+	is_voxel = false;
 	if (src == NULL || (mode != EDGE_DIAGONAL_LEFT && mode != EDGE_DIAGONAL_RIGHT))
 		return (init_triangle_arr(0, 0, 0));
 	dst = init_triangle_arr(2 * (src->row - 1) * (src->col - 1), src->row - 1, src->col - 1);
@@ -102,7 +104,7 @@ t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 		j = 0;
 		while (j < src->col - 1)
 		{
-			item = f_fdf_edge(src, i * src->col + j, mode);
+			item = f_fdf_edge(src, i * src->col + j, mode, is_voxel);
 			concat_triangle_arr(&dst, &item);
 			j += 1;
 		}

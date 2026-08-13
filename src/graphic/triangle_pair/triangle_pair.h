@@ -37,7 +37,7 @@ void			topleft_tri_coloring(const t_table_fdf *src, size_t index, t_triangle *ds
 void			edge_average_tri_coloring(const t_table_fdf *src, t_triangle_arr *dst);
 
 // edge.c
-t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge mode);
+t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge mode, bool is_voxel);
 
 // face.c
 t_triangle_arr	f_fdf_face(const t_table_fdf *src, size_t index, e_3d_shape shape);
