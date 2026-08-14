@@ -2,15 +2,19 @@
 
 // time : O(1)
 // space: O(1)
-bool	compare_3dpoint_edge(const t_triangle *src, t_3d_point point_0, t_3d_point point_1, char triangle_index)
+bool	compare_3dpoint_edge(const t_triangle *src,
+	t_3d_point point_0, t_3d_point point_1, char triangle_index)
 {
 	if (src == NULL)
 		return (false);
 	if (src->p1 == NULL || src->p2 == NULL || src->p3 == NULL)
 		return (false);
 	if (are_2_3dpoint_same(src->p1, point_0.x, point_0.y, point_0.z) == true
-		&& ((are_2_3dpoint_same(src->p2, point_0.x, point_0.y, 0.0) == true && triangle_index == 0)
-			|| (are_2_3dpoint_same(src->p2, point_1.x, point_1.y, point_1.z) == true && triangle_index == 1))
+		&& ((are_2_3dpoint_same(src->p2, point_0.x, point_0.y, 0.0) == true
+				&& triangle_index == 0)
+			|| (are_2_3dpoint_same(src->p2,
+					point_1.x, point_1.y, point_1.z) == true
+				&& triangle_index == 1))
 		&& are_2_3dpoint_same(src->p3, point_1.x, point_1.y, 0.0) == true)
 		return (true);
 	return (false);
@@ -18,7 +22,8 @@ bool	compare_3dpoint_edge(const t_triangle *src, t_3d_point point_0, t_3d_point 
 
 // time : O(1)
 // space: O(1)
-bool	compare_3dpoint_edge_tester(const t_triangle_arr *src, const t_triangle_tester *tester)
+bool	compare_3dpoint_edge_tester(const t_triangle_arr *src,
+	const t_triangle_tester *tester)
 {
 	if (tester == NULL && src == NULL)
 		return (true);
@@ -27,8 +32,10 @@ bool	compare_3dpoint_edge_tester(const t_triangle_arr *src, const t_triangle_tes
 	if (src->length == tester->length && tester->length == 0)
 		return (true);
 	if (tester->length == 2 && tester->length == 2
-		&& compare_3dpoint_edge(&(src->arr[0]), tester->points[0], tester->points[1], 0) == true
-		&& compare_3dpoint_edge(&(src->arr[1]), tester->points[0], tester->points[1], 1) == true)
+		&& compare_3dpoint_edge(&(src->arr[0]),
+			tester->points[0], tester->points[1], 0) == true
+		&& compare_3dpoint_edge(&(src->arr[1]),
+			tester->points[0], tester->points[1], 1) == true)
 		return (true);
 	return (false);
 }

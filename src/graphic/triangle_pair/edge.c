@@ -17,7 +17,8 @@ void	get_edge_indexing(size_t *row, size_t *col, e_edge topology)
 
 // time : O(1)
 // space: O(1)
-void	init_edge_positions(t_triangle_arr *dst, size_t index, e_edge topology, size_t src_col)
+void	init_edge_positions(t_triangle_arr *dst,
+	size_t index, e_edge topology, size_t src_col)
 {
 	size_t	row;
 	size_t	col;
@@ -45,7 +46,8 @@ void	init_edge_positions(t_triangle_arr *dst, size_t index, e_edge topology, siz
 
 // time : O(1)
 // space: O(1)
-bool	fdf_edge_detection(const t_table_fdf *src, size_t index, e_edge topology, bool is_voxel)
+bool	fdf_edge_detection(const t_table_fdf *src,
+	size_t index, e_edge topology, bool is_voxel)
 {
 	if (src == NULL || src->arr == NULL || index >= src->col * src->row)
 		return (false);
@@ -53,50 +55,38 @@ bool	fdf_edge_detection(const t_table_fdf *src, size_t index, e_edge topology, b
 		return (true);
 	if (topology == EDGE_Y && is_edge_y(src, index, is_voxel) == true)
 		return (true);
-	if (topology == EDGE_DIAGONAL_LEFT && is_edge_diagonal_lr(src, index, true) == true)
+	if (topology == EDGE_DIAGONAL_LEFT
+		&& is_edge_diagonal_lr(src, index, true) == true)
 		return (true);
-	if (topology == EDGE_DIAGONAL_RIGHT && is_edge_diagonal_lr(src, index, false) == true)
+	if (topology == EDGE_DIAGONAL_RIGHT
+		&& is_edge_diagonal_lr(src, index, false) == true)
 		return (true);
 	return (false);
 }
 
 // time : O(1)
 // space: O(1)
-void	*f_fdf_edge_coloring(const t_table_fdf *src, size_t index, t_triangle_arr *dst)
+void	f_fdf_edge_coloring(const t_table_fdf *src,
+	size_t index, t_triangle_arr *dst)
 {
-	unsigned char	y;
-
-	if (src == NULL || index >= src->row * src->col || dst == NULL)
-		return (NULL);
-	y = 0;
-	if (src->r != NULL)
-		y = src->r[index];
-	dst->arr[0].r = y;
-	dst->arr[1].r = y;
-	y = 0;
-	if (src->g != NULL)
-		y = src->g[index];
-	dst->arr[0].g = y;
-	dst->arr[1].g = y;
-	y = 0;
-	if (src->b != NULL)
-		y = src->b[index];
-	dst->arr[0].b = y;
-	dst->arr[1].b = y;
-	y = 0;
-	if (src->a != NULL)
-		y = src->a[index];
-	dst->arr[0].a = y;
-	dst->arr[1].a = y;
-	if (src->color_sampling == SAMPLE_AVERAGE
-		|| src->color_sampling == SAMPLE_EDGE_AVERAGE)
-		edge_average_tri_coloring(src, dst);
-	return (NULL);
+	if (src != NULL && index < src->row * src->col && dst != NULL
+		&& dst->arr != NULL && dst->length >= 2)
+	{
+		if (src->color_sampling == SAMPLE_AVERAGE
+			|| src->color_sampling == SAMPLE_EDGE_AVERAGE)
+			edge_average_tri_coloring(src, dst);
+		else
+		{
+			topleft_tri_coloring(src, index, &(dst->arr[0]));
+			topleft_tri_coloring(src, index, &(dst->arr[1]));
+		}
+	}
 }
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge topology, bool is_voxel)
+t_triangle_arr	f_fdf_edge(const t_table_fdf *src,
+	size_t index, e_edge topology, bool is_voxel)
 {
 	t_triangle_arr	dst;
 
@@ -107,9 +97,11 @@ t_triangle_arr	f_fdf_edge(const t_table_fdf *src, size_t index, e_edge topology,
 	dst.arr[0] = init_triangle();
 	dst.arr[1] = init_triangle();
 	init_edge_positions(&dst, index, topology, src->col);
-	dst.arr[0].p1[2] = src->arr[(int)f_floor(dst.arr[0].p1[1] * src->col + dst.arr[0].p1[0])];
+	index = (size_t)f_floor(dst.arr[0].p1[1] * src->col + dst.arr[0].p1[0]);
+	dst.arr[0].p1[2] = src->arr[index];
 	dst.arr[1].p1[2] = dst.arr[0].p1[2];
-	dst.arr[1].p2[2] = src->arr[(int)f_floor(dst.arr[1].p2[1] * src->col + dst.arr[1].p2[0])];
+	index = (size_t)f_floor(dst.arr[1].p2[1] * src->col + dst.arr[1].p2[0]);
+	dst.arr[1].p2[2] = src->arr[index];
 	f_fdf_edge_coloring(src, index, &dst);
 	return (dst);
 }

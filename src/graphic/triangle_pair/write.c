@@ -78,7 +78,7 @@ void	write_triangle_arr_meta(int fd, const t_triangle_arr *src)
 // space: O(1)
 void	write_triangle_pair_graphic(const t_table_fdf *src, size_t index)
 {
-	if (src != NULL && index < (src->col - 1) * (src->row - 1) && src->arr != NULL)
+	if (src != NULL && index < src->col * src->row && src->arr != NULL)
 	{
 		ft_putnbr_fd(src->arr[index], 1, "0123456789", 1);
 		write(1, "\t", 1);

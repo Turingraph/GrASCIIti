@@ -19,9 +19,11 @@ bool	is_edge_x(const t_table_fdf *src, size_t index, bool is_voxel)
 {
 	size_t	row;
 
-	if (src == NULL || src->arr == NULL || index >= src->row * src->col || src->col == 1)
+	if (src == NULL || src->arr == NULL
+		|| index >= src->row * src->col || src->col == 1)
 		return (false);
-	if (src->row == 1 && is_exist_xy(src->arr, index, true, 1) == true && index < src->col)
+	if (src->row == 1 && is_exist_xy(src->arr, index, true, 1) == true
+		&& index < src->col)
 		return (true);
 	if (src->row == 1)
 		return (false);
@@ -43,14 +45,17 @@ bool	is_edge_y(const t_table_fdf *src, size_t index, bool is_voxel)
 {
 	size_t	col;
 
-	if (src == NULL || src->arr == NULL || index >= src->row * src->col || src->row == 1)
+	if (src == NULL || src->arr == NULL
+		|| index >= src->row * src->col || src->row == 1)
 		return (false);
-	if (src->col == 1 && is_exist_xy(src->arr, index, true, src->col) == true && index < src->row)
+	if (src->col == 1 && is_exist_xy(src->arr, index, true, src->col) == true
+		&& index < src->row)
 		return (true);
 	if (src->col == 1)
 		return (false);
 	col = index % src->col;
-	if (col == src->col - 1 && is_exist_xy(src->arr, index, true, src->col) == true)
+	if (col == src->col - 1
+		&& is_exist_xy(src->arr, index, true, src->col) == true)
 		return (true);
 	if (col == 0 && is_exist_xy(src->arr, index, true, 1) == true)
 		return (true);
