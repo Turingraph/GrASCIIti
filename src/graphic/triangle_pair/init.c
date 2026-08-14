@@ -22,6 +22,10 @@ void	*free_triangle(t_triangle *src)
 	return (NULL);
 }
 
+// delete_1st_triangle = 0 means to delete all triangles.
+// delete_1st_triangle > 0 means to delete only some triangles
+// delete_1st_triangle is used for concat_triangle_arr
+// and copy_triangle_arr.
 // time : O(1)
 // space: O(1)
 void	*free_triangle_arr(t_triangle_arr *src, size_t delete_1st_triangle)
