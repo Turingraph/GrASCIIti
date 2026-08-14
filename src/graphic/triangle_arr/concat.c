@@ -34,7 +34,7 @@ t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length)
 	dst = init_triangle_arr(length, src->table_row, src->table_col);
 	if (dst.arr == NULL)
 	{
-		free_triangle_arr(&dst);
+		free_triangle_arr(&dst, 0);
 		return (init_triangle_arr(0, 0, 0));
 	}
 	i = 0;
@@ -68,7 +68,7 @@ t_triangle_arr	clone_triangle_arr(const t_triangle_arr *src, size_t length)
 	dst = init_triangle_arr(length, src->table_row, src->table_col);
 	if (dst.arr == NULL)
 	{
-		free_triangle_arr(&dst);
+		free_triangle_arr(&dst, 0);
 		return (init_triangle_arr(0, 0, 0));
 	}
 	i = 0;
@@ -119,7 +119,7 @@ t_triangle_arr	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src)
 
 	if (src->arr == NULL)
 	{
-		free_triangle_arr(src);
+		free_triangle_arr(src, 0);
 		return (*dst);
 	}
 	i = 0;

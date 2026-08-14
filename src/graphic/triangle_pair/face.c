@@ -137,6 +137,6 @@ t_triangle_arr	f_fdf_face(const t_table_fdf *src, size_t index, e_3d_shape shape
 		free_triangle(&(dst.arr[1]));
 	}
 	if (dst.length == 0)
-		free_triangle_arr(&dst);
+		free_triangle_arr(&dst, 0);
 	return (dst);
 }

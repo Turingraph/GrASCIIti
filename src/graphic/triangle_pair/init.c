@@ -24,19 +24,16 @@ void	*free_triangle(t_triangle *src)
 
 // time : O(1)
 // space: O(1)
-void	*free_triangle_arr(t_triangle_arr *src)
+void	*free_triangle_arr(t_triangle_arr *src, size_t delete_1st_triangle)
 {
-	size_t	i;
-
 	if (src == NULL)
 		return (NULL);
 	if (src != NULL && src->arr != NULL)
 	{
-		i = 0;
-		while (i < src->capacity)
+		while (delete_1st_triangle < src->capacity)
 		{
-			free_triangle(&(src->arr[i]));
-			i += 1;
+			free_triangle(&(src->arr[delete_1st_triangle]));
+			delete_1st_triangle += 1;
 		}
 		free(src->arr);
 	}
@@ -81,7 +78,7 @@ t_triangle_arr	init_triangle_arr(size_t length, size_t row, size_t col)
 	dst.arr = NULL;
 	if (length > 0)
 		dst.arr = malloc_talk(sizeof(t_triangle) * length,
-			"mesh/init.c/init_triangle_arr\n");
+				"mesh/init.c/init_triangle_arr\n");
 	return (dst);
 }
 

@@ -18,6 +18,10 @@ int	main(int len, char **str)
 	write_triangle_arr(1, (const t_triangle_arr *)&output);
 	write(1, "*** meta data ***\n", 19);
 	write_triangle_arr_meta(1, (const t_triangle_arr *)&output);
-	free_triangle_arr(&output);
+	free_triangle_arr(&output, 0);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/triangle_arr/ascii_isometric.out input_examples/fdf/prism_pyramid.fdf
+*/

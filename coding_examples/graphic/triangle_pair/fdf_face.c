@@ -28,13 +28,13 @@ int	main(int len, char **str)
 		row *= -1;
 	write(1, "\nwrite_triangle_pair_graphic\n", 30);
 	write_triangle_pair_graphic(&table, (size_t)row);
-	output = f_fdf_face((const t_table_fdf *)&table, row, ISOMETRIC);
+	output = f_fdf_face((const t_table_fdf *)&table, row, PRISM_MODE2);
 	free_table_fdf(&table);
 	write(1, "\nwrite_triangle_arr\n", 21);
 	write_triangle_arr(1, (const t_triangle_arr *)&output);
 	write(1, "\nwrite_triangle_arr_meta\n", 26);
 	write_triangle_arr_meta(1, (const t_triangle_arr *)&output);
-	free_triangle_arr(&output);
+	free_triangle_arr(&output, 0);
 	return (0);
 }
 

@@ -86,7 +86,7 @@ int	main(void)
 			write(1, testers[i].file_name, f_strlen(testers[i].file_name));
 			write(1, "\n", 1);
 		}
-		free_triangle_arr(&output);
+		free_triangle_arr(&output, 0);
 		free_table_fdf(&table);
 		i += 1;
 	}

@@ -108,7 +108,7 @@ int	main(void)
 			// write(1, ")\n", 2);
 			write(1, "\n---------------------------------------\n", 42);
 		}
-		free_triangle_arr(&output);
+		free_triangle_arr(&output, 0);
 		free_table_fdf(&table);
 		i += 1;
 	}

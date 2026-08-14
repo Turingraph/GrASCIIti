@@ -11,7 +11,8 @@ t_triangle_arr	all_triangle_faces(const t_table_fdf *src, e_3d_shape shape)
 
 	if (src == NULL || src->arr == NULL)
 		return (init_triangle_arr(0, 0, 0));
-	dst = init_triangle_arr(2 * (src->row - 1) * (src->col - 1), src->row, src->col);
+	dst = init_triangle_arr(
+			2 * (src->row - 1) * (src->col - 1), src->row, src->col);
 	if (dst.arr == NULL || src->arr == NULL)
 		return (dst);
 	i = 0;
@@ -51,7 +52,8 @@ size_t	getdim(size_t row, size_t col, e_edge mode, char state)
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode, bool is_voxel)
+t_triangle_arr	all_triangle_edge_xy(
+	const t_table_fdf *src, e_edge mode, bool is_voxel)
 {
 	size_t			i;
 	size_t			j;
@@ -61,9 +63,8 @@ t_triangle_arr	all_triangle_edge_xy(const t_table_fdf *src, e_edge mode, bool is
 	if (src == NULL || (mode != EDGE_X && mode != EDGE_Y))
 		return (init_triangle_arr(0, 0, 0));
 	dst = init_triangle_arr(2 * getdim(src->row, src->col, mode, 'x'),
-		getdim(src->row, src->col, mode, 'r'), getdim(src->row, src->col, mode, 'c'));
-	if (dst.arr == NULL)
-		return (dst);
+			getdim(src->row, src->col, mode, 'r'),
+			getdim(src->row, src->col, mode, 'c'));
 	if (dst.arr == NULL || src->arr == NULL)
 		return (dst);
 	i = 0;

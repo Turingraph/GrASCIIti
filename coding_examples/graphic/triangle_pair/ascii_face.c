@@ -28,7 +28,7 @@ int	main(int len, char **str)
 	free_table_fdf(&table);
 	write_triangle_arr(1, (const t_triangle_arr *)&output);
 	write_triangle_arr_meta(1, (const t_triangle_arr *)&output);
-	free_triangle_arr(&output);
+	free_triangle_arr(&output, 0);
 	return (0);
 }
 

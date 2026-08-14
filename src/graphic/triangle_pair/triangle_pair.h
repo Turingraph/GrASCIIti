@@ -22,8 +22,8 @@ enum e_3d_shape
 	ISOMETRIC,
 	PRISM_MODE2,
 	PRISM_CROSS,
-	PRISM_VOXEL,
-	VOXEL
+	// PRISM_VOXEL,
+	// VOXEL
 };
 
 // bool.c
@@ -50,7 +50,8 @@ t_triangle_arr	f_fdf_face(const t_table_fdf *src,
 
 // init.c
 void			*free_triangle(t_triangle *src);
-void			*free_triangle_arr(t_triangle_arr *src);
+void			*free_triangle_arr(t_triangle_arr *src,
+					size_t delete_1st_triangle);
 t_triangle		init_triangle(void);
 t_triangle_arr	init_triangle_arr(size_t length, size_t row, size_t col);
 float			height_of_triangle(const t_triangle *src,
