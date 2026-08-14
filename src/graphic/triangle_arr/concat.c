@@ -44,15 +44,7 @@ t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length)
 		i += 1;
 	}
 	dst.length = i;
-	while (i < src->length)
-	{
-		free_triangle(&(src->arr[i]));
-		i += 1;
-	}
-	free(src->arr);
-	src->arr = NULL;
-	src->length = 0;
-	src->capacity = 0;
+	free_triangle_arr(src, i);
 	return (dst);
 }
 
@@ -66,20 +58,19 @@ t_triangle_arr	clone_triangle_arr(const t_triangle_arr *src, size_t length)
 	if (length == 0 || src->arr == NULL)
 		return (init_triangle_arr(0, 0, 0));
 	dst = init_triangle_arr(length, src->table_row, src->table_col);
-	if (dst.arr == NULL)
-	{
-		free_triangle_arr(&dst, 0);
-		return (init_triangle_arr(0, 0, 0));
-	}
 	i = 0;
-	while (i < src->length && i < dst.capacity)
+	while (dst.arr != NULL && i < src->length && i < dst.capacity)
 	{
 		dst.arr[i] = copy_triangle(&(src->arr[i]));
-		if (src->arr[i].p1 != NULL && src->arr[i].p2 != NULL && src->arr[i].p3 != NULL)
+		if (src->arr[i].p1 != NULL
+			&& src->arr[i].p2 != NULL && src->arr[i].p3 != NULL)
 		{
-			dst.arr[i].p1 = init_3d_vector(src->arr[i].p1[0], src->arr[i].p1[1], src->arr[i].p1[2]);
-			dst.arr[i].p2 = init_3d_vector(src->arr[i].p2[0], src->arr[i].p2[1], src->arr[i].p2[2]);
-			dst.arr[i].p3 = init_3d_vector(src->arr[i].p3[0], src->arr[i].p3[1], src->arr[i].p3[2]);
+			dst.arr[i].p1 = init_3d_vector(src->arr[i].p1[0],
+					src->arr[i].p1[1], src->arr[i].p1[2]);
+			dst.arr[i].p2 = init_3d_vector(src->arr[i].p2[0],
+					src->arr[i].p2[1], src->arr[i].p2[2]);
+			dst.arr[i].p3 = init_3d_vector(src->arr[i].p3[0],
+					src->arr[i].p3[1], src->arr[i].p3[2]);
 		}
 		i += 1;
 	}
@@ -113,14 +104,14 @@ t_triangle_arr	push_triangle_arr(t_triangle_arr *dst, t_triangle *src)
 
 // time : O(1)
 // space: O(1)
-t_triangle_arr	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src)
+size_t	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src)
 {
 	size_t	i;
 
 	if (src->arr == NULL)
 	{
 		free_triangle_arr(src, 0);
-		return (*dst);
+		return (1);
 	}
 	i = 0;
 	while (i < src->length)
@@ -128,9 +119,6 @@ t_triangle_arr	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src)
 		push_triangle_arr(dst, &(src->arr[i]));
 		i += 1;
 	}
-	free(src->arr);
-	src->arr = NULL;
-	src->length = 0;
-	src->capacity = 0;
-	return (*dst);
+	free_triangle_arr(src, src->length);
+	return (1);
 }

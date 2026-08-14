@@ -15,10 +15,10 @@ float	update_width_of_triangle_arr(t_triangle_arr *src, size_t axis)
 	i = 0;
 	while (src->arr != NULL && i < src->length && axis <= 2)
 	{
-		if (max < height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 1))
-			max = height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 1);
-		if (min > height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 0))
-			min = height_of_triangle((const t_triangle *)&(src->arr[i]), axis, 0);
+		if (max < height_of_triangle(&(src->arr[i]), axis, 1))
+			max = height_of_triangle(&(src->arr[i]), axis, 1);
+		if (min > height_of_triangle(&(src->arr[i]), axis, 0))
+			min = height_of_triangle(&(src->arr[i]), axis, 0);
 		i += 1;
 	}
 	if (axis == 0)

@@ -22,8 +22,7 @@ t_triangle_arr	all_triangle_faces(const t_table_fdf *src, e_3d_shape shape)
 		while (j < src->col - 1)
 		{
 			item = f_fdf_face(src, i * src->col + j, shape);
-			concat_triangle_arr(&dst, &item);
-			j += 1;
+			j += concat_triangle_arr(&dst, &item);
 		}
 		i += 1;
 	}
@@ -74,8 +73,7 @@ t_triangle_arr	all_triangle_edge_xy(
 		while (j < getdim(src->row, src->col, mode, 'c'))
 		{
 			item = f_fdf_edge(src, i * src->col + j, mode, is_voxel);
-			concat_triangle_arr(&dst, &item);
-			j += 1;
+			j += concat_triangle_arr(&dst, &item);
 		}
 		i += 1;
 	}
@@ -94,20 +92,19 @@ t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 	bool			is_voxel;
 
 	is_voxel = false;
-	if (src == NULL || (mode != EDGE_DIAGONAL_LEFT && mode != EDGE_DIAGONAL_RIGHT))
+	if (src == NULL || src->row <= 1 || src->col <= 1 || src->arr == NULL
+		|| (mode != EDGE_DIAGONAL_LEFT && mode != EDGE_DIAGONAL_RIGHT))
 		return (init_triangle_arr(0, 0, 0));
-	dst = init_triangle_arr(2 * (src->row - 1) * (src->col - 1), src->row - 1, src->col - 1);
-	if (dst.arr == NULL || src->arr == NULL)
-		return (dst);
+	dst = init_triangle_arr(2 * (src->row - 1) * (src->col - 1),
+			src->row - 1, src->col - 1);
 	i = 0;
-	while (i < src->row - 1)
+	while (i < src->row - 1 && dst.arr != NULL)
 	{
 		j = 0;
 		while (j < src->col - 1)
 		{
 			item = f_fdf_edge(src, i * src->col + j, mode, is_voxel);
-			concat_triangle_arr(&dst, &item);
-			j += 1;
+			j += concat_triangle_arr(&dst, &item);
 		}
 		i += 1;
 	}

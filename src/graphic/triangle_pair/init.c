@@ -30,7 +30,7 @@ void	*free_triangle_arr(t_triangle_arr *src, size_t delete_1st_triangle)
 		return (NULL);
 	if (src != NULL && src->arr != NULL)
 	{
-		while (delete_1st_triangle < src->capacity)
+		while (delete_1st_triangle < src->length)
 		{
 			free_triangle(&(src->arr[delete_1st_triangle]));
 			delete_1st_triangle += 1;
@@ -79,6 +79,12 @@ t_triangle_arr	init_triangle_arr(size_t length, size_t row, size_t col)
 	if (length > 0)
 		dst.arr = malloc_talk(sizeof(t_triangle) * length,
 				"mesh/init.c/init_triangle_arr\n");
+	if (length > 0 && dst.arr == NULL)
+	{
+		dst.capacity = 0;
+		dst.table_row = 0;
+		dst.table_col = 0;
+	}
 	return (dst);
 }
 

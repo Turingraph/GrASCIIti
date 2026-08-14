@@ -21,3 +21,23 @@ int	main(int len, char **str)
 	free_triangle_arr(&output, 0);
 	return (0);
 }
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/triangle_arr/fdf_isometric.out input_examples/fdf/pyramide.fdf
+...
+*** meta data ***
+src->length = 1654
+src->capacity = 1654
+src->width_x = 26
+src->width_y = 32
+src->width_z = 9
+==1752684== 
+==1752684== HEAP SUMMARY:
+==1752684==     in use at exit: 0 bytes in 0 blocks
+==1752684==   total heap usage: 6,646 allocs, 6,646 frees, 263,198 bytes allocated
+==1752684== 
+==1752684== All heap blocks were freed -- no leaks are possible
+==1752684== 
+==1752684== For lists of detected and suppressed errors, rerun with: -s
+==1752684== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+*/

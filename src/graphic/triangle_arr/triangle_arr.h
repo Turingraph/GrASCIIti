@@ -16,7 +16,7 @@ float			average_triangle_arr(t_triangle_arr *src, size_t axis, bool is_update);
 // concat.c
 t_triangle_arr	copy_triangle_arr(t_triangle_arr *src, size_t length);
 t_triangle_arr	clone_triangle_arr(const t_triangle_arr *src, size_t length);
-t_triangle_arr	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src);
+size_t      	concat_triangle_arr(t_triangle_arr *dst, t_triangle_arr *src);
 
 // prism.c
 t_triangle_arr	table_to_prism(const t_table_fdf *src, float width, bool is_2faces, e_3d_shape shape);
