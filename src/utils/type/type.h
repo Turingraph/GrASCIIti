@@ -89,6 +89,17 @@ struct t_table_fdf
 	unsigned char	*a;
 };
 
+// editor/paint/
+typedef struct t_rgba t_rgba;
+
+struct t_rgba
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned char	a;
+};
+
 // graphic/triangle_pair/
 
 typedef struct t_triangle t_triangle;
@@ -118,6 +129,17 @@ struct t_triangle_arr
 	float		width_x;
 	float		width_y;
 	float		width_z;
+};
+
+// graphic/prism/
+typedef struct t_prism t_prism;
+
+struct t_prism
+{
+	t_triangle_arr	faces;
+	t_triangle_arr	edges;
+	t_rgba			face_rgba;
+	t_rgba			edge_rgba;
 };
 
 // utils/math/

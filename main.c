@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 10:00:28 by phsottat          #+#    #+#             */
-/*   Updated: 2026/03/23 10:18:08 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/14 13:56:15 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(int av, char **ac)
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "get_next_line.h"
-#include "libft.h"
+// #include "get_next_line.h"
+// #include "libft.h"
 #include "MLX42.h"
 #define WIDTH 750
 #define HEIGHT 750
@@ -129,6 +129,9 @@ int32_t main(void)
 /*
 // https://askubuntu.com/questions/951847/how-to-compile-a-c-code-in-one-directory-in-another-directory-using-gcc
 cc -Wall -Wextra -Werror main.c -Iinclude build/libmlx42.a build/libft.a build/get_next_line.a -ldl -lglfw3 -pthread -lm
+
+cc -Wall -Wextra -Werror main.c -Iinclude build/libmlx42.a -ldl -lglfw3 -pthread -lm
+
 */
 
 /*

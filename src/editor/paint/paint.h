@@ -17,16 +17,6 @@ enum e_7cell_channels
 	D7_HEIGHT
 };
 
-typedef struct t_rgba t_rgba;
-
-struct t_rgba
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned char	a;
-};
-
 typedef struct t_gradient t_gradient;
 
 struct t_gradient

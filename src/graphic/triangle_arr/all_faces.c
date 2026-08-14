@@ -26,59 +26,67 @@ t_triangle_arr	all_triangle_faces(const t_table_fdf *src, e_3d_shape shape)
 		}
 		i += 1;
 	}
-	item = copy_triangle_arr(&dst, dst.length);
-	return (item);
-}
-
-// time : O(1)
-// space: O(1)
-size_t	getdim(size_t row, size_t col, e_edge mode, char state)
-{
-	if (mode == EDGE_X && state == 'r')
-		return (row);
-	if (mode == EDGE_X && state == 'c')
-		return (col - 1);
-	if (mode == EDGE_X && state == 'x')
-		return (row * (col - 1));
-	if (mode == EDGE_Y && state == 'r')
-		return (row - 1);
-	if (mode == EDGE_Y && state == 'c')
-		return (col);
-	if (mode == EDGE_Y && state == 'x')
-		return (col * (row - 1));
-	return (0);
+	return (dst);
 }
 
 // time : O(n)
 // space: O(n)
-t_triangle_arr	all_triangle_edge_xy(
-	const t_table_fdf *src, e_edge mode, bool is_voxel)
+t_triangle_arr	all_triangle_edge_x(
+	const t_table_fdf *src, bool is_voxel)
 {
 	size_t			i;
 	size_t			j;
 	t_triangle_arr	dst;
 	t_triangle_arr	item;
 
-	if (src == NULL || (mode != EDGE_X && mode != EDGE_Y))
+	if (src == NULL || src->arr == NULL)
 		return (init_triangle_arr(0, 0, 0));
-	dst = init_triangle_arr(2 * getdim(src->row, src->col, mode, 'x'),
-			getdim(src->row, src->col, mode, 'r'),
-			getdim(src->row, src->col, mode, 'c'));
-	if (dst.arr == NULL || src->arr == NULL)
+	dst = init_triangle_arr(2 * src->row * (src->col - 1),
+			src->row, src->col - 1);
+	if (dst.arr == NULL)
 		return (dst);
 	i = 0;
-	while (i < getdim(src->row, src->col, mode, 'r'))
+	while (i < src->row)
 	{
 		j = 0;
-		while (j < getdim(src->row, src->col, mode, 'c'))
+		while (j < src->col - 1)
 		{
-			item = f_fdf_edge(src, i * src->col + j, mode, is_voxel);
+			item = f_fdf_edge(src, i * src->col + j, EDGE_X, is_voxel);
 			j += concat_triangle_arr(&dst, &item);
 		}
 		i += 1;
 	}
-	item = copy_triangle_arr(&dst, dst.length);
-	return (item);
+	return (dst);
+}
+
+// time : O(n)
+// space: O(n)
+t_triangle_arr	all_triangle_edge_y(
+	const t_table_fdf *src, bool is_voxel)
+{
+	size_t			i;
+	size_t			j;
+	t_triangle_arr	dst;
+	t_triangle_arr	item;
+
+	if (src == NULL || src->arr == NULL)
+		return (init_triangle_arr(0, 0, 0));
+	dst = init_triangle_arr(2 * src->col * (src->row - 1),
+			src->row - 1, src->col);
+	if (dst.arr == NULL)
+		return (dst);
+	i = 0;
+	while (i < src->row - 1)
+	{
+		j = 0;
+		while (j < src->col)
+		{
+			item = f_fdf_edge(src, i * src->col + j, EDGE_Y, is_voxel);
+			j += concat_triangle_arr(&dst, &item);
+		}
+		i += 1;
+	}
+	return (dst);
 }
 
 // time : O(n)
@@ -108,7 +116,6 @@ t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 		}
 		i += 1;
 	}
-	item = copy_triangle_arr(&dst, dst.length);
-	return (item);
+	return (dst);
 }
 

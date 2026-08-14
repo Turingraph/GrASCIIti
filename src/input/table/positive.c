@@ -1,5 +1,35 @@
 #include"table.h"
 
+// time : O(1)
+// space: O(1)
+int	target_minmax(t_table_fdf *dst, e_rgba channels, size_t index, bool is_bool)
+{
+	if (dst != NULL && index < dst->col * dst->row)
+	{
+		if (dst->arr != NULL && channels == HEIGHT && is_bool == true)
+			return (1);
+		if (dst->arr != NULL && channels == HEIGHT && is_bool == false)
+			return (dst->arr[index]);
+		if (dst->r != NULL && channels == RED && is_bool == true)
+			return (1);
+		if (dst->r != NULL && channels == RED && is_bool == false)
+			return ((int)dst->r[index]);
+		if (dst->g != NULL && channels == GREEN && is_bool == true)
+			return (1);
+		if (dst->g != NULL && channels == GREEN && is_bool == false)
+			return ((int)dst->g[index]);
+		if (dst->b != NULL && channels == BLUE && is_bool == true)
+			return (1);
+		if (dst->b != NULL && channels == BLUE && is_bool == false)
+			return ((int)dst->b[index]);
+		if (dst->a != NULL && channels == ALPHA && is_bool == true)
+			return (1);
+		if (dst->a != NULL && channels == ALPHA && is_bool == false)
+			return ((int)dst->a[index]);
+	}
+	return (-1);
+}
+
 // time : O(n)
 // space: O(1)
 int	get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_rgba channels)
@@ -8,23 +38,16 @@ int	get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_rgba channels)
 	size_t	i;
 	int		y;
 
-	y = 0;
+	y = target_minmax(dst, channels, 0, false);
 	sign = 1;
 	if (is_max == false)
 		sign = -1;
 	i = 0;
 	while (dst != NULL && i < dst->row * dst->col)
 	{
-		if (dst->arr != NULL && y * sign < dst->arr[i] * sign && channels == HEIGHT)
-			y = dst->arr[i];
-		if (dst->r != NULL && y * sign < (int)(dst->r[i] * sign) && channels == RED)
-			y = (int)dst->r[i];
-		if (dst->g != NULL && y * sign < (int)(dst->g[i] * sign) && channels == GREEN)
-			y = (int)dst->g[i];
-		if (dst->b != NULL && y * sign < (int)(dst->b[i] * sign) && channels == BLUE)
-			y = (int)dst->b[i];
-		if (dst->a != NULL && y * sign < (int)(dst->a[i] * sign) && channels == ALPHA)
-			y = (int)dst->a[i];
+		if (target_minmax(dst, channels, i, true) == 1
+			&& y * sign < target_minmax(dst, channels, 0, false) * sign)
+			y = target_minmax(dst, channels, 0, false);
 		i += 1;
 	}
 	return (y);

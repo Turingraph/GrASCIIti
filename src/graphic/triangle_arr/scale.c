@@ -70,3 +70,26 @@ void	setwidth_triangle_arr(t_triangle_arr *src, float shift, size_t axis)
 	}
 }
 
+// time : O(n)
+// sapce: O(n)
+t_triangle_arr	push_back_to_triangle_arr(t_triangle_arr *src,
+	float width, bool is_2faces)
+{
+	t_triangle_arr	compress_src;
+
+	setwidth_triangle_arr(src, width, 2);
+	if (src != NULL && src->arr != NULL && src->length > 0)
+	{
+		compress_src = clone_triangle_arr(src, src->length);
+		if (is_2faces == true)
+			hadamard_triangle_arr(&compress_src, -1.0, 2);
+		else
+		{
+			if (width > 0)
+				width *= -1;
+			setback_triangle_arr(&compress_src, width, 2);
+		}
+		concat_triangle_arr(src, &compress_src);
+	}
+	return (*src);
+}
