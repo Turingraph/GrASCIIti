@@ -53,5 +53,7 @@ void	generate_cells_color(
 	e_rgba channel,
 	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index),
 	int(*gen_color)(const t_table_fdf *dst, size_t index));
+bool	is_empty_space(const t_table_fdf *src, size_t index);
+void	paint_table_background(t_table_fdf *dst, t_rgba color);
 
 #endif

@@ -70,3 +70,25 @@ void	generate_cells_color(
 		i += 1;
 	}
 }
+
+// time : O(1)
+// space: O(1)
+bool	is_empty_space(const t_table_fdf *src, size_t index)
+{
+	if (src == NULL || src->arr == NULL || index >= src->row * src->col)
+		return (false);
+	if (src->arr[index] <= 0)
+		return (true);
+	return (false);
+}
+
+// time : O(n)
+// space: O(1)
+void	paint_table_background(t_table_fdf *dst, t_rgba color)
+{
+	fill_cells_color(dst, color.r, RED, is_empty_space);
+	fill_cells_color(dst, color.g, GREEN, is_empty_space);
+	fill_cells_color(dst, color.b, BLUE, is_empty_space);
+	fill_cells_color(dst, color.a, ALPHA, is_empty_space);
+}
+

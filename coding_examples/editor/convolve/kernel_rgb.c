@@ -1,5 +1,18 @@
 #include"convolve.h"
 
+// time : O(1)
+// space: O(1)
+t_rgba	define_target_channels(void)
+{
+	t_rgba	dst;
+
+	dst.a = 0;
+	dst.r = 1;
+	dst.g = 0;
+	dst.b = 1;
+	return (dst);
+}
+
 int	main(int len, char **str)
 {
 	t_table_fdf	table_a;
@@ -17,7 +30,7 @@ int	main(int len, char **str)
 	free_table_fdf(&table_a);
 	kernel = init_matrix(2 * half_dim + 1, 2 * half_dim + 1,
 			1.0 / (double)((2 * half_dim + 1) * (2 * half_dim + 1)));
-	table_a = convolve_rgba(&table_b, kernel, RED);
+	table_a = convolve_rgba(&table_b, kernel, define_target_channels());
 	write_table_fdf(output, (const t_table_fdf *)&table_a, 2, HEIGHT_RGBA);
 	free_table_fdf(&table_a);
 	free_table_fdf(&table_b);
@@ -26,5 +39,5 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/bin/editor/convolve/kernel_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1_red_ave.fdf
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/editor/convolve/kernel_rgb.out input_examples/fdf/t1.fdf input_examples/modified/t1_red_ave.fdf
 */

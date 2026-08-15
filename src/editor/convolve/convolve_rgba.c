@@ -58,45 +58,56 @@ t_matrix	init_src_kernel_rgba(size_t half_dim, const t_table_fdf *src, size_t in
 
 // time : O(n)
 // space: O(n)
-t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, e_rgba rgba_type)
+unsigned char	convolve_unit_rgba(const t_table_fdf *src, t_matrix kernel, e_rgba rgba_type, size_t index)
 {
-	t_table_fdf		dst;
-	size_t			i;
-	t_matrix		src_kernel;
-	unsigned char	*dst_rgba;
-	float			output;
+	int			output;
+	t_matrix	src_kernel;
 
-	if (src == NULL || src->arr == NULL)
-		return (init_table_fdf(0, 0, false));
-	dst = scale_dimension_fdf(src, 1, 1);
-	dst_rgba = get_rgba_of_table_fdf(&dst, rgba_type);
-	if (dst_rgba == NULL)
-		return (dst);
-	i = 0;
-	while (i < src->col * src->row)
+	output = 0;
+	if (src != NULL && index < src->col * src->row)
 	{
-		output = 0;
-		src_kernel = init_src_kernel_rgba(kernel.col / 2, src, i, rgba_type);
+		src_kernel = init_src_kernel_rgba(kernel.col / 2, src, index, rgba_type);
 		if (src_kernel.arr != NULL && kernel.arr != NULL)
-			output = dot_product((const float *)src_kernel.arr, kernel.arr, kernel.col * kernel.col);
+			output = dot_product((const float *)src_kernel.arr,
+				kernel.arr, kernel.col * kernel.col);
 		else if (src_kernel.arr != NULL && kernel.arr == NULL)
 		{
-			kernel = init_src_kernel_rgba(kernel.col / 2, src, i, rgba_type);
+			kernel = init_src_kernel_rgba(kernel.col / 2, src, index, rgba_type);
 			output = f_sum(kernel.arr, kernel.col * kernel.col);
 			if (output > 0.025 || output <= -0.025)
 				vector_scale(kernel.arr, 1.0 / output, kernel.col * kernel.col);
 			if (kernel.arr != NULL)
-				output = (int)f_round(dot_product((const float *)src_kernel.arr, kernel.arr, kernel.col * kernel.col));
+				output = (int)f_round(dot_product((const float *)src_kernel.arr,
+					kernel.arr, kernel.col * kernel.col));
 			free_matrix(&kernel);
 		}
-		dst_rgba[i] = (unsigned char)f_interval(f_round(output), 0, 255);
 		free_matrix(&src_kernel);
+	}
+	return ((unsigned char)f_interval(f_round(output), 0, 255));
+}
+
+// time : O(n * m^2)
+// space: O(n * m^2)
+t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, t_rgba target_channels)
+{
+	t_table_fdf		dst;
+	size_t			i;
+
+	if (src == NULL || src->arr == NULL)
+		return (init_table_fdf(0, 0, false));
+	dst = scale_dimension_fdf(src, 1, 1);
+	i = 0;
+	while (i < src->col * src->row)
+	{
+		if (target_channels.r > 0 && dst.r != NULL)
+			dst.r[i] = convolve_unit_rgba(src, kernel, RED, i);
+		if (target_channels.g > 0 && dst.g != NULL)
+			dst.g[i] = convolve_unit_rgba(src, kernel, GREEN, i);
+		if (target_channels.b > 0 && dst.b != NULL)
+			dst.b[i] = convolve_unit_rgba(src, kernel, BLUE, i);
+		if (target_channels.a > 0 && dst.a != NULL)
+			dst.a[i] = convolve_unit_rgba(src, kernel, ALPHA, i);
 		i += 1;
 	}
 	return (dst);
 }
-
-/*
-To Do List
-1.	.
-*/

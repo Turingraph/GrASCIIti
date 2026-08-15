@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "MLX42.h"
+#include "include/MLX42.h"
 
 #define WIDTH 512
 #define HEIGHT 512
@@ -88,5 +88,19 @@ int32_t main(void)
 }
 
 /*
-cc -Wall -Wextra -Werror mlx_coding_example.c libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+$ cc -Wall -Wextra -Werror example_rand.c libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+$ valgrind --leak-check=full --show-leak-kinds=all ./a.out
+...
+==146714== 
+==146714== LEAK SUMMARY:
+==146714==    definitely lost: 56 bytes in 1 blocks
+==146714==    indirectly lost: 56 bytes in 1 blocks
+==146714==      possibly lost: 0 bytes in 0 blocks
+==146714==    still reachable: 304,621 bytes in 3,421 blocks
+==146714==         suppressed: 0 bytes in 0 blocks
+==146714== 
+==146714== For lists of detected and suppressed errors, rerun with: -s
+==146714== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+https://github.com/codam-coding-college/MLX42/blob/master/README.md
 */

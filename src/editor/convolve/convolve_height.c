@@ -54,13 +54,41 @@ t_matrix	init_src_kernel_height(size_t half_dim, const t_table_fdf *src, size_t 
 
 // time : O(n)
 // space: O(n)
+int	convolve_unit_height(const t_table_fdf *src,
+	t_matrix kernel, size_t index)
+{
+	int			output;
+	t_matrix	src_kernel;
+
+	output = 0;
+	if (src != NULL && index < src->col * src->row)
+	{
+		src_kernel = init_src_kernel_height(kernel.col / 2, src, index);
+		if (src_kernel.arr != NULL && kernel.arr != NULL)
+			output = dot_product((const float *)src_kernel.arr,
+				kernel.arr, kernel.col * kernel.col);
+		else if (src_kernel.arr != NULL && kernel.arr == NULL)
+		{
+			kernel = init_src_kernel_height(kernel.col / 2, src, index);
+			output = f_sum(kernel.arr, kernel.col * kernel.col);
+			if (output > 0.025 || output <= -0.025)
+				vector_scale(kernel.arr, 1.0 / output, kernel.col * kernel.col);
+			if (kernel.arr != NULL)
+				output = (int)f_round(dot_product((const float *)src_kernel.arr,
+					kernel.arr, kernel.col * kernel.col));
+			free_matrix(&kernel);
+		}
+		free_matrix(&src_kernel);
+	}
+	return (output);
+}
+
+// time : O(n * m^2)
+// space: O(n * m^2)
 t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel)
 {
 	t_table_fdf	dst;
 	size_t		i;
-	t_matrix	src_kernel;
-	t_matrix	twin_kernel;
-	float		sum_of_twin;
 
 	if (src == NULL || src->arr == NULL)
 		return (init_table_fdf(0, 0, false));
@@ -68,20 +96,7 @@ t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel)
 	i = 0;
 	while (i < dst.col * dst.row)
 	{
-		src_kernel = init_src_kernel_height(kernel.col / 2, src, i);
-		if (src_kernel.arr != NULL && kernel.arr != NULL)
-			dst.arr[i] = (int)f_round(dot_product((const float *)src_kernel.arr, kernel.arr, kernel.col * kernel.col));
-		else if (src_kernel.arr != NULL && kernel.arr == NULL)
-		{
-			twin_kernel = init_src_kernel_height(kernel.col / 2, src, i);
-			sum_of_twin = f_sum(twin_kernel.arr, twin_kernel.col);
-			if (sum_of_twin > 0.025 || sum_of_twin <= -0.025)
-				vector_scale(twin_kernel.arr, 1.0/((float)sum_of_twin), twin_kernel.col * twin_kernel.col);
-			if (twin_kernel.arr != NULL)
-				dst.arr[i] = (int)f_round(dot_product((const float *)src_kernel.arr, twin_kernel.arr, twin_kernel.col * twin_kernel.col));
-			free_matrix(&twin_kernel);
-		}
-		free_matrix(&src_kernel);
+		dst.arr[i] = convolve_unit_height(src, kernel, i);
 		i += 1;
 	}
 	return (dst);

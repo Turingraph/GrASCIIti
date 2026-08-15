@@ -8,7 +8,7 @@ Reference
 int	main(int len, char **str)
 {
 	t_table_fdf	table;
-	t_table_fdf	table_2;
+	// t_table_fdf	table_2;
 	int			output;
 	t_line		square_00 = {.p1 = {.x = 1, .y = 1}, .p2 = {.x = 5, .y = 8}};
 	t_line		square_01 = {.p1 = {.x = 1, .y = 11}, .p2 = {.x = 5, .y = 17}};
@@ -22,7 +22,7 @@ int	main(int len, char **str)
 	if (len < 2)
 		return (0);
 	output = open_dir_file(str[1], NULL, APPEND);
-	table = init_table_fdf(144, 144, false);
+	table = init_table_fdf(48, 48, false);
 	draw_mondrian_tiling_int(&table, square_00, 94, tiling);
 	draw_mondrian_tiling_int(&table, square_01, 94, tiling);
 	draw_mondrian_tiling_int(&table, square_02, 10, tiling);
@@ -30,10 +30,11 @@ int	main(int len, char **str)
 	draw_mondrian_tiling_int(&table, square_04, 94, tiling);
 	draw_mondrian_tiling_int(&table, square_05, 94, tiling);
 	draw_mondrian_tiling_int(&table, square_06, 10, tiling);
-	table_2 = scale_dimension_fdf(&table, 1, 2);
-	write_table_ascii_cheche01(output, &table_2, HEIGHT);
+	// table_2 = scale_dimension_fdf(&table, 1, 2);
+	// write_table_ascii_cheche01(output, &table_2, HEIGHT);
+	write_table_ascii_cheche01(output, &table, HEIGHT);
 	free_table_fdf(&table);
-	free_table_fdf(&table_2);
+	// free_table_fdf(&table_2);
 	return (0);
 }
 

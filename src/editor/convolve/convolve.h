@@ -8,7 +8,7 @@
 t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel);;
 
 // convolve_rgba.c
-t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, e_rgba rgba_type);
+t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, t_rgba target_channels);
 
 // kernel.c
 float		*gaussian_kernel_1d(size_t half_dim, float std);

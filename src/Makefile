@@ -3,6 +3,8 @@
 
 CC = cc -Wall -Wextra -Werror
 BUFFER_SIZE = 42
+# get_obj_files = $(filter %.o, $1)
+# get_lib_a_files = $(filter %.a, $^)
 
 #-----------------------------------------------------------------------------------------------
 # https://stackoverflow.com/questions/9488256/use-directory-path-of-target-in-list-of-prerequisites-in-makefile
@@ -10,7 +12,7 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table \
+LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table view\
 	convolve copy mathart paint line triangle_pair triangle_arr debug debug_triangle)
 
 # *** atom src ***
@@ -33,6 +35,7 @@ SRC_line = $(wildcard editor/line/*.c)
 
 SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
 SRC_triangle_arr = $(wildcard graphic/triangle_arr/*.c)
+SRC_view = $(wildcard graphic/view/*.c)
 
 #-----------------------------------------------------------------------------------------------
 
@@ -56,6 +59,8 @@ OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math)
 
 OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
 OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
+# OBJ_mlx42 = $(wildcard ../include/mlx42.dir/src/%.o)
+OBJ_view = $(patsubst %.c, obj/%.o, $(SRC_view)) $(OBJ_convolve)
 
 # https://stackoverflow.com/questions/59465799/avoid-gnu-make-automatic-file-deletion
 # This command will preserve the selected files.
@@ -81,6 +86,10 @@ lib/%.a: $$(OBJ_$$(notdir $$(basename $$@)))
 obj/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) -c $< -o $@
+
+obj/graphic/view/%.o: graphic/view/%.c
+	@mkdir -p $(@D)
+	$(CC) -Wall -Wextra -Werror -Iinclude -c $< -o $@
 
 obj/input/get_next_line/%.o: input/get_next_line/%.c
 	@mkdir -p $(@D)
