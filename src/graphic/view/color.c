@@ -56,19 +56,16 @@ void	paint_table_on_image(const t_table_fdf *src, mlx_image_t *img)
 // space: O(n)
 t_table_fdf	scale_window_dimension_fdf(const t_table_fdf *src)
 {
-	size_t	window_size;
-
-	window_size = 1080;
 	if (src == NULL || src->row * src->col == 0)
 	{
 		write(1, "Warning: The input data is empty.\n", 35);
 		return (init_table_fdf(0, 0, false));
 	}
-	if (src->row > window_size || src->col > window_size)
+	if (src->row > 1440 || src->col > 810)
 	{
 		write(1, "Warning: The input data contains "
-			"rows and/or columns more than 1080 "
-			"(window size).\nsrc->row = ", 95);
+			"rows and/or columns more than 810 "
+			"(window size).\nsrc->row = ", 94);
 		ft_putnbr_fd(src->row, 1, "0123456789", 1);
 		write(1, "\nsrc->col = ", 13);
 		ft_putnbr_fd(src->col, 1, "0123456789", 1);
@@ -77,7 +74,7 @@ t_table_fdf	scale_window_dimension_fdf(const t_table_fdf *src)
 	}
 	if (src->row >= src->col)
 		return (scale_dimension_fdf(
-			src, window_size / src->row, window_size / src->row));
+			src, 1440 / src->row, 1440 / src->row));
 	return (scale_dimension_fdf(
-		src, window_size / src->col, window_size / src->col));
+		src, 810 / src->col, 810 / src->col));
 }

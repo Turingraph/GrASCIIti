@@ -38,6 +38,7 @@ void ft_randomize(void* param)
 	}
 }
 
+/*
 void ft_hook(void* param)
 {
 	mlx_t* mlx = param;
@@ -52,6 +53,28 @@ void ft_hook(void* param)
 		image->instances[0].x -= 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		image->instances[0].x += 5;
+}
+*/
+
+// time : O(n)
+// space: O(1)
+void hook_pan(mlx_t *mlx, mlx_image_t *img)
+{
+	if (mlx != NULL && img != NULL)
+	{
+		if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+			mlx_close_window(mlx);
+		if (mlx_is_key_down(mlx, MLX_KEY_UP) && img->instances[0].y > 0)
+			img->instances[0].y -= 5;
+		if (mlx_is_key_down(mlx, MLX_KEY_DOWN)
+			&& (int)img->instances[0].y < 1920 - (int)img->height)
+			img->instances[0].y += 5;
+		if (mlx_is_key_down(mlx, MLX_KEY_LEFT) && img->instances[0].x > 0)
+			img->instances[0].x -= 5;
+		if (mlx_is_key_down(mlx, MLX_KEY_RIGHT)
+			&& (int)img->instances[0].x < 1080 - (int)img->width)
+			img->instances[0].x += 5;
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -80,7 +103,7 @@ int32_t main(void)
 	}
 	
 	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	hook_pan(mlx, image);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
@@ -88,8 +111,8 @@ int32_t main(void)
 }
 
 /*
-$ cc -Wall -Wextra -Werror example_rand.c libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
-$ valgrind --leak-check=full --show-leak-kinds=all ./a.out
+cc -Wall -Wextra -Werror example_rand.c libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+valgrind --leak-check=full --show-leak-kinds=all ./a.out
 ...
 ==146714== 
 ==146714== LEAK SUMMARY:
