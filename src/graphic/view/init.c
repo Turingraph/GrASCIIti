@@ -80,6 +80,7 @@ void	view_table_fdf(const t_table_fdf *src)
 	}
 }
 
+/*
 // time : O(n)
 // space: O(n)
 int	view_convolve_table_fdf(const t_table_fdf *src,
@@ -97,3 +98,4 @@ int	view_convolve_table_fdf(const t_table_fdf *src,
 	}
 	return (1);
 }
+*/

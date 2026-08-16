@@ -36,7 +36,7 @@ $(OUT_USE_TABLE): out/%.out: obj/%.o
 $(OUT_VIEW): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
-		../src/lib/convolve.a ../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
+		../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
 
 $(OUT): out/%.out: obj/%.o
 	@mkdir -p $(@D)

@@ -60,7 +60,7 @@ OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math)
 OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
 OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
 # OBJ_mlx42 = $(wildcard ../include/mlx42.dir/src/%.o)
-OBJ_view = $(patsubst %.c, obj/%.o, $(SRC_view)) $(OBJ_convolve)
+OBJ_view = $(patsubst %.c, obj/%.o, $(SRC_view)) $(OBJ_table)
 
 # https://stackoverflow.com/questions/59465799/avoid-gnu-make-automatic-file-deletion
 # This command will preserve the selected files.

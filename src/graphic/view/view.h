@@ -2,7 +2,7 @@
 # define VIEW_H
 
 #include "../../utils/type/type.h"
-#include "../../editor/convolve/convolve.h"
+#include "../../input/table/table.h"
 #include "MLX42.h"
 
 // color.c
@@ -12,6 +12,5 @@ t_table_fdf	scale_window_dimension_fdf(const t_table_fdf *src);
 
 // init.c
 void		view_table_fdf(const t_table_fdf *src);
-int			view_convolve_table_fdf(const t_table_fdf *src, t_rgba target_channels, t_matrix kernel);
 
 #endif
