@@ -1,22 +1,23 @@
 #include"view.h"
 
+/*
 // // time : O(1)
 // // space: O(1)
 size_t	get_window_dimension_fdf(size_t row, size_t col, char axis)
 {
-	size_t	window_size;
-
-	window_size = 810;
-	if (row > window_size || col > window_size || row * col == 0)
+	if (row > 810 || col > 1440 || row * col == 0)
 		return (0);
-	if (row == col || (row < col && axis == 0) || (row > col && axis == 1))
-		return (window_size);
-	if (row > col && axis == 0)
-		return (col * (size_t)f_floor((float)window_size / (float)row));
-	if (row < col && axis == 1)
-		return (row * (size_t)f_floor((float)window_size / (float)col));
+	if (row <= col && axis == 0)
+		return (810);
+	if (col <= row && axis == 1)
+		return (1440);
+	if (row > col && axis == 1)
+		return (col * (size_t)f_floor((float)810 / (float)row));
+	if (row < col && axis == 0)
+		return (row * (size_t)f_floor((float)1440 / (float)col));
 	return (0);
 }
+*/
 
 // time : O(n)
 // space: O(1)
@@ -59,8 +60,8 @@ int	view_table_fdf(const t_table_fdf *src)
 			return (-1);
 		paint_table_on_image(&scale_src, img);
 		if (-1 == mlx_image_to_window(mlx, img,
-			1440 / 2 - get_window_dimension_fdf(src->row, src->col, 0) / 2,
-			810 / 2 - get_window_dimension_fdf(src->row, src->col, 1) / 2))
+			(1440 - img->width) / 2,
+			(810 - img->height) / 2))
 		{
 			mlx_terminate(mlx);
 			return(-1);

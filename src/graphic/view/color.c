@@ -61,11 +61,11 @@ t_table_fdf	scale_window_dimension_fdf(const t_table_fdf *src)
 		write(1, "Warning: The input data is empty.\n", 35);
 		return (init_table_fdf(0, 0, false));
 	}
-	if (src->row > 1440 || src->col > 810)
+	if (src->row > 810 || src->col > 1440)
 	{
 		write(1, "Warning: The input data contains "
-			"rows and/or columns more than 810 "
-			"(window size).\nsrc->row = ", 94);
+			"rows and/or columns more than 1440 x 810 "
+			"(window size).\nsrc->row = ", 101);
 		ft_putnbr_fd(src->row, 1, "0123456789", 1);
 		write(1, "\nsrc->col = ", 13);
 		ft_putnbr_fd(src->col, 1, "0123456789", 1);
@@ -74,7 +74,7 @@ t_table_fdf	scale_window_dimension_fdf(const t_table_fdf *src)
 	}
 	if (src->row >= src->col)
 		return (scale_dimension_fdf(
-			src, 1440 / src->row, 1440 / src->row));
+			src, 810 / src->row, 810 / src->row));
 	return (scale_dimension_fdf(
-		src, 810 / src->col, 810 / src->col));
+		src, 1140 / src->col, 1140 / src->col));
 }

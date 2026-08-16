@@ -9,6 +9,7 @@ typedef struct s_view
 {
     mlx_t       *mlx;
     mlx_image_t *img;
+	// float		zoom;
 }   t_view;
 
 // color.c
