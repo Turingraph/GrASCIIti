@@ -11,6 +11,6 @@ void		paint_table_on_image(const t_table_fdf *src,
 t_table_fdf	scale_window_dimension_fdf(const t_table_fdf *src);
 
 // init.c
-void		view_table_fdf(const t_table_fdf *src);
+int			view_table_fdf(const t_table_fdf *src);
 
 #endif

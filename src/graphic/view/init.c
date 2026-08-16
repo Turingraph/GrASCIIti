@@ -69,7 +69,7 @@ int	maintain_view_table_fdf(t_table_fdf *window_table, size_t table_row, size_t 
 
 // time : O(n)
 // space: O(n)
-void	view_table_fdf(const t_table_fdf *src)
+int	view_table_fdf(const t_table_fdf *src)
 {
 	t_table_fdf	scale_src;
 
@@ -78,6 +78,7 @@ void	view_table_fdf(const t_table_fdf *src)
 		scale_src = scale_window_dimension_fdf(src);
 		maintain_view_table_fdf(&scale_src, src->row, src->col);
 	}
+	return (1);
 }
 
 /*

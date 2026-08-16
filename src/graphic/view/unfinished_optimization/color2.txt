@@ -1,0 +1,81 @@
+#include"view.h"
+
+// time : O(1)
+// space: O(1)
+int32_t	ft_table_pixel(const t_table_fdf *src, size_t index)
+{
+	int32_t	r;
+	int32_t	g;
+	int32_t	b;
+	int32_t	a;
+
+	if (src == NULL || index >= src->row * src->col)
+		return (0);
+	r = 0;
+	if (src->r != NULL)
+		r = (int32_t)src->r[index];
+	g = 0;
+	if (src->g != NULL)
+		g = (int32_t)src->g[index];
+	b = 0;
+	if (src->b != NULL)
+		b = (int32_t)src->b[index];
+	a = 0;
+	if (src->a != NULL)
+		a = (int32_t)src->a[index];
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+// time : O(n)
+// space: O(n)
+void	paint_rectangle_on_image(mlx_image_t *img, uint32_t start, uint32_t end, uint32_t color)
+{
+	uint32_t	i;
+	uint32_t	j;
+
+	if (start > end)
+	{
+		i = start;
+		start = end;
+		end = i;
+	}
+	if (img != NULL
+		&& start < img->width * img->height
+		&& end < img->width * img->height)
+	{
+		i = start / img->width;
+		while (i <= end / img->width)
+		{
+			j = start % img->width;
+			while (j <= end % img->width)
+			{
+				mlx_put_pixel(img, j, i, color);
+				j += 1;
+			}
+			i += 1;
+		}
+	}
+}
+
+// time : O(n)
+// space: O(n)
+void	paint_table_on_image(const t_table_fdf *src, mlx_image_t *dst)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (src != NULL && src->row * src->col > 0 && i < src->row - 1)
+	{
+		j = 0;
+		while (j < src->col - 1)
+		{
+			paint_rectangle_on_image(dst,
+				dst->width * i * dst->height / src->row + j * dst->width / src->col,
+				dst->width * (i + 1) * dst->height / src->row + (j + 1) * dst->width / src->col,
+				ft_table_pixel(src, i * src->col + j));
+			j += 1;
+		}
+		i += 1;
+	}
+}
