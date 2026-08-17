@@ -1,4 +1,4 @@
-#include"view.h"
+#include"view_table.h"
 
 /*
 // // time : O(1)
@@ -21,7 +21,7 @@ size_t	get_window_dimension_fdf(size_t row, size_t col, char axis)
 
 // time : O(n)
 // space: O(1)
-mlx_image_t	*solve_1st_mlx_error(mlx_t *mlx, t_table_fdf *table)
+mlx_image_t	*handle_table_mlx_error(mlx_t *mlx, t_table_fdf *table)
 {
 	mlx_image_t	*dst;
 
@@ -55,7 +55,7 @@ int	view_table_fdf(const t_table_fdf *src)
 	{
 		scale_src = scale_window_dimension_fdf(src);
 		mlx = mlx_init(1440, 810, "Subset at 4:42pm", true);
-		img = solve_1st_mlx_error(mlx, &scale_src);
+		img = handle_table_mlx_error(mlx, &scale_src);
 		if (img == NULL)
 			return (-1);
 		paint_table_on_image(&scale_src, img);

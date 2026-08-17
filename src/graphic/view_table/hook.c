@@ -1,4 +1,4 @@
-#include "view.h"
+#include "view_table.h"
 
 // time : O(n)
 // space: O(1)

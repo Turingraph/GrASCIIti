@@ -1,22 +1,9 @@
-#include"line.h"
-
-// time : O(1)
-// space: O(1)
-t_circle	init_circle_in_boundary(t_circle point, t_boundary boundary)
-{
-	point.x = (int)f_interval(point.x, 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x)
-		+ boundary.sub_area.p1.x;
-	point.y = (int)f_interval(point.y, 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y)
-		+ boundary.sub_area.p1.y;
-	return (point);
-}
+#include"view_line.h"
 
 // time : O(n)
 // space: O(1)
-void	draw_horizontal_int(int *dst, t_line line,
-	int color, t_boundary boundary)
+void	draw_horizontal_mlx(mlx_image_t *dst, t_line line,
+	int32_t color, t_boundary boundary)
 {
 	int	temp;
 
@@ -32,31 +19,7 @@ void	draw_horizontal_int(int *dst, t_line line,
 	while (line.p1.x <= line.p2.x && dst != NULL)
 	{
 		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
-			dst[line.p1.y * boundary.all_area.x + line.p1.x] = color;
-		line.p1.x += 1;
-	}
-}
-
-// time : O(n)
-// space: O(1)
-void	draw_horizontal_uchar(unsigned char *dst,
-	t_line line, unsigned char color, t_boundary boundary)
-{
-	int	temp;
-
-	if (line.p1.x > line.p2.x)
-	{
-		temp = line.p2.x;
-		line.p2.x = line.p1.x;
-		line.p1.x = temp;
-		temp = line.p2.y;
-		line.p2.y = line.p1.y;
-		line.p1.y = temp;
-	}
-	while (line.p1.x <= line.p2.x && dst != NULL)
-	{
-		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
-			dst[line.p1.y * boundary.all_area.x + line.p1.x] = color;
+			mlx_put_pixel(dst, line.p1.x, line.p1.y, color);
 		line.p1.x += 1;
 	}
 }
@@ -133,8 +96,8 @@ Reference
 
 // time : O(r^2)
 // space: O(1)
-void	midpoint_circle_int(int *dst,
-	int color, t_circle point, t_boundary boundary)
+void	midpoint_circle_mlx(mlx_image_t *dst,
+	int32_t color, t_circle point, t_boundary boundary)
 {
 	int		ix;
 	int		iy;
@@ -147,13 +110,13 @@ void	midpoint_circle_int(int *dst,
 	while (dst != NULL && ix <= -1 * iy)
 	{
 		line = define_circle_boundary(point, ix, iy, 0);
-		draw_horizontal_int(dst, line, color, boundary);
+		draw_horizontal_mlx(dst, line, color, boundary);
 		line = define_circle_boundary(point, ix, iy, 1);
-		draw_horizontal_int(dst, line, color, boundary);
+		draw_horizontal_mlx(dst, line, color, boundary);
 		line = define_circle_boundary(point, ix, iy, 2);
-		draw_horizontal_int(dst, line, color, boundary);
+		draw_horizontal_mlx(dst, line, color, boundary);
 		line = define_circle_boundary(point, ix, iy, 3);
-		draw_horizontal_int(dst, line, color, boundary);
+		draw_horizontal_mlx(dst, line, color, boundary);
 		if (pivot > 0)
 			iy += 1;
 		if (pivot > 0)
@@ -163,34 +126,51 @@ void	midpoint_circle_int(int *dst,
 	}
 }
 
-// time : O(r^2)
-// space: O(1)
-void	midpoint_circle_uchar(unsigned char *dst,
-	unsigned char color, t_circle point, t_boundary boundary)
+// time : O(n)
+// sapce: O(1)
+void	draw_kusama_tiling_fmlx_unit(mlx_image_t *dst, const t_2d_polygon *polygon,
+	t_ink32 ink, t_line boundary)
 {
-	int		ix;
-	int		iy;
-	int		pivot;
-	t_line	line;
+	size_t		i;
+	t_line		line;
+	t_circle	circle;
+	t_boundary	sub_area;
 
-	pivot = point.radius * -1;
-	iy = -1 * point.radius;
-	ix = 0;
-	while (dst != NULL && ix <= -1 * iy)
+	i = 0;
+	while (dst != NULL && polygon != NULL && i < polygon->length)
 	{
-		line = define_circle_boundary(point, ix, iy, 0);
-		draw_horizontal_uchar(dst, line, color, boundary);
-		line = define_circle_boundary(point, ix, iy, 1);
-		draw_horizontal_uchar(dst, line, color, boundary);
-		line = define_circle_boundary(point, ix, iy, 2);
-		draw_horizontal_uchar(dst, line, color, boundary);
-		line = define_circle_boundary(point, ix, iy, 3);
-		draw_horizontal_uchar(dst, line, color, boundary);
-		if (pivot > 0)
-			iy += 1;
-		if (pivot > 0)
-			pivot += 2 * iy + 2;
-		ix += 1;
-		pivot += 2 * ix + 1;
+		sub_area = init_rectangle_boundary(boundary,
+				dst->height, dst->width);
+		line = init_float_line(polygon->arr[i], polygon->arr[i], boundary);
+		line = init_rectangle(line, sub_area);
+		circle.radius = ink.thickness;
+		circle.x = line.p1.x;
+		circle.y = line.p1.y;
+		midpoint_circle_mlx(dst, ink.color, circle, sub_area);
+		i += 1;
+	}
+}
+
+// time : O(n)
+// sapce: O(1)
+void	draw_kusama_tiling_fmlx(mlx_image_t *dst, const t_2d_polygon *polygon,
+	t_ink32 ink, t_2d_int tiling_area)
+{
+	size_t	i;
+	size_t	j;
+	t_line	tiling;
+
+	i = 0;
+	while (dst != NULL && polygon != NULL && tiling_area.y > 0
+		&& i < f_floor(dst->height / tiling_area.y) + 1)
+	{
+		j = 0;
+		while (tiling_area.x > 0 && j < f_floor(dst->width / tiling_area.x) + 1)
+		{
+			tiling = get_tiling(tiling_area, i, j);
+			draw_kusama_tiling_fmlx_unit(dst, polygon, ink, tiling);
+			j += 1;
+		}
+		i += 1;
 	}
 }

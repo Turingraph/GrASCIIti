@@ -1,11 +1,4 @@
-#include"view.h"
-
-// time : O(1)
-// space: O(1)
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
+#include"view_table.h"
 
 // time : O(1)
 // space: O(1)
@@ -30,7 +23,7 @@ int32_t	ft_table_pixel(const t_table_fdf *src, size_t index)
 	a = 0;
 	if (src->a != NULL)
 		a = (int32_t)src->a[index];
-	return (ft_pixel(r, g, b, a));
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 // time : O(n)

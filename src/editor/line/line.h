@@ -77,9 +77,10 @@ void		bresenham_uchar_y_thick(unsigned char *dst,
 				t_line line, t_boundary boundary, t_ink ink);
 
 // circle.c
-void		midpoint_circle_int(int *arr,
+t_circle	init_circle_in_boundary(t_circle point, t_boundary boundary);
+void		midpoint_circle_int(int *dst,
 				int color, t_circle point, t_boundary boundary);
-void		midpoint_circle_uchar(unsigned char *arr,
+void		midpoint_circle_uchar(unsigned char *dst,
 				unsigned char color, t_circle point, t_boundary boundary);
 
 // init.c
@@ -95,10 +96,9 @@ unsigned char	*get_rgba_of_table_fdf2(const t_table_fdf *src,
 void			draw_straight_line(t_table_fdf *dst,
 					t_line line, t_line rectangle_boundary, t_ink ink);
 
-// pixel_art.c
-void		draw_pixel_art(t_table_fdf *dst, const t_table_fdf *src, float zoom);
-
 // polygon.c
+t_line		init_float_line(t_complex point_1, t_complex point_2,
+				t_line boundary);
 void		draw_polygon(t_table_fdf *dst,
 				t_2d_polygon *polygon, t_ink ink, t_line rectangle_boundary);
 void		draw_square_tiling(t_table_fdf *dst,
@@ -109,8 +109,7 @@ void		draw_kusama_circle_uchar(t_table_fdf *dst,
 				t_circle circle, t_ink ink, t_2d_int tiling_area);
 
 // rectangle.c
-t_line		init_float_line(t_complex point_1, t_complex point_2,
-				t_line boundary);
+t_line		init_rectangle(t_line src, t_boundary boundary);
 void		draw_rectangle_int(t_table_fdf *dst, t_line rectangle,
 				t_line boundary, int ink);
 void		draw_rectangle_uchar(t_table_fdf *dst, t_line rectangle,

@@ -16,22 +16,25 @@ t_line	init_float_line(t_complex point_1, t_complex point_2,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line rectangle_boundary)
+void	draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line boundary)
 {
-	size_t		i;
-	t_line		line;
+	size_t	i;
+	t_line	line;
 
 	i = 0;
-	while (dst != NULL && polygon != NULL && i < polygon->length - 1)
+	while (dst != NULL && polygon != NULL
+		&& polygon->length > 0 && i < polygon->length - 1)
 	{
-		line = init_float_line(polygon->arr[i], polygon->arr[i + 1], rectangle_boundary);
-		draw_straight_line(dst, line, rectangle_boundary, ink);
+		line = init_float_line(polygon->arr[i], polygon->arr[i + 1], boundary);
+		draw_straight_line(dst, line, boundary, ink);
 		i += 1;
 	}
-	if (dst != NULL && polygon != NULL && i == polygon->length - 1 && polygon->is_loop == true)
+	if (dst != NULL && polygon != NULL
+		&& polygon->length > 0 && i == polygon->length - 1
+		&& polygon->is_loop == true)
 	{
-		line = init_float_line(polygon->arr[i], polygon->arr[0], rectangle_boundary);
-		draw_straight_line(dst, line, rectangle_boundary, ink);
+		line = init_float_line(polygon->arr[i], polygon->arr[0], boundary);
+		draw_straight_line(dst, line, boundary, ink);
 	}
 }
 

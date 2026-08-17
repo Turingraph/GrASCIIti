@@ -36,7 +36,7 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view/view_ascii.out input_examples/view/islamic_gauss.txt
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view_table/view_ascii.out input_examples/view/islamic_gauss.txt
 
 */
 
