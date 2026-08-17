@@ -1,4 +1,4 @@
-#include"view.h"
+#include"view_table.h"
 
 // time : O(1)
 // space: O(1)
@@ -27,7 +27,7 @@ int	main(int len, char **str)
 
 	if (len < 2)
 		return (0);
-	table = open_table_fdf_file(str[1], NULL, parse_fdf_line_rgba, true);
+	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
 	color_cells_gradient(&table, init_gradient(), true, NULL);
 	paint_table_background(&table, background);
 	view_table_fdf(&table);
@@ -36,6 +36,7 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view/view_fdf.out input_examples/fdf/42.fdf
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view/view_ascii.out input_examples/view/islamic_gauss.txt
 
 */
+

@@ -9,8 +9,8 @@ remove_slash = $(patsubst %/,%,$1)
 .SECONDEXPANSION:
 
 OUT_DIR = out/
-SRC_VIEW = $(wildcard graphic/view/*.c)
-OUT_VIEW = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_VIEW))
+SRC_VIEW_TABLE = $(wildcard graphic/view_table/*.c)
+OUT_VIEW_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_VIEW_TABLE))
 SRC_TRIANGLES = $(filter-out $(SRC_VIEW), $(wildcard graphic/*/*.c))
 SRC_LINE = $(wildcard editor/line/*.c)
 OUT_USE_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
@@ -22,7 +22,7 @@ OUT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC))
 
 #-----------------------------------------------------------------------------------------------
 # *** obj and out ***
-all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_VIEW)
+all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_VIEW_TABLE)
 	@echo $^
 
 $(OUT_PAINT): out/%.out: obj/%.o
@@ -33,7 +33,7 @@ $(OUT_USE_TABLE): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a
 
-$(OUT_VIEW): out/%.out: obj/%.o
+$(OUT_VIEW_TABLE): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
 		../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm

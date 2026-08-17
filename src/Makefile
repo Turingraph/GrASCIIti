@@ -12,7 +12,7 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table view\
+LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table view_table\
 	convolve copy mathart paint line triangle_pair triangle_arr debug debug_triangle)
 
 # *** atom src ***
@@ -35,7 +35,7 @@ SRC_line = $(wildcard editor/line/*.c)
 
 SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
 SRC_triangle_arr = $(wildcard graphic/triangle_arr/*.c)
-SRC_view = $(wildcard graphic/view/*.c)
+SRC_view_table = $(wildcard graphic/view_table/*.c)
 
 #-----------------------------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math)
 OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
 OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
 # OBJ_mlx42 = $(wildcard ../include/mlx42.dir/src/%.o)
-OBJ_view = $(patsubst %.c, obj/%.o, $(SRC_view)) $(OBJ_table)
+OBJ_view_table = $(patsubst %.c, obj/%.o, $(SRC_view_table)) $(OBJ_table)
 
 # https://stackoverflow.com/questions/59465799/avoid-gnu-make-automatic-file-deletion
 # This command will preserve the selected files.
@@ -87,7 +87,7 @@ obj/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) -c $< -o $@
 
-obj/graphic/view/%.o: graphic/view/%.c
+obj/graphic/view_table/%.o: graphic/view_table/%.c
 	@mkdir -p $(@D)
 	$(CC) -Wall -Wextra -Werror -Iinclude -c $< -o $@
 

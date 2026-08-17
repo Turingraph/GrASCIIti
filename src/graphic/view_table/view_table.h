@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-# define VIEW_H
+#ifndef VIEW_TABLE_H
+# define VIEW_TABLE_H
 
 #include "../../utils/type/type.h"
 #include "../../input/table/table.h"
