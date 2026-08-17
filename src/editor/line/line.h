@@ -92,8 +92,11 @@ t_line		init_first_line(t_line src, t_boundary boundary);
 // line.c
 unsigned char	*get_rgba_of_table_fdf2(const t_table_fdf *src,
 				e_rgba rgba_type, int *color);
-void		draw_straight_line(t_table_fdf *dst,
-				t_line line, t_line rectangle_boundary, t_ink ink);
+void			draw_straight_line(t_table_fdf *dst,
+					t_line line, t_line rectangle_boundary, t_ink ink);
+
+// pixel_art.c
+void		draw_pixel_art(t_table_fdf *dst, const t_table_fdf *src, float zoom);
 
 // polygon.c
 void		draw_polygon(t_table_fdf *dst,
@@ -106,10 +109,12 @@ void		draw_kusama_circle_uchar(t_table_fdf *dst,
 				t_circle circle, t_ink ink, t_2d_int tiling_area);
 
 // rectangle.c
-void		draw_rectangle_int(t_table_fdf *dst, t_line line,
-				t_line rectangle_boundary, int ink);
-void		draw_rectangle_uchar(t_table_fdf *dst, t_line line,
-				t_line rectangle_boundary, t_ink ink);
+t_line		init_float_line(t_complex point_1, t_complex point_2,
+				t_line boundary);
+void		draw_rectangle_int(t_table_fdf *dst, t_line rectangle,
+				t_line boundary, int ink);
+void		draw_rectangle_uchar(t_table_fdf *dst, t_line rectangle,
+				t_line boundary, t_ink ink);
 void		draw_mondrian_tiling_int(t_table_fdf *dst, t_line rectangle,
 				int ink, t_2d_int tiling_area);
 void		draw_mondrian_tiling_uchar(t_table_fdf *dst, t_line rectangle,
@@ -121,5 +126,6 @@ t_line		define_circle_boundary(t_circle point,
 				int ix, int iy, char mode);
 t_line		reverse_line(t_line line);
 t_line		get_tiling(t_2d_int tiling_area, size_t i, size_t j);
+t_boundary	get_all_area(size_t row, size_t col);
 
 #endif

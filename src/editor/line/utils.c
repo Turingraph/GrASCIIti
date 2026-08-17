@@ -67,3 +67,18 @@ t_line	get_tiling(t_2d_int tiling_area, size_t i, size_t j)
 	tiling.p2.y = tiling_area.y * (i + 1);
 	return (tiling);
 }
+
+// time : O(1)
+// space: O(1)
+t_boundary	get_all_area(size_t row, size_t col)
+{
+	t_boundary	dst;
+
+	dst.all_area.x = col;
+	dst.all_area.y = row;
+	dst.sub_area.p1.x = 0;
+	dst.sub_area.p1.y = 0;
+	dst.sub_area.p2.x = col;
+	dst.sub_area.p2.y = row;
+	return (dst);
+}

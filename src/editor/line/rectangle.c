@@ -19,26 +19,26 @@ t_line	init_rectangle(t_line src, t_boundary boundary)
 
 // time : O(n)
 // space: O(1)
-void	draw_rectangle_int(t_table_fdf *dst, t_line line,
-	t_line rectangle_boundary, int ink)
+void	draw_rectangle_int(t_table_fdf *dst, t_line rectangle,
+	t_line boundary, int ink)
 {
-	t_boundary		boundary;
+	t_boundary		sub_area;
 	int				i;
 	int				j;
 
 	if (dst != NULL && dst->arr != NULL)
 	{
-		boundary = init_rectangle_boundary(rectangle_boundary,
+		sub_area = init_rectangle_boundary(boundary,
 				dst->row, dst->col);
-		line = init_rectangle(line, boundary);
-		i = line.p1.x;
-		while (i <= line.p2.x)
+		rectangle = init_rectangle(rectangle, sub_area);
+		i = rectangle.p1.x;
+		while (i <= rectangle.p2.x)
 		{
-			j = line.p1.y;
-			while (j <= line.p2.y)
+			j = rectangle.p1.y;
+			while (j <= rectangle.p2.y)
 			{
-				if (is_in_boundary(i, j, boundary.sub_area) == true)
-					dst->arr[j * boundary.all_area.x + i] = ink;
+				if (is_in_boundary(i, j, sub_area.sub_area) == true)
+					dst->arr[j * sub_area.all_area.x + i] = ink;
 				j += 1;
 			}
 			i += 1;
@@ -48,10 +48,10 @@ void	draw_rectangle_int(t_table_fdf *dst, t_line line,
 
 // time : O(n)
 // space: O(1)
-void	draw_rectangle_uchar(t_table_fdf *dst, t_line line,
-	t_line rectangle_boundary, t_ink ink)
+void	draw_rectangle_uchar(t_table_fdf *dst, t_line rectangle,
+	t_line boundary, t_ink ink)
 {
-	t_boundary		boundary;
+	t_boundary		sub_area;
 	int				i;
 	int				j;
 	unsigned char	*arr;
@@ -59,17 +59,17 @@ void	draw_rectangle_uchar(t_table_fdf *dst, t_line line,
 	arr = get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color));
 	if (dst != NULL && arr != NULL)
 	{
-		boundary = init_rectangle_boundary(rectangle_boundary,
+		sub_area = init_rectangle_boundary(boundary,
 				dst->row, dst->col);
-		line = init_rectangle(line, boundary);
-		i = line.p1.x;
-		while (i <= line.p2.x)
+		rectangle = init_rectangle(rectangle, sub_area);
+		i = rectangle.p1.x;
+		while (i <= rectangle.p2.x)
 		{
-			j = line.p1.y;
-			while (j <= line.p2.y)
+			j = rectangle.p1.y;
+			while (j <= rectangle.p2.y)
 			{
-				if (is_in_boundary(i, j, boundary.sub_area) == true)
-					arr[j * boundary.all_area.x + i] = (unsigned char)ink.color;
+				if (is_in_boundary(i, j, sub_area.sub_area) == true)
+					arr[j * sub_area.all_area.x + i] = (unsigned char)ink.color;
 				j += 1;
 			}
 			i += 1;
