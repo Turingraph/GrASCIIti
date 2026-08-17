@@ -24,7 +24,7 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 // time : O(1)
 // space: O(1)
-int32_t	ft_table_pixel(const t_table_fdf *src, size_t index)
+int32_t	get_table_rgba_int32(const t_table_fdf *src, size_t index)
 {
 	int32_t	r;
 	int32_t	g;
@@ -61,7 +61,7 @@ void	paint_table_on_image(const t_table_fdf *src, mlx_image_t *img)
 		&& img->width == src->col
 		&& i < src->col * src->row)
 	{
-		color = ft_table_pixel(src, i);
+		color = get_table_rgba_int32(src, i);
 		mlx_put_pixel(img, i % src->col, i / src->col, color);
 		i += 1;
 	}

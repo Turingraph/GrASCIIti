@@ -1,4 +1,4 @@
-#include"view_line.h"
+#include"view.h"
 
 /*
 Reference
@@ -25,9 +25,9 @@ int	main(void)
 	t_2d_polygon	s_04 = {.arr = square_04, .is_loop = false, .length = 2};
 	t_2d_polygon	s_05 = {.arr = square_05, .is_loop = false, .length = 2};
 	t_2d_polygon	s_06 = {.arr = square_06, .is_loop = false, .length = 2};
-	t_ink32			ink  = {.color = (255 << 24 | 0 << 16 | 0 << 8 | 255), .thickness = 10, .type = E_CIRCLE};
-	t_ink32			ink2 = {.color = (100 << 24 | 255 << 16 | 255 << 8 | 255), .thickness = 20, .type = E_CIRCLE};
-	t_ink32			ink3 = {.color = (100 << 24 | 155 << 16 | 255 << 8 | 255), .thickness = 40, .type = E_CIRCLE};
+	t_ink32			ink  = {.color = (255 << 24 | 0 << 16 | 0 << 8 | 255), .thickness = 20, .type = E_CIRCLE};
+	t_ink32			ink2 = {.color = (100 << 24 | 255 << 16 | 255 << 8 | 255), .thickness = 20, .type = E_RECTANGLE};
+	t_ink32			ink3 = {.color = (100 << 24 | 155 << 16 | 255 << 8 | 255), .thickness = 10, .type = E_LINE};
 	t_complex		thickline_00[] = {
 		{.re = u_2, .im = 0},
 		{.re = 2 * u_0, .im = 1}
@@ -80,12 +80,12 @@ int	main(void)
 			{.polygon = s_06, .ink = ink2, .tiling = tiling},
 		}
 	};
-	int32_t	background = f_rgba_to_int32(123, 255, 244, 255);
+	int32_t	background = f_rgba_to_int32(123, 155, 244, 255);
 
 	view_islamic_tiling(&mondrian_art, background);
 	return (0);
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view_line/kusama_art.out
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view/kusama_art.out
 */

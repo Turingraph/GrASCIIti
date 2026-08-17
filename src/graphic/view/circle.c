@@ -1,4 +1,4 @@
-#include"view_line.h"
+#include"view.h"
 
 // time : O(n)
 // space: O(1)

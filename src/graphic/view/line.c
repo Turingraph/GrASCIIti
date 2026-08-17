@@ -1,4 +1,4 @@
-#include"view_line.h"
+#include"view.h"
 
 /*
 dx = x2 - x1

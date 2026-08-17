@@ -1,5 +1,5 @@
-#ifndef VIEW_LINE_H
-# define VIEW_LINE_H
+#ifndef VIEW_H
+# define VIEW_H
 
 #include "../../editor/line/line.h"
 #include "MLX42.h"
@@ -45,10 +45,19 @@ void	midpoint_circle_mlx(mlx_image_t *dst,
 void	draw_kusama_tiling_fmlx(mlx_image_t *dst, const t_2d_polygon *polygon,
 			t_ink32 ink, t_2d_int tiling_area);
 
+// color.c
+int32_t	f_rgba_to_int32(unsigned char r,
+			unsigned char g, unsigned char b, unsigned char a);
+void	color_background_mlx(mlx_image_t *dst, int32_t color);
+int32_t	get_table_rgba_int32(const t_table_fdf *src, size_t index);
+
 // line.c
 void	draw_mlx_straight_line(mlx_image_t *dst, t_line line,
 			t_line rectangle_boundary, t_ink32 ink);
 
+// pixel_art.c
+void	draw_pixel_art(mlx_image_t *dst, const t_table_fdf *src);
+	
 // polygon.c
 void	draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
 			t_ink32 ink, t_line rectangle_boundary);
@@ -66,9 +75,7 @@ void	draw_mondrian_tiling_fmlx(mlx_image_t *dst, const t_2d_polygon *polygon,
 			int32_t ink, t_2d_int tiling_area);
 
 // view.c
-int32_t	f_rgba_to_int32(unsigned char r,
-			unsigned char g, unsigned char b, unsigned char a);
-void	color_background_mlx(mlx_image_t *img, int32_t color);
 int		view_islamic_tiling(const t_islamic_arr *src, int32_t background_color);
+int		view_pixel_art(const t_table_fdf *src, int32_t background_color);
 
 #endif

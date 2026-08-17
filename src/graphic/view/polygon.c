@@ -1,4 +1,4 @@
-#include"view_line.h"
+#include"view.h"
 
 // time : O(n)
 // sapce: O(1)

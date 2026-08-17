@@ -1,4 +1,4 @@
-#include"view_line.h"
+#include"view.h"
 
 /*
 Reference
@@ -126,5 +126,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view_line/islamic_art.out
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/view/islamic_art.out
 */

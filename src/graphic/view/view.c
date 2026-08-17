@@ -1,12 +1,4 @@
-#include"view_line.h"
-
-// time : O(1)
-// space: O(1)
-int32_t	f_rgba_to_int32(unsigned char r,
-	unsigned char g, unsigned char b, unsigned char a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
+#include"view.h"
 
 // time : O(n)
 // space: O(1)
@@ -53,21 +45,7 @@ void	view_islamic_tiling_loop(mlx_image_t *dst,
 }
 
 // time : O(n)
-// space: O(1)
-void	color_background_mlx(mlx_image_t *dst, int32_t color)
-{
-	int32_t	i;
-
-	i = 0;
-	while (dst != NULL && i < (int32_t)(dst->width * dst->height))
-	{
-		mlx_put_pixel(dst, i % (int32_t)dst->width, i / (int32_t)dst->width, color);
-		i += 1;
-	}
-}
-
-// time : O(?)
-// space: O(?)
+// space: O(n)
 int	view_islamic_tiling(const t_islamic_arr *src, int32_t background_color)
 {
 	mlx_t		*mlx;
@@ -81,6 +59,35 @@ int	view_islamic_tiling(const t_islamic_arr *src, int32_t background_color)
 			return (-1);
 		color_background_mlx(img, background_color);
 		view_islamic_tiling_loop(img, src);
+		if (-1 == mlx_image_to_window(mlx, img,
+			(1440 - img->width) / 2,
+			(810 - img->height) / 2))
+		{
+			mlx_terminate(mlx);
+			return(-1);
+		}
+		mlx_loop(mlx);
+		mlx_delete_image(mlx, img);
+		mlx_terminate(mlx);
+	}
+	return (1);
+}
+
+// time : O(n)
+// space: O(n)
+int	view_pixel_art(const t_table_fdf *src, int32_t background_color)
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+
+	if (src != NULL && src->row * src->col > 0)
+	{
+		mlx = mlx_init(1440, 810, "Subset at 4:42pm", true);
+		img = handle_mlx_error(mlx);
+		if (img == NULL)
+			return (-1);
+		color_background_mlx(img, background_color);
+		draw_pixel_art(img, src);
 		if (-1 == mlx_image_to_window(mlx, img,
 			(1440 - img->width) / 2,
 			(810 - img->height) / 2))

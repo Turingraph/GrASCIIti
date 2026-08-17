@@ -9,23 +9,20 @@ remove_slash = $(patsubst %/,%,$1)
 .SECONDEXPANSION:
 
 OUT_DIR = out/
-SRC_VIEW_TABLE = $(wildcard graphic/view_table/*.c)
-SRC_VIEW_LINE = $(wildcard graphic/view_line/*.c)
-SRC_VIEW = $(SRC_VIEW_TABLE) $(SRC_VIEW_LINE)
-OUT_VIEW_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_VIEW_TABLE))
-OUT_VIEW_LINE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_VIEW_LINE))
 SRC_TRIANGLES = $(filter-out $(SRC_VIEW), $(wildcard graphic/*/*.c))
 SRC_LINE = $(wildcard editor/line/*.c)
+SRC_VIEW = $(wildcard graphic/view/*.c)
+OUT_VIEW = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_VIEW))
 OUT_USE_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
 SRC_PAINT = $(wildcard editor/paint/*.c)
 OUT_PAINT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_PAINT))
 # https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile
-SRC = $(filter-out $(SRC_PAINT) $(wildcard graphic/*/*.c) $(SRC_LINE), $(wildcard */*/*.c))
+SRC = $(filter-out $(SRC_PAINT) $(SRC_VIEW) $(wildcard graphic/*/*.c) $(SRC_LINE), $(wildcard */*/*.c))
 OUT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC))
 
 #-----------------------------------------------------------------------------------------------
 # *** obj and out ***
-all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_VIEW_TABLE) $(OUT_VIEW_LINE)
+all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_VIEW)
 	@echo $^
 
 $(OUT_PAINT): out/%.out: obj/%.o
@@ -36,15 +33,10 @@ $(OUT_USE_TABLE): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a
 
-$(OUT_VIEW_TABLE): out/%.out: obj/%.o
+$(OUT_VIEW): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
 		../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
-
-$(OUT_VIEW_LINE): out/%.out: obj/%.o
-	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
-		../include/libmlx42.a -ldl -lglfw -pthread -lm
 
 $(OUT): out/%.out: obj/%.o
 	@mkdir -p $(@D)
