@@ -8,11 +8,11 @@ mlx_image_t	*handle_mlx_error(mlx_t *mlx)
 
 	if (mlx == NULL)
 		return (NULL);
-	dst = mlx_new_image(mlx, 1440, 810);
+	dst = mlx_new_image(mlx, 1920, 1080);
 	if (dst == NULL)
 	{
 		mlx_terminate(mlx);
-		return(NULL);
+		return (NULL);
 	}
 	return (dst);
 }
@@ -53,15 +53,15 @@ int	view_islamic_tiling(const t_islamic_arr *src, int32_t background_color)
 
 	if (src != NULL && src->arr != NULL && src->length > 0)
 	{
-		mlx = mlx_init(1440, 810, "Subset at 4:42pm", true);
+		mlx = mlx_init(1920, 1080, "Subset at 4:42pm", true);
 		img = handle_mlx_error(mlx);
 		if (img == NULL)
 			return (-1);
 		color_background_mlx(img, background_color);
 		view_islamic_tiling_loop(img, src);
 		if (-1 == mlx_image_to_window(mlx, img,
-			(1440 - img->width) / 2,
-			(810 - img->height) / 2))
+			(1920 - img->width) / 2,
+			(1080 - img->height) / 2))
 		{
 			mlx_terminate(mlx);
 			return(-1);
@@ -82,15 +82,15 @@ int	view_pixel_art(const t_table_fdf *src, int32_t background_color)
 
 	if (src != NULL && src->row * src->col > 0)
 	{
-		mlx = mlx_init(1440, 810, "Subset at 4:42pm", true);
+		mlx = mlx_init(1920, 1080, "Subset at 4:42pm", true);
 		img = handle_mlx_error(mlx);
 		if (img == NULL)
 			return (-1);
 		color_background_mlx(img, background_color);
 		draw_pixel_art(img, src);
 		if (-1 == mlx_image_to_window(mlx, img,
-			(1440 - img->width) / 2,
-			(810 - img->height) / 2))
+			(1920 - img->width) / 2,
+			(1080 - img->height) / 2))
 		{
 			mlx_terminate(mlx);
 			return(-1);

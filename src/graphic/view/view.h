@@ -39,43 +39,75 @@ struct t_islamic_arr
 	size_t				length;
 };
 
+typedef struct t_2d_camera t_2d_camera;
+
+struct t_2d_camera
+{
+	t_2d_int	offset;
+	t_2d_int	dim;
+	float		zoom;
+};
+
+// camera2d.c
+//
+
+// cells_xy.c
+t_line		get_allcells_horizontal_boundary(size_t max_length,
+				size_t size_length, size_t resolution);
+t_2d_int	get_allcells_horizontal_count(size_t width,
+				size_t height, size_t resolution);
+
+// cells.c
+size_t		get_cell_size(size_t size_length, size_t resolution);
+size_t		get_allcells_count(size_t max_length,
+				size_t size_length, size_t resolution);
+size_t		get_allcells_size(size_t max_length,
+				size_t size_length, size_t resolution);
+size_t		get_allcells_offset(size_t max_length,
+				size_t size_length, size_t resolution);
+
 // circle.c
-void	midpoint_circle_mlx(mlx_image_t *dst,
-			int32_t color, t_circle point, t_boundary boundary);
-void	draw_kusama_tiling_fmlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-			t_ink32 ink, t_2d_int tiling_area);
+void		midpoint_circle_mlx(mlx_image_t *dst,
+				int32_t color, t_circle point, t_boundary boundary);
+void		draw_kusama_tiling_fmlx(mlx_image_t *dst,
+				const t_2d_polygon *polygon,
+				t_ink32 ink, t_2d_int tiling_area);
 
 // color.c
-int32_t	f_rgba_to_int32(unsigned char r,
-			unsigned char g, unsigned char b, unsigned char a);
-void	color_background_mlx(mlx_image_t *dst, int32_t color);
-int32_t	get_table_rgba_int32(const t_table_fdf *src, size_t index);
+int32_t		f_rgba_to_int32(unsigned char r,
+				unsigned char g, unsigned char b, unsigned char a);
+void		color_background_mlx(mlx_image_t *dst, int32_t color);
+int32_t		get_table_rgba_int32(const t_table_fdf *src, size_t index);
 
 // line.c
-void	draw_mlx_straight_line(mlx_image_t *dst, t_line line,
-			t_line rectangle_boundary, t_ink32 ink);
+void		draw_mlx_straight_line(mlx_image_t *dst, t_line line,
+				t_line rectangle_boundary, t_ink32 ink);
 
 // pixel_art.c
-void	draw_pixel_art(mlx_image_t *dst, const t_table_fdf *src);
+void		draw_pixel_art(mlx_image_t *dst, const t_table_fdf *src);
 	
 // polygon.c
-void	draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-			t_ink32 ink, t_line rectangle_boundary);
-void	draw_square_tiling_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-			t_ink32 ink, t_2d_int tiling_area);
-void	draw_kusama_circle_mlx(mlx_image_t *dst, t_circle circle,
-			t_ink32 ink, t_2d_int tiling_area);
+void		draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
+				t_ink32 ink, t_line rectangle_boundary);
+void		draw_square_tiling_mlx(mlx_image_t *dst,
+				const t_2d_polygon *polygon,
+				t_ink32 ink, t_2d_int tiling_area);
+void		draw_kusama_circle_mlx(mlx_image_t *dst, t_circle circle,
+				t_ink32 ink, t_2d_int tiling_area);
 
 // rectangle.c
-void	draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
-			t_line boundary, int32_t ink);
-void	draw_mondrian_tiling_mlx(mlx_image_t *dst, t_line rectangle,
-			int32_t ink, t_2d_int tiling_area);
-void	draw_mondrian_tiling_fmlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-			int32_t ink, t_2d_int tiling_area);
+void		draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
+				t_line boundary, int32_t ink);
+void		draw_mondrian_tiling_mlx(mlx_image_t *dst, t_line rectangle,
+				int32_t ink, t_2d_int tiling_area);
+void		draw_mondrian_tiling_fmlx(mlx_image_t *dst,
+				const t_2d_polygon *polygon,
+				int32_t ink, t_2d_int tiling_area);
 
 // view.c
-int		view_islamic_tiling(const t_islamic_arr *src, int32_t background_color);
-int		view_pixel_art(const t_table_fdf *src, int32_t background_color);
+mlx_image_t	*handle_mlx_error(mlx_t *mlx);
+int			view_islamic_tiling(const t_islamic_arr *src,
+				int32_t background_color);
+int			view_pixel_art(const t_table_fdf *src, int32_t background_color);
 
 #endif
