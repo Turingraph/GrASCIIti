@@ -1,5 +1,5 @@
-#ifndef PAINT_H
-# define PAINT_H
+#ifndef LINE_H
+# define LINE_H
 
 # include "../../utils/math/math.h"
 # include "../../utils/libft/libft.h"

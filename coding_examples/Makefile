@@ -17,7 +17,7 @@ OUT_USE_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
 SRC_PAINT = $(wildcard editor/paint/*.c)
 OUT_PAINT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_PAINT))
 # https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile
-SRC = $(filter-out $(SRC_PAINT) $(SRC_VIEW) $(wildcard graphic/*/*.c) $(SRC_LINE), $(wildcard */*/*.c))
+SRC = $(filter-out $(SRC_PAINT) $(wildcard graphic/*/*.c) $(SRC_LINE), $(wildcard */*/*.c))
 OUT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC))
 
 #-----------------------------------------------------------------------------------------------

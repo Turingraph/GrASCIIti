@@ -1,5 +1,5 @@
-#ifndef GRAPHIC_H
-# define GRAPHIC_H
+#ifndef LINALG_H
+# define LINALG_H
 
 # include "stdlib.h"
 # include "../math/math.h"

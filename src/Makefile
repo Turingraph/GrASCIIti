@@ -12,7 +12,7 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table view_table view\
+LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table view\
 	convolve copy mathart paint line triangle_pair triangle_arr debug debug_triangle)
 
 # *** atom src ***
