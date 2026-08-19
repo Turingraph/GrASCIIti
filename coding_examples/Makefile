@@ -12,7 +12,9 @@ OUT_DIR = out/
 SRC_TRIANGLES = $(filter-out $(SRC_VIEW), $(wildcard graphic/*/*.c))
 SRC_LINE = $(wildcard editor/line/*.c)
 SRC_VIEW = $(wildcard graphic/view/*.c)
+SRC_WINDOW = $(wildcard graphic/window/*.c)
 OUT_VIEW = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_VIEW))
+OUT_WINDOW = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_WINDOW))
 OUT_USE_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
 SRC_PAINT = $(wildcard editor/paint/*.c)
 OUT_PAINT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_PAINT))
@@ -22,7 +24,7 @@ OUT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC))
 
 #-----------------------------------------------------------------------------------------------
 # *** obj and out ***
-all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_VIEW)
+all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_VIEW) $(OUT_WINDOW)
 	@echo $^
 
 $(OUT_PAINT): out/%.out: obj/%.o
@@ -37,6 +39,11 @@ $(OUT_VIEW): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
 		../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
+
+$(OUT_WINDOW): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
+	../include/libmlx42.a -ldl -lglfw -pthread -lm
 
 $(OUT): out/%.out: obj/%.o
 	@mkdir -p $(@D)

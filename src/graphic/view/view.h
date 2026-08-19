@@ -39,33 +39,6 @@ struct t_islamic_arr
 	size_t				length;
 };
 
-typedef struct t_2d_camera t_2d_camera;
-
-struct t_2d_camera
-{
-	t_2d_int	offset;
-	t_2d_int	dim;
-	float		zoom;
-};
-
-// camera2d.c
-//
-
-// cells_xy.c
-t_line		get_allcells_horizontal_boundary(size_t max_length,
-				size_t size_length, size_t resolution);
-t_2d_int	get_allcells_horizontal_count(size_t width,
-				size_t height, size_t resolution);
-
-// cells.c
-size_t		get_cell_size(size_t size_length, size_t resolution);
-size_t		get_allcells_count(size_t max_length,
-				size_t size_length, size_t resolution);
-size_t		get_allcells_size(size_t max_length,
-				size_t size_length, size_t resolution);
-size_t		get_allcells_offset(size_t max_length,
-				size_t size_length, size_t resolution);
-
 // circle.c
 void		midpoint_circle_mlx(mlx_image_t *dst,
 				int32_t color, t_circle point, t_boundary boundary);
