@@ -23,33 +23,20 @@ void	update_camera(mlx_key_data_t keydata, t_2d_camera *camera)
 
 // time : O(n)
 // space: O(1)
-void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw)
+void	picture_at_an_exhibition_horizontal(t_2d_hook *hook,
+	t_line interier_tile)
 {
-	t_line	interier_tile;
-	t_line	line;
 	int		iy;
-	int		ix;
-	int32_t	ink;
+	t_line	line;
 	t_line	all_area;
 
 	if (is_2dhook_valid(hook) == false)
-		return ;
-	interier_tile.p1 = get_first_interier_tile(hook->tiles, *(hook->camera),
-		hook->img->width, hook->img->height);
-	interier_tile.p2 = get_last_interier_tile(hook->tiles, *(hook->camera),
-		hook->img->width, hook->img->height);
-	iy = interier_tile.p1.y;
-	ix = interier_tile.p1.x;
-	if (ix < 0 || iy < 0
-		|| interier_tile.p2.x < 0 || interier_tile.p2.y < 0)
 		return ;
 	all_area = get_all_area(
 		hook->img->height,
 		hook->img->width
 	).sub_area;
-	ink = hook->ink.color;
-	if (is_draw == false)
-		hook->ink.color = hook->background;
+	iy = interier_tile.p1.y;
 	while (iy <= interier_tile.p2.y)
 	{
 		line.p1 = get_ith_tile_screen(hook->tiles,
@@ -59,6 +46,24 @@ void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw)
 		draw_mlx_straight_line(hook->img, line, all_area, hook->ink);
 		iy += 1;
 	}
+}
+
+// time : O(n)
+// space: O(1)
+void	picture_at_an_exhibition_vertical(t_2d_hook *hook,
+	t_line interier_tile)
+{
+	int		ix;
+	t_line	line;
+	t_line	all_area;
+
+	if (is_2dhook_valid(hook) == false)
+		return ;
+	all_area = get_all_area(
+		hook->img->height,
+		hook->img->width
+	).sub_area;
+	ix = interier_tile.p1.x;
 	while (ix <= interier_tile.p2.x)
 	{
 		line.p1 = get_ith_tile_screen(hook->tiles,
@@ -68,6 +73,29 @@ void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw)
 		draw_mlx_straight_line(hook->img, line, all_area, hook->ink);
 		ix += 1;
 	}
+}
+
+// time : O(n)
+// space: O(1)
+void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw)
+{
+	t_line	interier_tile;
+	int32_t	ink;
+
+	if (is_2dhook_valid(hook) == false)
+		return ;
+	interier_tile.p1 = get_first_interier_tile(hook->tiles, *(hook->camera),
+		hook->img->width, hook->img->height);
+	interier_tile.p2 = get_last_interier_tile(hook->tiles, *(hook->camera),
+		hook->img->width, hook->img->height);
+	if (interier_tile.p1.x < 0 || interier_tile.p1.y < 0
+		|| interier_tile.p2.x < 0 || interier_tile.p2.y < 0)
+		return ;
+	ink = hook->ink.color;
+	if (is_draw == false)
+		hook->ink.color = hook->background;
+	picture_at_an_exhibition_horizontal(hook, interier_tile);
+	picture_at_an_exhibition_vertical(hook, interier_tile);
 	hook->ink.color = ink;
 }
 
