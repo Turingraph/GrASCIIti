@@ -13,11 +13,17 @@ int32_t	f_rgba_to_int32(unsigned char r,
 void	color_background_mlx(mlx_image_t *dst, int32_t color)
 {
 	int32_t	i;
+	int32_t	j;
 
 	i = 0;
-	while (dst != NULL && i < (int32_t)(dst->width * dst->height))
+	while (dst != NULL && i < (int32_t)dst->height)
 	{
-		mlx_put_pixel(dst, i % (int32_t)dst->width, i / (int32_t)dst->width, color);
+		j = 0;
+		while (j < (int32_t)dst->width)
+		{
+			mlx_put_pixel(dst, j, i, color);
+			j += 1;
+		}
 		i += 1;
 	}
 }

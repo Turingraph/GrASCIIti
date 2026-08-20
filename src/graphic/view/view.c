@@ -2,13 +2,13 @@
 
 // time : O(n)
 // space: O(1)
-mlx_image_t	*handle_mlx_error(mlx_t *mlx)
+mlx_image_t	*handle_mlx_error(mlx_t *mlx, size_t width, size_t height)
 {
 	mlx_image_t	*dst;
 
-	if (mlx == NULL)
+	if (mlx == NULL || width * height == 0)
 		return (NULL);
-	dst = mlx_new_image(mlx, 1920, 1080);
+	dst = mlx_new_image(mlx, width, height);
 	if (dst == NULL)
 	{
 		mlx_terminate(mlx);
@@ -54,7 +54,7 @@ int	view_islamic_tiling(const t_islamic_arr *src, int32_t background_color)
 	if (src != NULL && src->arr != NULL && src->length > 0)
 	{
 		mlx = mlx_init(1920, 1080, "Subset at 4:42pm", true);
-		img = handle_mlx_error(mlx);
+		img = handle_mlx_error(mlx, 1920, 1080);
 		if (img == NULL)
 			return (-1);
 		color_background_mlx(img, background_color);
@@ -83,7 +83,7 @@ int	view_pixel_art(const t_table_fdf *src, int32_t background_color)
 	if (src != NULL && src->row * src->col > 0)
 	{
 		mlx = mlx_init(1920, 1080, "Subset at 4:42pm", true);
-		img = handle_mlx_error(mlx);
+		img = handle_mlx_error(mlx, 1920, 1080);
 		if (img == NULL)
 			return (-1);
 		color_background_mlx(img, background_color);

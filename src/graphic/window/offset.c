@@ -1,57 +1,31 @@
 #include"window.h"
 
-// note that resolution <= 10, for "standard window"
 // time : O(1)
 // space: O(1)
 t_line	init_offset_tile_area(size_t width, size_t height,
-	size_t resolution, size_t max_length)
+	size_t resolution, size_t fixed_length)
 {
-	t_line	dst;
+	t_line	output;
 
-	dst.p1.x = init_alltiles_offset(max_length,
-			width, resolution);
-	dst.p1.y = init_alltiles_offset(max_length,
-			height, resolution);
-	dst.p2.x = dst.p1.x + init_alltiles_size(max_length,
-			width, resolution);
-	dst.p2.y = dst.p1.y + init_alltiles_size(max_length,
-			height, resolution);
-	return (dst);
+	output.p1.x = init_alltiles_offset(width, resolution, fixed_length);
+	output.p1.y = init_alltiles_offset(height, resolution, fixed_length);
+	output.p2.x = output.p1.x + init_alltiles_size(width, resolution, fixed_length);
+	output.p2.y = output.p1.y + init_alltiles_size(height, resolution, fixed_length);
+	return (output);
 }
 
-// note that resolution <= 10, for "standard window"
 // time : O(1)
 // space: O(1)
-t_2d_int	init_offset_tiles_count(size_t width, size_t height,
-	size_t resolution, size_t max_length)
+t_tile_format	init_tile_format(size_t width,
+	size_t height, size_t resolution)
 {
-	t_2d_int	dst;
+	t_tile_format	dst;
+	size_t			fixed_side;
 
-	dst.x = init_alltiles_count(max_length,
-			width, resolution);
-	dst.y = init_alltiles_count(max_length,
-			height, resolution);
-	return (dst);
-}
-
-// note that resolution <= 10, for "standard window"
-// time : O(1)
-// space: O(1)
-t_offset_tile	init_offset_tile(size_t width, size_t height,
-	size_t resolution)
-{
-	size_t			max_length;
-	t_offset_tile	dst;
-
-	max_length = width;
-	if (width < height)
-		max_length = height;
-	dst.tile_counts = init_offset_tiles_count(width, height,
-			resolution, max_length);
-	dst.offset = init_offset_tile_area(width, height,
-			resolution, max_length);
-	dst.tile_size = init_tile_size(height, resolution);
-	if (width < height)
-		dst.tile_size = init_tile_size(width, resolution);
+	fixed_side = (size_t)f_min((float)width, (float)height);
+	dst.offset = init_offset_tile_area(width, height, resolution, fixed_side);
+	dst.tile_size = init_tile_size(fixed_side, resolution);
+	dst.tile_counts.x = init_alltiles_count(width, resolution, fixed_side);
+	dst.tile_counts.y = init_alltiles_count(height, resolution, fixed_side);
 	return (dst);
 }

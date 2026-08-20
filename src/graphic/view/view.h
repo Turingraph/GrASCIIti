@@ -78,7 +78,7 @@ void		draw_mondrian_tiling_fmlx(mlx_image_t *dst,
 				int32_t ink, t_2d_int tiling_area);
 
 // view.c
-mlx_image_t	*handle_mlx_error(mlx_t *mlx);
+mlx_image_t	*handle_mlx_error(mlx_t *mlx, size_t width, size_t height);
 int			view_islamic_tiling(const t_islamic_arr *src,
 				int32_t background_color);
 int			view_pixel_art(const t_table_fdf *src, int32_t background_color);

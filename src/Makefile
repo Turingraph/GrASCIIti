@@ -56,7 +56,7 @@ OBJ_convolve = $(patsubst %.c, obj/%.o, $(SRC_convolve)) $(OBJ_table) $(OBJ_lina
 OBJ_copy = $(patsubst %.c, obj/%.o, $(SRC_copy))
 OBJ_mathart = $(patsubst %.c, obj/%.o, $(SRC_mathart)) $(OBJ_table)
 OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_table)
-OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math)
+OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math) $(OBJ_libft)
 
 OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
 OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
