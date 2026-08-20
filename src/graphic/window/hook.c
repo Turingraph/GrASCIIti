@@ -79,15 +79,18 @@ void	picture_at_an_exhibition_vertical(t_2d_hook *hook,
 // space: O(1)
 void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw)
 {
-	t_line	interier_tile;
-	int32_t	ink;
+	t_line		interier_tile;
+	int32_t		ink;
+	t_2d_int	window_size;
 
 	if (is_2dhook_valid(hook) == false)
 		return ;
+	window_size.x = hook->img->width;
+	window_size.y = hook->img->height;
 	interier_tile.p1 = get_first_interier_tile(hook->tiles, *(hook->camera),
-		hook->img->width, hook->img->height);
+		window_size);
 	interier_tile.p2 = get_last_interier_tile(hook->tiles, *(hook->camera),
-		hook->img->width, hook->img->height);
+		window_size);
 	if (interier_tile.p1.x < 0 || interier_tile.p1.y < 0
 		|| interier_tile.p2.x < 0 || interier_tile.p2.y < 0)
 		return ;

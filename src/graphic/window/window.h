@@ -54,14 +54,6 @@ struct t_hook
 };
 */
 
-// get_interier_tiles.c
-t_2d_int		get_interier_tiles_p1(t_tile_format tiles,
-					t_2d_camera camera, size_t window_width,
-					size_t window_height);
-t_2d_int		get_interier_tiles_p2(t_tile_format tiles,
-					t_2d_camera camera, size_t window_width,
-					size_t window_height);
-
 // hook.c
 void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw);
 void 			hook_pan_and_zoom(mlx_key_data_t keydata,
@@ -73,9 +65,9 @@ t_fline	init_offset_tile_area(size_t width, size_t height,
 t_tile_format	init_tile_format(size_t width,
 	size_t height, size_t resolution);
 t_2d_int	get_first_interier_tile(t_tile_format tiles,
-	t_2d_camera camera, size_t window_width, size_t window_height);
+	t_2d_camera camera, t_2d_int window_size);
 t_2d_int	get_last_interier_tile(t_tile_format tiles,
-	t_2d_camera camera, size_t window_width, size_t window_height);
+	t_2d_camera camera, t_2d_int window_size);
 t_2d_int	get_ith_tile_screen(t_tile_format tiles,
 	t_2d_camera camera, int ix, int iy);
 

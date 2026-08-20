@@ -33,7 +33,7 @@ t_tile_format	init_tile_format(size_t width,
 // time : O(1)
 // space: O(1)
 t_2d_int	get_first_interier_tile(t_tile_format tiles,
-	t_2d_camera camera, size_t window_width, size_t window_height)
+	t_2d_camera camera, t_2d_int window_size)
 {
 	t_2d_int	screen_xy;
 	t_2d_int	output;
@@ -43,11 +43,11 @@ t_2d_int	get_first_interier_tile(t_tile_format tiles,
 	screen_xy = world_to_screen_2d(camera, tiles.offset.p1);
 	if (screen_xy.x < 0 && tiles.tile_size > 0.2)
 		output.x = (int)f_abs(f_floor(screen_xy.x / tiles.tile_size));
-	else if ((size_t)screen_xy.x > window_width)
+	else if (screen_xy.x > window_size.x)
 		output.x = -1;
 	if (screen_xy.y < 0 && tiles.tile_size > 0.2)
 		output.y = (int)f_abs(f_floor(screen_xy.y / tiles.tile_size));
-	else if ((size_t)screen_xy.y > window_height)
+	else if (screen_xy.y > window_size.y)
 		output.y = -1;
 	return (output);
 }
@@ -55,7 +55,7 @@ t_2d_int	get_first_interier_tile(t_tile_format tiles,
 // time : O(1)
 // space: O(1)
 t_2d_int	get_last_interier_tile(t_tile_format tiles,
-	t_2d_camera camera, size_t window_width, size_t window_height)
+	t_2d_camera camera, t_2d_int window_size)
 {
 	t_2d_int	screen_xy;
 	t_2d_int	output;
@@ -66,12 +66,12 @@ t_2d_int	get_last_interier_tile(t_tile_format tiles,
 	screen_xy.y += tiles.tile_counts.y * tiles.tile_size;
 	if (screen_xy.x < 0)
 		output.x = -1;
-	else if ((size_t)screen_xy.x < window_width)
-		output.x = (window_width - tiles.offset.p1.re) / tiles.tile_size;
+	else if (screen_xy.x < window_size.x)
+		output.x = (window_size.x - tiles.offset.p1.re) / tiles.tile_size;
 	if (screen_xy.y < 0)
 		output.y = -1;
-	else if ((size_t)screen_xy.y < window_height)
-		output.y = (window_height - tiles.offset.p1.im) / tiles.tile_size;
+	else if (screen_xy.y < window_size.y)
+		output.y = (window_size.y - tiles.offset.p1.im) / tiles.tile_size;
 	return (output);
 }
 
