@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-bool	is_2dhook_valid(const t_hook2d *src)
+bool	is_2dhook_valid(const t_2d_hook *src)
 {
 	if (src != NULL && src->mlx != NULL && src->img != NULL
 		&& src->img->width * src->img->height > 0
