@@ -25,6 +25,7 @@ typedef struct t_2d_camera t_2d_camera;
 struct t_2d_camera
 {
 	t_2d_int	offset;
+	t_2d_int	window_size;
 	float		zoom;
 };
 
@@ -65,9 +66,9 @@ t_fline	init_offset_tile_area(size_t width, size_t height,
 t_tile_format	init_tile_format(size_t width,
 	size_t height, size_t resolution);
 t_2d_int	get_first_interier_tile(t_tile_format tiles,
-	t_2d_camera camera, t_2d_int window_size);
+	t_2d_camera camera);
 t_2d_int	get_last_interier_tile(t_tile_format tiles,
-	t_2d_camera camera, t_2d_int window_size);
+	t_2d_camera camera);
 t_2d_int	get_ith_tile_screen(t_tile_format tiles,
 	t_2d_camera camera, int ix, int iy);
 
@@ -89,6 +90,8 @@ void			write_line(t_line src);
 int	view_rectangle(size_t resolution, t_ink32 ink, int32_t background);
 
 // zoom.c
+int	world_to_screen_xy(int offset, float world,
+	size_t screen_size, float zoom);
 t_2d_int	world_to_screen_2d(t_2d_camera camera, t_complex world);
 t_complex	screen_to_world_2d(t_2d_camera camera, t_2d_int screen);
 

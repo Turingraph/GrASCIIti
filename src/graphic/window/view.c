@@ -10,7 +10,8 @@ int	view_rectangle(size_t resolution, t_ink32 ink, int32_t background)
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_2d_hook	hook;
-	t_2d_camera	camera = {.offset = {.x = 0, .y = 0}, .zoom = 1.0};
+	t_2d_camera	camera = {.offset = {.x = 0, .y = 0},
+			.zoom = 1.0, .window_size = {.x = 1440, .y = 810}};
 
 	tiles = init_tile_format(1440, 810, (size_t)f_interval(resolution, 0, 10));
 	mlx = mlx_init(1440, 810, "Subset at 4:42pm", true);
