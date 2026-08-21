@@ -59,9 +59,7 @@ t_2d_int	get_last_interier_tile(t_tile_format tiles,
 {
 	t_2d_int	screen_xy;
 	t_2d_int	output;
-	t_2d_int	tile_screen_offset;
 
-	tile_screen_offset = world_to_screen_2d(camera, tiles.offset.p1);
 	output = tiles.tile_counts;
 	screen_xy.x = world_to_screen_xy(camera.offset.x,
 			tiles.tile_counts.x * tiles.tile_size + tiles.offset.p1.re);

@@ -38,3 +38,17 @@ void	write_line(t_line src)
 	ft_putnbr_fd(src.p2.y, 1, "0123456789", 1);
 	write(1, "\n", 1);
 }
+
+// time : O(1)
+// space: O(1)
+t_2d_camera	init_2d_camera(size_t width, size_t height)
+{
+	t_2d_camera	camera;
+
+	camera.offset.x = 0;
+	camera.offset.y = 0;
+	camera.zoom = 1.0;
+	camera.window_size.x = width;
+	camera.window_size.y = height;
+	return (camera);
+}

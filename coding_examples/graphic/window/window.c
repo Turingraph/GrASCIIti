@@ -14,9 +14,7 @@ int	main(void)
 
 int	main(void)
 {
-	t_ink32	ink = {.color = f_rgba_to_int32(155, 15, 100, 255), .thickness = 5, .type = E_LINE};
-
-	view_rectangle(3, ink, f_rgba_to_int32(123, 155, 244, 255));
+	view_rectangle(3, f_rgba_to_int32(123, 155, 244, 255));
 	return (0);
 }
 

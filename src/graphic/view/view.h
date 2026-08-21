@@ -22,23 +22,6 @@ struct t_ink32
 	e_2d_shape	type;
 };
 
-typedef struct t_islamic_art t_islamic_art;
-
-struct t_islamic_art
-{
-	t_2d_polygon	polygon;
-	t_ink32			ink;
-	t_2d_int		tiling;
-};
-
-typedef struct t_islamic_arr t_islamic_arr;
-
-struct t_islamic_arr
-{
-	const t_islamic_art	*arr;
-	size_t				length;
-};
-
 // circle.c
 void		midpoint_circle_mlx(mlx_image_t *dst,
 				int32_t color, t_circle point, t_boundary boundary);
@@ -76,11 +59,5 @@ void		draw_mondrian_tiling_mlx(mlx_image_t *dst, t_line rectangle,
 void		draw_mondrian_tiling_fmlx(mlx_image_t *dst,
 				const t_2d_polygon *polygon,
 				int32_t ink, t_2d_int tiling_area);
-
-// view.c
-mlx_image_t	*handle_mlx_error(mlx_t *mlx, size_t width, size_t height);
-int			view_islamic_tiling(const t_islamic_arr *src,
-				int32_t background_color);
-int			view_pixel_art(const t_table_fdf *src, int32_t background_color);
 
 #endif

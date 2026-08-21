@@ -1,21 +1,6 @@
 #include"view.h"
 
-// time : O(n)
-// space: O(1)
-mlx_image_t	*handle_mlx_error(mlx_t *mlx, size_t width, size_t height)
-{
-	mlx_image_t	*dst;
 
-	if (mlx == NULL || width * height == 0)
-		return (NULL);
-	dst = mlx_new_image(mlx, width, height);
-	if (dst == NULL)
-	{
-		mlx_terminate(mlx);
-		return (NULL);
-	}
-	return (dst);
-}
 
 // time : O(n)
 // space: O(1)
