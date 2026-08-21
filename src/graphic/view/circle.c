@@ -128,8 +128,8 @@ void	midpoint_circle_mlx(mlx_image_t *dst,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_kusama_tiling_fmlx_unit(mlx_image_t *dst, const t_2d_polygon *polygon,
-	t_ink32 ink, t_line boundary)
+void	draw_kusama_tiling_mlx_unit(mlx_image_t *dst,
+	const t_2d_polygon *polygon, t_ink32 ink, t_line boundary)
 {
 	size_t		i;
 	t_line		line;
@@ -153,8 +153,8 @@ void	draw_kusama_tiling_fmlx_unit(mlx_image_t *dst, const t_2d_polygon *polygon,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_kusama_tiling_fmlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-	t_ink32 ink, t_2d_int tiling_area)
+void	draw_kusama_tiling_mlx(mlx_image_t *dst,
+	const t_2d_polygon *polygon, t_ink32 ink, t_2d_int tiling_area)
 {
 	size_t	i;
 	size_t	j;

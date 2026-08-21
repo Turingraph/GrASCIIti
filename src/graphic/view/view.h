@@ -25,7 +25,7 @@ struct t_ink32
 // circle.c
 void		midpoint_circle_mlx(mlx_image_t *dst,
 				int32_t color, t_circle point, t_boundary boundary);
-void		draw_kusama_tiling_fmlx(mlx_image_t *dst,
+void		draw_kusama_tiling_mlx(mlx_image_t *dst,
 				const t_2d_polygon *polygon,
 				t_ink32 ink, t_2d_int tiling_area);
 
@@ -41,22 +41,18 @@ void		draw_mlx_straight_line(mlx_image_t *dst, t_line line,
 
 // pixel_art.c
 void		draw_pixel_art(mlx_image_t *dst, const t_table_fdf *src);
-	
+
 // polygon.c
 void		draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
 				t_ink32 ink, t_line rectangle_boundary);
-void		draw_square_tiling_mlx(mlx_image_t *dst,
+void		draw_islamic_tiling_mlx(mlx_image_t *dst,
 				const t_2d_polygon *polygon,
-				t_ink32 ink, t_2d_int tiling_area);
-void		draw_kusama_circle_mlx(mlx_image_t *dst, t_circle circle,
 				t_ink32 ink, t_2d_int tiling_area);
 
 // rectangle.c
 void		draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
 				t_line boundary, int32_t ink);
-void		draw_mondrian_tiling_mlx(mlx_image_t *dst, t_line rectangle,
-				int32_t ink, t_2d_int tiling_area);
-void		draw_mondrian_tiling_fmlx(mlx_image_t *dst,
+void		draw_mondrian_tiling_mlx(mlx_image_t *dst,
 				const t_2d_polygon *polygon,
 				int32_t ink, t_2d_int tiling_area);
 

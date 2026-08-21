@@ -5,6 +5,11 @@
 # include "../../utils/libft/libft.h"
 # include<unistd.h>
 
+/*
+It is recommended to refactor editor/line the same way
+the graphic/raster/ later.
+*/
+
 typedef struct t_ink t_ink;
 
 struct t_ink
