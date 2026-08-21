@@ -13,7 +13,7 @@ BUFFER_SIZE = 42
 
 # *** library ***
 LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table view window\
-	convolve copy mathart paint line triangle_pair triangle_arr debug debug_triangle)
+	convolve mathart paint line triangle_pair triangle_arr debug debug_triangle)
 
 # *** atom src ***
 SRC_libft = $(wildcard utils/libft/*.c)
@@ -28,7 +28,6 @@ SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
 
 SRC_convolve = $(wildcard editor/convolve/*.c)
-SRC_copy = $(wildcard editor/copy/*.c)
 SRC_mathart = $(wildcard editor/mathart/*/*.c)
 SRC_paint = $(wildcard editor/paint/*.c)
 SRC_line = $(wildcard editor/line/*.c)
@@ -53,7 +52,6 @@ OBJ_load = $(patsubst %.c, obj/%.o, $(SRC_load)) $(OBJ_libft) $(OBJ_get_next_lin
 OBJ_table = $(patsubst %.c, obj/%.o, $(SRC_table)) $(OBJ_load) $(OBJ_math)
 
 OBJ_convolve = $(patsubst %.c, obj/%.o, $(SRC_convolve)) $(OBJ_table) $(OBJ_linalg)
-OBJ_copy = $(patsubst %.c, obj/%.o, $(SRC_copy))
 OBJ_mathart = $(patsubst %.c, obj/%.o, $(SRC_mathart)) $(OBJ_table)
 OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_table)
 OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math) $(OBJ_libft)
