@@ -1,3 +1,4 @@
+
 #-----------------------------------------------------------------------------------------------
 # *** command ***
 
@@ -59,7 +60,7 @@ OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math) $(OBJ_libft)
 OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
 OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
 OBJ_view = $(patsubst %.c, obj/%.o, $(SRC_view)) $(OBJ_line)
-OBJ_window = $(patsubst %.c, obj/%.o, $(SRC_window)) $(OBJ_view)
+OBJ_window = $(patsubst %.c, obj/%.o, $(SRC_window)) $(OBJ_view) $(OBJ_triangle_arr)
 
 # https://stackoverflow.com/questions/59465799/avoid-gnu-make-automatic-file-deletion
 # This command will preserve the selected files.

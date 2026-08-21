@@ -2,6 +2,7 @@
 # define WINDOW_H
 
 #include"../view/view.h"
+#include"../triangle_arr/triangle_arr.h"
 
 typedef struct t_fline t_fline;
 
@@ -50,8 +51,10 @@ typedef struct t_master_piece t_master_piece;
 struct t_master_piece
 {
 	int32_t			background;
+	size_t			thickness;
+	e_2d_shape		artstyle;
 	t_motif_arr		*motif;
-	t_triangle_arr	*still_life;
+	t_prism			*still_life;
 	t_tile_format	tiles;
 };
 
@@ -65,10 +68,24 @@ struct t_2d_hook
 	t_master_piece	master_piece;
 };
 
+typedef enum e_drawing_target e_drawing_target;
+
+enum e_drawing_target
+{
+	E_MINIMALISM,
+	E_MOTIF,
+	E_STILL_LIFE
+};
+
 // hook.c
-void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw);
-void 			hook_pan_and_zoom(mlx_key_data_t keydata,
-					void *param);
+void 			hook_pan_motif(mlx_key_data_t keydata,
+	void *param);
+
+// motif.c
+void	draw_motif_mlx(t_2d_hook *hook, bool is_draw);
+
+// still_life.c
+void	draw_still_life(t_2d_hook *hook, bool is_draw, bool no_face);
 
 // tile_format.c
 t_fline	init_offset_tile_area(size_t width, size_t height,
@@ -92,14 +109,16 @@ int	init_alltiles_offset(size_t side_length,
 	size_t resolution, size_t fixed_length);
 
 // utils.c
-bool			is_2dhook_valid(const t_2d_hook *src);
+bool			is_2dhook_valid(const t_2d_hook *src,
+					e_drawing_target drawing_target);
 bool			is_valid_key(mlx_key_data_t keydata);
 void			write_line(t_line src);
 t_2d_camera		init_2d_camera(size_t width, size_t height);
-t_line	connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
+t_line		connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
 
 // view
-int	view_master_piece(t_motif_arr *src, size_t resolution, int32_t background);
+void	view_master_piece(t_motif_arr *motif, size_t resolution, int32_t background);
+void	view_calligraphy(t_prism *src, int32_t background);
 
 // zoom.c
 int	world_to_screen_xy(int offset, float world);

@@ -7,7 +7,7 @@
 
 /*
 It is recommended to refactor editor/line the same way
-the graphic/raster/ later.
+the graphic/raster/
 */
 
 typedef struct t_ink t_ink;

@@ -2,10 +2,28 @@
 
 // time : O(1)
 // space: O(1)
-bool	is_2dhook_valid(const t_2d_hook *src)
+bool	is_2dhook_valid(const t_2d_hook *src,
+	e_drawing_target drawing_target)
 {
+	bool	aphantasia;
+
+	aphantasia = true;
+	if (drawing_target == E_MINIMALISM)
+		aphantasia = false;
+	if (drawing_target == E_MOTIF
+		&& src != NULL && src->master_piece.motif != NULL
+		&& src->master_piece.motif->length > 0
+		&& src->master_piece.motif->arr != NULL)
+		aphantasia = false;
+	if (drawing_target == E_STILL_LIFE
+		&& src != NULL && src->master_piece.still_life != NULL
+		&& (is_triangle_arr_valid(&(src->master_piece.still_life->faces)) == true
+			|| is_triangle_arr_valid(
+				&(src->master_piece.still_life->edges)) == true))
+		aphantasia = false;
 	if (src != NULL && src->mlx != NULL && src->img != NULL
 		&& src->img->width * src->img->height > 0
+		&& aphantasia == false
 		&& src->camera != NULL)
 		return (true);
 	return (false);

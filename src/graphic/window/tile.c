@@ -33,8 +33,10 @@ P.S. I very rarely confused by my own synesthesia like this,
 but this is one very rare exception.
 */
 
-// f(1080, 5, 1080) = init_tile_size(1080, 5) * init_tile_count(1080, 5, 1080) = 1056
-// f(1920, 5, 1080) = init_tile_size(1080, 5) * init_tile_count(1920, 5, 1080) = 58 * 33 = 1914
+// f(1080, 5, 1080) = init_tile_size(1080, 5) * init_tile_count(1080, 5, 1080)
+//			= 1056
+// f(1920, 5, 1080) = init_tile_size(1080, 5) * init_tile_count(1920, 5, 1080)
+//			= 58 * 33 = 1914
 // time : O(1)
 // space: O(1)
 size_t	init_alltiles_size(size_t side_length,
@@ -43,7 +45,7 @@ size_t	init_alltiles_size(size_t side_length,
 	size_t	output;
 
 	output = init_alltiles_count(side_length,
-		resolution, fixed_length);
+			resolution, fixed_length);
 	return (output * init_tile_size(fixed_length, resolution));
 }
 

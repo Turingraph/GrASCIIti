@@ -98,7 +98,9 @@ double	f_exp(double x)
 
 /*
 You can use Laylor series to approximate Trigonometry function.
-https://blog.devgenius.io/the-magic-behind-trigonometric-functions-using-taylor-series-in-programming-f4cae34d3729
+https://blog.devgenius.io/
+the-magic-behind-trigonometric-functions-using-
+taylor-series-in-programming-f4cae34d3729
 */
 
 // time : O(n)

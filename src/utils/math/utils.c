@@ -20,6 +20,19 @@ double	f_abs(double x)
 	return (x);
 }
 
+// time : O(1)
+// space: O(1)
+float	f_max3(float a, float b, float c)
+{
+	if (a >= b && a >= c)
+		return (a);
+	if (b >= a && b >= c)
+		return (b);
+	if (c >= a && c >= b)
+		return (c);
+	return (b);
+}
+
 // time : O(???) but might be O(log(n)), this is an open problem!
 // space: O(1)
 size_t	collatz_max_point(size_t x)

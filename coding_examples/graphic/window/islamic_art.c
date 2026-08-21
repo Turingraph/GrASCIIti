@@ -49,7 +49,6 @@ int	main(void)
 		{.re = 1 - 2 * u_0, .im = 1 - 0},
 		{.re = 1 - 0, .im = 1 - 0}
 	};
-
 	t_ink32			ink = {
 		.color = (170 << 24 | 28 << 16 | 65 << 8 | 255),
 		.thickness = 30, .type = E_LINE};
@@ -124,7 +123,7 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/window/window.out
+valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/window/islamic_art.out
 
 	view_master_piece(NULL, 3, f_rgba_to_int32(123, 155, 244, 255));
 ==598474== 

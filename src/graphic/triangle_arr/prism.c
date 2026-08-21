@@ -31,11 +31,6 @@ t_prism	init_prism(void)
 {
 	t_prism	dst;
 
-	dst.edge_rgba.r = 0;
-	dst.edge_rgba.g = 0;
-	dst.edge_rgba.b = 0;
-	dst.edge_rgba.a = 0;
-	dst.face_rgba = dst.edge_rgba;
 	dst.faces = init_triangle_arr(0, 0, 0);
 	dst.edges = init_triangle_arr(0, 0, 0);
 	return (dst);

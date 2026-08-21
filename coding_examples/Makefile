@@ -6,8 +6,6 @@ remove_slash = $(patsubst %/,%,$1)
 # get_obj_files = $(filter %.o, $1)
 # get_lib_a_files = $(filter %.a, $^)
 
-.SECONDEXPANSION:
-
 OUT_DIR = out/
 SRC_WINDOW = $(wildcard graphic/window/*.c)
 SRC_TRIANGLES = $(filter-out $(SRC_WINDOW), $(wildcard graphic/*/*.c))
@@ -36,7 +34,7 @@ $(OUT_USE_TABLE): out/%.out: obj/%.o
 $(OUT_WINDOW): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
-	../include/libmlx42.a -ldl -lglfw -pthread -lm
+	../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
 
 $(OUT): out/%.out: obj/%.o
 	@mkdir -p $(@D)

@@ -38,5 +38,6 @@ float	f_sum(const float *vec_v, size_t dim);
 size_t	collatz_max_point(size_t x);
 size_t	binary_search_count(size_t min_input, size_t max_input);
 double	f_abs(double x);
+float	f_max3(float a, float b, float c);
 
 #endif

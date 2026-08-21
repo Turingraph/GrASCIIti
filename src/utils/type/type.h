@@ -90,6 +90,7 @@ struct t_table_fdf
 };
 
 // editor/paint/
+
 typedef struct t_rgba t_rgba;
 
 struct t_rgba
@@ -115,6 +116,17 @@ struct t_triangle
 	unsigned char	a;
 };
 
+// graphic/window/
+
+typedef enum e_2d_shape e_2d_shape;
+
+enum e_2d_shape
+{
+	E_RECTANGLE,
+	E_CIRCLE,
+	E_LINE
+};
+
 // graphic/triangle_arr/
 
 typedef struct t_triangle_arr t_triangle_arr;
@@ -132,17 +144,17 @@ struct t_triangle_arr
 };
 
 // graphic/prism/
+
 typedef struct t_prism t_prism;
 
 struct t_prism
 {
 	t_triangle_arr	faces;
 	t_triangle_arr	edges;
-	t_rgba			face_rgba;
-	t_rgba			edge_rgba;
 };
 
 // utils/math/
+
 typedef struct t_complex t_complex;
 
 struct t_complex

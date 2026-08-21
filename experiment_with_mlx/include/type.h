@@ -138,8 +138,6 @@ struct t_prism
 {
 	t_triangle_arr	faces;
 	t_triangle_arr	edges;
-	t_rgba			face_rgba;
-	t_rgba			edge_rgba;
 };
 
 // utils/math/

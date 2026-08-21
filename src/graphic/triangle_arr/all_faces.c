@@ -119,3 +119,13 @@ t_triangle_arr	all_triangle_edge_lr(const t_table_fdf *src, e_edge mode)
 	return (dst);
 }
 
+// time : O(1)
+// space: O(1)
+bool	is_triangle_arr_valid(t_triangle_arr *src)
+{
+	if (src == NULL || src->arr == NULL || src->length == 0
+		|| src->table_col * src->table_row == 0
+		|| src->width_x < 0 || src->width_y < 0 || src->width_z < 0)
+		return (false);
+	return (true);
+}

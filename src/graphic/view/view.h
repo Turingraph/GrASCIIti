@@ -4,15 +4,6 @@
 #include "../../editor/line/line.h"
 #include "MLX42.h"
 
-typedef enum e_2d_shape e_2d_shape;
-
-enum e_2d_shape
-{
-	E_RECTANGLE,
-	E_CIRCLE,
-	E_LINE
-};
-
 typedef struct t_ink32 t_ink32;
 
 struct t_ink32
