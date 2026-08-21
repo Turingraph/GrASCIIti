@@ -15,10 +15,6 @@ void	update_camera(mlx_key_data_t keydata, t_2d_camera *camera)
 		camera->offset.x -= 5;
 	if (keydata.key == MLX_KEY_RIGHT)
 		camera->offset.x += 5;
-	if (keydata.key == MLX_KEY_1 && camera->zoom * 1.01 < 3.0)
-		camera->zoom *= 1.01;
-	if (keydata.key == MLX_KEY_2 && camera->zoom / 1.01 > 0.2)
-		camera->zoom /= 1.01;
 }
 
 // time : O(n)
@@ -118,7 +114,6 @@ void hook_pan_and_zoom(mlx_key_data_t keydata, void *param)
 		before = after;
 		picture_at_an_exhibition(hook, false);
 		update_camera(keydata, hook->camera);
-		// hook->tiles.tile_size *= hook->camera->zoom;
 		picture_at_an_exhibition(hook, true);
 	}
 }

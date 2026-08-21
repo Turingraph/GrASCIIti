@@ -36,6 +36,8 @@ Let's calculate A
 *	1 / z (A' - C) = A - 1 / 2 O_d
 *	A = 1 / z (A' - C) + 1 / 2 O_d
 
+Sadly that I cannot finish the reliable zoom feature on time today, right now.
+
 1.	Pan and Zoom by javidx9
 *	https://youtu.be/ZQ8qtAizis4?si=mscCRKnmR9QVH6cy
 2.	Pan and Zoom in Desmos
@@ -44,31 +46,24 @@ Let's calculate A
 
 // time : O(1)
 // space: O(1)
-int	world_to_screen_xy(int offset, float world,
-	size_t screen_size, float zoom)
+int	world_to_screen_xy(int offset, float world)
 {
-	int	center;
-	int	screen;
-
-	center = offset + screen_size / 2;
-	screen = (int)(zoom * world);
-	screen += -1 * (int)(zoom * (float)screen_size / 2.0);
-	return (screen + center);
+	return ((int)world + offset);
 }
 
 // time : O(1)
 // space: O(1)
-t_2d_int	world_to_screen_2d(t_2d_camera camera,
-	t_complex world)
+t_2d_int	world_to_screen_2d(t_2d_camera camera, t_complex world)
 {
 	t_2d_int	dst;
 
-	dst.x = world_to_screen_xy(camera.offset.x,
-			world.re, camera.window_size.x, camera.zoom);
-	dst.y = world_to_screen_xy(camera.offset.y,
-			world.im, camera.window_size.y, camera.zoom);
+	dst.x = world_to_screen_xy(camera.offset.x, world.re);
+	dst.y = world_to_screen_xy(camera.offset.y, world.im);
 	return (dst);
 }
+
+/*
+
 
 // time : O(1)
 // space: O(1)
@@ -100,3 +95,4 @@ t_complex	screen_to_world_2d(t_2d_camera camera,
 			screen.y, camera.window_size.y, camera.zoom);
 	return (dst);
 }
+*/

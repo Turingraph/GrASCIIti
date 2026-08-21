@@ -16,8 +16,6 @@ bool	is_2dhook_valid(const t_2d_hook *src)
 bool	is_valid_key(mlx_key_data_t keydata)
 {
 	if (keydata.key == MLX_KEY_ESCAPE
-		|| keydata.key == MLX_KEY_1
-		|| keydata.key == MLX_KEY_2
 		|| keydata.key == MLX_KEY_UP
 		|| keydata.key == MLX_KEY_DOWN
 		|| keydata.key == MLX_KEY_LEFT

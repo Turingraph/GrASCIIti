@@ -90,9 +90,7 @@ void			write_line(t_line src);
 int	view_rectangle(size_t resolution, t_ink32 ink, int32_t background);
 
 // zoom.c
-int	world_to_screen_xy(int offset, float world,
-	size_t screen_size, float zoom);
+int	world_to_screen_xy(int offset, float world);
 t_2d_int	world_to_screen_2d(t_2d_camera camera, t_complex world);
-t_complex	screen_to_world_2d(t_2d_camera camera, t_2d_int screen);
 
 #endif
