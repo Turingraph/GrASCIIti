@@ -140,5 +140,14 @@ valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/w
 
 
 	view_master_piece(islamic_art, 3, f_rgba_to_int32(123, 155, 244, 255));
-
+==611040== 
+==611040== LEAK SUMMARY:
+==611040==    definitely lost: 0 bytes in 1 blocks
+==611040==    indirectly lost: 0 bytes in 0 blocks
+==611040==      possibly lost: 0 bytes in 0 blocks
+==611040==    still reachable: 317,899 bytes in 3,104 blocks
+==611040==         suppressed: 56 bytes in 2 blocks
+==611040== 
+==611040== For lists of detected and suppressed errors, rerun with: -s
+==611040== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 */
