@@ -29,20 +29,20 @@ struct t_2d_camera
 	float		zoom;
 };
 
-typedef struct t_islamic_art t_islamic_art;
+typedef struct t_motif t_motif;
 
-struct t_islamic_art
+struct t_motif
 {
 	t_2d_polygon	polygon;
 	t_ink32			ink;
 };
 
-typedef struct t_islamic_arr t_islamic_arr;
+typedef struct t_motif_arr t_motif_arr;
 
-struct t_islamic_arr
+struct t_motif_arr
 {
-	t_islamic_art	*arr;
-	size_t			length;
+	t_motif	*arr;
+	size_t	length;
 };
 
 typedef struct t_master_piece t_master_piece;
@@ -50,7 +50,7 @@ typedef struct t_master_piece t_master_piece;
 struct t_master_piece
 {
 	int32_t			background;
-	t_islamic_arr	*motif;
+	t_motif_arr		*motif;
 	t_triangle_arr	*still_life;
 	t_tile_format	tiles;
 };
@@ -64,20 +64,6 @@ struct t_2d_hook
 	t_2d_camera		*camera;
 	t_master_piece	master_piece;
 };
-
-/*
-typedef struct t_2d_hook t_2d_hook;
-
-struct t_2d_hook
-{
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_2d_camera		*camera;
-	int32_t			background;
-	t_tile_format	tiles;
-	t_ink32			ink;
-};
-*/
 
 // hook.c
 void	picture_at_an_exhibition(t_2d_hook *hook, bool is_draw);
@@ -110,9 +96,10 @@ bool			is_2dhook_valid(const t_2d_hook *src);
 bool			is_valid_key(mlx_key_data_t keydata);
 void			write_line(t_line src);
 t_2d_camera		init_2d_camera(size_t width, size_t height);
+t_line	connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
 
 // view
-int	view_rectangle(size_t resolution, int32_t background);
+int	view_master_piece(t_motif_arr *src, size_t resolution, int32_t background);
 
 // zoom.c
 int	world_to_screen_xy(int offset, float world);

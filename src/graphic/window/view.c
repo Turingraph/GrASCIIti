@@ -21,7 +21,7 @@ mlx_image_t	*handle_mlx_error(mlx_t *mlx, size_t width, size_t height)
 // 1080 * (3 / 4) = 810
 // time : O(n)
 // space: O(n)
-int	view_rectangle(size_t resolution, int32_t background)
+int	view_master_piece(t_motif_arr *src, size_t resolution, int32_t background)
 {
 	t_tile_format	tiles;
 	mlx_t		*mlx;
@@ -39,10 +39,12 @@ int	view_rectangle(size_t resolution, int32_t background)
 	hook.img = img;
 	hook.mlx = mlx;
 	hook.camera = &camera;
-	hook.master_piece.background = background;
-	hook.master_piece.tiles = tiles;
 	hook.master_piece.motif = NULL;
 	hook.master_piece.still_life = NULL;
+	if (src != NULL)
+		hook.master_piece.motif = src;
+	hook.master_piece.background = background;
+	hook.master_piece.tiles = tiles;
 	picture_at_an_exhibition(&hook, true);
 	if (-1 == mlx_image_to_window(mlx, img,
 		(1440 - img->width) / 2,

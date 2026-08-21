@@ -31,7 +31,7 @@ void	draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_mondrian_tiling_mlx_unit(mlx_image_t *dst,
+void	draw_mondrian_mlx(mlx_image_t *dst,
 	const t_2d_polygon *polygon, int32_t ink, t_line boundary)
 {
 	size_t	i;
@@ -71,7 +71,7 @@ void	draw_mondrian_tiling_mlx(mlx_image_t *dst,
 		while (tiling_area.x > 0 && j < f_floor(dst->width / tiling_area.x) + 1)
 		{
 			tiling = get_tiling(tiling_area, i, j);
-			draw_mondrian_tiling_fmlx_unit(dst, polygon, ink, tiling);
+			draw_mondrian_mlx(dst, polygon, ink, tiling);
 			j += 1;
 		}
 		i += 1;

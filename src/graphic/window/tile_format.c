@@ -7,10 +7,14 @@ t_fline	init_offset_tile_area(size_t width, size_t height,
 {
 	t_fline	output;
 
-	output.p1.re = (float)init_alltiles_offset(width, resolution, fixed_length);
-	output.p1.im = (float)init_alltiles_offset(height, resolution, fixed_length);
-	output.p2.re = output.p1.re + (float)init_alltiles_size(width, resolution, fixed_length);
-	output.p2.im = output.p1.im + (float)init_alltiles_size(height, resolution, fixed_length);
+	output.p1.re = (float)init_alltiles_offset(width, resolution,
+			fixed_length);
+	output.p1.im = (float)init_alltiles_offset(height, resolution,
+			fixed_length);
+	output.p2.re = output.p1.re + (float)init_alltiles_size(width,
+			resolution, fixed_length);
+	output.p2.im = output.p1.im + (float)init_alltiles_size(height,
+			resolution, fixed_length);
 	return (output);
 }
 

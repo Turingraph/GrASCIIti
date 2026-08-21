@@ -52,3 +52,14 @@ t_2d_camera	init_2d_camera(size_t width, size_t height)
 	camera.window_size.y = height;
 	return (camera);
 }
+
+// time : O(1)
+// space: O(1)
+t_line	connecting_2d_point_pair(t_2d_int p1, t_2d_int p2)
+{
+	t_line	dst;
+
+	dst.p1 = p1;
+	dst.p2 = p2;
+	return (dst);
+}
