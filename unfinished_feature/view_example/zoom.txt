@@ -1,0 +1,7 @@
+#include "view.h"
+
+int	main(void)
+{
+	view_mf_zoom();
+	return (0);
+}
