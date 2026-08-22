@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "include/MLX42.h"
+#include <MLX42.h>
 
 #define WIDTH 512
 #define HEIGHT 512
@@ -38,7 +38,6 @@ void ft_randomize(void* param)
 	}
 }
 
-/*
 void ft_hook(void* param)
 {
 	mlx_t* mlx = param;
@@ -53,28 +52,6 @@ void ft_hook(void* param)
 		image->instances[0].x -= 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		image->instances[0].x += 5;
-}
-*/
-
-// time : O(n)
-// space: O(1)
-void hook_pan(mlx_t *mlx, mlx_image_t *img)
-{
-	if (mlx != NULL && img != NULL)
-	{
-		if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-			mlx_close_window(mlx);
-		if (mlx_is_key_down(mlx, MLX_KEY_UP) && img->instances[0].y > 0)
-			img->instances[0].y -= 5;
-		if (mlx_is_key_down(mlx, MLX_KEY_DOWN)
-			&& (int)img->instances[0].y < 1920 - (int)img->height)
-			img->instances[0].y += 5;
-		if (mlx_is_key_down(mlx, MLX_KEY_LEFT) && img->instances[0].x > 0)
-			img->instances[0].x -= 5;
-		if (mlx_is_key_down(mlx, MLX_KEY_RIGHT)
-			&& (int)img->instances[0].x < 1080 - (int)img->width)
-			img->instances[0].x += 5;
-	}
 }
 
 // -----------------------------------------------------------------------------
@@ -103,27 +80,31 @@ int32_t main(void)
 	}
 	
 	mlx_loop_hook(mlx, ft_randomize, mlx);
-	hook_pan(mlx, image);
+	mlx_loop_hook(mlx, ft_hook, mlx);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
 
+
 /*
 cc -Wall -Wextra -Werror example_rand.c libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 valgrind --leak-check=full --show-leak-kinds=all ./a.out
 ...
-==146714== 
-==146714== LEAK SUMMARY:
-==146714==    definitely lost: 56 bytes in 1 blocks
-==146714==    indirectly lost: 56 bytes in 1 blocks
-==146714==      possibly lost: 0 bytes in 0 blocks
-==146714==    still reachable: 304,621 bytes in 3,421 blocks
-==146714==         suppressed: 0 bytes in 0 blocks
-==146714== 
-==146714== For lists of detected and suppressed errors, rerun with: -s
-==146714== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==221932==    by 0x4001668: _dl_catch_error (dl-catch.c:256)
+==221932==    by 0x496DD62: _dlerror_run (dlerror.c:138)
+==221932== 
+==221932== LEAK SUMMARY:
+==221932==    definitely lost: 56 bytes in 1 blocks
+==221932==    indirectly lost: 56 bytes in 1 blocks
+==221932==      possibly lost: 0 bytes in 0 blocks
+==221932==    still reachable: 304,621 bytes in 3,421 blocks
+==221932==         suppressed: 0 bytes in 0 blocks
+==221932== 
+==221932== For lists of detected and suppressed errors, rerun with: -s
+==221932== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+pc@pc-System-Product-Name:~/Desktop/GrASCIIfi/experiment_with_mlx$ 
 
 https://github.com/codam-coding-college/MLX42/blob/master/README.md
 */

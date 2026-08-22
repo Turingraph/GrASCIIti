@@ -2,7 +2,7 @@
 
 // time : O(1)
 // space: O(1)
-int	target_minmax(t_table_fdf *dst, e_rgba channels, size_t index, bool is_bool)
+int	target_minmax(const t_table_fdf *dst, e_rgba channels, size_t index, bool is_bool)
 {
 	if (dst != NULL && index < dst->col * dst->row)
 	{
@@ -32,22 +32,22 @@ int	target_minmax(t_table_fdf *dst, e_rgba channels, size_t index, bool is_bool)
 
 // time : O(n)
 // space: O(1)
-int	get_minmax_from_table_fdf(t_table_fdf *dst, bool is_max, e_rgba channels)
+int	get_minmax_from_table_fdf(const t_table_fdf *dst, bool is_max, e_rgba channels)
 {
 	int		sign;
 	size_t	i;
 	int		y;
 
-	y = target_minmax(dst, channels, 0, false);
+	y = target_minmax((const t_table_fdf *)dst, channels, 0, false);
 	sign = 1;
 	if (is_max == false)
 		sign = -1;
 	i = 0;
 	while (dst != NULL && i < dst->row * dst->col)
 	{
-		if (target_minmax(dst, channels, i, true) == 1
-			&& y * sign < target_minmax(dst, channels, 0, false) * sign)
-			y = target_minmax(dst, channels, 0, false);
+		if (target_minmax((const t_table_fdf *)dst, channels, i, true) == 1
+			&& y * sign < target_minmax((const t_table_fdf *)dst, channels, 0, false) * sign)
+			y = target_minmax((const t_table_fdf *)dst, channels, 0, false);
 		i += 1;
 	}
 	return (y);
@@ -59,7 +59,7 @@ void	scale_positive_fdf(t_table_fdf *dst)
 {
 	int	y;
 
-	y = get_minmax_from_table_fdf(dst, false, HEIGHT);
+	y = get_minmax_from_table_fdf((const t_table_fdf *)dst, false, HEIGHT);
 	if (y < 0 && y > -2147483648)
 		y *= -1;
 	else if (y == -2147483648)

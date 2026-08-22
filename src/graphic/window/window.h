@@ -3,6 +3,7 @@
 
 #include"../raster/raster.h"
 #include"../../utils/linalg/linalg.h"
+#include"../fdf/fdf.h"
 
 typedef struct t_fline t_fline;
 
@@ -46,17 +47,24 @@ struct t_motif_arr
 	size_t	length;
 };
 
+typedef struct t_background t_background;
+
+struct t_background
+{
+	int32_t		color;
+	t_matrix	*first_post;
+	size_t		tiles_resolution;
+};
+
 typedef struct t_master_piece t_master_piece;
 
 struct t_master_piece
 {
-	t_ink32			style;
+	t_ink32			drawing_style;
 	t_motif_arr		*motif;
-	t_table_fdf		*still_life;
-	t_matrix		*pos_x;
-	t_matrix		*pos_y;
-	t_matrix		*pos_z;
+	t_fdf			*still_life;
 	t_tile_format	tiles;
+	t_background	background;
 };
 
 typedef struct t_2d_hook t_2d_hook;
@@ -116,7 +124,8 @@ t_2d_camera		init_2d_camera(size_t width, size_t height);
 t_line		connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
 
 // view
-void	view_master_piece(t_motif_arr *motif, t_ink32 ink, size_t resolution);
+void	view_master_piece(t_motif_arr *motif,
+	t_ink32 drawing_style, t_background background);
 
 // zoom.c
 int	world_to_screen_xy(int offset, float world);

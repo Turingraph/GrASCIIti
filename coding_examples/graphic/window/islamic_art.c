@@ -117,11 +117,13 @@ int	main(void)
 			},
 		}
 	};
+	t_background	bc = {.color = f_rgba_to_int32(253, 240, 213, 255), .first_post = NULL, .tiles_resolution = 3};
 	t_ink32	style = {.color = f_rgba_to_int32(253, 240, 213, 255), .thickness = 0, .type = E_LINE};
 
-	view_master_piece(&islamic_art, style, 3);
+	view_master_piece(&islamic_art, style, bc);
 	return (0);
 }
+
 
 /*
 valgrind --leak-check=full --show-leak-kinds=all ./coding_examples/out/graphic/window/islamic_art.out

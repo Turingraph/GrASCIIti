@@ -5,9 +5,6 @@
 bool	is_master_piece_valid(const t_master_piece *src,
 	e_drawing_target drawing_target)
 {
-	bool	aphantasia;
-
-	aphantasia = false;
 	if (src == NULL || (drawing_target != E_MOTIF
 		&& drawing_target != E_MINIMALISM
 		&& drawing_target != E_STILL_LIFE))
@@ -15,18 +12,8 @@ bool	is_master_piece_valid(const t_master_piece *src,
 	if (drawing_target == E_MOTIF && (src->motif == NULL
 		|| src->motif->arr == NULL || src->motif->length == 0))
 		return (false);
-	if (src->still_life == NULL
-		|| src->still_life->row * src->still_life->col == 0
-		|| src->still_life->a == NULL || src->still_life->r == NULL
-		|| src->still_life->g == NULL || src->still_life->b == NULL)
-		aphantasia = true;
 	if (drawing_target == E_STILL_LIFE
-		&& (is_matrix_same_dim(src->pos_x, src->pos_y) == false
-			|| is_matrix_same_dim(src->pos_x, src->pos_z) == false
-			|| is_matrix_same_dim(src->pos_y, src->pos_z) == false
-			|| src->still_life->row != src->pos_x->row
-			|| src->still_life->col != src->pos_x->col
-			|| aphantasia == true))
+		&& is_fdf_valid(src->still_life) == false)
 		return (false);
 	return (true);
 }

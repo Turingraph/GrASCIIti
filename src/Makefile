@@ -13,7 +13,7 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table raster window\
+LIBRARY = $(patsubst %, lib/%.a, libft math get_next_line linalg load table raster window fdf\
 	convolve mathart paint line triangle_pair triangle_arr debug debug_triangle)
 
 # *** atom src ***
@@ -37,6 +37,7 @@ SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
 SRC_triangle_arr = $(wildcard graphic/triangle_arr/*.c)
 SRC_raster = $(wildcard graphic/raster/*.c)
 SRC_window = $(wildcard graphic/window/*.c)
+SRC_fdf = $(wildcard graphic/fdf/*.c)
 
 #-----------------------------------------------------------------------------------------------
 
@@ -60,7 +61,8 @@ OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_math) $(OBJ_libft)
 OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
 OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
 OBJ_raster = $(patsubst %.c, obj/%.o, $(SRC_raster)) $(OBJ_line)
-OBJ_window = $(patsubst %.c, obj/%.o, $(SRC_window)) $(OBJ_raster) $(OBJ_linalg)
+OBJ_fdf = $(patsubst %.c, obj/%.o, $(SRC_fdf)) $(OBJ_table) $(OBJ_linalg)
+OBJ_window = $(patsubst %.c, obj/%.o, $(SRC_window)) $(OBJ_raster) $(OBJ_fdf)
 
 # https://stackoverflow.com/questions/59465799/avoid-gnu-make-automatic-file-deletion
 # This command will preserve the selected files.

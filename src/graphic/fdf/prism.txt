@@ -1,0 +1,26 @@
+#include"fdf.h"
+
+// time : O(1)
+// space: O(1)
+t_matrix	init_3d_opposite_hill(void)
+{
+	t_matrix	dst;
+
+	dst.col = 0;
+	dst.row = 0;
+	dst.arr = (float *)malloc(sizeof(float) * 9);
+	if (dst.arr == NULL)
+		return (dst);
+	dst.col = 3;
+	dst.row = 3;
+	dst.arr[0] = 1.0;
+	dst.arr[1] = 0.0;
+	dst.arr[2] = 0.0;
+	dst.arr[3] = 0.0;
+	dst.arr[4] = 1.0;
+	dst.arr[5] = 0.0;
+	dst.arr[6] = 0.0;
+	dst.arr[7] = 0.0;
+	dst.arr[8] = -1.0;
+	return (dst);
+}

@@ -18,7 +18,7 @@ void	draw_motif_mlx_unit(t_2d_hook *hook,
 	{
 		ink = arr[i].ink;
 		if (is_draw == false)
-			ink.color = hook->master_piece.style.color;
+			ink.color = hook->master_piece.background.color;
 		if (ink.type == E_LINE)
 			draw_polygon_mlx(hook->img, &(arr[i].polygon), ink, tile);
 		else if (ink.type == E_CIRCLE)
