@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-# define VIEW_H
+#ifndef RASTER_H
+# define RASTER_H
 
 #include "../../editor/line/line.h"
 #include "MLX42.h"

@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
-#include"../view/view.h"
+#include"../raster/raster.h"
 #include"../../utils/linalg/linalg.h"
 
 typedef struct t_fline t_fline;
