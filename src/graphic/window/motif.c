@@ -1,4 +1,5 @@
 #include"window.h"
+#include<time.h>
 
 // time : O(n)
 // space: O(1)
@@ -17,7 +18,7 @@ void	draw_motif_mlx_unit(t_2d_hook *hook,
 	{
 		ink = arr[i].ink;
 		if (is_draw == false)
-			ink.color = hook->master_piece.background;
+			ink.color = hook->master_piece.style.color;
 		if (ink.type == E_LINE)
 			draw_polygon_mlx(hook->img, &(arr[i].polygon), ink, tile);
 		else if (ink.type == E_CIRCLE)
@@ -72,4 +73,29 @@ void	draw_motif_mlx(t_2d_hook *hook, bool is_draw)
 		|| interier_tile.p2.x < 0 || interier_tile.p2.y < 0)
 		return ;
 	draw_motif_mlx_loop(hook, is_draw, interier_tile);
+}
+
+// time : O(n)
+// space: O(1)
+void	hook_pan_motif(mlx_key_data_t keydata, void *param)
+{
+	t_2d_hook		*hook;
+	static clock_t	before = 0;
+	clock_t			after;
+
+	hook = (t_2d_hook *)param;
+	if ((is_2dhook_valid((const t_2d_hook *)hook, E_STILL_LIFE) == true
+			|| is_2dhook_valid((const t_2d_hook *)hook, E_MOTIF) == true)
+		&& is_valid_key(keydata) == true)
+	{
+		after = clock();
+		if (keydata.key == MLX_KEY_ESCAPE)
+			mlx_close_window(hook->mlx);
+		if (before != 0 && after - before < 1000)
+			return ;
+		before = after;
+		draw_motif_mlx(hook, false);
+		update_camera(keydata, hook->camera);
+		draw_motif_mlx(hook, true);
+	}
 }

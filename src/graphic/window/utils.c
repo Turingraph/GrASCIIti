@@ -2,31 +2,46 @@
 
 // time : O(1)
 // space: O(1)
-bool	is_2dhook_valid(const t_2d_hook *src,
+bool	is_master_piece_valid(const t_master_piece *src,
 	e_drawing_target drawing_target)
 {
 	bool	aphantasia;
 
-	aphantasia = true;
-	if (drawing_target == E_MINIMALISM)
-		aphantasia = false;
-	if (drawing_target == E_MOTIF
-		&& src != NULL && src->master_piece.motif != NULL
-		&& src->master_piece.motif->length > 0
-		&& src->master_piece.motif->arr != NULL)
-		aphantasia = false;
+	aphantasia = false;
+	if (src == NULL || (drawing_target != E_MOTIF
+		&& drawing_target != E_MINIMALISM
+		&& drawing_target != E_STILL_LIFE))
+		return (false);
+	if (drawing_target == E_MOTIF && (src->motif == NULL
+		|| src->motif->arr == NULL || src->motif->length == 0))
+		return (false);
+	if (src->still_life == NULL
+		|| src->still_life->row * src->still_life->col == 0
+		|| src->still_life->a == NULL || src->still_life->r == NULL
+		|| src->still_life->g == NULL || src->still_life->b == NULL)
+		aphantasia = true;
 	if (drawing_target == E_STILL_LIFE
-		&& src != NULL && src->master_piece.still_life != NULL
-		&& (is_triangle_arr_valid(&(src->master_piece.still_life->faces)) == true
-			|| is_triangle_arr_valid(
-				&(src->master_piece.still_life->edges)) == true))
-		aphantasia = false;
-	if (src != NULL && src->mlx != NULL && src->img != NULL
-		&& src->img->width * src->img->height > 0
-		&& aphantasia == false
-		&& src->camera != NULL)
-		return (true);
-	return (false);
+		&& (is_matrix_same_dim(src->pos_x, src->pos_y) == false
+			|| is_matrix_same_dim(src->pos_x, src->pos_z) == false
+			|| is_matrix_same_dim(src->pos_y, src->pos_z) == false
+			|| src->still_life->row != src->pos_x->row
+			|| src->still_life->col != src->pos_x->col
+			|| aphantasia == true))
+		return (false);
+	return (true);
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_2dhook_valid(const t_2d_hook *src,
+	e_drawing_target drawing_target)
+{
+	if (src == NULL || src->camera == NULL
+		|| src->img == NULL
+		|| src->mlx == NULL)
+		return (false);
+	return (is_master_piece_valid(&(src->master_piece),
+		drawing_target));
 }
 
 // time : O(1)

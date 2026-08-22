@@ -2,7 +2,7 @@
 # define WINDOW_H
 
 #include"../view/view.h"
-#include"../triangle_arr/triangle_arr.h"
+#include"../../utils/linalg/linalg.h"
 
 typedef struct t_fline t_fline;
 
@@ -50,11 +50,12 @@ typedef struct t_master_piece t_master_piece;
 
 struct t_master_piece
 {
-	int32_t			background;
-	size_t			thickness;
-	e_2d_shape		artstyle;
+	t_ink32			style;
 	t_motif_arr		*motif;
-	t_prism			*still_life;
+	t_table_fdf		*still_life;
+	t_matrix		*pos_x;
+	t_matrix		*pos_y;
+	t_matrix		*pos_z;
 	t_tile_format	tiles;
 };
 
@@ -78,14 +79,12 @@ enum e_drawing_target
 };
 
 // hook.c
-void 			hook_pan_motif(mlx_key_data_t keydata,
-	void *param);
+void	update_camera(mlx_key_data_t keydata, t_2d_camera *camera);
 
 // motif.c
 void	draw_motif_mlx(t_2d_hook *hook, bool is_draw);
-
-// still_life.c
-void	draw_still_life(t_2d_hook *hook, bool is_draw, bool no_face);
+void 			hook_pan_motif(mlx_key_data_t keydata,
+	void *param);
 
 // tile_format.c
 t_fline	init_offset_tile_area(size_t width, size_t height,
@@ -117,8 +116,7 @@ t_2d_camera		init_2d_camera(size_t width, size_t height);
 t_line		connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
 
 // view
-void	view_master_piece(t_motif_arr *motif, size_t resolution, int32_t background);
-void	view_calligraphy(t_prism *src, int32_t background);
+void	view_master_piece(t_motif_arr *motif, t_ink32 ink, size_t resolution);
 
 // zoom.c
 int	world_to_screen_xy(int offset, float world);

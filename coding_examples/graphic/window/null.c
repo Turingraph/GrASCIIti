@@ -14,8 +14,9 @@ int	main(void)
 
 int	main(void)
 {
+	t_ink32	style = {.color = f_rgba_to_int32(253, 240, 213, 255), .thickness = 0, .type = E_LINE};
 
-	view_master_piece(NULL, 3, f_rgba_to_int32(253, 240, 213, 255));
+	view_master_piece(NULL, style, 3);
 	return (0);
 }
 

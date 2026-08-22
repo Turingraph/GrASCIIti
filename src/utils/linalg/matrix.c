@@ -59,28 +59,21 @@ t_matrix	outer_product_matrix(const float *vec_v, const float *vec_u, size_t dim
 	return (dst);
 }
 
-/*
-// time : O(n^3)
-// space: O(n)
-float	*square_matrix_product(float *update_v, const float *vec_u, size_t dim)
+// time : O(1)
+// space: O(1)
+bool	is_matrix_valid(const t_matrix *src)
 {
-	size_t	i;
-	size_t	j;
-	size_t	col;
-	float	*product;
-
-	if (update_v == NULL || vec_u == NULL)
-		return (NULL);
-	col = (size_t)f_floor(f_root_finding(dim, 2));
-	if (col < 1)
-		return (NULL);
-	product = malloc(sizeof(float) * dim);
-	if (product == NULL)
-		return (NULL);
-	i = 0;
-	while (i < dim)
-	{
-		i += 1;
-	}
+	if (src == NULL || src->arr == NULL || src->col * src->row == 0)
+		return (false);
+	return (true);
 }
-*/
+
+// time : O(1)
+// space: O(1)
+bool	is_matrix_same_dim(const t_matrix *a, const t_matrix *b)
+{
+	if (is_matrix_valid(a) == false || is_matrix_valid(b) == false
+		|| a->col != b->col || a->row != b->row)
+		return (false);
+	return (true);
+}
