@@ -1,5 +1,9 @@
 #include"window.h"
 
+/*
+I remove check-up to speed the program, even if it risk miss used.
+*/
+
 // time : O(1)
 // space: O(1)
 t_ink32	get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy)
@@ -8,6 +12,7 @@ t_ink32	get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy)
 	t_table_fdf	*table;
 
 	table = hook->master_piece.still_life->src;
+	ink = hook->master_piece.drawing_style;
 	ink.color = get_table_rgba_int32(
 		(const t_table_fdf *)table, ixiy.y * table->col + ixiy.x);
 	if (is_draw == false && ink.color == 0)

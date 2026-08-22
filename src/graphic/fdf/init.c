@@ -88,4 +88,5 @@ void	free_fdf(t_fdf *src)
 	src->pos_x = NULL;
 	src->pos_y = NULL;
 	src->pos_z = NULL;
+	src->src = NULL;
 }
