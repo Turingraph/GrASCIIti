@@ -67,6 +67,10 @@ void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	hook.master_piece.still_life = still_life;
 	camera = init_2d_camera(1440, 810);
 	hook.camera = &camera;
+	if (background.first_post != NULL)
+		linear_map_3d_all(still_life, *(background.first_post));
+	draw_fdf_mlx_y(&hook, true);
+	draw_fdf_mlx_x(&hook, true);
 	draw_motif_mlx(&hook, true);
 	if (-1 == mlx_image_to_window(mlx, hook.img,
 		(mlx->width - hook.img->width) / 2,
@@ -75,7 +79,7 @@ void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 		mlx_terminate(mlx);
 		return ;
 	}
-	mlx_key_hook(mlx, &hook_pan_motif, &hook);
+	mlx_key_hook(mlx, &hook_absolute_cinema, &hook);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, hook.img);
 	mlx_terminate(mlx);

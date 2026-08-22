@@ -7,13 +7,6 @@ t_ink32	get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy)
 	t_ink32		ink;
 	t_table_fdf	*table;
 
-	ink.color = 0;
-	ink.thickness = 1;
-	ink.type = E_LINE;
-	if (is_2dhook_valid(hook, E_STILL_LIFE) == false
-		|| ixiy.x >= (int)hook->master_piece.still_life->src->col
-		|| ixiy.y >= (int)hook->master_piece.still_life->src->row)
-		return (ink);
 	table = hook->master_piece.still_life->src;
 	ink.color = get_table_rgba_int32(
 		(const t_table_fdf *)table, ixiy.y * table->col + ixiy.x);
@@ -31,31 +24,30 @@ void	draw_fdf_mlx_x_unit(t_2d_hook *hook, t_line boundary,
 {
 	t_2d_polygon	dst;
 	t_ink32			ink;
-	size_t			col;
+	t_complex		arr[2];
 
-	if (is_2dhook_valid(hook, E_STILL_LIFE) == false)
-		return ;
-	col = hook->master_piece.still_life->src->col;
-	if (ixiy.x >= (int)col || hook->master_piece.still_life->src->row < 1
-		|| ixiy.y >= (int)hook->master_piece.still_life->src->row - 1)
-		return ;
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	dst.length = 2;
 	dst.is_loop = false;
-	dst.arr = malloc(sizeof(t_complex) * 2);
-	if (dst.arr == NULL)
-		return ;
-	dst.arr[0].re = hook->master_piece.still_life->pos_x[ixiy.y * col + ixiy.x];
-	dst.arr[0].im = hook->master_piece.still_life->pos_y[ixiy.y * col + ixiy.x];
-	dst.arr[1].re = hook->master_piece.still_life->pos_x[(ixiy.y + 1) * col + ixiy.x];
-	dst.arr[1].im = hook->master_piece.still_life->pos_y[(ixiy.y + 1) * col + ixiy.x];
+	arr[0].re = hook->master_piece.still_life->pos_x[
+			ixiy.y * hook->master_piece.still_life->src->col + ixiy.x];
+	arr[0].im = hook->master_piece.still_life->pos_y[
+			ixiy.y * hook->master_piece.still_life->src->col + ixiy.x];
+	arr[1].re = hook->master_piece.still_life->pos_x[
+			(ixiy.y + 1) * hook->master_piece.still_life->src->col + ixiy.x];
+	arr[1].im = hook->master_piece.still_life->pos_y[
+			(ixiy.y + 1) * hook->master_piece.still_life->src->col + ixiy.x];
+	arr[0].re /= hook->master_piece.still_life->width;
+	arr[0].im /= hook->master_piece.still_life->width;
+	arr[1].re /= hook->master_piece.still_life->width;
+	arr[1].im /= hook->master_piece.still_life->width;
+	dst.arr = arr;
 	if (ink.type == E_LINE)
 		draw_polygon_mlx(hook->img, &dst, ink, boundary);
 	else if (ink.type == E_CIRCLE)
 		draw_kusama_mlx(hook->img, &dst, ink, boundary);
 	else if (ink.type == E_RECTANGLE)
 		draw_mondrian_mlx(hook->img, &dst, ink.color, boundary);
-	free(dst.arr);
 }
 
 // time : O(1)
@@ -65,32 +57,42 @@ void	draw_fdf_mlx_y_unit(t_2d_hook *hook, t_line boundary,
 {
 	t_2d_polygon	dst;
 	t_ink32			ink;
-	size_t			col;
+	t_complex		arr[2];
 
-	if (is_2dhook_valid(hook, E_STILL_LIFE) == false)
-		return ;
-	col = hook->master_piece.still_life->src->col;
-	if (col < 1 || ixiy.x >= (int)col - 1
-		|| ixiy.y >= (int)hook->master_piece.still_life->src->row)
-		return ;
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	dst.length = 2;
 	dst.is_loop = false;
-	dst.arr = malloc(sizeof(t_complex) * 2);
-	if (dst.arr == NULL)
-		return ;
-	dst.arr[0].re = hook->master_piece.still_life->pos_x[ixiy.y * col + ixiy.x];
-	dst.arr[0].im = hook->master_piece.still_life->pos_y[ixiy.y * col + ixiy.x];
-	dst.arr[1].re = hook->master_piece.still_life->pos_x[ixiy.y * col + ixiy.x + 1];
-	dst.arr[1].im = hook->master_piece.still_life->pos_y[ixiy.y * col + ixiy.x + 1];
+	arr[0].re = hook->master_piece.still_life->pos_x[
+			ixiy.y * hook->master_piece.still_life->src->col + ixiy.x];
+	arr[0].im = hook->master_piece.still_life->pos_y[
+			ixiy.y * hook->master_piece.still_life->src->col + ixiy.x];
+	arr[1].re = hook->master_piece.still_life->pos_x[
+			ixiy.y * hook->master_piece.still_life->src->col + ixiy.x + 1];
+	arr[1].im = hook->master_piece.still_life->pos_y[
+			ixiy.y * hook->master_piece.still_life->src->col + ixiy.x + 1];
+	arr[0].re /= hook->master_piece.still_life->width;
+	arr[0].im /= hook->master_piece.still_life->width;
+	arr[1].re /= hook->master_piece.still_life->width;
+	arr[1].im /= hook->master_piece.still_life->width;
+	dst.arr = arr;
 	if (ink.type == E_LINE)
 		draw_polygon_mlx(hook->img, &dst, ink, boundary);
 	else if (ink.type == E_CIRCLE)
 		draw_kusama_mlx(hook->img, &dst, ink, boundary);
 	else if (ink.type == E_RECTANGLE)
 		draw_mondrian_mlx(hook->img, &dst, ink.color, boundary);
-	free(dst.arr);
 }
+
+/*
+graphic/window/fdf.c: In function ‘draw_fdf_mlx_y_unit’:
+graphic/window/fdf.c:63:19: error: ‘arr’ is used uninitialized [-Werror=uninitialized]
+   63 |         arr[0].re = hook->master_piece.still_life->pos_x[
+      |         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   64 |                         ixiy.y * hook->master_piece.still_life->src->col + ixiy.x];
+      |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+graphic/window/fdf.c:58:34: note: ‘arr’ was declared here
+   58 |         t_complex               *arr;
+*/
 
 // time : O(n)
 // space: O(1)

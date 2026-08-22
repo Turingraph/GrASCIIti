@@ -91,12 +91,12 @@ void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw);
 void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw);
 
 // hook.c
-void	update_camera(mlx_key_data_t keydata, t_2d_camera *camera);
+void	update_camera_pan(mlx_key_data_t keydata, t_2d_camera *camera);
+void 			hook_absolute_cinema(mlx_key_data_t keydata,
+	void *param);
 
 // motif.c
 void	draw_motif_mlx(t_2d_hook *hook, bool is_draw);
-void 			hook_pan_motif(mlx_key_data_t keydata,
-	void *param);
 
 // tile_format.c
 t_fline	init_offset_tile_area(size_t width, size_t height,

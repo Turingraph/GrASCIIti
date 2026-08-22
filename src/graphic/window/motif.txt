@@ -34,17 +34,12 @@ void	draw_motif_mlx_unit(t_2d_hook *hook,
 void	draw_motif_mlx_loop(t_2d_hook *hook,
 	bool is_draw, t_line interier_tile)
 {
-	t_line		tile;
-	int			ix;
-	int			iy;
-	t_2d_camera	static_camera;
+	t_line	tile;
+	int		ix;
+	int		iy;
 
 	if (is_2dhook_valid(hook, E_MOTIF) == false)
 		return ;
-	static_camera.window_size = hook->camera->window_size;
-	static_camera.zoom = 1.0;
-	static_camera.offset.x = 0;
-	static_camera.offset.y = 0;
 	iy = interier_tile.p1.y;
 	while (iy < interier_tile.p2.y)
 	{
@@ -52,9 +47,9 @@ void	draw_motif_mlx_loop(t_2d_hook *hook,
 		while (ix < interier_tile.p2.x)
 		{
 			tile.p1 = get_ith_tile_screen(hook->master_piece.tiles,
-					static_camera, ix, iy);
+					*(hook->camera), ix, iy);
 			tile.p2 = get_ith_tile_screen(hook->master_piece.tiles,
-					static_camera, ix + 1, iy + 1);
+					*(hook->camera), ix + 1, iy + 1);
 			draw_motif_mlx_unit(hook, is_draw, tile);
 			ix += 1;
 		}
@@ -70,8 +65,12 @@ void	draw_motif_mlx(t_2d_hook *hook, bool is_draw)
 
 	if (is_2dhook_valid(hook, E_MOTIF) == false)
 		return ;
-	interier_tile.p1.x = 0;
-	interier_tile.p1.y = 0;
-	interier_tile.p2 = hook->master_piece.tiles.tile_counts;
+	interier_tile.p1 = get_first_interier_tile(hook->master_piece.tiles,
+			*(hook->camera));
+	interier_tile.p2 = get_last_interier_tile(hook->master_piece.tiles,
+			*(hook->camera));
+	if (interier_tile.p1.x < 0 || interier_tile.p1.y < 0
+		|| interier_tile.p2.x < 0 || interier_tile.p2.y < 0)
+		return ;
 	draw_motif_mlx_loop(hook, is_draw, interier_tile);
 }

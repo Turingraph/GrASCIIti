@@ -3,7 +3,7 @@
 
 // time : O(1)
 // space: O(1)
-void	update_camera(mlx_key_data_t keydata, t_2d_camera *camera)
+void	update_camera_pan(mlx_key_data_t keydata, t_2d_camera *camera)
 {
 	if (camera == NULL || is_valid_key(keydata) == false)
 		return ;
@@ -117,7 +117,7 @@ void hook_pan_and_zoom(mlx_key_data_t keydata, void *param)
 			return;
 		before = after;
 		picture_at_an_exhibition(hook, false);
-		update_camera(keydata, hook->camera);
+		update_camera_pan(keydata, hook->camera);
 		// hook->tiles.tile_size *= hook->camera->zoom;
 		picture_at_an_exhibition(hook, true);
 	}

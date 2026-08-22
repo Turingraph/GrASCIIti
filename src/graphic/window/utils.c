@@ -39,7 +39,10 @@ bool	is_valid_key(mlx_key_data_t keydata)
 		|| keydata.key == MLX_KEY_UP
 		|| keydata.key == MLX_KEY_DOWN
 		|| keydata.key == MLX_KEY_LEFT
-		|| keydata.key == MLX_KEY_RIGHT)
+		|| keydata.key == MLX_KEY_0
+		|| keydata.key == MLX_KEY_1
+		|| keydata.key == MLX_KEY_2
+		|| keydata.key == MLX_KEY_3)
 		return (true);
 	return (false);
 }
