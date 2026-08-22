@@ -84,8 +84,7 @@ void	hook_pan_motif(mlx_key_data_t keydata, void *param)
 	clock_t			after;
 
 	hook = (t_2d_hook *)param;
-	if ((is_2dhook_valid((const t_2d_hook *)hook, E_STILL_LIFE) == true
-			|| is_2dhook_valid((const t_2d_hook *)hook, E_MOTIF) == true)
+	if ((is_2dhook_valid((const t_2d_hook *)hook, E_MINIMALISM) == true)
 		&& is_valid_key(keydata) == true)
 	{
 		after = clock();

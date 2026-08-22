@@ -17,7 +17,7 @@ int	main(void)
 	t_background	bc = {.color = f_rgba_to_int32(253, 240, 213, 255), .first_post = NULL, .tiles_resolution = 3};
 	t_ink32	style = {.color = f_rgba_to_int32(253, 240, 213, 255), .thickness = 0, .type = E_LINE};
 
-	view_master_piece(NULL, style, bc);
+	view_master_piece(NULL, NULL, style, bc);
 	return (0);
 }
 

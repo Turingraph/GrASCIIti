@@ -48,7 +48,7 @@ t_2d_hook	init_2d_hook(mlx_t *mlx, t_motif_arr *motif,
 // 1080 * (3 / 4) = 810
 // time : O(n)
 // space: O(n)
-void	view_master_piece(t_motif_arr *motif,
+void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	t_ink32 drawing_style, t_background background)
 {
 	mlx_t			*mlx;
@@ -64,6 +64,7 @@ void	view_master_piece(t_motif_arr *motif,
 		return ;
 	}
 	color_background_mlx(hook.img, background.color);
+	hook.master_piece.still_life = still_life;
 	camera = init_2d_camera(1440, 810);
 	hook.camera = &camera;
 	draw_motif_mlx(&hook, true);

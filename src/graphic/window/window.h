@@ -86,6 +86,10 @@ enum e_drawing_target
 	E_STILL_LIFE
 };
 
+// fdf.c
+void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw);
+void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw);
+
 // hook.c
 void	update_camera(mlx_key_data_t keydata, t_2d_camera *camera);
 
@@ -124,7 +128,7 @@ t_2d_camera		init_2d_camera(size_t width, size_t height);
 t_line		connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
 
 // view
-void	view_master_piece(t_motif_arr *motif,
+void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	t_ink32 drawing_style, t_background background);
 
 // zoom.c
