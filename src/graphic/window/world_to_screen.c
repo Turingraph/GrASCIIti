@@ -68,12 +68,35 @@ t_2d_int	world_to_screen_3d(t_2d_camera camera,
 	float x, float y)
 {
 	t_2d_int	dst;
-	int			center;
 
-	center = (camera.offset.x + camera.window_size.x) / 2;
-	dst.x = x + center;
-	center = (camera.offset.y + camera.window_size.y) / 2;
-	dst.y = y + center;
+	dst.x = x + (camera.offset.x + camera.window_size.x) / 2;
+	dst.y = y + (camera.offset.y + camera.window_size.y) / 2;
 	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_line_in_screen(t_2d_camera camera,
+	t_2d_int src)
+{
+	if (0 <= src.x
+		&& src.x <= camera.window_size.x
+		&& 0 <= src.y
+		&& src.y <= camera.window_size.y)
+		return (true);
+	return (false);
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_circle_in_screen(t_2d_camera camera,
+	t_2d_int src, int thickness)
+{
+	if (-1 * thickness <= src.x
+		&& src.x <= camera.window_size.x + thickness
+		&& -1 * thickness <= src.y
+		&& src.y <= camera.window_size.y + thickness)
+		return (true);
+	return (false);
 }
 

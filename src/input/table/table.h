@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include "../../input/load/load.h"
-#include "../../utils/math/math.h"
+#include "../../utils/green_counts/green_counts.h"
 
 // init.c
 void			*free_table_fdf(t_table_fdf *src);

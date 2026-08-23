@@ -1,7 +1,7 @@
 #ifndef LINE_H
 # define LINE_H
 
-# include "../../utils/math/math.h"
+# include "../../utils/green_counts/green_counts.h"
 # include "../../utils/libft/libft.h"
 # include<unistd.h>
 

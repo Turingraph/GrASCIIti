@@ -87,8 +87,7 @@ enum e_drawing_target
 };
 
 // fdf.c
-void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw);
-void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw);
+void	draw_fdf_mlx(t_2d_hook *hook, bool is_draw);
 
 // hook.c
 void 			hook_absolute_cinema(mlx_key_data_t keydata,
@@ -133,5 +132,11 @@ void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 // world_to_screen.c
 int	world_to_screen_xy(int offset, float world);
 t_2d_int	world_to_screen_2d(t_2d_camera camera, t_complex world);
+t_2d_int	world_to_screen_3d(t_2d_camera camera,
+	float x, float y);
+bool	is_line_in_screen(t_2d_camera camera,
+	t_2d_int src);
+bool	is_circle_in_screen(t_2d_camera camera,
+	t_2d_int src, int thickness);
 
 #endif

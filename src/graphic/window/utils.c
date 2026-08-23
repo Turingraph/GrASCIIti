@@ -56,15 +56,13 @@ bool	is_valid_key(mlx_key_data_t keydata)
 // space: O(1)
 void	write_line(t_line src)
 {
-	write(1, "write_line: ", 13);
-	ft_putnbr_fd(src.p1.x, 1, "0123456789", 1);
+	ft_putnbr_fd(src.p1.x, 1, "0123456789", 3);
 	write(1, ", ", 2);
-	ft_putnbr_fd(src.p1.y, 1, "0123456789", 1);
+	ft_putnbr_fd(src.p1.y, 1, "0123456789", 3);
 	write(1, " --> ", 5);
-	ft_putnbr_fd(src.p2.x, 1, "0123456789", 1);
+	ft_putnbr_fd(src.p2.x, 1, "0123456789", 3);
 	write(1, ", ", 2);
-	ft_putnbr_fd(src.p2.y, 1, "0123456789", 1);
-	write(1, "\n", 1);
+	ft_putnbr_fd(src.p2.y, 1, "0123456789", 3);
 }
 
 // time : O(1)

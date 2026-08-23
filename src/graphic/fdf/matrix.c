@@ -1,73 +1,77 @@
 #include"fdf.h"
 
-// https://en.wikipedia.org/wiki/Rotation_matrix
-
 // time : O(1)
 // space: O(1)
-float	init_3d_rotate_matrix_unit(float delta, char code)
-{
-	float	dst;
-
-	dst = 0.0;
-	if (code == '1')
-		dst = 1.0;
-	if (code == 'C')
-		dst = f_cos(delta);
-	if (code == 'c')
-		dst = -1.0 * f_cos(delta);
-	if (code == 'S')
-		dst = f_sin(delta);
-	if (code == 's')
-		dst = -1.0 * f_sin(delta);
-	return (dst);
-}
-
-// time : O(1)
-// space: O(1)
-t_matrix	init_3d_rotate_matrix_loop(float delta, const char *code)
+t_matrix	init_3d_rotate_matrix_x(float delta)
 {
 	t_matrix	dst;
-	size_t		i;
 
+	dst.arr = malloc(sizeof(float) * 9);
 	dst.col = 0;
 	dst.row = 0;
-	dst.arr = malloc(sizeof(float) * 9);
-	if (dst.arr == NULL || code == 0)
-	{
-		free(dst.arr);
-		dst.arr = NULL;
+	if (dst.arr == NULL)
 		return (dst);
-	}
 	dst.col = 3;
 	dst.row = 3;
-	i = 0;
-	while (i < 9)
-	{
-		dst.arr[i] = init_3d_rotate_matrix_unit(
-				delta, code[i]);
-		i += 1;
-	}
+	dst.arr[0] = 1.0;
+	dst.arr[1] = 0.0;
+	dst.arr[2] = 0.0;
+	dst.arr[3] = 0.0;
+	dst.arr[4] = f_cos(delta);
+	dst.arr[5] = -1.0 * f_sin(delta);
+	dst.arr[6] = 0.0;
+	dst.arr[7] = f_sin(delta);
+	dst.arr[8] = f_cos(delta);
 	return (dst);
 }
 
 // time : O(1)
 // space: O(1)
-t_matrix	init_3d_rotate_matrix(float delta, char axis)
+t_matrix	init_3d_rotate_matrix_y(float delta)
 {
-	char		*axis_x;
-	char		*axis_y;
-	char		*axis_z;
 	t_matrix	dst;
 
-	axis_x = "1000Cs0SC";
-	axis_y = "C0S010s0C";
-	axis_z = "Cs0SC0001";
-	if (axis == 0)
-		dst = init_3d_rotate_matrix_loop(delta, axis_x);
-	else if (axis == 1)
-		dst = init_3d_rotate_matrix_loop(delta, axis_y);
-	else
-		dst = init_3d_rotate_matrix_loop(delta, axis_z);
+	dst.arr = malloc(sizeof(float) * 9);
+	dst.col = 0;
+	dst.row = 0;
+	if (dst.arr == NULL)
+		return (dst);
+	dst.col = 3;
+	dst.row = 3;
+	dst.arr[0] = f_cos(delta);
+	dst.arr[1] = 0.0;
+	dst.arr[2] = f_sin(delta);
+	dst.arr[3] = 0.0;
+	dst.arr[4] = 1.0;
+	dst.arr[5] = 0.0;
+	dst.arr[6] = -1.0 * f_sin(delta);
+	dst.arr[7] = 0.0;
+	dst.arr[8] = f_cos(delta);
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_matrix	init_3d_rotate_matrix_z(float delta)
+{
+	t_matrix	dst;
+
+	dst.arr = malloc(sizeof(float) * 9);
+	dst.col = 0;
+	dst.row = 0;
+	if (dst.arr == NULL)
+		return (dst);
+	dst.col = 3;
+	dst.row = 3;
+	dst.arr[0] = f_cos(delta);
+	dst.arr[1] = -1.0 * f_sin(delta);
+	dst.arr[2] = 0.0;
+	dst.arr[3] = f_sin(delta);
+	dst.arr[4] = f_cos(delta);
+	dst.arr[5] = 0.0;
+	dst.arr[6] = 0.0;
+	dst.arr[7] = 0.0;
+	dst.arr[8] = 1.0;
 	return (dst);
 }
 
@@ -75,18 +79,24 @@ t_matrix	init_3d_rotate_matrix(float delta, char axis)
 // space: O(1)
 t_matrix	init_3d_zoom_matrix(float zoom)
 {
-	char		*items;
 	t_matrix	dst;
-	size_t		i;
 
-	items = "100010001";
-	dst = init_3d_rotate_matrix_loop(zoom, items);
-	i = 0;
-	while (dst.arr != NULL && i < 9)
-	{
-		dst.arr[i] *= zoom;
-		i += 1;
-	}
+	dst.arr = malloc(sizeof(float) * 9);
+	dst.col = 0;
+	dst.row = 0;
+	if (dst.arr == NULL)
+		return (dst);
+	dst.col = 3;
+	dst.row = 3;
+	dst.arr[0] = zoom;
+	dst.arr[1] = 0.0;
+	dst.arr[2] = 0.0;
+	dst.arr[3] = 0.0;
+	dst.arr[4] = zoom;
+	dst.arr[5] = 0.0;
+	dst.arr[6] = 0.0;
+	dst.arr[7] = 0.0;
+	dst.arr[8] = zoom;
 	return (dst);
 }
 
@@ -122,3 +132,20 @@ t_matrix	init_inverse_3d_matrix(t_matrix src)
 	return (dst);
 }
 
+/*
+==325392== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==325392== Command: ./coding_examples/out/graphic/window/ascii_fdf.out input_examples/view/lerem_ipsum_nvscript.txt
+==325392== 
+length: 402
+length: 394
+length: 381
+length: 362
+length: 340
+length: 317
+length: 297
+length: 281
+length: 272
+length: 268
+length: 268
+length: 268
+*/

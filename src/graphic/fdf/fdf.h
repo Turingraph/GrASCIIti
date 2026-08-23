@@ -28,12 +28,14 @@ void		free_fdf(t_fdf *src);
 
 // linear_map.c
 float		linear_map_3d(const t_fdf *src, t_matrix matrix, size_t i, char axis);
-void		linear_map_3d_all(t_fdf *src, t_matrix matrix);
+void		linear_map_3d_fdf(t_fdf *src, t_matrix matrix);
 void		matrix_3d_product(t_matrix src, t_matrix *dst);
 float		matrix_det(t_matrix src);
 
 // matrix.c
-t_matrix	init_3d_rotate_matrix(float delta, char axis);
+t_matrix	init_3d_rotate_matrix_x(float delta);
+t_matrix	init_3d_rotate_matrix_y(float delta);
+t_matrix	init_3d_rotate_matrix_z(float delta);
 t_matrix	init_3d_zoom_matrix(float zoom);
 t_matrix	init_inverse_3d_matrix(t_matrix src);
 

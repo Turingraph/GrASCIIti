@@ -1,6 +1,5 @@
 #include"fdf.h"
 
-
 // time : O(n)
 // space: O(1)
 float	linear_map_3d(const t_fdf *src, t_matrix matrix, size_t i, char axis)
@@ -31,7 +30,7 @@ float	linear_map_3d(const t_fdf *src, t_matrix matrix, size_t i, char axis)
 
 // time : O(n)
 // space: O(1)
-void	linear_map_3d_all(t_fdf *src, t_matrix matrix)
+void	linear_map_3d_fdf(t_fdf *src, t_matrix matrix)
 {
 	size_t	i;
 
@@ -64,15 +63,15 @@ void	matrix_3d_product(t_matrix src, t_matrix *dst)
 		return ;
 	a = src.arr;
 	b = dst->arr;
-	c[0] = a[0] * b[0] + a[1] * b[3] + a[2] * b[6];
-	c[1] = a[3] * b[0] + a[4] * b[3] + a[5] * b[6];
-	c[2] = a[6] * b[0] + a[7] * b[3] + a[8] * b[6];
-	c[3] = a[0] * b[1] + a[1] * b[4] + a[2] * b[7];
-	c[4] = a[3] * b[1] + a[4] * b[4] + a[5] * b[7];
-	c[5] = a[6] * b[1] + a[7] * b[4] + a[8] * b[7];
-	c[6] = a[0] * b[2] + a[1] * b[5] + a[2] * b[8];
-	c[7] = a[3] * b[2] + a[4] * b[5] + a[5] * b[8];
-	c[8] = a[6] * b[2] + a[7] * b[5] + a[8] * b[8];
+	c[0] = a[0] * b[0] + a[3] * b[1] + a[6] * b[2];
+	c[1] = a[1] * b[0] + a[4] * b[1] + a[7] * b[2];
+	c[2] = a[2] * b[0] + a[5] * b[1] + a[8] * b[2];
+	c[3] = a[0] * b[3] + a[3] * b[4] + a[6] * b[5];
+	c[4] = a[1] * b[3] + a[4] * b[4] + a[7] * b[5];
+	c[5] = a[2] * b[3] + a[5] * b[4] + a[8] * b[5];
+	c[6] = a[0] * b[6] + a[3] * b[7] + a[6] * b[8];
+	c[7] = a[1] * b[6] + a[4] * b[7] + a[7] * b[8];
+	c[8] = a[2] * b[6] + a[5] * b[7] + a[8] * b[8];
 	i = 0;
 	while (i < 9)
 	{
@@ -81,7 +80,8 @@ void	matrix_3d_product(t_matrix src, t_matrix *dst)
 	}
 }
 
-// I will implement the general determanent later.
+// time : O(1)
+// space: O(1)
 float	matrix_det(t_matrix src)
 {
 	float	*a;

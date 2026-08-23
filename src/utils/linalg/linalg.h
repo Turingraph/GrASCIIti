@@ -2,7 +2,7 @@
 # define LINALG_H
 
 # include "stdlib.h"
-# include "../math/math.h"
+# include "../green_counts/green_counts.h"
 
 typedef struct t_matrix t_matrix;
 

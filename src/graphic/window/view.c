@@ -44,6 +44,27 @@ t_2d_hook	init_2d_hook(mlx_t *mlx, t_motif_arr *motif,
 	return (dst);
 }
 
+// time : O(n)
+// space: O(n)
+void	scale_fdf_object(t_fdf *src, size_t fixed_window_size,
+	t_matrix *first_linear_map)
+{
+	t_matrix	transform;
+
+	if (is_fdf_valid(src) == false || fixed_window_size == 0)
+		return ;
+	transform = init_3d_zoom_matrix(fixed_window_size / src->width);
+	if (transform.arr == NULL)
+		return ;
+	linear_map_3d_fdf(src, transform);
+	if (first_linear_map != NULL && is_matrix_valid(first_linear_map) == true)
+	{
+		linear_map_3d_fdf(src, *first_linear_map);
+		matrix_3d_product(*first_linear_map, &(src->matrix));
+	}
+	free(transform.arr);
+}
+
 // 1920 * (3 / 4) = 1440
 // 1080 * (3 / 4) = 810
 // time : O(n)
@@ -67,15 +88,9 @@ void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	hook.master_piece.still_life = still_life;
 	camera = init_2d_camera(1440, 810);
 	hook.camera = &camera;
-	if (background.first_post != NULL && background.first_post->col * background.first_post->row == 9
-		&& background.first_post->arr != NULL)
-	{
-		linear_map_3d_all(still_life, *(background.first_post));
-		matrix_3d_product(transform, &(hook->master_piece.still_life->matrix));
-	}
+	scale_fdf_object(still_life, f_min(1440, 810), background.first_post);
 	draw_motif_mlx(&hook, true);
-	draw_fdf_mlx_y(&hook, true);
-	draw_fdf_mlx_x(&hook, true);
+	draw_fdf_mlx(&hook, true);
 	if (-1 == mlx_image_to_window(mlx, hook.img,
 		(mlx->width - hook.img->width) / 2,
 		(mlx->height - hook.img->height) / 2))

@@ -8,9 +8,9 @@ float	init_fdf_position_unit(const t_table_fdf *src, char axis, size_t i)
 		|| src->row * src->col == 0)
 		return (0.0);
 	if (axis == 0)
-		return ((float)(i % src->col - src->col / 2));
+		return ((float)(i % src->col) - (float)(src->col / 2));
 	if (axis == 1)
-		return ((float)(i / src->col - src->row / 2));
+		return ((float)(i / src->col) - (float)(src->row / 2));
 	return ((float)src->arr[i]);
 }
 
@@ -49,9 +49,9 @@ t_fdf	init_fdf(t_table_fdf *src)
 	dst.pos_y = init_fdf_position(src, 1);
 	dst.pos_z = init_fdf_position(src, 2);
 	dst.matrix = init_3d_zoom_matrix(1.0);
-	min_x = get_minmax_from_table_fdf(
+	min_x = (float)get_minmax_from_table_fdf(
 		(const t_table_fdf *)src, false, HEIGHT);
-	max_x = get_minmax_from_table_fdf(
+	max_x = (float)get_minmax_from_table_fdf(
 		(const t_table_fdf *)src, true, HEIGHT);
 	dst.width = f_max3(max_x - min_x, src->row, src->col);
 	return (dst);

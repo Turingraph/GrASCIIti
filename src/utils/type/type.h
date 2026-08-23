@@ -116,17 +116,6 @@ struct t_triangle
 	unsigned char	a;
 };
 
-// graphic/window/
-
-typedef enum e_2d_shape e_2d_shape;
-
-enum e_2d_shape
-{
-	E_RECTANGLE,
-	E_CIRCLE,
-	E_LINE
-};
-
 // graphic/triangle_arr/
 
 typedef struct t_triangle_arr t_triangle_arr;
