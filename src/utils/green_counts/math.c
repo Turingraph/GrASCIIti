@@ -1,7 +1,7 @@
-#include"math.h"
+#include"green_counts.h"
 #include<unistd.h>
 
-// time : O(n)
+// time : O(1)
 // space: O(1)
 double	f_pow(double x, size_t a)
 {
@@ -23,7 +23,7 @@ double	f_pow(double x, size_t a)
 // Newton method approximates x ^ (1 / a) where a >= 1
 // x_(n+1) = x_n - f(x_n) / f'(x_n)
 // where f(x) = x^a - c, such that x^a = f(x) + c, x^a = c
-// time : O(n)
+// time : O(1)
 // space: O(1)
 double	f_root_finding(double x, size_t a)
 {
@@ -73,7 +73,7 @@ Reference
 3.	https://youtu.be/Cqi-b3nQdKM?si=qxGl29v81BEl0xbz
 */
 
-// time : O(n)
+// time : O(1)
 // space: O(1)
 double	f_exp(double x)
 {
@@ -103,8 +103,21 @@ the-magic-behind-trigonometric-functions-using-
 taylor-series-in-programming-f4cae34d3729
 */
 
-// time : O(n)
+// time : O(1)
 // space: O(1)
+double	f_sin(double x)
+{
+	return (sin(x));
+}
+
+// time : O(1)
+// space: O(1)
+double	f_cos(double x)
+{
+	return (cos(x));
+}
+
+/*
 double	f_sin(double x)
 {
 	double	y;
@@ -160,3 +173,4 @@ double	f_cos(double x)
 	}
 	return (y);
 }
+*/

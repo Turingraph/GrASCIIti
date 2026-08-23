@@ -10,7 +10,7 @@ SRC_get_next_line = $(wildcard input/get_next_line/*.c)
 SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
 SRC_libft = $(wildcard utils/libft/*.c)
-SRC_math = $(wildcard utils/math/*.c)
+SRC_green_counts = $(wildcard utils/green_counts/*.c)
 SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
 
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
@@ -23,7 +23,7 @@ HELPER_OBJ = $(patsubst %.c, obj/%.o, $(HELPER_SRC))
 
 OUT_ALL = $(patsubst %.c, out/%.out,	\
 	$(SRC_get_next_line)	\
-	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_math))
+	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_green_counts))
 
 OUT_triangle = $(patsubst %.c, out/%.out, $(SRC_triangle_pair))
 
@@ -47,11 +47,11 @@ all_out: $(OUT_ALL) $(OUT_triangle)
 $(OUT_triangle): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	@echo Yorushika said that $^
-	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/debug_triangle.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a ../src/lib/table.a
+	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/debug_triangle.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a ../src/lib/table.a -lm
 
 $(OUT_ALL): out/%.out: obj/%.o
 	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a
+	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a -lm
 
 obj/%.o: %.c
 	@mkdir -p $(@D)

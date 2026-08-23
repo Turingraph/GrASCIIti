@@ -25,11 +25,11 @@ all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_WINDOW)
 
 $(OUT_PAINT): out/%.out: obj/%.o
 	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/mathart.a
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/mathart.a -lm
 
 $(OUT_USE_TABLE): out/%.out: obj/%.o
 	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a -lm
 
 $(OUT_WINDOW): out/%.out: obj/%.o
 	@mkdir -p $(@D)
@@ -38,7 +38,7 @@ $(OUT_WINDOW): out/%.out: obj/%.o
 
 $(OUT): out/%.out: obj/%.o
 	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a -lm
 
 obj/%.o: %.c
 	@mkdir -p $(@D)

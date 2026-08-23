@@ -24,12 +24,13 @@ int	main(int len, char **str)
 {
 	t_table_fdf	table;
 	t_fdf		output;
-	t_background bc = {.color = f_rgba_to_int32(255, 255, 255, 255), .first_post = NULL, .tiles_resolution = 2};
-	t_ink32	style = {.color = f_rgba_to_int32(224, 84, 84, 255), .thickness = 4, .type = E_LINE};
+	t_background bc = {.color = f_rgba_to_int32(255, 255, 255, 255), .first_post = NULL, .tiles_resolution = 1};
+	t_ink32	style = {.color = f_rgba_to_int32(224, 84, 84, 255), .thickness = 3, .type = E_PIXEL_ART};
 
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
+	// scale_multiplication_fdf(&table, 10, HEIGHT);
 	color_cells_gradient(&table, init_gradient(), true, NULL);
 	output = init_fdf(&table);
 	view_master_piece(&output, NULL, style, bc);

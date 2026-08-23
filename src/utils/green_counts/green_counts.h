@@ -1,7 +1,8 @@
-#ifndef MATH_H
-# define MATH_H
+#ifndef GREEN_COUNTS_H
+# define GREEN_COUNTS_H
 
 # include <stdlib.h>
+# include <math.h>
 # include "../type/type.h"
 
 // as_int.c

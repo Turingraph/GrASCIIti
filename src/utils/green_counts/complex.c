@@ -1,4 +1,4 @@
-#include"math.h"
+#include"green_counts.h"
 
 // time : O(1)
 // space: O(1)

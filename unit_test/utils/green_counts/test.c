@@ -1,4 +1,4 @@
-#include "math.h"
+#include "green_counts.h"
 
 // time : O(n)
 // space: O(1)
@@ -139,5 +139,5 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/utils/math/test.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/utils/green_counts/test.out
 */
