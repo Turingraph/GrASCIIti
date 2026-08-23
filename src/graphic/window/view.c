@@ -67,11 +67,15 @@ void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	hook.master_piece.still_life = still_life;
 	camera = init_2d_camera(1440, 810);
 	hook.camera = &camera;
-	if (background.first_post != NULL)
+	if (background.first_post != NULL && background.first_post->col * background.first_post->row == 9
+		&& background.first_post->arr != NULL)
+	{
 		linear_map_3d_all(still_life, *(background.first_post));
+		matrix_3d_product(transform, &(hook->master_piece.still_life->matrix));
+	}
+	draw_motif_mlx(&hook, true);
 	draw_fdf_mlx_y(&hook, true);
 	draw_fdf_mlx_x(&hook, true);
-	draw_motif_mlx(&hook, true);
 	if (-1 == mlx_image_to_window(mlx, hook.img,
 		(mlx->width - hook.img->width) / 2,
 		(mlx->height - hook.img->height) / 2))

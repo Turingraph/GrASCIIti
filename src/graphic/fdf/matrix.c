@@ -1,53 +1,5 @@
 #include"fdf.h"
 
-// time : O(n)
-// space: O(1)
-float	linear_map_3d(const t_fdf *src, t_matrix matrix, size_t i, char axis)
-{
-	float	output;
-	float	*m;
-	float	*x;
-	float	*y;
-	float	*z;
-
-	if (is_fdf_valid(src) == false
-		|| matrix.col * matrix.row != 9
-		|| matrix.arr == NULL)
-		return (0.0);
-	m = matrix.arr;
-	x = src->pos_x;
-	y = src->pos_y;
-	z = src->pos_z;
-	output = x[i] * m[0] + y[i] * m[1] + z[i] * m[2];
-	if (axis == 0)
-		return (output);
-	output = x[i] * m[3] + y[i] * m[4] + z[i] * m[5];
-	if (axis == 1)
-		return (output);
-	output = x[i] * m[6] + y[i] * m[7] + z[i] * m[8];
-	return (output);
-}
-
-// time : O(n)
-// space: O(1)
-void	linear_map_3d_all(t_fdf *src, t_matrix matrix)
-{
-	size_t	i;
-
-	if (is_fdf_valid(src) == false
-		|| matrix.col * matrix.row != 9
-		|| matrix.arr == NULL)
-		return ;
-	i = 0;
-	while (i < src->src->row * src->src->col)
-	{
-		src->pos_x[i] = linear_map_3d((const t_fdf *)src, matrix, i, 0);
-		src->pos_y[i] = linear_map_3d((const t_fdf *)src, matrix, i, 1);
-		src->pos_z[i] = linear_map_3d((const t_fdf *)src, matrix, i, 2);
-		i += 1;
-	}
-}
-
 // https://en.wikipedia.org/wiki/Rotation_matrix
 
 // time : O(1)
@@ -118,3 +70,55 @@ t_matrix	init_3d_rotate_matrix(float delta, char axis)
 		dst = init_3d_rotate_matrix_loop(delta, axis_z);
 	return (dst);
 }
+
+// time : O(1)
+// space: O(1)
+t_matrix	init_3d_zoom_matrix(float zoom)
+{
+	char		*items;
+	t_matrix	dst;
+	size_t		i;
+
+	items = "100010001";
+	dst = init_3d_rotate_matrix_loop(zoom, items);
+	i = 0;
+	while (dst.arr != NULL && i < 9)
+	{
+		dst.arr[i] *= zoom;
+		i += 1;
+	}
+	return (dst);
+}
+
+// https://www.storyofmathematics.com/inverse-of-a-3x3-matrix/
+
+// time : O(1)
+// space: O(1)
+t_matrix	init_inverse_3d_matrix(t_matrix src)
+{
+	float		det;
+	float		*a;
+	t_matrix	dst;
+
+	dst.arr = NULL;
+	dst.col = 0;
+	dst.row = 0;
+	a = src.arr;
+	det = matrix_det(src);
+	if (a == NULL || (det < 1e-6f && det > -1e-6f))
+		return (dst);
+	dst.arr = malloc(sizeof(float) * 9);
+	if (dst.arr == NULL)
+		return (dst);
+	dst.arr[0] = (a[4] * a[8] - a[5] * a[7]) / det;
+	dst.arr[1] = -1 * (a[1] * a[8] - a[2] * a[7]) / det;
+	dst.arr[2] = (a[5] * a[1] - a[2] * a[4]) / det;
+	dst.arr[3] = -1 * (a[3] * a[8] - a[5] * a[6]) / det;
+	dst.arr[4] = (a[0] * a[8] - a[2] * a[6]) / det;
+	dst.arr[5] = -1 * (a[0] * a[5] - a[2] * a[3]) / det;
+	dst.arr[6] = (a[3] * a[7] - a[4] * a[6]) / det;
+	dst.arr[7] = -1 * (a[0] * a[7] - a[1] * a[6]) / det;
+	dst.arr[8] = (a[0] * a[4] - a[1] * a[3]) / det;
+	return (dst);
+}
+

@@ -91,7 +91,6 @@ void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw);
 void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw);
 
 // hook.c
-void	update_camera_pan(mlx_key_data_t keydata, t_2d_camera *camera);
 void 			hook_absolute_cinema(mlx_key_data_t keydata,
 	void *param);
 
@@ -131,7 +130,7 @@ t_line		connecting_2d_point_pair(t_2d_int p1, t_2d_int p2);
 void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	t_ink32 drawing_style, t_background background);
 
-// zoom.c
+// world_to_screen.c
 int	world_to_screen_xy(int offset, float world);
 t_2d_int	world_to_screen_2d(t_2d_camera camera, t_complex world);
 

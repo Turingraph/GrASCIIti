@@ -62,37 +62,18 @@ t_2d_int	world_to_screen_2d(t_2d_camera camera, t_complex world)
 	return (dst);
 }
 
-/*
-
-
 // time : O(1)
 // space: O(1)
-float	screen_to_world_xy(int offset, int screen,
-	size_t screen_size, float zoom)
+t_2d_int	world_to_screen_3d(t_2d_camera camera,
+	float x, float y)
 {
-	float	center;
-	float	world;
-	float	diff;
+	t_2d_int	dst;
+	int			center;
 
-	diff = (float)screen_size / 2.0;
-	center = (float)offset + diff;
-	if (zoom < 0.2)
-		return (0.0);
-	world = ((float)screen - center) / zoom;
-	return (world + diff);
-}
-
-// time : O(1)
-// space: O(1)
-t_complex	screen_to_world_2d(t_2d_camera camera,
-	t_2d_int screen)
-{
-	t_complex	dst;
-
-	dst.re = screen_to_world_xy(camera.offset.x,
-			screen.x, camera.window_size.x, camera.zoom);
-	dst.im = screen_to_world_xy(camera.offset.y,
-			screen.y, camera.window_size.y, camera.zoom);
+	center = (camera.offset.x + camera.window_size.x) / 2;
+	dst.x = x + center;
+	center = (camera.offset.y + camera.window_size.y) / 2;
+	dst.y = y + center;
 	return (dst);
 }
-*/
+

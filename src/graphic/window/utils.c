@@ -35,14 +35,19 @@ bool	is_2dhook_valid(const t_2d_hook *src,
 // space: O(1)
 bool	is_valid_key(mlx_key_data_t keydata)
 {
-	if (keydata.key == MLX_KEY_ESCAPE
+	if ((keydata.action == MLX_PRESS
+		|| keydata.action == MLX_REPEAT)
+		&& (keydata.key == MLX_KEY_ESCAPE
 		|| keydata.key == MLX_KEY_UP
 		|| keydata.key == MLX_KEY_DOWN
 		|| keydata.key == MLX_KEY_LEFT
-		|| keydata.key == MLX_KEY_0
+		|| keydata.key == MLX_KEY_RIGHT
 		|| keydata.key == MLX_KEY_1
 		|| keydata.key == MLX_KEY_2
-		|| keydata.key == MLX_KEY_3)
+		|| keydata.key == MLX_KEY_3
+		|| keydata.key == MLX_KEY_9
+		|| keydata.key == MLX_KEY_0
+		|| keydata.key == MLX_KEY_Q))
 		return (true);
 	return (false);
 }

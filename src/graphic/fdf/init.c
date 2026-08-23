@@ -48,6 +48,7 @@ t_fdf	init_fdf(t_table_fdf *src)
 	dst.pos_x = init_fdf_position(src, 0);
 	dst.pos_y = init_fdf_position(src, 1);
 	dst.pos_z = init_fdf_position(src, 2);
+	dst.matrix = init_3d_zoom_matrix(1.0);
 	min_x = get_minmax_from_table_fdf(
 		(const t_table_fdf *)src, false, HEIGHT);
 	max_x = get_minmax_from_table_fdf(
@@ -68,6 +69,9 @@ bool	is_fdf_valid(const t_fdf *src)
 	if (table == NULL || table->arr == NULL
 		|| src->width == 0
 		|| table->row * table->col == 0
+		|| src->matrix.col != 3
+		|| src->matrix.row != 3
+		|| src->matrix.arr == NULL
 		|| src->pos_x == NULL
 		|| src->pos_y == NULL
 		|| src->pos_z == NULL)
@@ -85,8 +89,12 @@ void	free_fdf(t_fdf *src)
 	free(src->pos_x);
 	free(src->pos_y);
 	free(src->pos_z);
+	free(src->matrix.arr);
 	src->pos_x = NULL;
 	src->pos_y = NULL;
 	src->pos_z = NULL;
 	src->src = NULL;
+	src->matrix.arr = NULL;
+	src->matrix.col = 0;
+	src->matrix.row = 0;
 }
