@@ -1,4 +1,16 @@
-#include"green_counts.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   as_int.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 10:14:45 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 10:15:07 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "green_counts.h"
 
 // https://stackoverflow.com/questions/41856771/
 // write-your-own-implementation-of-maths-floor-function-c
@@ -7,8 +19,8 @@
 // space: O(1)
 float	f_floor(float num)
 {
-    long long	n;
-    float		d;
+	long long	n;
+	float		d;
 
 	if (num > 2147483647.0)
 		return (2147483647.0);

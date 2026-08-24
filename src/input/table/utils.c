@@ -1,12 +1,27 @@
-#include"table.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 11:34:48 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 21:28:51 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "table.h"
 
 // time : O(1)
 // space: O(1)
-void	set_table_fdf_origin(t_table_fdf *dst, size_t direction, size_t ith_position, size_t max_position)
+void	set_table_fdf_origin(t_table_fdf *dst,
+	size_t direction, size_t ith_position, size_t max_position)
 {
-	if (direction == 0 && dst != NULL && ith_position <= max_position && max_position <= dst->col)
+	if (direction == 0 && dst != NULL
+		&& ith_position <= max_position && max_position <= dst->col)
 		dst->origin_x = (dst->col / max_position) * ith_position;
-	if (direction == 1 && dst != NULL && ith_position <= max_position && max_position <= dst->col)
+	if (direction == 1 && dst != NULL
+		&& ith_position <= max_position && max_position <= dst->col)
 		dst->origin_y = (dst->row / max_position) * ith_position;
 }
 
@@ -15,7 +30,8 @@ void	set_table_fdf_origin(t_table_fdf *dst, size_t direction, size_t ith_positio
 // 2.	standard_ascii_line(char *line) (from txt files)
 // 3.	chungaloider_ascii_line(char *line) (from txt files)
 // 4.	bw_fdf_line(char *line) (from fdf files)
-// 5.	rgba_fdf_line(char *line) (the only option that load rgb color from fdf files)
+// 5.	rgba_fdf_line(char *line)
+//		(the only option that load rgb color from fdf files)
 // time : O(n)
 // space: O(n)
 t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
@@ -40,14 +56,17 @@ t_complex	get_table_fdf_coordinate(const t_table_fdf *dst, size_t index)
 	y.im = 0;
 	if (dst == NULL || index >= dst->row * dst->col)
 		return (y);
-	y.re = f_floor(f_floor(index % dst->col) - (float)dst->origin_x) * dst->zoom;
-	y.im = f_floor((float)dst->origin_y - f_floor(index / dst->col)) * dst->zoom;
+	y.re = f_floor(f_floor(index % dst->col));
+	y.re -= (float)dst->origin_x * dst->zoom;
+	y.im = f_floor((float)dst->origin_y);
+	y.im -= f_floor(index / dst->col) * dst->zoom;
 	return (y);
 }
 
 // time : O(1)
 // space: O(1)
-unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type)
+unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src,
+	t_ergba rgba_type)
 {
 	if (src == NULL)
 		return (NULL);

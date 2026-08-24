@@ -1,8 +1,21 @@
-#include"linalg.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   euclid.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 10:19:40 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 10:19:49 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "linalg.h"
 
 // time : O(n)
 // space: O(1)
-float	euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char square)
+float	euclid_distance(const float *vec_v,
+	const float *vec_0, size_t dim, char square)
 {
 	float	y;
 	size_t	i;
@@ -26,7 +39,8 @@ float	euclid_distance(const float *vec_v, const float *vec_0, size_t dim, char s
 
 // time : O(n)
 // space: O(1)
-float	cos_between_2_vectors(const float *vec_v, const float *vec_u, size_t dim)
+float	cos_between_2_vectors(const float *vec_v,
+	const float *vec_u, size_t dim)
 {
 	float	div;
 

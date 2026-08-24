@@ -1,8 +1,21 @@
-#include"line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bresenham_uchar.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:59:06 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 20:59:09 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "line.h"
 
 // time : O(n)
 // space: O(1)
-void	bresenham_uchar_x(unsigned char *dst, t_line line, t_boundary boundary, unsigned char color)
+void	bresenham_uchar_x(unsigned char *dst,
+	t_line line, t_boundary boundary, unsigned char color)
 {
 	int	pivot;
 	int	delta_x;
@@ -32,7 +45,8 @@ void	bresenham_uchar_x(unsigned char *dst, t_line line, t_boundary boundary, uns
 
 // time : O(n)
 // space: O(1)
-void	bresenham_uchar_y(unsigned char *dst, t_line line, t_boundary boundary, unsigned char color)
+void	bresenham_uchar_y(unsigned char *dst,
+	t_line line, t_boundary boundary, unsigned char color)
 {
 	int	pivot;
 	int	delta_x;
@@ -62,7 +76,8 @@ void	bresenham_uchar_y(unsigned char *dst, t_line line, t_boundary boundary, uns
 
 // time : O(n * thickness)
 // space: O(1)
-void	bresenham_uchar_x_thick(unsigned char *dst, t_line line, t_boundary boundary, t_ink ink)
+void	bresenham_uchar_x_thick(unsigned char *dst,
+	t_line line, t_boundary boundary, t_ink ink)
 {
 	size_t			i;
 	t_line			parallel;
@@ -90,7 +105,8 @@ void	bresenham_uchar_x_thick(unsigned char *dst, t_line line, t_boundary boundar
 
 // time : O(n * thickness)
 // space: O(1)
-void	bresenham_uchar_y_thick(unsigned char *dst, t_line line, t_boundary boundary, t_ink ink)
+void	bresenham_uchar_y_thick(unsigned char *dst,
+	t_line line, t_boundary boundary, t_ink ink)
 {
 	size_t			i;
 	t_line			parallel;

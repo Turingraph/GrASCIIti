@@ -13,8 +13,9 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table raster window fdf\
-	convolve mathart paint line triangle_pair triangle_arr debug debug_triangle)
+# LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table raster window fdf\
+# 	convolve mathart paint line triangle_pair triangle_arr debug debug_triangle)
+LIBRARY = $(patsubst %, lib/%.a, libft green_counts linalg get_next_line load table debug)
 
 # *** atom src ***
 SRC_libft = $(wildcard utils/libft/*.c)
@@ -47,10 +48,10 @@ OBJ_green_counts = $(patsubst %.c, obj/%.o, $(SRC_green_counts))
 OBJ_get_next_line = $(patsubst %.c, obj/%.o, $(SRC_get_next_line))
 
 # *** composed obj ***
-OBJ_debug = $(patsubst %.c, obj/%.o, $(SRC_debug)) $(OBJ_libft) $(OBJ_get_next_line)
+OBJ_load = $(patsubst %.c, obj/%.o, $(SRC_load)) $(OBJ_libft) $(OBJ_get_next_line)
+OBJ_debug = $(patsubst %.c, obj/%.o, $(SRC_debug)) $(OBJ_libft) $(OBJ_load)
 OBJ_debug_triangle = $(patsubst %.c, obj/%.o, $(SRC_debug_triangle))
 OBJ_linalg = $(patsubst %.c, obj/%.o, $(SRC_linalg)) $(OBJ_green_counts)
-OBJ_load = $(patsubst %.c, obj/%.o, $(SRC_load)) $(OBJ_libft) $(OBJ_get_next_line)
 OBJ_table = $(patsubst %.c, obj/%.o, $(SRC_table)) $(OBJ_load) $(OBJ_green_counts)
 
 OBJ_convolve = $(patsubst %.c, obj/%.o, $(SRC_convolve)) $(OBJ_table) $(OBJ_linalg)

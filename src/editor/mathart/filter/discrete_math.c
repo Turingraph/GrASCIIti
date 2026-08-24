@@ -1,4 +1,16 @@
-#include"filter.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   discrete_math.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:39:35 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 20:40:55 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "filter.h"
 
 // time : O(???) but might be O(log(n))
 // space: O(1)
@@ -10,7 +22,7 @@ bool	is_collatz_coloring(const t_table_fdf *dst, size_t index)
 	if (dst == NULL || index >= dst->row * dst->col)
 		return (false);
 	input = f_round(complex_magnitude(
-		get_table_fdf_coordinate(dst, index), 0));
+				get_table_fdf_coordinate(dst, index), 0));
 	if (input < 0)
 		input *= -1;
 	max = collatz_max_point((size_t)input) / 7;
@@ -45,15 +57,17 @@ bool	is_binary_search_coloring(const t_table_fdf *dst, size_t index)
 {
 	int		input;
 	size_t	max;
+	float	length;
 
 	if (dst == NULL || index >= dst->row * dst->col)
 		return (false);
+	length = f_root_finding(dst->row * dst->row + dst->col * dst->col, 2);
 	input = f_round(complex_magnitude(
-		get_table_fdf_coordinate(dst, index), 0));
+				get_table_fdf_coordinate(dst, index), 0));
 	if (input < 0)
 		input *= -1;
 	max = binary_search_count((size_t)input,
-		(size_t)f_round(f_root_finding(dst->row * dst->row + dst->col * dst->col, 2)));
+			(size_t)f_round(length));
 	if (max % 2 == 0)
 		return (false);
 	return (true);

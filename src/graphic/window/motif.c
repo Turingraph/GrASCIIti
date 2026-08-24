@@ -1,5 +1,17 @@
-#include"window.h"
-#include<time.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   motif.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 22:48:00 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:53:56 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "window.h"
+#include <time.h>
 
 // time : O(n)
 // space: O(1)
@@ -41,10 +53,7 @@ void	draw_motif_mlx_loop(t_2d_hook *hook,
 
 	if (is_2dhook_valid(hook, E_MOTIF) == false)
 		return ;
-	static_camera.window_size = hook->camera->window_size;
-	static_camera.zoom = 1.0;
-	static_camera.offset.x = 0;
-	static_camera.offset.y = 0;
+	static_camera = get_static_camera(hook->camera->window_size);
 	iy = interier_tile.p1.y;
 	while (iy < interier_tile.p2.y)
 	{

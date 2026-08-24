@@ -1,4 +1,16 @@
-#include"line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bresenham_int.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:58:30 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 20:58:46 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "line.h"
 
 /*
 dx = x2 - x1
@@ -96,7 +108,8 @@ void	bresenham_int_y(int *dst, t_line line, t_boundary boundary, int color)
 
 // time : O(n * thickness)
 // space: O(1)
-void	bresenham_int_x_thick(int *dst, t_line line, t_boundary boundary, t_ink ink)
+void	bresenham_int_x_thick(int *dst,
+	t_line line, t_boundary boundary, t_ink ink)
 {
 	size_t	i;
 	t_line	parallel;
@@ -122,7 +135,8 @@ void	bresenham_int_x_thick(int *dst, t_line line, t_boundary boundary, t_ink ink
 
 // time : O(n * thickness)
 // space: O(1)
-void	bresenham_int_y_thick(int *dst, t_line line, t_boundary boundary, t_ink ink)
+void	bresenham_int_y_thick(int *dst,
+	t_line line, t_boundary boundary, t_ink ink)
 {
 	size_t	i;
 	t_line	parallel;
@@ -145,4 +159,3 @@ void	bresenham_int_y_thick(int *dst, t_line line, t_boundary boundary, t_ink ink
 		}
 	}
 }
-

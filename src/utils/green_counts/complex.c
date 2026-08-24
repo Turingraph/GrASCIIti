@@ -1,4 +1,16 @@
-#include"green_counts.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   complex.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 10:15:37 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 10:16:04 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "green_counts.h"
 
 // time : O(1)
 // space: O(1)
@@ -22,11 +34,11 @@ t_complex	complex_square(t_complex a)
 // space: O(1)
 t_complex	complex_cube(t_complex a)
 {
-	return (complex_multiplication(a,
-		complex_multiplication(a, a)));
+	return (complex_multiplication(a, complex_multiplication(a, a)));
 }
 
-// https://math.stackexchange.com/questions/3872891/multiplicative-inverse-of-complex-numbers-proof
+// https://math.stackexchange.com/questions/3872891/
+// multiplicative-inverse-of-complex-numbers-proof
 // time : O(1)
 // space: O(1)
 t_complex	complex_reciprocal(t_complex a)

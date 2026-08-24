@@ -1,4 +1,16 @@
-#include"window.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   view.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 22:54:15 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:58:57 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "window.h"
 
 // time : O(n)
 // space: O(1)
@@ -32,12 +44,12 @@ t_2d_hook	init_2d_hook(mlx_t *mlx, t_motif_arr *motif,
 	dst.master_piece.drawing_style = drawing_style;
 	if (mlx != NULL)
 		dst.master_piece.tiles = init_tile_format(
-			mlx->width, mlx->height,
-			(size_t)f_interval(background.tiles_resolution, 0, 10));
+				mlx->width, mlx->height,
+				(size_t)f_interval(background.tiles_resolution, 0, 10));
 	else
 		dst.master_piece.tiles = init_tile_format(
-			1, 1,
-			(size_t)f_interval(background.tiles_resolution, 0, 10));
+				1, 1,
+				(size_t)f_interval(background.tiles_resolution, 0, 10));
 	dst.img = NULL;
 	if (mlx != NULL)
 		dst.img = handle_mlx_error(mlx, mlx->width, mlx->height);
@@ -92,8 +104,8 @@ void	view_master_piece(t_fdf *still_life, t_motif_arr *motif,
 	draw_motif_mlx(&hook, true);
 	draw_fdf_mlx(&hook, true);
 	if (-1 == mlx_image_to_window(mlx, hook.img,
-		(mlx->width - hook.img->width) / 2,
-		(mlx->height - hook.img->height) / 2))
+			(mlx->width - hook.img->width) / 2,
+			(mlx->height - hook.img->height) / 2))
 	{
 		mlx_terminate(mlx);
 		return ;

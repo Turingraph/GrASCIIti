@@ -1,27 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raster.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 21:17:55 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:32:10 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RASTER_H
 # define RASTER_H
 
-#include "../../editor/line/line.h"
-#include "MLX42.h"
+# include "../../editor/line/line.h"
+# include "MLX42.h"
 
-typedef enum e_2d_shape e_2d_shape;
-
-enum e_2d_shape
+typedef enum t_e2d_shape
 {
 	E_RECTANGLE,
 	E_CIRCLE,
 	E_LINE,
 	E_PIXEL_ART
-};
+}	t_e2d_shape;
 
-typedef struct t_ink32 t_ink32;
-
-struct t_ink32
+typedef struct t_ink32
 {
 	int32_t		color;
 	size_t		thickness;
-	e_2d_shape	type;
-};
+	t_e2d_shape	type;
+}	t_ink32;
 
 // circle.c
 void		midpoint_circle_mlx(mlx_image_t *dst,
@@ -47,16 +55,16 @@ void		draw_pixel_art(mlx_image_t *dst, const t_table_fdf *src);
 
 // polygon.c
 void		draw_polygon_mlx(mlx_image_t *dst,
-	const t_2d_polygon *polygon, t_ink32 ink, t_line boundary);
+				const t_2d_polygon *polygon, t_ink32 ink, t_line boundary);
 void		draw_islamic_tiling_mlx(mlx_image_t *dst,
 				const t_2d_polygon *polygon,
 				t_ink32 ink, t_2d_int tiling_area);
 
 // rectangle.c
-void	draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
-	t_line boundary, int32_t ink);
-void	draw_mondrian_mlx(mlx_image_t *dst,
-	const t_2d_polygon *polygon, int32_t ink, t_line boundary);
+void		draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
+				t_line boundary, int32_t ink);
+void		draw_mondrian_mlx(mlx_image_t *dst,
+				const t_2d_polygon *polygon, int32_t ink, t_line boundary);
 void		draw_mondrian_tiling_mlx(mlx_image_t *dst,
 				const t_2d_polygon *polygon,
 				int32_t ink, t_2d_int tiling_area);

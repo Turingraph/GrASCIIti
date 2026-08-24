@@ -1,4 +1,16 @@
-#include"paint.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   paint.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 22:12:03 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:13:09 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "paint.h"
 
 // time : O(n)
 // space: O(1)
@@ -14,7 +26,8 @@ void	fill_cells_height(
 	while (dst != NULL && i < dst->row * dst->col && dst->arr != NULL)
 	{
 		if ((is_filtered_cell == NULL || is_filtered_cell(dst, i) == true)
-			&& ((is_overwrite == false && dst->arr[i] <= 0) || is_overwrite == true))
+			&& ((is_overwrite == false && dst->arr[i] <= 0)
+				|| is_overwrite == true))
 			dst->arr[i] = height;
 		i += 1;
 	}
@@ -25,7 +38,7 @@ void	fill_cells_height(
 void	fill_cells_color(
 	t_table_fdf *dst,
 	unsigned char input_value,
-	e_rgba rgba_type,
+	t_ergba rgba_type,
 	bool(*is_filtered_cell)(const t_table_fdf *dst, size_t index))
 {
 	size_t			i;
@@ -45,7 +58,7 @@ void	fill_cells_color(
 // space: O(1)
 void	generate_cells_color(
 	t_table_fdf *dst,
-	e_rgba channel,
+	t_ergba channel,
 	bool(*is_filtered_cell)(const t_table_fdf *dst, size_t index),
 	int(*gen_color)(const t_table_fdf *dst, size_t index))
 {
@@ -91,4 +104,3 @@ void	paint_table_background(t_table_fdf *dst, t_rgba color)
 	fill_cells_color(dst, color.b, BLUE, is_empty_space);
 	fill_cells_color(dst, color.a, ALPHA, is_empty_space);
 }
-

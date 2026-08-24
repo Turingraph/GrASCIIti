@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   strarr.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:32:55 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 20:33:04 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "debug.h"
 
 // time : O(n)
@@ -7,9 +19,7 @@ int	compare_string(const char *str_1,
 {
 	size_t	i;
 
-	if (str_1 == NULL && str_2 == NULL)
-		return (0);
-	if ((str_1 == NULL && str_2 != NULL) || (str_1 != NULL && str_2 == NULL))
+	if (str_1 == NULL || str_2 == NULL)
 		return (-1);
 	while (f_isspace(*str_1, " \n\t\r\f\v") == 1
 		&& *str_1 != '\0' && ignore_space == true)
@@ -102,7 +112,7 @@ char	**load_file_as_strarr(int fd, size_t total_lines)
 	if (total_lines == 0)
 		return (NULL);
 	dst = (char **)malloc_talk(sizeof(char *) * (total_lines + 1),
-		"test/src/input/get_next_line/file_by_file.c\n");
+			"test/src/input/get_next_line/file_by_file.c\n");
 	if (dst == NULL)
 		return (dst);
 	dst[total_lines] = NULL;

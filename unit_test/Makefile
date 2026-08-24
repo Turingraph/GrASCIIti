@@ -41,7 +41,8 @@ OUTPUT_FDFASCII = $(patsubst ../input_examples/fdf/%.fdf, $(INPUT_FDFASCII_DIR)%
 # *** obj, out, and lib ***
 all: all_out all_output
 
-all_out: $(OUT_ALL) $(OUT_triangle)
+# all_out: $(OUT_ALL) $(OUT_triangle)
+all_out: $(OUT_ALL)
 	@echo $^
 
 $(OUT_triangle): out/%.out: obj/%.o

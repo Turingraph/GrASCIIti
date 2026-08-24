@@ -5,53 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:25:38 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 10:25:39 by phsottat         ###   ########.fr       */
+/*   Created: 2026/08/24 22:05:24 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:08:12 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "paint.h"
 
-// time : O(n)
+// time : O(1)
 // space: O(1)
-char	f_strncmp(const char *dst, const char *src, size_t n)
+unsigned char	get_rgba_input(t_ergba rgba_type, t_rgba src)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n && *dst == *src && *dst != '\0')
-	{
-		i += 1;
-		dst += 1;
-		src += 1;
-	}
-	return (*dst - *src);
-}
-
-// time : O(n)
-// space: O(1)
-char	f_isspace(char s, const char *space)
-{
-	while (space != NULL && *space != '\0')
-	{
-		if (*space == s)
-			return (1);
-		space += 1;
-	}
+	if (rgba_type == RED)
+		return (src.r);
+	if (rgba_type == GREEN)
+		return (src.g);
+	if (rgba_type == BLUE)
+		return (src.b);
+	if (rgba_type == ALPHA)
+		return (src.a);
 	return (0);
-}
-
-// time : O(n)
-// space: O(1)
-size_t	f_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (*str != '\0')
-	{
-		i += 1;
-		str += 1;
-	}
-	return (i);
 }

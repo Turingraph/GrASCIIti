@@ -1,4 +1,16 @@
-#include"line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   polygon.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 21:05:21 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:02:56 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "line.h"
 
 // time : O(1)
 // space: O(1)
@@ -16,7 +28,8 @@ t_line	init_float_line(t_complex point_1, t_complex point_2,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line boundary)
+void	draw_polygon(t_table_fdf *dst,
+	t_2d_polygon *polygon, t_ink ink, t_line boundary)
 {
 	size_t	i;
 	t_line	line;
@@ -40,14 +53,16 @@ void	draw_polygon(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_line bou
 
 // time : O(n)
 // sapce: O(1)
-void	draw_square_tiling(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_2d_int tiling_area)
+void	draw_square_tiling(t_table_fdf *dst,
+	t_2d_polygon *polygon, t_ink ink, t_2d_int tiling_area)
 {
 	size_t	i;
 	size_t	j;
 	t_line	tiling;
 
 	i = 0;
-	while (dst != NULL && polygon != NULL && tiling_area.y > 0 && i < f_floor(dst->row / tiling_area.y) + 1)
+	while (dst != NULL && polygon != NULL
+		&& tiling_area.y > 0 && i < f_floor(dst->row / tiling_area.y) + 1)
 	{
 		j = 0;
 		while (tiling_area.x > 0 && j < f_floor(dst->col / tiling_area.x) + 1)
@@ -62,7 +77,8 @@ void	draw_square_tiling(t_table_fdf *dst, t_2d_polygon *polygon, t_ink ink, t_2d
 
 // time : O(n)
 // sapce: O(1)
-void	draw_kusama_circle_int(t_table_fdf *dst, t_circle circle, int ink, t_2d_int tiling_area)
+void	draw_kusama_circle_int(t_table_fdf *dst,
+	t_circle circle, int ink, t_2d_int tiling_area)
 {
 	size_t		i;
 	size_t		j;
@@ -70,9 +86,8 @@ void	draw_kusama_circle_int(t_table_fdf *dst, t_circle circle, int ink, t_2d_int
 	t_circle	point;
 	t_boundary	boundary;
 
-	point.radius = circle.radius;
 	i = 0;
-	while (dst != NULL && dst->arr != NULL && tiling_area.y > 0 && tiling_area.x > 0
+	while (dst != NULL && dst->arr != NULL && tiling_area.y * tiling_area.x > 0
 		&& i < f_floor(dst->row / tiling_area.y) + 1)
 	{
 		j = 0;
@@ -80,10 +95,7 @@ void	draw_kusama_circle_int(t_table_fdf *dst, t_circle circle, int ink, t_2d_int
 		{
 			tiling = get_tiling(tiling_area, i, j);
 			boundary = init_rectangle_boundary(tiling, dst->row, dst->col);
-			point.x = (int)f_interval(circle.x, 0,
-					boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
-			point.y = (int)f_interval(circle.y, 0,
-					boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
+			point = return_2d_point(boundary, circle);
 			midpoint_circle_int(dst->arr, ink, point, boundary);
 			j += 1;
 		}
@@ -93,7 +105,8 @@ void	draw_kusama_circle_int(t_table_fdf *dst, t_circle circle, int ink, t_2d_int
 
 // time : O(n)
 // sapce: O(1)
-void	draw_kusama_circle_uchar(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d_int tiling_area)
+void	draw_kusama_circle_uchar(t_table_fdf *dst,
+	t_circle circle, t_ink ink, t_2d_int tiling_area)
 {
 	size_t		i;
 	size_t		j;
@@ -101,7 +114,6 @@ void	draw_kusama_circle_uchar(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d
 	t_circle	point;
 	t_boundary	boundary;
 
-	point.radius = circle.radius;
 	i = 0;
 	while (dst != NULL && tiling_area.y > 0 && tiling_area.x > 0
 		&& get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color)) != NULL
@@ -112,11 +124,9 @@ void	draw_kusama_circle_uchar(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d
 		{
 			tiling = get_tiling(tiling_area, i, j);
 			boundary = init_rectangle_boundary(tiling, dst->row, dst->col);
-			point.x = (int)f_interval(circle.x, 0,
-					boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
-			point.y = (int)f_interval(circle.y, 0,
-					boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
-			midpoint_circle_uchar(get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color)),
+			point = return_2d_point(boundary, circle);
+			midpoint_circle_uchar(get_rgba_of_table_fdf2(dst,
+					ink.channel, &(ink.color)),
 				(unsigned char)ink.color, point, boundary);
 			j += 1;
 		}

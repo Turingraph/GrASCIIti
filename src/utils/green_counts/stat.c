@@ -1,4 +1,16 @@
-#include"green_counts.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stat.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 10:17:03 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 10:20:31 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "green_counts.h"
 
 // time : O(n)
 // space: O(1)
@@ -58,17 +70,3 @@ float	f_std(const float *vec_v, size_t dim)
 		y /= (float)dim;
 	return (y);
 }
-
-/*
-n% Percentile = group of A that have value Z greater than another
-than n% of another A, for example this Pixel is brighter than
-67% of all other pixels in an entire image.
-
-You can find the percentile by taking the integral of the PDF
-(probability density function) from negative infinity to your target value (for the right-hand value). 
-
-Reference
-*	https://youtu.be/3ORW40CshBM?si=UjzB17cq4-4EMGKD
-*	https://math.stackexchange.com/questions/1460989/calculating-percentile-value-from-mean-and-standard-deviation-of-a-normal-distri
-*/
-

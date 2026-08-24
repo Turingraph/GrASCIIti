@@ -1,4 +1,16 @@
-#include"line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:59:41 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 21:01:09 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "line.h"
 
 // time : O(1)
 // space: O(1)
@@ -104,15 +116,18 @@ the entire canvas (a.k.a. table_fdf).
 t_line	init_first_line(t_line src, t_boundary boundary)
 {
 	t_line	dst;
+	int		offset;
 
+	offset = boundary.sub_area.p1.x;
 	dst.p1.x = (int)f_interval(src.p1.x, 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
 	dst.p2.x = (int)f_interval(src.p2.x, 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
+	offset = boundary.sub_area.p1.y;
 	dst.p1.y = (int)f_interval(src.p1.y, 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
 	dst.p2.y = (int)f_interval(src.p2.y, 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
 	return (dst);
 }
 
@@ -137,6 +152,6 @@ int	float_to_2d_int(float src, t_line boundary, char mode)
 
 	dst = f_interval(src, 0, 1);
 	if (mode == 1)
-		return (int)f_floor(dst * (boundary.p2.y - 1 - boundary.p1.y));
-	return (int)f_floor(dst * (boundary.p2.x - 1 - boundary.p1.x));
+		return ((int)f_floor(dst * (boundary.p2.y - 1 - boundary.p1.y)));
+	return ((int)f_floor(dst * (boundary.p2.x - 1 - boundary.p1.x)));
 }

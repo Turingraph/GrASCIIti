@@ -1,9 +1,21 @@
-#include"line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 21:01:39 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 21:01:40 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "line.h"
 
 // time : O(1)
 // space: O(1)
 unsigned char	*get_rgba_of_table_fdf2(const t_table_fdf *src,
-	e_rgba rgba_type, int *color)
+	t_ergba rgba_type, int *color)
 {
 	if (color != NULL && rgba_type != HEIGHT)
 		*color = (int)f_interval(*color, 0, 255);

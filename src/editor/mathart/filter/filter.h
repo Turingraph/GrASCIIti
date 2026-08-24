@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   filter.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:41:03 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 20:41:19 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FILTER_H
 # define FILTER_H
 
-#include"../../../input/table/table.h"
-#include"../../../utils/libft/libft.h"
+#include "../../../input/table/table.h"
+#include "../../../utils/libft/libft.h"
 /*
 I will finish this folder after submit fdf42 project.
 
@@ -21,7 +33,8 @@ ChatGPT said that this is the result of Cauchy–Riemann equations.
 Also ChatGPT recommend me to use ln(1 - |J|) if |J| produce too saturated color.
 where J = jacobian matrix of the complex value function.
 
-According to Wolfarm Website ( https://mathworld.wolfram.com/Cauchy-RiemannEquations.html )
+According to Wolfarm Website
+( https://mathworld.wolfram.com/Cauchy-RiemannEquations.html )
 *	0 = d/dx f(x + yi) + i * d/dy f(x + yi)
 *	d/dx f(x + yi) = - i * d/dy f(x + yi)
 
@@ -30,7 +43,8 @@ and determanent of Jacobian Matrix of basic functions
 e.g. polynomial, trigonometry, log, exponential etc.
 might not yield interesting artistic result (according to my subjective taste).
 
-One interesting idea that ChatGPT recommend me is to apply those operation, use f_round,
+One interesting idea that ChatGPT recommend me is
+to apply those operation, use f_round,
 and then mod by 2, in FILTER (because f_round() % 2 isn't linear operator).
 */
 
@@ -74,10 +88,10 @@ bool	ormod_collatz_coloring(const t_table_fdf *dst, size_t index);
 // utils.c
 bool	is_positive_cell(const t_table_fdf *dst, size_t index);
 bool	is_conjugate_func(const t_table_fdf *dst, size_t index,
-	t_complex (*complex_func)(t_complex a));
+			t_complex (*complex_func)(t_complex a));
 bool	is_conjugate(const t_table_fdf *dst, size_t index);
 bool	is_complex_func(const t_table_fdf *dst, size_t index,
-	t_complex (*complex_func)(t_complex a));
+			t_complex (*complex_func)(t_complex a));
 bool	is_complex(const t_table_fdf *dst, size_t index);
 
 #endif

@@ -1,9 +1,21 @@
-#include"load.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 11:15:33 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 19:38:30 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "load.h"
 
 // time : O(n)
 // space: O(n)
 void	write_load_fdf(int fd, const t_load_fdf *src,
-		size_t digits, e_write_style mode)
+		size_t digits, t_write_style mode)
 {
 	size_t	i;
 
@@ -32,7 +44,7 @@ void	write_load_fdf(int fd, const t_load_fdf *src,
 // time : O(n)
 // space: O(n)
 void	write_load_fdf_arr(int fd,
-		const t_load_fdf_arr *src, size_t digits, e_write_style mode)
+		const t_load_fdf_arr *src, size_t digits, t_write_style mode)
 {
 	size_t	i;
 

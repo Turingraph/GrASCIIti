@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 10:24:32 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 10:25:28 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 // time : O(n)
@@ -37,7 +49,7 @@ char	*f_create_copy_text(const char *input, const char *space)
 	while (input[dst_len] != '\0' && f_isspace(input[dst_len], space) == 0)
 		dst_len += 1;
 	dst = (char *)malloc_talk(sizeof(char) * (dst_len + 1),
-		"LIB/split.c/f_create_copy_text\n");
+			"LIB/split.c/f_create_copy_text\n");
 	if (dst == NULL)
 		return (NULL);
 	dst[dst_len] = '\0';
@@ -93,7 +105,7 @@ char	**f_split(const char *input, const char *space)
 	if (dst_len == 0)
 		return (NULL);
 	dst = (char **)malloc_talk(sizeof(char *) * (dst_len + 1),
-		"LIB/split.c/f_split\n");
+			"LIB/split.c/f_split\n");
 	if (dst == NULL)
 		return (NULL);
 	dst[dst_len] = NULL;

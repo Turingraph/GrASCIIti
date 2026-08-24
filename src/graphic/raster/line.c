@@ -1,4 +1,16 @@
-#include"raster.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 22:16:07 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 22:16:20 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "raster.h"
 
 /*
 dx = x2 - x1
@@ -98,7 +110,8 @@ void	bresenham_mlx_y(mlx_image_t *dst,
 
 // time : O(n * thickness)
 // space: O(1)
-void	bresenham_mlx_x_thick(mlx_image_t *dst, t_line line, t_boundary boundary, t_ink32 ink)
+void	bresenham_mlx_x_thick(mlx_image_t *dst, t_line line,
+	t_boundary boundary, t_ink32 ink)
 {
 	size_t	i;
 	t_line	parallel;
@@ -124,7 +137,8 @@ void	bresenham_mlx_x_thick(mlx_image_t *dst, t_line line, t_boundary boundary, t
 
 // time : O(n * thickness)
 // space: O(1)
-void	bresenham_mlx_y_thick(mlx_image_t *dst, t_line line, t_boundary boundary, t_ink32 ink)
+void	bresenham_mlx_y_thick(mlx_image_t *dst, t_line line,
+	t_boundary boundary, t_ink32 ink)
 {
 	size_t	i;
 	t_line	parallel;

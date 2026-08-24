@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 10:27:40 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 19:18:41 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 // time : O(n)
@@ -6,7 +18,8 @@ t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 {
 	if (cup == NULL)
 		return (NULL);
-	*cup = (t_temperance *)queen_of_coin(sizeof(t_temperance), "GNL/ace_of_cup\n");
+	*cup = (t_temperance *)queen_of_coin(sizeof(t_temperance),
+			"GNL/ace_of_cup\n");
 	if (*cup == NULL)
 		return (NULL);
 	(*cup)->length = 0;
@@ -22,7 +35,7 @@ t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 
 // time : O(1)
 // space: O(1)
-e_dream	the_lost_treasure(e_dream *ambition, char **coin, t_temperance **angel)
+t_dream	the_lost_treasure(t_dream *ambition, char **coin, t_temperance **angel)
 {
 	if (angel != NULL && *(angel) != NULL)
 	{
@@ -43,7 +56,8 @@ e_dream	the_lost_treasure(e_dream *ambition, char **coin, t_temperance **angel)
 
 // time : O(n)
 // space: O(n)
-e_dream	king_gnu(char **coin, e_dream *ambition, e_dream anchor, t_temperance **angel)
+t_dream	king_gnu(char **coin, t_dream *ambition,
+		t_dream anchor, t_temperance **angel)
 {
 	if (anchor == CONTINUE)
 		*ambition = CONTINUE;
@@ -64,9 +78,9 @@ e_dream	king_gnu(char **coin, e_dream *ambition, e_dream anchor, t_temperance **
 
 // time : O(n)
 // space: O(n)
-char	the_chariot(int fd, e_dream *ambition, t_temperance **angel)
+char	the_chariot(int fd, t_dream *ambition, t_temperance **angel)
 {
-	e_dream	stop;
+	t_dream	stop;
 	char	*coin;
 
 	if (*ambition != CONTINUE)
@@ -95,10 +109,10 @@ char	the_chariot(int fd, e_dream *ambition, t_temperance **angel)
 
 // time : O(n)
 // space: O(n)
-char	*get_next_line(int fd, e_dream anchor)
+char	*get_next_line(int fd, t_dream anchor)
 {
 	static char		*coin = NULL;
-	static e_dream	ambition = CONTINUE;
+	static t_dream	ambition = CONTINUE;
 	t_temperance	*angel;
 	char			*knight;
 	size_t			length;
@@ -113,7 +127,7 @@ char	*get_next_line(int fd, e_dream anchor)
 		length += 1;
 	knight = ace_of_coin(angel->arr, length, 0);
 	coin = ace_of_coin(angel->arr + length,
-		knight_of_coin(angel->arr + length, '\0'), 0);
+			knight_of_coin(angel->arr + length, '\0'), 0);
 	free(angel->arr);
 	free(angel);
 	return (knight);

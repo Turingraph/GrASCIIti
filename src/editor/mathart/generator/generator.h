@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generator.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/24 20:37:51 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/24 20:38:45 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GENERATOR_H
 # define GENERATOR_H
 
-#include"../../../input/table/table.h"
-#include"../../../utils/libft/libft.h"
+# include "../../../input/table/table.h"
+# include "../../../utils/libft/libft.h"
 
 /*
 I will finish this folder after submit fdf42 project.
@@ -35,9 +47,11 @@ int	gen_binary_search_coloring(const t_table_fdf *dst, size_t index);
 int	gen_binary_search_x_coloring(const t_table_fdf *dst, size_t index);
 
 // utils.c
-int	gen_conjugate_func(const t_table_fdf *dst, size_t index, t_complex (*complex_func)(t_complex a));
+int	gen_conjugate_func(const t_table_fdf *dst,
+		size_t index, t_complex (*complex_func)(t_complex a));
 int	gen_conjugate(const t_table_fdf *dst, size_t index);
-int	gen_complex_func(const t_table_fdf *dst, size_t index, t_complex (*complex_func)(t_complex a));
+int	gen_complex_func(const t_table_fdf *dst,
+		size_t index, t_complex (*complex_func)(t_complex a));
 int	gen_complex(const t_table_fdf *dst, size_t index);
 int	gen_gaussian_bell_curve(const t_table_fdf *dst, size_t index);
 

@@ -4,9 +4,9 @@
 #include "../../editor/line/line.h"
 #include "MLX42.h"
 
-typedef enum e_2d_shape e_2d_shape;
+typedef enum t_e2d_shape t_e2d_shape;
 
-enum e_2d_shape
+enum t_e2d_shape
 {
 	E_RECTANGLE,
 	E_CIRCLE,
@@ -19,7 +19,7 @@ struct t_ink32
 {
 	int32_t		color;
 	size_t		thickness;
-	e_2d_shape	type;
+	t_e2d_shape	type;
 };
 
 typedef struct t_islamic_art t_islamic_art;

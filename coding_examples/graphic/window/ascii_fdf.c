@@ -26,7 +26,7 @@ int	main(int len, char **str)
 	t_table_fdf	table;
 	t_fdf		output;
 	t_background bc = {.color = f_rgba_to_int32(255, 255, 255, 255), .first_post = NULL, .tiles_resolution = 1};
-	t_ink32	style = {.color = f_rgba_to_int32(224, 84, 84, 255), .thickness = 4, .type = E_CIRCLE};
+	t_ink32	style = {.color = f_rgba_to_int32(224, 84, 84, 255), .thickness = 1, .type = E_PIXEL_ART};
 
 	if (len < 2)
 		return (0);
