@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix_product.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:20:09 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 16:21:59 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "linalg.h"
+#include"linalg.h"
 
 // I will implement the matrix multiplication that is used in numpy.
 // time : O(1)

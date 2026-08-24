@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rgba.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 11:12:29 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:11:37 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "load.h"
+#include"load.h"
 
 // time : O(1)
 // space: O(1)
@@ -50,24 +38,6 @@ size_t	count_hex_digits(char *line, size_t max)
 
 // time : O(1)
 // space: O(1)
-static void	update_rgba_unit(char *line, t_load_fdf *dst,
-	size_t index, bool *is_rgba)
-{
-	size_t	length;
-
-	length = count_hex_digits(line, 8);
-	if (dst->r != NULL)
-		dst->r[index] = f_rgba(line + 3, 1, is_rgba);
-	if (length > 2 && dst->g != NULL)
-		dst->g[index] = f_rgba(line + 3 + 2, 1, is_rgba);
-	if (length > 4 && dst->b != NULL)
-		dst->b[index] = f_rgba(line + 3 + 4, 1, is_rgba);
-	if (length > 6 && dst->a != NULL)
-		dst->a[index] = f_rgba(line + 3 + 6, 1, is_rgba);
-}
-
-// time : O(1)
-// space: O(1)
 void	update_rgba(char *line, t_load_fdf *dst, size_t index)
 {
 	size_t	length;
@@ -87,7 +57,16 @@ void	update_rgba(char *line, t_load_fdf *dst, size_t index)
 			dst->a[index] = f_rgba(line + 3 + 3, 1, &is_rgba);
 	}
 	if (length >= 5 && dst != NULL)
-		update_rgba_unit(line, dst, index, &is_rgba);
+	{
+		if (dst->r != NULL)
+			dst->r[index] = f_rgba(line + 3, 1, &is_rgba);
+		if (length > 2 && dst->g != NULL)
+			dst->g[index] = f_rgba(line + 3 + 2, 1, &is_rgba);
+		if (length > 4 && dst->b != NULL)
+			dst->b[index] = f_rgba(line + 3 + 4, 1, &is_rgba);
+		if (length > 6 && dst->a != NULL)
+			dst->a[index] = f_rgba(line + 3 + 6, 1, &is_rgba);
+	}
 	if (dst != NULL && is_rgba == false)
 		dst->rgb_warn = NOT_HEX;
 }

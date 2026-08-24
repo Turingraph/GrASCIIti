@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 11:19:52 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 11:20:31 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "table.h"
+#include"table.h"
 
 // time : O(1)
 // space: O(1)
@@ -43,8 +31,7 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 {
 	t_table_fdf	dst;
 
-	dst.arr = malloc_talk(sizeof(int) * row * col,
-			"table/init.c/init_table_fdf");
+	dst.arr = malloc_talk(sizeof(int) * row * col, "table/init.c/init_table_fdf");
 	dst.row = row;
 	dst.col = col;
 	dst.origin_x = col / 2;
@@ -53,14 +40,10 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 	dst.color_sampling = SAMPLE_TOP_LEFT;
 	if (is_rgba == false)
 		row = 0;
-	dst.r = malloc_talk(sizeof(unsigned char) * row * col,
-			"table/init.c/init_table_fdf");
-	dst.g = malloc_talk(sizeof(unsigned char) * row * col,
-			"table/init.c/init_table_fdf");
-	dst.b = malloc_talk(sizeof(unsigned char) * row * col,
-			"table/init.c/init_table_fdf");
-	dst.a = malloc_talk(sizeof(unsigned char) * row * col,
-			"table/init.c/init_table_fdf");
+	dst.r = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
+	dst.g = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
+	dst.b = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
+	dst.a = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
 	if (dst.arr == NULL || dst.col < 1 || dst.row < 1)
 		free_table_fdf(&dst);
 	return (dst);
@@ -86,11 +69,9 @@ size_t	load_fdf_col(const t_load_fdf_arr *src)
 
 // time : O(1)
 // space: O(1)
-void	load_rgba_for_table_fdf(const t_load_fdf *src,
-	t_table_fdf *dst, size_t row, size_t col)
+void	load_rgba_for_table_fdf(const t_load_fdf *src, t_table_fdf *dst, size_t row, size_t col)
 {
-	if (src != NULL && dst != NULL
-		&& row < dst->row && col < dst->col && col < src->length)
+	if (src != NULL && dst != NULL && row < dst->row && col < dst->col && col < src->length)
 	{
 		if (src->r != NULL && dst->r != NULL)
 			dst->r[dst->col * row + col] = src->r[col];
@@ -111,8 +92,7 @@ t_table_fdf	load_table_fdf(const t_load_fdf_arr *src, bool is_rgba)
 	size_t		i;
 	size_t		j;
 
-	if (src == NULL || src->arr == NULL
-		|| src->length == 0 || src->capacity == 0)
+	if (src == NULL || src->arr == NULL || src->length == 0 || src->capacity == 0)
 		return (init_table_fdf(0, 0, false));
 	dst = init_table_fdf(src->length, load_fdf_col(src), is_rgba);
 	if (dst.arr == NULL)

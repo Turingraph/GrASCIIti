@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 22:15:25 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 22:16:04 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "raster.h"
+#include"raster.h"
 
 // time : O(1)
 // space: O(1)
@@ -79,14 +67,13 @@ int32_t	get_table_rgba_int32(const t_table_fdf *src, size_t index)
 		b = get_table_rgba_int32_unit(src->b, index, src->col);
 	if (src->a != NULL && src->color_sampling == SAMPLE_AVERAGE)
 		a = get_table_rgba_int32_unit(src->a, index, src->col);
+	if (src->r != NULL && src->color_sampling != SAMPLE_AVERAGE)
+		r = (int32_t)src->r[index];
+	if (src->g != NULL && src->color_sampling != SAMPLE_AVERAGE)
+		g = (int32_t)src->g[index];
+	if (src->b != NULL && src->color_sampling != SAMPLE_AVERAGE)
+		b = (int32_t)src->b[index];
+	if (src->a != NULL && src->color_sampling != SAMPLE_AVERAGE)
+		a = (int32_t)src->a[index];
 	return (r << 24 | g << 16 | b << 8 | a);
 }
-
-// if (src->r != NULL && src->color_sampling != SAMPLE_AVERAGE)
-// 	r = (int32_t)src->r[index];
-// if (src->g != NULL && src->color_sampling != SAMPLE_AVERAGE)
-// 	g = (int32_t)src->g[index];
-// if (src->b != NULL && src->color_sampling != SAMPLE_AVERAGE)
-// 	b = (int32_t)src->b[index];
-// if (src->a != NULL && src->color_sampling != SAMPLE_AVERAGE)
-// 	a = (int32_t)src->a[index];

@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   kernel.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 20:57:50 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:57:58 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "convolve.h"
+#include"convolve.h"
 
 // https://stackoverflow.com/questions/1696113/
 // how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions
@@ -24,14 +12,13 @@ float	*gaussian_kernel_1d(size_t half_dim, float std)
 	float	sum;
 
 	kernel = malloc_talk(sizeof(float) * (2 * half_dim + 1),
-			"convolution/kernel.c/gaussian_kernel\n");
+		"convolution/kernel.c/gaussian_kernel\n");
 	if (kernel == NULL)
 		return (NULL);
 	i = 0;
 	while (i <= half_dim)
 	{
-		kernel[half_dim - i] = normal_distribution_function(std,
-				0, (-1.0) * (float)(i));
+		kernel[half_dim - i] = normal_distribution_function(std, 0, (-1.0) * (float)(i));
 		kernel[half_dim + i] = normal_distribution_function(std, 0, (float)(i));
 		i += 1;
 	}

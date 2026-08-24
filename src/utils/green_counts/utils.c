@@ -1,16 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:17:32 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:14:19 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include"green_counts.h"
 
-#include "green_counts.h"
+/*
+// the larger large_num the better the approximation.
+// https://math.stackexchange.com/questions/977586/is-there-an-approximation-to-the-natural-log-function-at-large-values
+// time : O(n)
+// space: O(1)
+double	natural_log(double x, double large_num, size_t accuracy)
+{
+	return (large_num * newton_method(x, large_num, accuracy) - large_num);
+}
+*/
 
 // time : O(1)
 // space: O(1)

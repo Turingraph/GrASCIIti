@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 22:47:44 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 22:50:55 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <time.h>
-#include "window.h"
+#include<time.h>
+#include"window.h"
 
 // time : O(1)
 // space: O(1)
@@ -35,6 +23,7 @@ void	hook_rotate(mlx_key_data_t keydata,
 	t_2d_hook *hook)
 {
 	t_matrix	transform;
+	size_t		len;
 
 	if (is_2dhook_valid(hook, E_STILL_LIFE) == false
 		|| (keydata.key != MLX_KEY_1
@@ -49,9 +38,16 @@ void	hook_rotate(mlx_key_data_t keydata,
 		transform = init_3d_rotate_matrix_z(3.141592653 / 12.0);
 	if (transform.arr == NULL)
 		return ;
+	len = hook->master_piece.still_life->src->col;
+	len *= hook->master_piece.still_life->src->row;
 	linear_map_3d_fdf(hook->master_piece.still_life, transform);
 	matrix_3d_product(transform, &(hook->master_piece.still_life->matrix));
 	free(transform.arr);
+	// if (det < 0.02)
+	// 	return ;
+	// vector_scale(hook->master_piece.still_life->pos_x, 1.0 / det, len);
+	// vector_scale(hook->master_piece.still_life->pos_y, 1.0 / det, len);
+	// vector_scale(hook->master_piece.still_life->pos_z, 1.0 / det, len);
 }
 
 // time : O(n)
@@ -65,7 +61,7 @@ void	hook_zoom(mlx_key_data_t keydata,
 	if (is_2dhook_valid(hook, E_STILL_LIFE) == false
 		|| (keydata.key != MLX_KEY_0 && keydata.key != MLX_KEY_9)
 		|| (keydata.key == MLX_KEY_0 && hook->camera->zoom / 1.01 < 0.2)
-		|| (keydata.key == MLX_KEY_9 && hook->camera->zoom * 1.01 > 4.0))
+		|| (keydata.key == MLX_KEY_9 && hook->camera->zoom * 1.01 > 2.0))
 		return ;
 	len = hook->master_piece.still_life->src->col;
 	len *= hook->master_piece.still_life->src->row;
@@ -96,12 +92,9 @@ void	hook_home(mlx_key_data_t keydata,
 	len *= hook->master_piece.still_life->src->row;
 	hook->camera->offset.x = 0.0;
 	hook->camera->offset.y = 0.0;
-	vector_scale(hook->master_piece.still_life->pos_x,
-		1.0 / hook->camera->zoom, len);
-	vector_scale(hook->master_piece.still_life->pos_y,
-		1.0 / hook->camera->zoom, len);
-	vector_scale(hook->master_piece.still_life->pos_z,
-		1.0 / hook->camera->zoom, len);
+	vector_scale(hook->master_piece.still_life->pos_x, 1.0 / hook->camera->zoom, len);
+	vector_scale(hook->master_piece.still_life->pos_y, 1.0 / hook->camera->zoom, len);
+	vector_scale(hook->master_piece.still_life->pos_z, 1.0 / hook->camera->zoom, len);
 	hook->camera->zoom = 1.0;
 	matrix_3d_product(undo, &(hook->master_piece.still_life->matrix));
 	linear_map_3d_fdf(hook->master_piece.still_life, undo);
@@ -115,6 +108,7 @@ void	hook_absolute_cinema(mlx_key_data_t keydata, void *param)
 	t_2d_hook		*hook;
 	static clock_t	before = 0;
 	clock_t			after;
+	// float			length_v;
 
 	hook = (t_2d_hook *)param;
 	if (is_2dhook_valid((const t_2d_hook *)hook, E_STILL_LIFE) == true
@@ -128,6 +122,14 @@ void	hook_absolute_cinema(mlx_key_data_t keydata, void *param)
 		before = after;
 		draw_fdf_mlx(hook, false);
 		draw_motif_mlx(hook, true);
+		// hook_rotate(keydata, hook);
+		// length_v = hook->master_piece.still_life->pos_x[0] * hook->master_piece.still_life->pos_x[0];
+		// length_v += hook->master_piece.still_life->pos_y[0] * hook->master_piece.still_life->pos_y[0];
+		// length_v += hook->master_piece.still_life->pos_z[0] * hook->master_piece.still_life->pos_z[0];
+		// length_v = f_root_finding(length_v, 2);
+		// write(1, "length: ", 9);
+		// ft_putnbr_fd((int)f_floor(length_v), 1, "0123456789", 1);
+		// write(1, "\n", 1);
 		hook_zoom(keydata, hook);
 		hook_pan(keydata, hook->camera);
 		hook_home(keydata, hook);

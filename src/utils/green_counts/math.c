@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:16:13 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 10:16:50 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "green_counts.h"
-#include <unistd.h>
+#include"green_counts.h"
+#include<unistd.h>
 
 // time : O(1)
 // space: O(1)
@@ -109,6 +97,12 @@ double	f_exp(double x)
 }
 
 /*
+You can use Laylor series to approximate Trigonometry function.
+https://blog.devgenius.io/
+the-magic-behind-trigonometric-functions-using-
+taylor-series-in-programming-f4cae34d3729
+*/
+
 // time : O(1)
 // space: O(1)
 double	f_sin(double x)
@@ -122,15 +116,8 @@ double	f_cos(double x)
 {
 	return (cos(x));
 }
-*/
 
 /*
-You can use Laylor series to approximate Trigonometry function.
-https://blog.devgenius.io/
-the-magic-behind-trigonometric-functions-using-
-taylor-series-in-programming-f4cae34d3729
-*/
-
 double	f_sin(double x)
 {
 	double	y;
@@ -186,3 +173,4 @@ double	f_cos(double x)
 	}
 	return (y);
 }
+*/

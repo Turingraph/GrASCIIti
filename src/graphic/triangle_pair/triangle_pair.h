@@ -26,47 +26,6 @@ enum e_3d_shape
 	// VOXEL
 };
 
-// graphic/triangle_pair/
-
-typedef struct t_triangle t_triangle;
-
-struct t_triangle
-{
-	float			*p1;
-	float			*p2;
-	float			*p3;
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned char	a;
-};
-
-// graphic/triangle_arr/
-
-typedef struct t_triangle_arr t_triangle_arr;
-
-struct t_triangle_arr
-{
-	t_triangle	*arr;
-	size_t		length;
-	size_t		capacity;
-	size_t		table_row;
-	size_t		table_col;
-	float		width_x;
-	float		width_y;
-	float		width_z;
-};
-
-// graphic/prism/
-
-typedef struct t_prism t_prism;
-
-struct t_prism
-{
-	t_triangle_arr	faces;
-	t_triangle_arr	edges;
-};
-
 // bool.c
 bool			is_edge_x(const t_table_fdf *src, size_t index, bool is_voxel);
 bool			is_edge_y(const t_table_fdf *src, size_t index, bool is_voxel);

@@ -1,19 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   complex_trig.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:15:17 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 10:15:27 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include"green_counts.h"
 
-#include "green_counts.h"
-
-// https://en-wikipedia-org.translate.goog/wiki/Euler%27s_formula?
-// _x_tr_sl=en&_x_tr_tl=th&_x_tr_hl=th&_x_tr_pto=tc
+// https://en-wikipedia-org.translate.goog/wiki/Euler%27s_formula?_x_tr_sl=en&_x_tr_tl=th&_x_tr_hl=th&_x_tr_pto=tc
 // time : O(1)
 // space: O(1)
 t_complex	complex_exp(t_complex a)

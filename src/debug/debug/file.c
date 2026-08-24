@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   file.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 20:30:56 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:31:15 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "debug.h"
 
 // time : O(n)
@@ -52,8 +40,7 @@ bool	assert_files(const char *file_name_1, const char *file_name_2,
 	strarr_1 = load_file_as_strarr(fd, length);
 	fd = open_dir_file(file_name_2, dir_name_2, READ);
 	strarr_2 = load_file_as_strarr(fd, length);
-	result = assert_strarr((const char **)strarr_1,
-			(const char **)strarr_2, length, true);
+	result = assert_strarr((const char **)strarr_1, (const char **)strarr_2, length, true);
 	free_2d_arr((void **)strarr_1, length);
 	free_2d_arr((void **)strarr_2, length);
 	return (result);
@@ -108,8 +95,7 @@ bool	assert_file_with_strarr(int fd, const char **strarr, size_t total_lines)
 		return (is_file_empty(fd));
 	line = get_next_line(fd, CONTINUE);
 	i = 0;
-	while (line != NULL && ((i < total_lines && total_lines > 0)
-			|| (total_lines == 0)))
+	while (line != NULL && ((i < total_lines && total_lines > 0) || (total_lines == 0)))
 	{
 		next_line = assert_gnl_and_line(line, strarr[i], fd);
 		line = next_line;

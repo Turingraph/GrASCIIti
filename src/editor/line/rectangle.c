@@ -1,34 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rectangle.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 21:53:06 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 21:54:20 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "line.h"
+#include"line.h"
 
 // time : O(1)
 // space: O(1)
 t_line	init_rectangle(t_line src, t_boundary boundary)
 {
 	t_line	dst;
-	int		offset;
 
-	offset = boundary.sub_area.p1.x;
 	dst.p1.x = (int)f_interval(f_min(src.p1.x, src.p2.x), 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
-	dst.p2.x = (int)f_interval(f_max(src.p1.x, src.p2.x), 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
-	offset = boundary.sub_area.p1.y;
+		boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
 	dst.p1.y = (int)f_interval(f_min(src.p1.y, src.p2.y), 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+		boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
+	dst.p2.x = (int)f_interval(f_max(src.p1.x, src.p2.x), 0,
+		boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
 	dst.p2.y = (int)f_interval(f_max(src.p1.y, src.p2.y), 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+		boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
 	return (dst);
 }
 
@@ -94,16 +79,14 @@ void	draw_rectangle_uchar(t_table_fdf *dst, t_line rectangle,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_mondrian_tiling_int(t_table_fdf *dst,
-	t_line rectangle, int ink, t_2d_int tiling_area)
+void	draw_mondrian_tiling_int(t_table_fdf *dst, t_line rectangle, int ink, t_2d_int tiling_area)
 {
 	size_t	i;
 	size_t	j;
 	t_line	tiling;
 
 	i = 0;
-	while (dst != NULL && tiling_area.y > 0
-		&& i < f_floor(dst->row / tiling_area.y) + 1)
+	while (dst != NULL && tiling_area.y > 0 && i < f_floor(dst->row / tiling_area.y) + 1)
 	{
 		j = 0;
 		while (tiling_area.x > 0 && j < f_floor(dst->col / tiling_area.x) + 1)
@@ -118,16 +101,14 @@ void	draw_mondrian_tiling_int(t_table_fdf *dst,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_mondrian_tiling_uchar(t_table_fdf *dst,
-	t_line rectangle, t_ink ink, t_2d_int tiling_area)
+void	draw_mondrian_tiling_uchar(t_table_fdf *dst, t_line rectangle, t_ink ink, t_2d_int tiling_area)
 {
 	size_t	i;
 	size_t	j;
 	t_line	tiling;
 
 	i = 0;
-	while (dst != NULL && tiling_area.y > 0
-		&& i < f_floor(dst->row / tiling_area.y) + 1)
+	while (dst != NULL && tiling_area.y > 0 && i < f_floor(dst->row / tiling_area.y) + 1)
 	{
 		j = 0;
 		while (tiling_area.x > 0 && j < f_floor(dst->col / tiling_area.x) + 1)

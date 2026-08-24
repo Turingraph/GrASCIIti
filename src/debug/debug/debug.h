@@ -1,33 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 20:26:07 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 21:33:20 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef TEST_HELPERS_H
+# define TEST_HELPERS_H
 
 # include "stdlib.h"
-# include "../../input/load/load.h"
+# include "../../utils/libft/libft.h"
+# include "../../input/get_next_line/get_next_line.h"
 
-typedef struct t_intarr
+typedef struct t_intarr t_intarr;
+
+struct t_intarr
 {
 	size_t		length;
 	const int	*arr;
-}	t_intarr;
+};
 
-typedef struct t_intarr_tester
+typedef struct t_intarr_tester t_intarr_tester;
+
+struct t_intarr_tester
 {
 	const t_intarr	*arr;
 	const char		*file_name;
 	size_t			length;
-}	t_intarr_tester;
+};
 
 // ascii.c
 bool	assert_files_ascii(const char *file_name_1, const char *file_name_2,

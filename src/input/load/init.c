@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 11:11:22 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 11:11:45 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "load.h"
+#include"load.h"
 
 // time : O(1)
 // space: O(1)
@@ -42,8 +30,7 @@ t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
 {
 	t_load_fdf	dst;
 
-	dst.arr = (int *)malloc_talk(sizeof(int) * line_len,
-			"load/init.c/init_load_fdf");
+	dst.arr = (int *)malloc_talk(sizeof(int) * line_len, "load/init.c/init_load_fdf");
 	dst.r = NULL;
 	dst.g = NULL;
 	dst.b = NULL;
@@ -51,13 +38,13 @@ t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
 	if (is_rgb == true)
 	{
 		dst.r = malloc_talk(sizeof(unsigned char) * line_len,
-				"load/ascii.c/int_load_fdf\n");
+			"load/ascii.c/int_load_fdf\n");
 		dst.g = malloc_talk(sizeof(unsigned char) * line_len,
-				"load/ascii.c/int_load_fdf\n");
+			"load/ascii.c/int_load_fdf\n");
 		dst.b = malloc_talk(sizeof(unsigned char) * line_len,
-				"load/ascii.c/int_load_fdf\n");
+			"load/ascii.c/int_load_fdf\n");
 		dst.a = malloc_talk(sizeof(unsigned char) * line_len,
-				"load/ascii.c/int_load_fdf\n");
+			"load/ascii.c/int_load_fdf\n");
 	}
 	dst.int_warn = CORRECT;
 	if (line_len == 0)
@@ -100,6 +87,6 @@ t_load_fdf_arr	init_load_fdf_arr(size_t length)
 	dst.capacity = length;
 	dst.length = 0;
 	dst.arr = malloc_talk(sizeof(t_load_fdf) * length,
-			"load/init.c/init_load_fdf_arr\n");
+		"load/init.c/init_load_fdf_arr\n");
 	return (dst);
 }

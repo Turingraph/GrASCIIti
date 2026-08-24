@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   atoi.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:24:18 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 10:24:23 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
 // time : O(n)
@@ -42,8 +30,7 @@ size_t	f_atoonei(char c, const char *base, bool *is_int)
 
 // time : O(1)
 // space: O(1)
-long int	f_atolongi(const char *src,
-	bool *is_int, const char *base, size_t digits)
+long int	f_atolongi(const char *src, bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
 	size_t		i;

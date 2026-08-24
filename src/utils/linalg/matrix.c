@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 10:20:21 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 10:22:57 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "linalg.h"
+#include"linalg.h"
 
 // time : O(1)
 // space: O(1)
@@ -51,8 +39,7 @@ t_matrix	init_matrix(size_t row, size_t col, float scale)
 
 // time : O(n^2)
 // space: O(n^2)
-t_matrix	outer_product_matrix(const float *vec_v,
-	const float *vec_u, size_t dim)
+t_matrix	outer_product_matrix(const float *vec_v, const float *vec_u, size_t dim)
 {
 	t_matrix	dst;
 	size_t		i;

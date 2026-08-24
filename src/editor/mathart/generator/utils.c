@@ -1,21 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 20:38:52 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:39:12 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "generator.h"
+#include"generator.h"
 
 // time : O(1)
 // space: O(1)
-int	gen_conjugate_func(const t_table_fdf *dst, size_t index,
-		t_complex (*complex_func)(t_complex a))
+int	gen_conjugate_func(const t_table_fdf *dst, size_t index, t_complex (*complex_func)(t_complex a))
 {
 	t_complex	y;
 
@@ -31,13 +18,12 @@ int	gen_conjugate_func(const t_table_fdf *dst, size_t index,
 // space: O(1)
 int	gen_conjugate(const t_table_fdf *dst, size_t index)
 {
-	return (gen_conjugate_func(dst, index, NULL));
+	return gen_conjugate_func(dst, index, NULL);
 }
 
 // time : O(1)
 // space: O(1)
-int	gen_complex_func(const t_table_fdf *dst, size_t index,
-		t_complex (*complex_func)(t_complex a))
+int	gen_complex_func(const t_table_fdf *dst, size_t index, t_complex (*complex_func)(t_complex a))
 {
 	t_complex	y;
 
@@ -53,7 +39,7 @@ int	gen_complex_func(const t_table_fdf *dst, size_t index,
 // space: O(1)
 int	gen_complex(const t_table_fdf *dst, size_t index)
 {
-	return (gen_complex_func(dst, index, NULL));
+	return gen_complex_func(dst, index, NULL);
 }
 
 // time : O(1)

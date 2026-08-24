@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   write.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 20:09:27 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:15:08 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "table.h"
+#include"table.h"
 
 // time : O(1)
 // space: O(1)
@@ -37,7 +25,7 @@ void	write_rgba_fdf(int fd, const t_table_fdf *src, size_t index)
 // time : O(n)
 // space: O(n)
 void	write_table_fdf(int fd, const t_table_fdf *src,
-	size_t digits, t_write_style mode)
+	size_t digits, e_write_style mode)
 {
 	size_t	i;
 	size_t	j;
@@ -66,7 +54,7 @@ void	write_table_fdf(int fd, const t_table_fdf *src,
 
 // time : O(1)
 // space: O(1)
-unsigned char	*choose_rgba_channel(const t_table_fdf *src, t_ergba channel)
+unsigned char	*choose_rgba_channel(const t_table_fdf *src, e_rgba channel)
 {
 	if (src == NULL)
 		return (NULL);
@@ -83,13 +71,13 @@ unsigned char	*choose_rgba_channel(const t_table_fdf *src, t_ergba channel)
 
 // time : O(n)
 // space: O(n)
-void	write_table_ascii(int fd, const t_table_fdf *src,
-	t_ergba channel, const char *dict)
+void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const char *dict)
 {
 	size_t			i;
 	size_t			j;
 	unsigned char	*arr;
-	bool			l_char;
+	int				rgb95;
+	bool			left_char;
 
 	i = 0;
 	while (src != NULL && i < src->row && fd > -1)
@@ -97,15 +85,40 @@ void	write_table_ascii(int fd, const t_table_fdf *src,
 		j = 0;
 		while (j < src->col)
 		{
-			l_char = true;
+			left_char = true;
 			if (j >= src->origin_x)
-				l_char = false;
+				left_char = false;
 			arr = choose_rgba_channel(src, channel);
 			if (src->arr != NULL && channel == HEIGHT)
-				ft_put_ascii_fd(fd, src->arr[i * src->col + j], dict, l_char);
+				ft_put_ascii_fd(fd, (int)src->arr[i * src->col + j], dict, left_char);
 			else if (arr != NULL && channel != HEIGHT)
-				ft_put_ascii_fd(fd, f_interval(arr[i * src->col + j], 0, 255),
-					dict, l_char);
+			{
+				rgb95 = (int)f_interval(f_round((float)arr[i * src->col + j]), 0, 255);
+				ft_put_ascii_fd(fd, rgb95, dict, left_char);
+			}
+			j += 1;
+		}
+		write(fd, "\n", 1);
+		i += 1;
+	}
+}
+
+// time : O(n)
+// space: O(n)
+void	write_push_swap_fdf(int fd, const t_table_fdf *src,
+	size_t digits)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (src != NULL && src->arr != NULL && i < src->row && fd > -1)
+	{
+		j = 0;
+		while (j < src->col)
+		{
+			ft_putnbr_fd(src->arr[src->col * i + j], fd, "0123456789", digits);
+			write(fd, ",\t", 2);
 			j += 1;
 		}
 		write(fd, "\n", 1);

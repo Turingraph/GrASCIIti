@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ascii.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 20:25:42 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 20:26:02 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "debug.h"
 
 // time : O(n)
 // space: O(1)
-int	compare_string_ascii(const char *str_1, const char *str_2, size_t n)
+int		compare_string_ascii(const char *str_1, const char *str_2, size_t n)
 {
 	size_t	i;
 
@@ -76,15 +64,14 @@ bool	assert_files_ascii(const char *file_name_1, const char *file_name_2,
 
 	fd = open_dir_file(file_name_1, dir_name_1, READ);
 	length = total_lines_of_file(fd);
-	fd = open_dir_file(file_name_2, dir_name_2, READ);
+	fd = open_dir_file(file_name_2, dir_name_2, READ);	
 	if (length != total_lines_of_file(fd))
 		return (false);
 	fd = open_dir_file(file_name_1, dir_name_1, READ);
 	strarr_1 = load_file_as_strarr(fd, length);
 	fd = open_dir_file(file_name_2, dir_name_2, READ);
 	strarr_2 = load_file_as_strarr(fd, length);
-	result = assert_strarr_ascii((const char **)strarr_1,
-			(const char **)strarr_2, length);
+	result = assert_strarr_ascii((const char **)strarr_1, (const char **)strarr_2, length);
 	free_2d_arr((void **)strarr_1, length);
 	free_2d_arr((void **)strarr_2, length);
 	return (result);

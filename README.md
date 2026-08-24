@@ -31,7 +31,7 @@ Thing to do "after" the first stable version, to avoid scope creep.
 7.	React Typescript user friendly Frontend
 8.	Font topology/graphic related analysis
 
-Sunset at 4.42 pm
-ปิตาภรณ์
-
-ยามอัสดง
+To Do List
+1.	Merge graphic/fdf/ as utils/linalg/ and graphic/window/
+2.	Build the very simple Fdf (with minimal feature)
+3.	.

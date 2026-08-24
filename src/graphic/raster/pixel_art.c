@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pixel_art.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/24 22:16:24 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/24 22:17:01 by phsottat         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "raster.h"
+#include"raster.h"
 
 // time : O(1)
 // space: O(1)
@@ -60,8 +48,7 @@ t_2d_int	init_offset(size_t dst_row, size_t dst_col,
 
 // time : O(1)
 // space: O(1)
-t_line	get_ijth_square_cell(t_2d_int offset,
-	size_t row, size_t col, size_t cell_area)
+t_line	get_ijth_square_cell(t_2d_int offset, size_t row, size_t col, size_t cell_area)
 {
 	t_line	dst;
 
@@ -74,8 +61,7 @@ t_line	get_ijth_square_cell(t_2d_int offset,
 
 // time : O(n)
 // sapce: O(1)
-void	draw_pixel_art(mlx_image_t *dst,
-	const t_table_fdf *src)
+void	draw_pixel_art(mlx_image_t *dst, const t_table_fdf *src)
 {
 	size_t		i;
 	size_t		j;
@@ -88,14 +74,16 @@ void	draw_pixel_art(mlx_image_t *dst,
 		while (j < src->col)
 		{
 			cell_size = init_img_size(dst->height,
-					dst->width, src->row, src->col);
-			cell_size.x = dst->height / src->row;
+				dst->width, src->row, src->col);
 			if (cell_size.x > cell_size.y)
 				cell_size.x = dst->width / src->col;
+			else
+				cell_size.x = dst->height / src->row;
 			draw_rectangle_mlx(dst,
 				get_ijth_square_cell(
 					init_offset(dst->height, dst->width, src->row, src->col),
-					j, i, cell_size.x),
+					j, i, cell_size.x
+				),
 				get_all_area(dst->height, dst->width).sub_area,
 				get_table_rgba_int32(src, i * src->col + j));
 			j += 1;
