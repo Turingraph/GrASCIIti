@@ -21,6 +21,10 @@ t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 					t_load_fdf (*parse_line)(char *line));
 
 // ascii.c
+char			mirror_tune(char a, bool is_left);
+int				f_ctoi(char a, const char *dict);
+void			ft_put_ascii_fd(int fd, int cell, const char *dict,
+					bool is_left);
 t_load_fdf		parse_ascii_line(char *line, const char *dict);
 
 // fdf.c

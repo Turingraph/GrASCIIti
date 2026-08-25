@@ -35,3 +35,8 @@ To Do List
 1.	Merge graphic/fdf/ as utils/linalg/ and graphic/window/
 2.	Build the very simple Fdf (with minimal feature)
 3.	.
+
+Nice to do
+1.	Prism
+2.	graphic/line/
+3.	.

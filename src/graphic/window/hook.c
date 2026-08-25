@@ -40,7 +40,7 @@ void	hook_rotate(mlx_key_data_t keydata,
 		return ;
 	len = hook->master_piece.still_life->src->col;
 	len *= hook->master_piece.still_life->src->row;
-	linear_map_3d_fdf(hook->master_piece.still_life, transform);
+	linear_map_fdf_all(hook->master_piece.still_life, transform);
 	matrix_3d_product(transform, &(hook->master_piece.still_life->matrix));
 	free(transform.arr);
 	// if (det < 0.02)
@@ -97,7 +97,7 @@ void	hook_home(mlx_key_data_t keydata,
 	vector_scale(hook->master_piece.still_life->pos_z, 1.0 / hook->camera->zoom, len);
 	hook->camera->zoom = 1.0;
 	matrix_3d_product(undo, &(hook->master_piece.still_life->matrix));
-	linear_map_3d_fdf(hook->master_piece.still_life, undo);
+	linear_map_fdf_all(hook->master_piece.still_life, undo);
 	free(undo.arr);
 }
 

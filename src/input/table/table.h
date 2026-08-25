@@ -15,8 +15,14 @@ int				get_minmax_from_table_fdf(const t_table_fdf *dst, bool is_max, e_rgba cha
 void			scale_positive_fdf(t_table_fdf *dst);
 void			scale_relu_fdf(t_table_fdf *dst, int min, int max, int expect);
 
-// scale.c
+// scale_dimension.c
+unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
+	size_t s_row, size_t s_col, e_rgba rgba_type);
+int	*scale_dimension_fdf_int(const t_table_fdf *src,
+	size_t s_row, size_t s_col);
 t_table_fdf		scale_dimension_fdf(const t_table_fdf *src, size_t scale_row, size_t scale_col);
+
+// scale.c
 void			scale_multiplication_fdf(t_table_fdf *dst, float scale, e_rgba channels);
 void			scale_addition_fdf(t_table_fdf *dst, int input, e_rgba channels);
 

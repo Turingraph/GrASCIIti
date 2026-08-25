@@ -56,10 +56,10 @@ void	scale_fdf_object(t_fdf *src, size_t fixed_window_size,
 	transform = init_3d_zoom_matrix(fixed_window_size / src->width);
 	if (transform.arr == NULL)
 		return ;
-	linear_map_3d_fdf(src, transform);
+	linear_map_fdf_all(src, transform);
 	if (first_linear_map != NULL && is_matrix_valid(first_linear_map) == true)
 	{
-		linear_map_3d_fdf(src, *first_linear_map);
+		linear_map_fdf_all(src, *first_linear_map);
 		matrix_3d_product(*first_linear_map, &(src->matrix));
 	}
 	free(transform.arr);

@@ -2,8 +2,20 @@
 # define WINDOW_H
 
 #include"../raster/raster.h"
-#include"../../utils/linalg/linalg.h"
-#include"../fdf/fdf.h"
+#include "../../utils/linalg/linalg.h"
+#include "../../input/table/table.h"
+
+typedef struct t_fdf t_fdf;
+
+struct t_fdf
+{
+	t_table_fdf	*src;
+	float		*pos_x;
+	float		*pos_y;
+	float		*pos_z;
+	t_matrix	matrix;
+	float		width;
+};
 
 typedef struct t_fline t_fline;
 
@@ -86,12 +98,21 @@ enum e_drawing_target
 	E_STILL_LIFE
 };
 
-// fdf.c
+// draw_fdf.c
 void	draw_fdf_mlx(t_2d_hook *hook, bool is_draw);
 
 // hook.c
 void 			hook_absolute_cinema(mlx_key_data_t keydata,
 	void *param);
+
+// init_fdf.c
+t_fdf		init_fdf(t_table_fdf *src);
+bool		is_fdf_valid(const t_fdf *src);
+void		free_fdf(t_fdf *src);
+
+// linalg.c
+float	linear_map_fdf(const t_fdf *src, t_matrix matrix, size_t i, char axis);
+void	linear_map_fdf_all(t_fdf *src, t_matrix matrix);
 
 // motif.c
 void	draw_motif_mlx(t_2d_hook *hook, bool is_draw);
