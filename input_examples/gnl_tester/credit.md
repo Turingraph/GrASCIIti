@@ -1,1 +1,0 @@
-The following files is from this Git repository. ( https://github.com/Tripouille/gnlTester )
