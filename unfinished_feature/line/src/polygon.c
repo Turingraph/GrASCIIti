@@ -101,10 +101,11 @@ void	draw_kusama_circle_uchar(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d
 	t_circle	point;
 	t_boundary	boundary;
 
+	ink.color = (int)f_interval(ink.color, 0, 255);
 	point.radius = circle.radius;
 	i = 0;
 	while (dst != NULL && tiling_area.y > 0 && tiling_area.x > 0
-		&& get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color)) != NULL
+		&& get_rgba_of_table_fdf(dst, ink.channel) != NULL
 		&& i < f_floor(dst->row / tiling_area.y) + 1)
 	{
 		j = 0;
@@ -116,7 +117,7 @@ void	draw_kusama_circle_uchar(t_table_fdf *dst, t_circle circle, t_ink ink, t_2d
 					boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
 			point.y = (int)f_interval(circle.y, 0,
 					boundary.sub_area.p2.y - boundary.sub_area.p1.y) + boundary.sub_area.p1.y;
-			midpoint_circle_uchar(get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color)),
+			midpoint_circle_uchar(get_rgba_of_table_fdf(dst, ink.channel),
 				(unsigned char)ink.color, point, boundary);
 			j += 1;
 		}

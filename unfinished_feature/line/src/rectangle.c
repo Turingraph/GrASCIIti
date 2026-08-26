@@ -56,7 +56,8 @@ void	draw_rectangle_uchar(t_table_fdf *dst, t_line rectangle,
 	int				j;
 	unsigned char	*arr;
 
-	arr = get_rgba_of_table_fdf2(dst, ink.channel, &(ink.color));
+	ink.color = (int)f_interval(ink.color, 0, 255);
+	arr = get_rgba_of_table_fdf(dst, ink.channel);
 	if (dst != NULL && arr != NULL)
 	{
 		sub_area = init_rectangle_boundary(boundary,

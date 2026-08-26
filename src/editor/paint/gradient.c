@@ -79,8 +79,7 @@ unsigned char	update_cell_color(unsigned char alpha, bool is_overwrite,
 // space: O(1)
 void	color_cells_gradient(t_table_fdf *dst,
 	t_gradient gradient_input,
-	bool is_overwrite,
-	bool (*is_filtered_cell)(const t_table_fdf *dst, size_t index))
+	bool is_overwrite)
 {
 	size_t			i;
 	int				threshold;
@@ -93,8 +92,7 @@ void	color_cells_gradient(t_table_fdf *dst,
 		alpha = 0;
 		if (dst->a != NULL && is_overwrite == false)
 			alpha = dst->a[i];
-		if ((is_filtered_cell == NULL || is_filtered_cell(dst, i) == true)
-			&& gradient_input.input_start <= threshold && threshold <= gradient_input.input_end)
+		if (gradient_input.input_start <= threshold && threshold <= gradient_input.input_end)
 		{
 			if (is_overwrite == true && dst->a != NULL)
 				dst->a[i] = gradient_smooth(ALPHA, gradient_input, threshold);

@@ -12,7 +12,7 @@ float	*gaussian_kernel_1d(size_t half_dim, float std)
 	float	sum;
 
 	kernel = malloc_talk(sizeof(float) * (2 * half_dim + 1),
-		"convolution/kernel.c/gaussian_kernel\n");
+		"editor/convolve/kernel.c/gaussian_kernel_1d\n");
 	if (kernel == NULL)
 		return (NULL);
 	i = 0;

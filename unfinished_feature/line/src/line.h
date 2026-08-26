@@ -96,8 +96,6 @@ t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col);
 t_line		init_first_line(t_line src, t_boundary boundary);
 
 // line.c
-unsigned char	*get_rgba_of_table_fdf2(const t_table_fdf *src,
-				e_rgba rgba_type, int *color);
 void			draw_straight_line(t_table_fdf *dst,
 					t_line line, t_line rectangle_boundary, t_ink ink);
 

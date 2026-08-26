@@ -9,7 +9,6 @@ int	main(int len, char **str)
 		return (0);
 	output = open_dir_file(str[1], NULL, APPEND);
 	table = init_table_fdf(49, 101, false);
-	set_table_fdf_origin(&table, 1, 4, 4);
 	table.zoom = 0.5;
 	generate_cells_color(&table, HEIGHT, is_conjugate_cube, gen_complex_sin);
 	// scale_multiplication_fdf(&table, 0.5, HEIGHT);
