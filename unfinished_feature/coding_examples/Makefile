@@ -8,10 +8,7 @@ remove_slash = $(patsubst %/,%,$1)
 
 OUT_DIR = out/
 SRC_WINDOW = $(wildcard graphic/window/*.c)
-SRC_TRIANGLES = $(filter-out $(SRC_WINDOW), $(wildcard graphic/*/*.c))
-SRC_LINE = $(wildcard editor/line/*.c)
 OUT_WINDOW = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_WINDOW))
-OUT_USE_TABLE = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_TRIANGLES) $(SRC_LINE))
 SRC_PAINT = $(wildcard editor/paint/*.c)
 OUT_PAINT = $(patsubst %.c, $(OUT_DIR)%.out, $(SRC_PAINT))
 # https://stackoverflow.com/questions/10276202/exclude-source-file-in-compilation-using-makefile
@@ -25,16 +22,12 @@ all: $(OUT) $(OUT_PAINT) $(OUT_USE_TABLE) $(OUT_WINDOW)
 
 $(OUT_PAINT): out/%.out: obj/%.o
 	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/mathart.a -lm
-
-$(OUT_USE_TABLE): out/%.out: obj/%.o
-	@mkdir -p $(@D)
-	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a -lm
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a ../src/lib/table.a ../src/lib/mathart.a -lm
 
 $(OUT_WINDOW): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
-	../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
+	../src/lib/paint.a ../src/lib/table.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
 
 $(OUT): out/%.out: obj/%.o
 	@mkdir -p $(@D)
