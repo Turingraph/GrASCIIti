@@ -50,7 +50,7 @@ struct t_table_fdf
 ```
 
 4.	`triangle/`
-*	Purpose: For drawing 3D object with Z buffer algorithm and making the 3D object compatible with Blender.
+*	Purpose: For drawing 3D object with Z buffer algorithm and making user able to convert and export Fdf/txt/`t_table_fdf` as 3D object compatible Blender mesh file.
 *	Why it is removed?: Blender compatibility and Z Buffer are outside the scope of this project in this current version. It is recommended to make good user manual before add new other features. In addition `e_sampling_rgba` add unnecessary complexity and risk making `t_table_fdf` become the God Object.
 
 ```
