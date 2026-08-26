@@ -25,27 +25,26 @@ int	main(void)
 		"multiple_nlx5",
 		"nl"
 	};
+	char	*src_dir = "unit_test/input/get_next_line/input/";
+	char	*dst_dir = "unit_test/input/get_next_line/clone_input/";
 
 	score = 0;
 	max_score = 15;
 	i = 0;
 	while (i < max_score)
 	{
-		fd = open_dir_file(arr[i], "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i],
+			src_dir, READ);
 		if (fd > -1)
 		{
 			total_lines = total_lines_of_file(fd);
-			fd = open_dir_file(arr[i], "input_examples/gnl_tester/", READ);
+			fd = open_dir_file(arr[i], src_dir, READ);
 			load = load_file_as_strarr(fd, total_lines);
-			fd = open_dir_file(arr[i], "unit_test/clone_examples/gnl_tester/", APPEND);
-			// write(1, ">>> ", 4);
-			// ft_putnbr_fd(fd, 1, "0123456789", 1);
-			// write(1, "\n", 1);
+			fd = open_dir_file(arr[i], dst_dir, APPEND);
 			if (fd > -1)
 			{
 				write_strarr((const char **)load, length_of_strarr((const char **)load), fd);
-				if (assert_files(arr[i], arr[i],
-					"input_examples/gnl_tester/", "unit_test/clone_examples/gnl_tester/") == true)
+				if (assert_files(arr[i], arr[i], src_dir, dst_dir) == true)
 					score += 1;
 			}
 			else

@@ -11,7 +11,6 @@ SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
 SRC_libft = $(wildcard utils/libft/*.c)
 SRC_green_counts = $(wildcard utils/green_counts/*.c)
-SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
 
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
 SRC_HELPER_get_next_line = $(wildcard ../src/input/get_next_line/*.c)
@@ -25,30 +24,27 @@ OUT_ALL = $(patsubst %.c, out/%.out,	\
 	$(SRC_get_next_line)	\
 	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_green_counts))
 
-OUT_triangle = $(patsubst %.c, out/%.out, $(SRC_triangle_pair))
-
 #-----------------------------------------------------------------------------------------------
-# *** get input file ***
-INPUT_FDFASCII_DIR = ../input_examples/fdf_to_ascii/
-OUTPUT_DIR = clone_examples/
+# *** get input clone file ***
 
-INPUT = $(filter-out $(wildcard ../input_examples/font/*), $(wildcard ../input_examples/*/*))
-INPUT_FONT = $(wildcard ../input_examples/*/*/*)
-OUTPUT = $(patsubst ../input_examples/%, $(OUTPUT_DIR)%, $(INPUT) $(INPUT_FONT))
-OUTPUT_FDFASCII = $(patsubst ../input_examples/fdf/%.fdf, $(INPUT_FDFASCII_DIR)%.txt, $(wildcard ../input_examples/fdf/*))
+INPUT_FIGLET = $(wildcard ../input_examples/figlet_rozzo/*)
+INPUT_FDF = $(wildcard ../input_examples/fdf/*)
+INPUT_GNL = $(wildcard input/get_next_line/input/*)
+
+CLONE_FIGLET_LOAD = $(patsubst ../input_examples/figlet_rozzo/%, input/load/clone_input_ascii/%, $(INPUT_FIGLET))
+CLONE_FIGLET_TABLE = $(patsubst ../input_examples/figlet_rozzo/%, input/table/clone_input_ascii/%, $(INPUT_FIGLET))
+CLONE_FIGLET = $(CLONE_FIGLET_LOAD) $(CLONE_FIGLET_TABLE)
+CLONE_FDF_LOAD = $(patsubst ../input_examples/fdf/%, input/load/clone_input_fdf/%, $(INPUT_FDF))
+CLONE_FDF_TABLE = $(patsubst ../input_examples/fdf/%, input/table/clone_input_fdf/%, $(INPUT_FDF))
+CLONE_FDF = $(CLONE_FDF_LOAD) $(CLONE_FDF_TABLE)
+CLONE_GNL = $(patsubst input/get_next_line/input/%, input/get_next_line/clone_input/%, $(INPUT_GNL))
 
 #-----------------------------------------------------------------------------------------------
 # *** obj, out, and lib ***
-all: all_out all_output
+all: all_out all_clone
 
-# all_out: $(OUT_ALL) $(OUT_triangle)
 all_out: $(OUT_ALL)
 	@echo $^
-
-$(OUT_triangle): out/%.out: obj/%.o
-	@mkdir -p $(@D)
-	@echo Yorushika said that $^
-	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/debug_triangle.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a ../src/lib/table.a -lm
 
 $(OUT_ALL): out/%.out: obj/%.o
 	@mkdir -p $(@D)
@@ -60,28 +56,32 @@ obj/%.o: %.c
 
 #-----------------------------------------------------------------------------------------------
 # *** create output file ***
-all_output: $(OUTPUT) $(OUTPUT_FDFASCII)
 
-$(INPUT_FDFASCII_DIR)%.txt: ../input_examples/fdf/%.fdf
+all_clone: $(CLONE_FDF) $(CLONE_FIGLET) $(CLONE_GNL)
+	@echo $^
+
+$(CLONE_FDF): ../input_examples/fdf/$(notdir $@)
 	@mkdir -p $(@D)
 	touch $@
 
-$(OUTPUT_DIR)%: ../input_examples/%
+$(CLONE_FIGLET): ../input_examples/figlet_rozzo/$(notdir $@)
+	@mkdir -p $(@D)
+	touch $@
+
+$(CLONE_GNL): input/get_next_line/input/$(notdir $@)
 	@mkdir -p $(@D)
 	touch $@
 
 #-----------------------------------------------------------------------------------------------
 # *** clean ***
-clean: clean_out
-# clean: clean_out clean_output
+clean: clean_out clean_clone
 
 clean_out:
 	rm -r -f out/
 	rm -r -f lib/
 	rm -r -f obj/
 
-clean_output:
-	rm -r -f $(INPUT_FDFASCII_DIR)
-	rm -r -f $(OUTPUT_DIR)
+clean_clone:
+	rm -r -f $(CLONE_FIGLET) $(CLONE_FDF) $(CLONE_GNL)
 
-.PHONY: all all_out all_output clean clean_out clean_output
+.PHONY: all all_out all_clone clean clean_out clean_clone

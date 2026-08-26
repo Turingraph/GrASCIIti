@@ -246,12 +246,13 @@ int	main(void)
 			11, false
 		}
 	};
+	char	*src_dir = "unit_test/input/get_next_line/input/";
 
 	score = 0;
 	i = 0;
 	while (i < max_score)
 	{
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
 		if (arr[i].read_entire_file == true)
 		{
 			if (assert_file_with_strarr(fd, (const char **)(arr[i].arr), 0) == true)

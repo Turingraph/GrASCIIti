@@ -210,6 +210,7 @@ int	main(void)
 			"pyra.fdf", 27
 		},
 	};
+	char	*src_dir = "input_examples/fdf/";
 
 	score = 0;
 	i = 0;
@@ -219,9 +220,9 @@ int	main(void)
 		while (k < 2)
 		{
 			if (k == 0)
-				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_bw);
+				fdf_file = open_fdf_file(arr[i].file_name, src_dir, parse_fdf_line_bw);
 			else
-				fdf_file = open_fdf_file(arr[i].file_name, "input_examples/fdf/", parse_fdf_line_rgba);
+				fdf_file = open_fdf_file(arr[i].file_name, src_dir, parse_fdf_line_rgba);
 			if (fdf_file.length == arr[i].length)
 			{
 				is_correct = true;

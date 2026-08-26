@@ -26,16 +26,17 @@ int	main(void)
 		{(const char *)"multiple_nlx5", 5},
 		{(const char *)"nl", 1},
 	};
+	char	*src_dir = "unit_test/input/get_next_line/input/";
 
 	score = 0;
 	i = 0;
 	while (i < max_score)
 	{
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
-		fd_length = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
+		fd_length = open_dir_file(arr[i].file_name, src_dir, READ);
 		total_lines = total_lines_of_file(fd_length);
 		load = load_file_as_strarr(fd, total_lines);
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
 		if (assert_file_with_strarr(fd, (const char **)load, total_lines) == true)
 			score += 1;
 		else
@@ -46,9 +47,9 @@ int	main(void)
 		}
 		free_2d_arr((void **)load, length_of_strarr((const char **)load));
 
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
 		load = load_file_as_strarr(fd, 1);
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
 		if (assert_file_with_strarr(fd, (const char **)load, 1) == true)
 			score += 1;
 		else
@@ -59,9 +60,9 @@ int	main(void)
 		}
 		free_2d_arr((void **)load, length_of_strarr((const char **)load));
 
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
 		load = load_file_as_strarr(fd, 3);
-		fd = open_dir_file(arr[i].file_name, "input_examples/gnl_tester/", READ);
+		fd = open_dir_file(arr[i].file_name, src_dir, READ);
 		if (assert_file_with_strarr(fd, (const char **)load, 3) == true)
 			score += 1;
 		else

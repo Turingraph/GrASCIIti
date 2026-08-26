@@ -24,14 +24,4 @@ struct t_putnbr_tester
 	size_t		expected_length;
 };
 
-typedef struct t_split_tester t_split_tester;
-
-struct t_split_tester
-{
-	const char	*input_str;
-	const char	*input_space;
-	size_t		expected_length;
-	const char	**expected_output;
-};
-
 #endif

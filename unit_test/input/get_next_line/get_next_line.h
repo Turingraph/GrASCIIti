@@ -4,6 +4,8 @@
 #include "../../../src/input/get_next_line/get_next_line.h"
 #include "../../../src/debug/debug/debug.h"
 
+// https://github.com/Tripouille/gnlTester/tree/master/files
+
 typedef struct t_gnl_tester t_gnl_tester;
 
 struct t_gnl_tester

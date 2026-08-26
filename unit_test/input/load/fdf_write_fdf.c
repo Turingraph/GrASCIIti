@@ -26,19 +26,19 @@ int	main(void)
 		"pylone.fdf",
 		// "julia.fdf"
 	};
+	char	*src_dir = "input_examples/fdf/";
+	char	*dst_dir = "unit_test/input/load/clone_input_fdf/";
 
 	score = 0;
 	i = 0;
 	while (i < max_score)
 	{
-		fdf_file = open_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_bw);
-		// fdf_file = open_fdf_file(arr[i], "input_examples/fdf/", parse_fdf_line_rgba);
-		clone_examples = open_dir_file(arr[i], "unit_test/clone_examples/fdf/", APPEND);
+		fdf_file = open_fdf_file(arr[i], src_dir, parse_fdf_line_bw);
+		clone_examples = open_dir_file(arr[i], dst_dir, APPEND);
 		if (clone_examples > -1)
 		{
 			write_load_fdf_arr(clone_examples, &fdf_file, 1, HEIGHT_ONLY);
-			if (assert_files(arr[i], arr[i],
-					"input_examples/fdf/", "unit_test/clone_examples/fdf/") == true)
+			if (assert_files(arr[i], arr[i], src_dir, dst_dir) == true)
 				score += 1;
 		}
 		free_load_fdf_arr(&fdf_file);
