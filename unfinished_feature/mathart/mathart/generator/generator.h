@@ -1,8 +1,8 @@
 #ifndef GENERATOR_H
 # define GENERATOR_H
 
-#include"../../../input/table/table.h"
 #include"../../../utils/libft/libft.h"
+#include"../../../utils/green_counts/green_counts.h"
 
 /*
 I will finish this folder after submit fdf42 project.
