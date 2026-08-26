@@ -82,7 +82,7 @@ t_triangle_arr	init_triangle_arr(size_t length, size_t row, size_t col)
 	dst.arr = NULL;
 	if (length > 0)
 		dst.arr = malloc_talk(sizeof(t_triangle) * length,
-				"mesh/init.c/init_triangle_arr\n");
+				"graphic/triangle_pair/init.c/init_triangle_arr\n");
 	if (length > 0 && dst.arr == NULL)
 	{
 		dst.capacity = 0;
