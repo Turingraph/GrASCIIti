@@ -1,14 +1,4 @@
-#include"table.h"
-
-// time : O(1)
-// space: O(1)
-void	set_table_fdf_origin(t_table_fdf *dst, size_t direction, size_t ith_position, size_t max_position)
-{
-	if (direction == 0 && dst != NULL && ith_position <= max_position && max_position <= dst->col)
-		dst->origin_x = (dst->col / max_position) * ith_position;
-	if (direction == 1 && dst != NULL && ith_position <= max_position && max_position <= dst->col)
-		dst->origin_y = (dst->row / max_position) * ith_position;
-}
+#include"table_private.h"
 
 // options for one_line
 // 1.	cheche01_ascii_line(char *line) (from txt files)
@@ -28,36 +18,4 @@ t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
 	dst = load_table_fdf(&src, is_rgba);
 	free_load_fdf_arr(&src);
 	return (dst);
-}
-
-// time : O(1)
-// space: O(1)
-t_complex	get_table_fdf_coordinate(const t_table_fdf *dst, size_t index)
-{
-	t_complex	y;
-
-	y.re = 0;
-	y.im = 0;
-	if (dst == NULL || index >= dst->row * dst->col)
-		return (y);
-	y.re = f_floor(f_floor(index % dst->col) - (float)dst->origin_x) * dst->zoom;
-	y.im = f_floor((float)dst->origin_y - f_floor(index / dst->col)) * dst->zoom;
-	return (y);
-}
-
-// time : O(1)
-// space: O(1)
-unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type)
-{
-	if (src == NULL)
-		return (NULL);
-	if (src->r != NULL && rgba_type == RED)
-		return (src->r);
-	if (src->g != NULL && rgba_type == GREEN)
-		return (src->g);
-	if (src->b != NULL && rgba_type == BLUE)
-		return (src->b);
-	if (src->a != NULL && (rgba_type == ALPHA))
-		return (src->a);
-	return (NULL);
 }

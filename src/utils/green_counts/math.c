@@ -1,5 +1,4 @@
 #include"green_counts.h"
-#include<unistd.h>
 
 // time : O(1)
 // space: O(1)
@@ -103,6 +102,7 @@ the-magic-behind-trigonometric-functions-using-
 taylor-series-in-programming-f4cae34d3729
 */
 
+/*
 // time : O(1)
 // space: O(1)
 double	f_sin(double x)
@@ -116,8 +116,8 @@ double	f_cos(double x)
 {
 	return (cos(x));
 }
+*/
 
-/*
 double	f_sin(double x)
 {
 	double	y;
@@ -173,4 +173,3 @@ double	f_cos(double x)
 	}
 	return (y);
 }
-*/

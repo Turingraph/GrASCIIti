@@ -1,4 +1,4 @@
-#include "table.h"
+#include "table_private.h"
 
 // time : O(n)
 // space: O(1)

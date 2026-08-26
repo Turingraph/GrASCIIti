@@ -39,3 +39,16 @@ void	warning_file_not_exists(const char *src)
 	write(1, src, f_strlen(src));
 	write(1, " is not exists.\n", 17);
 }
+
+// time : O(n)
+// space: O(1)
+void	free_2d_arr(void **arr, size_t len)
+{
+	while (len > 0 && arr != NULL)
+	{
+		if (len > 0 && arr[len - 1] != NULL)
+			free(arr[len - 1]);
+		len -= 1;
+	}
+	free(arr);
+}

@@ -1,4 +1,4 @@
-#include"load.h"
+#include"load_private.h"
 
 // time : O(n)
 // space: O(n)

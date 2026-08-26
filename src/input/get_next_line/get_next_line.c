@@ -1,4 +1,4 @@
-#include "get_next_line.h"
+#include "get_next_line_private.h"
 
 // time : O(n)
 // space: O(n)
@@ -6,7 +6,7 @@ t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup)
 {
 	if (cup == NULL)
 		return (NULL);
-	*cup = (t_temperance *)queen_of_coin(sizeof(t_temperance), "GNL/ace_of_cup\n");
+	*cup = (t_temperance *)queen_of_coin(sizeof(t_temperance));
 	if (*cup == NULL)
 		return (NULL);
 	(*cup)->length = 0;
@@ -93,28 +93,3 @@ char	the_chariot(int fd, e_dream *ambition, t_temperance **angel)
 	return (CONTINUE);
 }
 
-// time : O(n)
-// space: O(n)
-char	*get_next_line(int fd, e_dream anchor)
-{
-	static char		*coin = NULL;
-	static e_dream	ambition = CONTINUE;
-	t_temperance	*angel;
-	char			*knight;
-	size_t			length;
-
-	angel = NULL;
-	if (king_gnu(&coin, &ambition, anchor, &angel) == STOP_GNL)
-		return (NULL);
-	if (the_chariot(fd, &ambition, &angel) == STOP_GNL)
-		return (NULL);
-	length = knight_of_coin(angel->arr, '\n');
-	if (angel->arr[length] == '\n')
-		length += 1;
-	knight = ace_of_coin(angel->arr, length, 0);
-	coin = ace_of_coin(angel->arr + length,
-		knight_of_coin(angel->arr + length, '\0'), 0);
-	free(angel->arr);
-	free(angel);
-	return (knight);
-}

@@ -1,4 +1,4 @@
-#include"table.h"
+#include"table_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -86,7 +86,7 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const cha
 		while (j < src->col)
 		{
 			left_char = true;
-			if (j >= src->origin_x)
+			if (j >= src->col / 2)
 				left_char = false;
 			arr = choose_rgba_channel(src, channel);
 			if (src->arr != NULL && channel == HEIGHT)
@@ -96,29 +96,6 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const cha
 				rgb95 = (int)f_interval(f_round((float)arr[i * src->col + j]), 0, 255);
 				ft_put_ascii_fd(fd, rgb95, dict, left_char);
 			}
-			j += 1;
-		}
-		write(fd, "\n", 1);
-		i += 1;
-	}
-}
-
-// time : O(n)
-// space: O(n)
-void	write_push_swap_fdf(int fd, const t_table_fdf *src,
-	size_t digits)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (src != NULL && src->arr != NULL && i < src->row && fd > -1)
-	{
-		j = 0;
-		while (j < src->col)
-		{
-			ft_putnbr_fd(src->arr[src->col * i + j], fd, "0123456789", digits);
-			write(fd, ",\t", 2);
 			j += 1;
 		}
 		write(fd, "\n", 1);

@@ -1,4 +1,4 @@
-#include"table.h"
+#include"table_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -18,10 +18,6 @@ void	*free_table_fdf(t_table_fdf *src)
 	src->a = NULL;
 	src->row = 0;
 	src->col = 0;
-	src->origin_x = 0;
-	src->origin_y = 0;
-	src->color_sampling = SAMPLE_TOP_LEFT;
-	src->zoom = 1;
 	return (NULL);
 }
 
@@ -31,19 +27,15 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 {
 	t_table_fdf	dst;
 
-	dst.arr = malloc_talk(sizeof(int) * row * col, "table/init.c/init_table_fdf");
+	dst.arr = malloc_talk(sizeof(int) * row * col, "input/table/init.c/init_table_fdf\n");
 	dst.row = row;
 	dst.col = col;
-	dst.origin_x = col / 2;
-	dst.origin_y = row / 2;
-	dst.zoom = 1;
-	dst.color_sampling = SAMPLE_TOP_LEFT;
 	if (is_rgba == false)
 		row = 0;
-	dst.r = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
-	dst.g = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
-	dst.b = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
-	dst.a = malloc_talk(sizeof(unsigned char) * row * col, "table/init.c/init_table_fdf");
+	dst.r = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
+	dst.g = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
+	dst.b = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
+	dst.a = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
 	if (dst.arr == NULL || dst.col < 1 || dst.row < 1)
 		free_table_fdf(&dst);
 	return (dst);

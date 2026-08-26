@@ -30,34 +30,19 @@ void	*malloc_talk(size_t elem_size, const char *comment)
 	return (dst);
 }
 
-// time : O(n)
-// space: O(1)
-void	free_2d_arr(void **arr, size_t len)
-{
-	while (len > 0 && arr != NULL)
-	{
-		if (len > 0 && arr[len - 1] != NULL)
-			free(arr[len - 1]);
-		len -= 1;
-	}
-	free(arr);
-}
-
 // time : O(1)
 // space: O(1)
-void	write_2d_index(int max_col, int row, int col)
+unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type)
 {
-	write(1, "row = ", 7);
-	ft_putnbr_fd(row, 1, "0123456789", 1);
-	write(1, "\n", 1);
-	write(1, "col = ", 7);
-	ft_putnbr_fd(col, 1, "0123456789", 1);
-	write(1, "\n", 1);
-	row = row * max_col + col;
-	write(1, "index = ", 9);
-	ft_putnbr_fd(row, 1, "0123456789", 1);
-	write(1, "\n", 1);
-	write(1, "max_col = ", 11);
-	ft_putnbr_fd(max_col, 1, "0123456789", 1);
-	write(1, "\n", 1);
+	if (src == NULL)
+		return (NULL);
+	if (src->r != NULL && rgba_type == RED)
+		return (src->r);
+	if (src->g != NULL && rgba_type == GREEN)
+		return (src->g);
+	if (src->b != NULL && rgba_type == BLUE)
+		return (src->b);
+	if (src->a != NULL && (rgba_type == ALPHA))
+		return (src->a);
+	return (NULL);
 }

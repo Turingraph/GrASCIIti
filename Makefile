@@ -6,5 +6,4 @@ all clean:
 		$(MAKE) -C $$dir $@; \
 	done
 
-# Lol, Both Makefile tutorial and Suisei cover PHONY
 .PHONY: all clean

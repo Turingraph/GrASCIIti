@@ -1,4 +1,4 @@
-#include "get_next_line.h"
+#include "get_next_line_private.h"
 
 // time : O(n)
 // space: O(1)
@@ -25,10 +25,7 @@ void	*queen_of_coin(size_t elem_size, const char *comment)
 	if (dst == NULL)
 	{
 		if (comment != NULL && *comment != '\0')
-		{
-			write(1, "Malloc Fail: ", 14);
-			write(1, comment, knight_of_coin(comment, '\0'));
-		}
+			write(1, "Malloc Fail: src/input/get_next_line/\n", 39);
 	}
 	return (dst);
 }
@@ -44,7 +41,7 @@ char	*ace_of_coin(const char *src, size_t length, size_t capacity)
 		capacity = length;
 	if (capacity == 0)
 		return (NULL);
-	coin = (char *)queen_of_coin(sizeof(char) * (capacity + 1), "GNL/ace_of_coin\n");
+	coin = (char *)queen_of_coin(sizeof(char) * (capacity + 1));
 	if (coin == NULL)
 		return (NULL);
 	coin[capacity] = '\0';
@@ -77,7 +74,7 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 		(*left_cup)->length += 1;
 		return (*left_cup);
 	}
-	right_cup = (t_temperance *)queen_of_coin(sizeof(t_temperance), "GNL/two_of_cups\n");
+	right_cup = (t_temperance *)queen_of_coin(sizeof(t_temperance));
 	if (right_cup == NULL)
 		return (NULL);
 	right_cup->capacity = (*left_cup)->capacity * 2;

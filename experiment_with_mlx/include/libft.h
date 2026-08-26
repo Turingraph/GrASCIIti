@@ -8,7 +8,6 @@
 // arr.c
 void			free_2d_arr(void **arr, size_t len);
 void			*malloc_talk(size_t elem_size, const char *comment);
-void			write_2d_index(int max_col, int row, int col);
 
 // ascii.c
 char			mirror_tune(char a, bool is_left);
@@ -20,11 +19,7 @@ void			ft_put_ascii_fd(int fd, int cell, const char *dict,
 int				f_atoi(const char *src, bool *is_int, const char *base, size_t digits);
 size_t			ft_putnbr_fd(int n, int fd, const char *base, size_t digits);
 
-// split.c
-size_t			f_split_len(const char *input, const char *space);
-char			**f_split(const char *input, const char *space);
-
-// utils.c
+// string.c
 char			f_isspace(char s, const char *space);
 size_t			f_strlen(const char *str);
 

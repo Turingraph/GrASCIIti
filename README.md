@@ -1,4 +1,28 @@
-# Introduction
+# Refactored Dir List
+
+1.	src
+2.	unit_test
+	1.	input
+	*	get_next_line
+	*	load
+	*	table
+	2.	utils
+	*	green_counts
+	*	libft
+
+
+
+To Do List
+1.	Create private, public, and debug header file for all `src/`
+2.	Documenting the purpose of each function
+3.	Making unit test for `editor/`
+4.	Making the coding example for `window/`
+5.	Extract only necessary code for Fdf42.
+6.	Write README.md and a few user document.
+7.	Get feedback.
+
+
+# Previous Note
 
 I plan to make fdf42, and I also add the feature that allow user to convert ASCII text (including Figlet output) as fdf42 input files, and display them as prism (with Z buffer) instead of isometric projection that looks like boring chocolate (as I see in original fdf42). The user can choose the origin of x and y on the tables of integers, also paint those prism with complex conformal map as rgba value on each cells, and use Gaussian convolution when they wish to do it and also save it as new fdf42 files. Also I plan to make it utilize mainly OpenGL/GLFW directly. The reason I do this is because I have grapheme color synesthesia, I never use Blender, and I want to show audience what is the color of alphabet and display it as 3D typography for pure artistic reason and as IT job portfolio. 
 

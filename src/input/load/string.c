@@ -1,20 +1,4 @@
-#include "libft.h"
-
-// time : O(n)
-// space: O(1)
-char	f_strncmp(const char *dst, const char *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n && *dst == *src && *dst != '\0')
-	{
-		i += 1;
-		dst += 1;
-		src += 1;
-	}
-	return (*dst - *src);
-}
+#include"load_private.h"
 
 // time : O(n)
 // space: O(1)

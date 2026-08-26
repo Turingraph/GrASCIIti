@@ -2,7 +2,6 @@
 # define GREEN_COUNTS_H
 
 # include <stdlib.h>
-# include <math.h>
 # include "../type/type.h"
 
 // as_int.c
@@ -31,14 +30,15 @@ double	f_exp(double x);
 double	f_sin(double x);
 double	f_cos(double x);
 
-// stat.c
+// stats.c
 double	normal_distribution_function(double std, double means, double x);
-float	f_sum(const float *vec_v, size_t dim);
+float	f_std(const float *vec_v, size_t dim);
 
 // utils.c
 size_t	collatz_max_point(size_t x);
 size_t	binary_search_count(size_t min_input, size_t max_input);
 double	f_abs(double x);
 float	f_max3(float a, float b, float c);
+float	f_sum(const float *vec_v, size_t dim);
 
 #endif

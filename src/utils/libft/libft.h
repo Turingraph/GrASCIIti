@@ -6,20 +6,13 @@
 #include "../type/type.h"
 
 // arr.c
-void			free_2d_arr(void **arr, size_t len);
+char			f_isspace(char s, const char *space);
+size_t			f_strlen(const char *str);
 void			*malloc_talk(size_t elem_size, const char *comment);
-void			write_2d_index(int max_col, int row, int col);
+unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type);
 
 // atoi.c
 int				f_atoi(const char *src, bool *is_int, const char *base, size_t digits);
 size_t			ft_putnbr_fd(int n, int fd, const char *base, size_t digits);
-
-// split.c
-size_t			f_split_len(const char *input, const char *space);
-char			**f_split(const char *input, const char *space);
-
-// utils.c
-char			f_isspace(char s, const char *space);
-size_t			f_strlen(const char *str);
 
 #endif

@@ -61,15 +61,6 @@ struct t_load_fdf_arr
 	size_t		capacity;
 };
 
-typedef enum e_sampling_rgba e_sampling_rgba;
-
-enum e_sampling_rgba
-{
-	SAMPLE_TOP_LEFT,
-	SAMPLE_AVERAGE,
-	SAMPLE_EDGE_AVERAGE
-};
-
 // input/table/
 
 typedef struct t_table_fdf t_table_fdf;
@@ -78,10 +69,6 @@ struct t_table_fdf
 {
 	size_t			row;
 	size_t			col;
-	size_t			origin_x;
-	size_t			origin_y;
-	e_sampling_rgba	color_sampling;
-	float			zoom;
 	int				*arr;
 	unsigned char	*r;
 	unsigned char	*g;

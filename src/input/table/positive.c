@@ -1,4 +1,4 @@
-#include"table.h"
+#include"table_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -38,7 +38,7 @@ int	get_minmax_from_table_fdf(const t_table_fdf *dst, bool is_max, e_rgba channe
 	size_t	i;
 	int		y;
 
-	y = target_minmax((const t_table_fdf *)dst, channels, 0, false);
+	y = 0;
 	sign = 1;
 	if (is_max == false)
 		sign = -1;

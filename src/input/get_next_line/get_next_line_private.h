@@ -1,5 +1,5 @@
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_PRIVATE_H
+# define GET_NEXT_LINE_PRIVATE_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,13 +36,13 @@ enum e_file_mode
 	APPEND = 'a',
 };
 
-// api.c
-char			*get_next_line(int fd, e_dream anchor);
+// get_next_line.c
+char	the_chariot(int fd, e_dream *ambition, t_temperance **angel);
+
+
+// open_file.c
 int				open_dir_file(const char *file_name,
 					const char *dir, e_file_mode mode);
-char			*concat_string(const char *str_1, const char *str_2);
-
-// get_next_line.c
 t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup);
 
 // utils.c

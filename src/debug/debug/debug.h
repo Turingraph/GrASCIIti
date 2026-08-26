@@ -45,5 +45,6 @@ char	**load_file_as_strarr(int fd, size_t total_lines);
 void	write_total_score(size_t score, size_t max_score);
 int		compare_intarr(const int *str_1, const int *str_2, size_t n);
 void	warning_file_not_exists(const char *src);
+void	free_2d_arr(void **arr, size_t len);
 
 #endif

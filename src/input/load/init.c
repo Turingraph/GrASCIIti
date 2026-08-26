@@ -1,4 +1,4 @@
-#include"load.h"
+#include"load_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -30,7 +30,7 @@ t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
 {
 	t_load_fdf	dst;
 
-	dst.arr = (int *)malloc_talk(sizeof(int) * line_len, "load/init.c/init_load_fdf");
+	dst.arr = (int *)malloc_talk(sizeof(int) * line_len, "input/load/init.c/init_load_fdf\n");
 	dst.r = NULL;
 	dst.g = NULL;
 	dst.b = NULL;
@@ -38,13 +38,13 @@ t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
 	if (is_rgb == true)
 	{
 		dst.r = malloc_talk(sizeof(unsigned char) * line_len,
-			"load/ascii.c/int_load_fdf\n");
+			"input/load/ascii.c/int_load_fdf\n");
 		dst.g = malloc_talk(sizeof(unsigned char) * line_len,
-			"load/ascii.c/int_load_fdf\n");
+			"input/load/ascii.c/int_load_fdf\n");
 		dst.b = malloc_talk(sizeof(unsigned char) * line_len,
-			"load/ascii.c/int_load_fdf\n");
+			"input/load/ascii.c/int_load_fdf\n");
 		dst.a = malloc_talk(sizeof(unsigned char) * line_len,
-			"load/ascii.c/int_load_fdf\n");
+			"input/load/ascii.c/int_load_fdf\n");
 	}
 	dst.int_warn = CORRECT;
 	if (line_len == 0)

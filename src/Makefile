@@ -13,8 +13,9 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table raster window\
-	convolve mathart paint line triangle_pair triangle_arr debug debug_triangle)
+LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table debug)
+# LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table raster window\
+# 	convolve mathart paint line debug)
 
 # *** atom src ***
 SRC_libft = $(wildcard utils/libft/*.c)
@@ -23,7 +24,6 @@ SRC_get_next_line = $(wildcard input/get_next_line/*.c)
 
 # *** composed src ***
 SRC_debug = $(wildcard debug/debug/*.c)
-SRC_debug_triangle = $(wildcard debug/debug_triangle/*.c)
 SRC_linalg = $(wildcard utils/linalg/*.c)
 SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
@@ -33,8 +33,6 @@ SRC_mathart = $(wildcard editor/mathart/*/*.c)
 SRC_paint = $(wildcard editor/paint/*.c)
 SRC_line = $(wildcard editor/line/*.c)
 
-SRC_triangle_pair = $(wildcard graphic/triangle_pair/*.c)
-SRC_triangle_arr = $(wildcard graphic/triangle_arr/*.c)
 SRC_raster = $(wildcard graphic/raster/*.c)
 SRC_window = $(wildcard graphic/window/*.c)
 
@@ -47,18 +45,15 @@ OBJ_get_next_line = $(patsubst %.c, obj/%.o, $(SRC_get_next_line))
 
 # *** composed obj ***
 OBJ_debug = $(patsubst %.c, obj/%.o, $(SRC_debug)) $(OBJ_load)
-OBJ_debug_triangle = $(patsubst %.c, obj/%.o, $(SRC_debug_triangle))
 OBJ_linalg = $(patsubst %.c, obj/%.o, $(SRC_linalg)) $(OBJ_green_counts)
 OBJ_load = $(patsubst %.c, obj/%.o, $(SRC_load)) $(OBJ_libft) $(OBJ_get_next_line)
 OBJ_table = $(patsubst %.c, obj/%.o, $(SRC_table)) $(OBJ_load) $(OBJ_green_counts)
 
 OBJ_convolve = $(patsubst %.c, obj/%.o, $(SRC_convolve)) $(OBJ_table) $(OBJ_linalg)
-OBJ_mathart = $(patsubst %.c, obj/%.o, $(SRC_mathart)) $(OBJ_table)
-OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_table)
+OBJ_mathart = $(patsubst %.c, obj/%.o, $(SRC_mathart)) $(OBJ_libft) $(OBJ_green_counts)
+OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_libft) $(OBJ_green_counts)
 OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_green_counts) $(OBJ_libft)
 
-OBJ_triangle_pair = $(patsubst %.c, obj/%.o, $(SRC_triangle_pair)) $(OBJ_libft) $(OBJ_linalg)
-OBJ_triangle_arr = $(patsubst %.c, obj/%.o, $(SRC_triangle_arr)) $(OBJ_triangle_pair)
 OBJ_raster = $(patsubst %.c, obj/%.o, $(SRC_raster)) $(OBJ_line)
 OBJ_window = $(patsubst %.c, obj/%.o, $(SRC_window)) $(OBJ_raster) $(OBJ_linalg) $(OBJ_table)
 

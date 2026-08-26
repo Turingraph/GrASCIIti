@@ -1,4 +1,4 @@
-#include "load.h"
+#include "load_private.h"
 
 // https://paulbourke.net/dataformats/asciiart/
 

@@ -1,4 +1,4 @@
-#include "table.h"
+#include "table_private.h"
 
 // time : O(n^2)
 // space: O(1)
@@ -55,7 +55,8 @@ unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
 	arr = get_rgba_of_table_fdf(src, rgba_type);
 	if (arr == NULL)
 		return (NULL);
-	dst = malloc(sizeof(unsigned char) * src->row * src->col * s_row * s_col);
+	dst = malloc_talk(sizeof(unsigned char) * src->row * src->col * s_row * s_col,
+		"input/table/scale_dimension.c/scale_dimension_fdf_rgba\n");
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
@@ -84,7 +85,8 @@ int	*scale_dimension_fdf_int(const t_table_fdf *src,
 
 	if (src == NULL || src->row == 0 || src->col == 0 || src->arr == NULL)
 		return (NULL);
-	dst = malloc(sizeof(int) * src->row * src->col * s_row * s_col);
+	dst = malloc_talk(sizeof(int) * src->row * src->col * s_row * s_col,
+			"input/table/scale_dimension.c/scale_dimension_fdf_int\n");
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
@@ -113,10 +115,6 @@ t_table_fdf	scale_dimension_fdf(const t_table_fdf *src,
 		return (init_table_fdf(0, 0, false));
 	dst.col = scale_col * src->col;
 	dst.row = scale_row * src->row;
-	dst.origin_x = dst.col / 2;
-	dst.origin_y = dst.row / 2;
-	dst.zoom = 1;
-	dst.color_sampling = SAMPLE_TOP_LEFT;
 	dst.arr = scale_dimension_fdf_int(src, scale_row, scale_col);
 	if (dst.arr == NULL)
 		return (init_table_fdf(0, 0, false));
