@@ -5,7 +5,8 @@
 #include "../../utils/libft/libft.h"
 
 // all_files.c
-t_load_fdf_arr	load_all_fdf_lines(int fd, t_load_fdf (*parse_line)(char *line));
+t_load_fdf_arr	load_all_fdf_lines(int fd,
+					t_load_fdf (*parse_line)(char *line));
 t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 					t_load_fdf (*parse_line)(char *line));
 
@@ -33,17 +34,20 @@ t_load_fdf		parse_fdf_line_rgba(char *line);
 t_load_fdf		parse_fdf_line_bw(char *line);
 
 // rgba.c
-size_t	count_hex_digits(char *line, size_t max);
-void	update_rgba(char *line, t_load_fdf *dst, size_t index);
+size_t			count_hex_digits(char *line, size_t max);
+void			update_rgba(char *line, t_load_fdf *dst, size_t index);
 
 // string.c
-char	f_isspace(char s, const char *space);
-size_t	f_strlen(const char *str);
+char			f_isspace(char s, const char *space);
+size_t			f_strlen(const char *str);
 
 // write_ascii.c
-void	write_load_ascii_arr_cheche01(int fd, const t_load_fdf_arr *src);
-void	write_load_ascii_arr_standard(int fd, const t_load_fdf_arr *src);
-void	write_load_ascii_arr_chungaloider(int fd, const t_load_fdf_arr *src);
+void			write_load_ascii_arr_cheche01(int fd,
+					const t_load_fdf_arr *src);
+void			write_load_ascii_arr_standard(int fd,
+					const t_load_fdf_arr *src);
+void			write_load_ascii_arr_chungaloider(int fd,
+					const t_load_fdf_arr *src);
 
 // write.c
 void			write_load_fdf_arr(int fd, const t_load_fdf_arr *src,

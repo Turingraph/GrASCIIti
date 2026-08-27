@@ -55,8 +55,14 @@ t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
 	return (dst);
 }
 
-// time : O(n)
-// space: O(1)
+/**
+ * Free the array after it load an FDF file.
+ * Intended for internal use by open_table_fdf_file().
+ *
+ * time/space: O(n) / O(1)
+ *
+ * @param src the target array with t_load_fdf_arr type.
+ */
 void	*free_load_fdf_arr(t_load_fdf_arr *src)
 {
 	size_t	i;
@@ -79,8 +85,16 @@ void	*free_load_fdf_arr(t_load_fdf_arr *src)
 	return (NULL);
 }
 
-// time : O(1)
-// space: O(n)
+/**
+ * Initializing array for loading an FDF file.
+ * Intended for internal use by open_table_fdf_file().
+ *
+ * time/space: O(1) / O(n)
+ *
+ * @param length the number of all row of that t_load_fdf_arr can contains.
+ *  If t_load_fdf_arr do not have enough memory for load Fdf input file,
+ *  the program will double its size as a dynamic array.
+ */
 t_load_fdf_arr	init_load_fdf_arr(size_t length)
 {
 	t_load_fdf_arr	dst;
@@ -88,6 +102,6 @@ t_load_fdf_arr	init_load_fdf_arr(size_t length)
 	dst.capacity = length;
 	dst.length = 0;
 	dst.arr = malloc_talk(sizeof(t_load_fdf) * length,
-		"load/init.c/init_load_fdf_arr\n");
+			"load/init.c/init_load_fdf_arr\n");
 	return (dst);
 }

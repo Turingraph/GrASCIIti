@@ -2,6 +2,39 @@
 
 // time : O(n)
 // space: O(n)
+void	write_load_ascii(int fd, const t_load_fdf *src, const char *dict)
+{
+	size_t	i;
+
+	i = 0;
+	while (src != NULL && src->arr != NULL && i < src->length)
+	{
+		if (i < src->length / 2)
+			ft_put_ascii_fd(fd, src->arr[i], dict, true);
+		else
+			ft_put_ascii_fd(fd, src->arr[i], dict, false);
+		i += 1;
+	}
+	write(fd, "\n", 1);
+}
+
+// time : O(n)
+// space: O(n)
+void	write_load_ascii_arr(int fd, const t_load_fdf_arr *src,
+			const char *dict)
+{
+	size_t	i;
+
+	i = 0;
+	while (src != NULL && i < src->length && src->arr != NULL)
+	{
+		write_load_ascii(fd, (const t_load_fdf *)&(src->arr[i]), dict);
+		i += 1;
+	}
+}
+
+// time : O(n)
+// space: O(n)
 void	write_load_ascii_arr_cheche01(int fd, const t_load_fdf_arr *src)
 {
 	write_load_ascii_arr(fd, src,

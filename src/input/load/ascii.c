@@ -29,7 +29,6 @@ char	mirror_tune(char a, bool is_left)
 	return (a);
 }
 
-
 // time : O(n)
 // space: O(1)
 int	f_ctoi(char a, const char *dict)
@@ -44,8 +43,19 @@ int	f_ctoi(char a, const char *dict)
 	return ((int)i);
 }
 
-// time : O(1)
-// space: O(1)
+/**
+ * Write the integer as an ASCII art character in targeted file.
+ *
+ * time/space: O(1) / O(1)
+ *
+ * @param fd target output txt file (with ASCII art)
+ * @param cell the input integer
+ * @param dict for define the map between integer and ASCII printable characters
+ *  for example 1st char = " ", 1st char = "-", 2nd char = "0" etc.
+ * @param is_left for determine if the characters are lefted or right,
+ *  for examples, b = right and d = left, etc. this features make the output
+ *  of this program more compatible with Figlet output.
+ */
 void	ft_put_ascii_fd(int fd, int cell, const char *dict, bool is_left)
 {
 	size_t	i;
