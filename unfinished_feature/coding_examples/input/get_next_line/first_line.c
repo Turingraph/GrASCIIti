@@ -12,8 +12,8 @@ int	main(int len, char **str)
 	fd = open(str[1], 'r');
 	if (fd < 0)
 		return (0);
-	line = get_next_line(fd, CONTINUE);
-	get_next_line(fd, STOP_GNL);
+	line = get_next_line(fd, true);
+	get_next_line(fd, false);
 	write(output, ">>> ", 5);
 	write(output, line, knight_of_coin(line, '\0'));
 	if (line == NULL)

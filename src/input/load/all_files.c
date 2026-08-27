@@ -83,7 +83,7 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 		write(1, "Warning: parse_line is NULL\n", 29);
 		return (dst);
 	}
-	line = get_next_line(fd, CONTINUE);
+	line = get_next_line(fd, true);
 	while (line != NULL)
 	{
 		item = parse_line(line);
@@ -91,10 +91,10 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 		if (dst.length > 0 && dst.arr != NULL)
 			warning_load_fdf(&dst.arr[dst.length - 1], dst.length - 1);
 		free(line);
-		line = get_next_line(fd, CONTINUE);
+		line = get_next_line(fd, true);
 	}
 	free(line);
-	get_next_line(fd, STOP_GNL);
+	get_next_line(fd, false);
 	return (dst);
 }
 
@@ -109,21 +109,10 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 		t_load_fdf (*parse_line)(char *line))
 {
-	t_temperance	*file;
-	int				dst;
+	int		dst;
 
 	if (dir == NULL || *dir == '\0')
 		return (load_all_fdf_lines(open(file_name, READ), parse_line));
-	file = NULL;
-	ace_of_cup(1, &file);
-	if (file == NULL)
-		return (init_load_fdf_arr(0));
-	three_of_cups(&file, dir);
-	three_of_cups(&file, file_name);
-	if (file == NULL)
-		return (init_load_fdf_arr(0));
-	dst = open(file->arr, READ);
-	free(file->arr);
-	free(file);
+	dst = open_dir_file(file_name, dir, READ);
 	return (load_all_fdf_lines(dst, parse_line));
 }

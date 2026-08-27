@@ -8,13 +8,13 @@ size_t	total_lines_of_file(int fd)
 	char	*line;
 
 	total_lines = 1;
-	line = get_next_line(fd, CONTINUE);
+	line = get_next_line(fd, true);
 	if (line == NULL)
 		return (0);
 	while (line != NULL)
 	{
 		free(line);
-		line = get_next_line(fd, CONTINUE);
+		line = get_next_line(fd, true);
 		total_lines += 1;
 	}
 	return (total_lines);
@@ -54,11 +54,11 @@ bool	is_file_empty(int fd)
 
 	if (fd < 0)
 		return (false);
-	actual_y = get_next_line(fd, CONTINUE);
+	actual_y = get_next_line(fd, true);
 	if (actual_y == NULL)
 		return (true);
 	free(actual_y);
-	get_next_line(fd, STOP_GNL);
+	get_next_line(fd, false);
 	return (false);
 }
 
@@ -72,11 +72,11 @@ char	*assert_gnl_and_line(char *actual_line,
 		|| f_strlen(actual_line) != f_strlen(expected_line))
 	{
 		free(actual_line);
-		get_next_line(fd, STOP_GNL);
+		get_next_line(fd, false);
 		return (NULL);
 	}
 	free(actual_line);
-	return (get_next_line(fd, CONTINUE));
+	return (get_next_line(fd, true));
 }
 
 // total_lines = 0 means to verify all lines.
@@ -93,9 +93,10 @@ bool	assert_file_with_strarr(int fd, const char **strarr, size_t total_lines)
 		return (false);
 	if (strarr == NULL || strarr[0] == NULL)
 		return (is_file_empty(fd));
-	line = get_next_line(fd, CONTINUE);
+	line = get_next_line(fd, true);
 	i = 0;
-	while (line != NULL && ((i < total_lines && total_lines > 0) || (total_lines == 0)))
+	while (line != NULL && ((i < total_lines && total_lines > 0)
+			|| (total_lines == 0)))
 	{
 		next_line = assert_gnl_and_line(line, strarr[i], fd);
 		line = next_line;
@@ -103,7 +104,7 @@ bool	assert_file_with_strarr(int fd, const char **strarr, size_t total_lines)
 	}
 	len = length_of_strarr(strarr);
 	free(line);
-	get_next_line(fd, STOP_GNL);
+	get_next_line(fd, false);
 	if (i == len)
 		return (true);
 	return (false);

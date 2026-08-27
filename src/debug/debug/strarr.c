@@ -102,19 +102,19 @@ char	**load_file_as_strarr(int fd, size_t total_lines)
 	if (total_lines == 0)
 		return (NULL);
 	dst = (char **)malloc_talk(sizeof(char *) * (total_lines + 1),
-		"debug/debug/strarr.c/load_file_as_strarr\n");
+			"debug/debug/strarr.c/load_file_as_strarr\n");
 	if (dst == NULL)
 		return (dst);
 	dst[total_lines] = NULL;
-	dst[0] = get_next_line(fd, CONTINUE);
+	dst[0] = get_next_line(fd, true);
 	if (dst[0] == NULL)
 		return (dst);
 	i = 1;
 	while (i < total_lines)
 	{
-		dst[i] = get_next_line(fd, CONTINUE);
+		dst[i] = get_next_line(fd, true);
 		i += 1;
 	}
-	get_next_line(fd, STOP_GNL);
+	get_next_line(fd, false);
 	return (dst);
 }

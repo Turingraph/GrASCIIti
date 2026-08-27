@@ -10,7 +10,7 @@ int	main(int len, char **str)
 		return (0);
 	output = 1;
 	fd = open_dir_file(str[1], NULL, READ);
-	line = get_next_line(fd, CONTINUE);
+	line = get_next_line(fd, true);
 	if (line == NULL)
 		return (0);
 	while (line != NULL)
@@ -18,7 +18,7 @@ int	main(int len, char **str)
 		write(output, ">>> ", 5);
 		write(output, line, knight_of_coin(line, '\0'));
 		free(line);
-		line = get_next_line(fd, CONTINUE);
+		line = get_next_line(fd, true);
 	}
 	return (0);
 }

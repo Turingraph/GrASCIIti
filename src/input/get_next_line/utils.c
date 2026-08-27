@@ -17,16 +17,13 @@ size_t	knight_of_coin(const char *str, char stop)
 
 // time : O(n)
 // space: O(1)
-void	*queen_of_coin(size_t elem_size, const char *comment)
+void	*queen_of_coin(size_t elem_size)
 {
 	void	*dst;
 
 	dst = (void *)malloc(elem_size);
 	if (dst == NULL)
-	{
-		if (comment != NULL && *comment != '\0')
-			write(1, "Malloc Fail: src/input/get_next_line/\n", 39);
-	}
+		write(1, "Malloc Fail: src/input/get_next_line/\n", 39);
 	return (dst);
 }
 

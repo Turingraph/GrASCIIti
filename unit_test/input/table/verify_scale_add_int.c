@@ -280,33 +280,4 @@ int	main(void)
 /*
 valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/table/verify_scale_add_int.out
 
-pc@pc-System-Product-Name:~/Desktop/GrASCIIfi$ valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/input/table/verify_scale_add_int.out 
-==281612== Memcheck, a memory error detector
-==281612== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==281612== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-==281612== Command: ./unit_test/out/input/table/verify_scale_add_int.out
-==281612== 
-Incorrect: 10-70.fdf    0
-Incorrect: 10-70.fdf    1
-Incorrect: basictest.fdf        0
-Incorrect: basictest.fdf        1
-Incorrect: convolution_9.fdf    0
-Incorrect: convolution_9.fdf    1
-Incorrect: 42.fdf       0
-Incorrect: 42.fdf       1
-Incorrect: 20-60.fdf    0
-Incorrect: 20-60.fdf    1
-Incorrect: pentenegpos.fdf      0
-Incorrect: pentenegpos.fdf      1
-Score: 8 / 20
-==281612== 
-==281612== HEAP SUMMARY:
-==281612==     in use at exit: 0 bytes in 0 blocks
-==281612==   total heap usage: 6,976 allocs, 6,976 frees, 294,692 bytes allocated
-==281612== 
-==281612== All heap blocks were freed -- no leaks are possible
-==281612== 
-==281612== For lists of detected and suppressed errors, rerun with: -s
-==281612== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-pc@pc-System-Product-Name:~/Desktop/GrASCIIfi$ 
 */

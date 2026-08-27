@@ -14,7 +14,7 @@ int	main(int len, char **str)
 	fd = open(str[1], 'r');
 	if (fd < 0)
 		return (0);
-	line = get_next_line(fd, CONTINUE);
+	line = get_next_line(fd, true);
 	if (line == NULL)
 		return (0);
 	while (line != NULL && max > 0)
@@ -22,10 +22,10 @@ int	main(int len, char **str)
 		write(output, ">>> ", 5);
 		write(output, line, knight_of_coin(line, '\0'));
 		free(line);
-		line = get_next_line(fd, CONTINUE);
+		line = get_next_line(fd, true);
 		max -= 1;
 	}
-	get_next_line(fd, STOP_GNL);
+	get_next_line(fd, false);
 	return (0);
 }
 
