@@ -60,15 +60,17 @@ t_load_fdf	init_load_fdf(size_t line_len, bool is_rgb)
  * Intended for internal use by open_table_fdf_file().
  *
  * time/space: O(n) / O(1)
+ * 
+ * status: internal helper
  *
  * @param src the target array with t_load_fdf_arr type.
  */
-void	*free_load_fdf_arr(t_load_fdf_arr *src)
+void	free_load_fdf_arr(t_load_fdf_arr *src)
 {
 	size_t	i;
 
 	if (src == NULL)
-		return (NULL);
+		return ;
 	if (src != NULL && src->arr != NULL)
 	{
 		i = 0;
@@ -82,7 +84,6 @@ void	*free_load_fdf_arr(t_load_fdf_arr *src)
 	src->arr = NULL;
 	src->capacity = 0;
 	src->length = 0;
-	return (NULL);
 }
 
 /**
@@ -90,10 +91,15 @@ void	*free_load_fdf_arr(t_load_fdf_arr *src)
  * Intended for internal use by open_table_fdf_file().
  *
  * time/space: O(1) / O(n)
+ * 
+ * status: internal helper
  *
  * @param length the number of all row of that t_load_fdf_arr can contains.
  *  If t_load_fdf_arr do not have enough memory for load Fdf input file,
  *  the program will double its size as a dynamic array.
+ * 
+ * @return empty input array as t_load_fdf_arr
+ * 
  */
 t_load_fdf_arr	init_load_fdf_arr(size_t length)
 {

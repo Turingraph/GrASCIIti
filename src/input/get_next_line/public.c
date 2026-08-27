@@ -5,8 +5,12 @@
  * 
  * time/space: O(n) / O(n)
  * 
+ * status: public api
+ * 
  * @param str_1 first string
  * @param str_2 second string
+ * 
+ * @return concatinated string
  */
 char	*concat_string(const char *str_1, const char *str_2)
 {
@@ -42,9 +46,13 @@ char	*concat_string(const char *str_1, const char *str_2)
  * 
  * time/space: O(n) / O(n)
  * 
+ * status: public api
+ * 
  * @param file_name file_name
  * @param dir directory
  * @param mode either READ or APPEND
+ * 
+ * @return file descriptor represented as integer
  */
 int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
 {
@@ -103,9 +111,13 @@ char	*get_next_cards(int fd, e_dream anchor)
  * 
  * time/space: O(n) / O(n)
  * 
+ * status: public api
+ * 
  * @param fd file descriptor
  * @param is_continue continue getting the string from the
  * file or clear internal memory
+ * 
+ * @return an i-th row of string from the file
  */
 char	*get_next_line(int fd, bool is_continue)
 {

@@ -2,7 +2,8 @@
 
 // time : O(1)
 // space: O(1)
-int	target_minmax(const t_table_fdf *dst, e_rgba channels, size_t index, bool is_bool)
+int	target_minmax(const t_table_fdf *dst,
+	e_rgba channels, size_t index, bool is_bool)
 {
 	if (dst != NULL && index < dst->col * dst->row)
 	{
@@ -30,9 +31,22 @@ int	target_minmax(const t_table_fdf *dst, e_rgba channels, size_t index, bool is
 	return (-1);
 }
 
-// time : O(n)
-// space: O(1)
-int	get_minmax_from_table_fdf(const t_table_fdf *dst, bool is_max, e_rgba channels)
+/**
+ * Get either the minimum or maximum number from dst.
+ *
+ * time/space: O(n) / O(1)
+ * 
+ * status: public api
+ *
+ * @param dst the input t_table_fdf array
+ * @param is_max if is_max == true, then return maximum number, 
+ * else return minimum number.
+ * @param channels RGBA channel to inspect
+ * 
+ * @return minimum or maximum integer based on the input.
+ */
+int	get_minmax_from_table_fdf(const t_table_fdf *dst,
+	bool is_max, e_rgba channels)
 {
 	int		sign;
 	size_t	i;
@@ -46,15 +60,23 @@ int	get_minmax_from_table_fdf(const t_table_fdf *dst, bool is_max, e_rgba channe
 	while (dst != NULL && i < dst->row * dst->col)
 	{
 		if (target_minmax((const t_table_fdf *)dst, channels, i, true) == 1
-			&& y * sign < target_minmax((const t_table_fdf *)dst, channels, 0, false) * sign)
+			&& y * sign < target_minmax(
+				(const t_table_fdf *)dst, channels, 0, false) * sign)
 			y = target_minmax((const t_table_fdf *)dst, channels, 0, false);
 		i += 1;
 	}
 	return (y);
 }
 
-// time : O(n)
-// space: O(1)
+/**
+ * Adding some number, such that every number in t_table_fdf become positive.
+ *
+ * time/space: O(n) / O(1)
+ * 
+ * status: public api
+ *
+ * @param dst the input t_table_fdf array
+ */
 void	scale_positive_fdf(t_table_fdf *dst)
 {
 	int	y;
@@ -67,8 +89,19 @@ void	scale_positive_fdf(t_table_fdf *dst)
 	scale_addition_fdf(dst, y, HEIGHT);
 }
 
-// time : O(n)
-// space: O(1)
+/**
+ * Making all number that in an interval between minimum target number
+ *  and maximum target number equal to the expected number
+ *
+ * time/space: O(n) / O(1)
+ * 
+ * status: public api
+ *
+ * @param dst the input t_table_fdf array
+ * @param min the minimum target number
+ * @param max the maximum target number
+ * @param expect the expected number
+ */
 void	scale_relu_fdf(t_table_fdf *dst, int min, int max, int expect)
 {
 	size_t	i;

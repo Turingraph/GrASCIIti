@@ -1,7 +1,18 @@
 #include "get_next_line_private.h"
 
-// time : O(n)
-// space: O(1)
+/**
+ * Count how many characters that the string have before 
+ * encounter the target characters and/or '\0'.
+ * 
+ * time/space: O(n) / O(1)
+ * 
+ * status: public api
+ * 
+ * @param str string
+ * @param stop the target character
+ * 
+ * @return a number of all characters before the target character and/or '\0'
+ */
 size_t	knight_of_coin(const char *str, char stop)
 {
 	size_t	i;

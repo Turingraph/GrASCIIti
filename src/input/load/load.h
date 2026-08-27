@@ -21,7 +21,8 @@ void			ft_put_ascii_fd(int fd, int cell, const char *dict,
 					bool is_left);
 
 // init.c
-void			*free_load_fdf_arr(t_load_fdf_arr *src);
+
+void			free_load_fdf_arr(t_load_fdf_arr *src);
 
 // parse.c
 

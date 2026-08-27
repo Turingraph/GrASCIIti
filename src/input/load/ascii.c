@@ -47,6 +47,8 @@ int	f_ctoi(char a, const char *dict)
  * Write the integer as an ASCII art character in targeted file.
  *
  * time/space: O(1) / O(1)
+ * 
+ * status: internal helper
  *
  * @param fd target output txt file (with ASCII art)
  * @param cell the input integer

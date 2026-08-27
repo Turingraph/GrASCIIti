@@ -22,8 +22,18 @@ void	write_rgba_fdf(int fd, const t_table_fdf *src, size_t index)
 	}
 }
 
-// time : O(n)
-// space: O(n)
+/**
+ * Write an FDF table to a file descriptor.
+ *
+ * time/space: O(n) / O(1)
+ *
+ * status: internal helper
+ *
+ * @param fd output file descriptor
+ * @param src source FDF table
+ * @param digits number of digits for height values
+ * @param mode output format
+ */
 void	write_table_fdf(int fd, const t_table_fdf *src,
 	size_t digits, e_write_style mode)
 {

@@ -100,14 +100,18 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 
 /**
  * Load an FDF file and parse its lines into a t_load_fdf_arr.
- * Intended for internal use by open_table_fdf_file().
  *
  * time/space: O(n) / O(n)
+ * 
+ * status: internal helper
  *
  * @param file_name input file name
  * @param dir directory containing the input file
  * @param parse_line function used to parse each input line
- * @see src/input/load/parse.c
+ * 
+ * @return loaded data input array as t_load_fdf_arr
+ * 
+ * @see see: src/input/load/parse.c
  */
 t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 		t_load_fdf (*parse_line)(char *line))

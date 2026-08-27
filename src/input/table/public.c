@@ -1,13 +1,20 @@
 #include"table_private.h"
 
-// options for one_line
-// 1.	cheche01_ascii_line(char *line) (from txt files)
-// 2.	standard_ascii_line(char *line) (from txt files)
-// 3.	chungaloider_ascii_line(char *line) (from txt files)
-// 4.	bw_fdf_line(char *line) (from fdf files)
-// 5.	rgba_fdf_line(char *line) (the only option that load rgb color from fdf files)
-// time : O(n)
-// space: O(n)
+/**
+ * Load target file as t_table_fdf 5 rgba and height integer array data.
+ *
+ * time/space: O(n) / O(n)
+ *
+ * status: public api
+ * 
+ * @param file_name the input file
+ * @param dir the directory of the input file
+ * @param one_line loading style, including parse_ascii_line_standard for
+ * loading file as ASCII art, parse_fdf_line_rgba as colorful Fdf file etc.
+ * @param is_rgba if is_rgba == true, then the program using malloc 
+ * for initializing rgba color.
+ * @see src/input/load/parse.c
+ */
 t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
 	t_load_fdf (*one_line)(char *line), bool is_rgba)
 {

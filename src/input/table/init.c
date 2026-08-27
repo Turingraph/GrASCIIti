@@ -1,11 +1,18 @@
 #include"table_private.h"
 
-// time : O(1)
-// space: O(1)
-void	*free_table_fdf(t_table_fdf *src)
+/**
+ * Free and reset the t_table_fdf array
+ *
+ * time/space: O(1) / O(1)
+ * 
+ * status: public api
+ *
+ * @param src the target t_table_fdf array
+ */
+void	free_table_fdf(t_table_fdf *src)
 {
 	if (src == NULL)
-		return (NULL);
+		return ;
 	free(src->arr);
 	free(src->r);
 	free(src->g);
@@ -18,7 +25,6 @@ void	*free_table_fdf(t_table_fdf *src)
 	src->a = NULL;
 	src->row = 0;
 	src->col = 0;
-	return (NULL);
 }
 
 // time : O(n)
@@ -27,15 +33,20 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 {
 	t_table_fdf	dst;
 
-	dst.arr = malloc_talk(sizeof(int) * row * col, "input/table/init.c/init_table_fdf\n");
+	dst.arr = malloc_talk(sizeof(int) * row * col,
+			"input/table/init.c/init_table_fdf\n");
 	dst.row = row;
 	dst.col = col;
 	if (is_rgba == false)
 		row = 0;
-	dst.r = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
-	dst.g = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
-	dst.b = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
-	dst.a = malloc_talk(sizeof(unsigned char) * row * col, "input/table/init.c/init_table_fdf\n");
+	dst.r = malloc_talk(sizeof(unsigned char) * row * col,
+			"input/table/init.c/init_table_fdf\n");
+	dst.g = malloc_talk(sizeof(unsigned char) * row * col,
+			"input/table/init.c/init_table_fdf\n");
+	dst.b = malloc_talk(sizeof(unsigned char) * row * col,
+			"input/table/init.c/init_table_fdf\n");
+	dst.a = malloc_talk(sizeof(unsigned char) * row * col,
+			"input/table/init.c/init_table_fdf\n");
 	if (dst.arr == NULL || dst.col < 1 || dst.row < 1)
 		free_table_fdf(&dst);
 	return (dst);
@@ -61,9 +72,11 @@ size_t	load_fdf_col(const t_load_fdf_arr *src)
 
 // time : O(1)
 // space: O(1)
-void	load_rgba_for_table_fdf(const t_load_fdf *src, t_table_fdf *dst, size_t row, size_t col)
+void	load_rgba_for_table_fdf(const t_load_fdf *src,
+	t_table_fdf *dst, size_t row, size_t col)
 {
-	if (src != NULL && dst != NULL && row < dst->row && col < dst->col && col < src->length)
+	if (src != NULL && dst != NULL
+		&& row < dst->row && col < dst->col && col < src->length)
 	{
 		if (src->r != NULL && dst->r != NULL)
 			dst->r[dst->col * row + col] = src->r[col];
@@ -77,14 +90,15 @@ void	load_rgba_for_table_fdf(const t_load_fdf *src, t_table_fdf *dst, size_t row
 }
 
 // time : O(n)
-// space: O(1)
+// space: O(n)
 t_table_fdf	load_table_fdf(const t_load_fdf_arr *src, bool is_rgba)
 {
 	t_table_fdf	dst;
 	size_t		i;
 	size_t		j;
 
-	if (src == NULL || src->arr == NULL || src->length == 0 || src->capacity == 0)
+	if (src == NULL || src->arr == NULL
+		|| src->length == 0 || src->capacity == 0)
 		return (init_table_fdf(0, 0, false));
 	dst = init_table_fdf(src->length, load_fdf_col(src), is_rgba);
 	if (dst.arr == NULL)

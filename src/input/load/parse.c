@@ -2,10 +2,17 @@
 
 /**
  * Parse an ASCII-art line using the Cheche01 character ramp.
+ * This function is intended to be used with `open_table_fdf_file`
  *
- * Time/space: O(n) / O(n)
+ * time/space: O(n) / O(n)
+ * 
+ * status: public api
  *
  * @param line input line
+ * 
+ * @return loaded data input array as t_load_fdf
+ * 
+ * @see see: src/input/table/public.c
  */
 t_load_fdf	parse_ascii_line_cheche01(char *line)
 {
@@ -16,10 +23,17 @@ t_load_fdf	parse_ascii_line_cheche01(char *line)
 
 /**
  * Parse an ASCII-art line using the standard character ramp.
+ * This function is intended to be used with `open_table_fdf_file`
  *
- * Time/space: O(n) / O(n)
+ * time/space: O(n) / O(n)
+ * 
+ * status: public api
  *
  * @param line input line
+ * 
+ * @return loaded data input array as t_load_fdf
+ * 
+ * @see see: src/input/table/public.c
  */
 t_load_fdf	parse_ascii_line_standard(char *line)
 {
@@ -30,11 +44,19 @@ t_load_fdf	parse_ascii_line_standard(char *line)
 
 /**
  * Parse an ASCII-art line using the Chungaloider brightness ramp.
+ * This function is intended to be used with `open_table_fdf_file`
  *
- * Time/space: O(n) / O(n)
+ * time/space: O(n) / O(n)
  *
+ * status: public api
+ * 
  * @param line input line
- * @see https://stackoverflow.com/questions/30097953/
+ * 
+ * @return loaded data input array as t_load_fdf
+ * 
+ * @see see: src/input/table/public.c
+ * 
+ * @see see: https://stackoverflow.com/questions/30097953/
  *      ascii-art-sorting-an-array-of-ascii-characters-by-brightness-levels-c-c
  */
 t_load_fdf	parse_ascii_line_chungaloider(char *line)
@@ -46,10 +68,18 @@ t_load_fdf	parse_ascii_line_chungaloider(char *line)
 
 /**
  * Parse an FDF line as colorful data.
+ * This function is intended to be used with `open_table_fdf_file`
  *
- * Time/space: O(n) / O(n)
+ * time/space: O(n) / O(n)
  *
+ * status: public api
+ * 
  * @param line input line
+ * 
+ * @return loaded data input array as t_load_fdf
+ * 
+ * @see see: src/input/table/public.c
+ * 
  */
 t_load_fdf	parse_fdf_line_rgba(char *line)
 {
@@ -58,10 +88,18 @@ t_load_fdf	parse_fdf_line_rgba(char *line)
 
 /**
  * Parse an FDF line as black and white data.
+ * This function is intended to be used with `open_table_fdf_file`
  *
- * Time/space: O(n) / O(n)
+ * time/space: O(n) / O(n)
  *
+ * status: public api
+ * 
  * @param line input line
+ * 
+ * @return loaded data input array as t_load_fdf
+ * 
+ * @see see: src/input/table/public.c
+ * 
  */
 t_load_fdf	parse_fdf_line_bw(char *line)
 {

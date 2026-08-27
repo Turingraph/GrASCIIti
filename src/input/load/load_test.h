@@ -13,7 +13,7 @@ t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 char			mirror_tune(char a, bool is_left);
 
 // init.c
-void			*free_load_fdf_arr(t_load_fdf_arr *src);
+void			free_load_fdf_arr(t_load_fdf_arr *src);
 
 // parse.c
 
