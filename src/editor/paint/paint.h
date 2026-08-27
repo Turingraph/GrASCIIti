@@ -1,7 +1,8 @@
 #ifndef PAINT_H
 # define PAINT_H
 
-# include "../../input/table/table.h"
+# include "../../utils/green_counts/green_counts.h"
+# include "../../utils/libft/libft.h"
 # include <fcntl.h>
 
 typedef enum e_7cell_channels e_7cell_channels;
@@ -17,18 +18,24 @@ enum e_7cell_channels
 	D7_HEIGHT
 };
 
-typedef struct t_gradient t_gradient;
-
-struct t_gradient
+/**
+ * Defines a color gradient over a selected cell property.
+ *
+ * cell_channel selects the property used to determine the gradient position.
+ * input_start and input_end define the affected range.
+ * rgba_start and rgba_end define the colors at the range boundaries.
+ */
+typedef struct t_gradient
 {
 	t_rgba				rgba_start;
 	t_rgba				rgba_end;
 	e_7cell_channels	cell_channel;
 	int					input_start;
 	int					input_end;
-};
+}	t_gradient;
 
 // gradient.c
+
 void	color_cells_gradient(t_table_fdf *dst,
 	t_gradient gradient_input,
 	bool is_overwrite);

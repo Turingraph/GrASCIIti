@@ -13,9 +13,7 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table debug)
-# LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table raster window\
-# 	convolve mathart paint line debug)
+LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table debug convolve paint debug)
 
 # *** atom src ***
 SRC_libft = $(wildcard utils/libft/*.c)
@@ -51,7 +49,7 @@ OBJ_table = $(patsubst %.c, obj/%.o, $(SRC_table)) $(OBJ_load) $(OBJ_green_count
 
 OBJ_convolve = $(patsubst %.c, obj/%.o, $(SRC_convolve)) $(OBJ_table) $(OBJ_linalg)
 OBJ_mathart = $(patsubst %.c, obj/%.o, $(SRC_mathart)) $(OBJ_libft) $(OBJ_green_counts)
-OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_libft) $(OBJ_green_counts)
+OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_green_counts)
 OBJ_line = $(patsubst %.c, obj/%.o, $(SRC_line)) $(OBJ_green_counts) $(OBJ_libft)
 
 OBJ_raster = $(patsubst %.c, obj/%.o, $(SRC_raster)) $(OBJ_line)

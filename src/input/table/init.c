@@ -27,8 +27,20 @@ void	free_table_fdf(t_table_fdf *src)
 	src->col = 0;
 }
 
-// time : O(n)
-// space: O(n)
+/**
+ * Define t_table_fdf as array with only 0.
+ *
+ * time/space: O(n) / O(n)
+ * 
+ * status: public api
+ *
+ * @param row row of the target table (corresponding to y position)
+ * @param col row of the target table (corresponding to x position)
+ * @param is_rgba if is_rgba is true, then using malloc saving more
+ *  extra color (the initialized color is black).
+ * 
+ * @return array with only 0 as t_table_fdf with specified rows and columns.
+ */
 t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 {
 	t_table_fdf	dst;

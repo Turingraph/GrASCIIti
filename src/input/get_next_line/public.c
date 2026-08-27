@@ -19,13 +19,13 @@ char	*concat_string(const char *str_1, const char *str_2)
 	size_t	i;
 	size_t	j;
 
-	len = knight_of_coin(str_1, '\0') + knight_of_coin(str_2, '\0') + 1;
+	len = knight_of_coin(str_1, '\0') + knight_of_coin(str_2, '\0');
 	if (len == 0)
 		return (NULL);
-	dst = malloc(len * sizeof(char));
+	dst = malloc((len + 1) * sizeof(char));
 	if (dst == NULL)
 		return (NULL);
-	dst[len - 1] = '\0';
+	dst[len] = '\0';
 	i = 0;
 	while (i < knight_of_coin(str_1, '\0'))
 	{
@@ -35,11 +35,15 @@ char	*concat_string(const char *str_1, const char *str_2)
 	j = 0;
 	while (j < knight_of_coin(str_2, '\0'))
 	{
-		dst[i + j] = str_1[j];
+		dst[i + j] = str_2[j];
 		j += 1;
 	}
 	return (dst);
 }
+
+	// write(1, ">>> ", 4);
+	// write(1, dst, len);
+	// write(1, "\n", 1);
 
 /**
  * Open [dir]/[file_name] as file descriptor.
@@ -56,8 +60,8 @@ char	*concat_string(const char *str_1, const char *str_2)
  */
 int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
 {
-	t_temperance	*file;
-	int				dst;
+	char	*file;
+	int		dst;
 
 	if (dir == NULL || *dir == '\0')
 	{
@@ -66,16 +70,10 @@ int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
 			return (1);
 		return (dst);
 	}
-	file = NULL;
-	ace_of_cup(1, &file);
+	file = concat_string(dir, file_name);
 	if (file == NULL)
 		return (1);
-	three_of_cups(&file, dir);
-	three_of_cups(&file, file_name);
-	if (file == NULL)
-		return (1);
-	dst = open(file->arr, mode);
-	free(file->arr);
+	dst = open(file, mode);
 	free(file);
 	return (dst);
 }

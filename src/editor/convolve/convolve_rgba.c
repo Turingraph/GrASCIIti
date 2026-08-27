@@ -86,9 +86,22 @@ unsigned char	convolve_unit_rgba(const t_table_fdf *src, t_matrix kernel, e_rgba
 	return ((unsigned char)f_interval(f_round(output), 0, 255));
 }
 
-// time : O(n * m^2)
-// space: O(n * m^2)
-t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, t_rgba target_channels)
+/**
+ * Apply a convolution kernel to selected RGBA channels.
+ *
+ * time/space: O(n * m^2) / O(n)
+ *
+ * status: public api
+ *
+ * @param src source FDF table
+ * @param kernel convolution kernel
+ * @param target_channels channels to convolve
+ * @return FDF table with the selected channels convolved
+ * 
+ * @see 3B1B convolution video https://youtu.be/KuXjwB4LzSA?si=9DNIvf9SS2SX4jET
+ *  for more details
+ */
+t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, e_rgba target_channels)
 {
 	t_table_fdf		dst;
 	size_t			i;
@@ -99,13 +112,13 @@ t_table_fdf	convolve_rgba(const t_table_fdf *src, t_matrix kernel, t_rgba target
 	i = 0;
 	while (i < src->col * src->row)
 	{
-		if (target_channels.r > 0 && dst.r != NULL)
+		if (target_channels == RED && dst.r != NULL && src->r != NULL)
 			dst.r[i] = convolve_unit_rgba(src, kernel, RED, i);
-		if (target_channels.g > 0 && dst.g != NULL)
+		if (target_channels == GREEN && dst.g != NULL && src->g != NULL)
 			dst.g[i] = convolve_unit_rgba(src, kernel, GREEN, i);
-		if (target_channels.b > 0 && dst.b != NULL)
+		if (target_channels == BLUE && dst.b != NULL && src->b != NULL)
 			dst.b[i] = convolve_unit_rgba(src, kernel, BLUE, i);
-		if (target_channels.a > 0 && dst.a != NULL)
+		if (target_channels == ALPHA && dst.a != NULL && src->a != NULL)
 			dst.a[i] = convolve_unit_rgba(src, kernel, ALPHA, i);
 		i += 1;
 	}

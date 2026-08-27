@@ -12,6 +12,9 @@ SRC_table = $(wildcard input/table/*.c)
 SRC_libft = $(wildcard utils/libft/*.c)
 SRC_green_counts = $(wildcard utils/green_counts/*.c)
 
+SRC_convolve = $(wildcard editor/convolve/*.c)
+SRC_paint = $(wildcard editor/paint/*.c)
+
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
 SRC_HELPER_get_next_line = $(wildcard ../src/input/get_next_line/*.c)
 OBJ_HELPER_libft = $(patsubst ../src/%.c, ../src/obj/%.o, $(SRC_HELPER_libft))
@@ -20,8 +23,10 @@ OBJ_HELPER_get_next_line = $(patsubst ../src/%.c, ../src/obj/%.o, $(SRC_HELPER_g
 HELPER_SRC = $(wildcard test_helpers/*.c)
 HELPER_OBJ = $(patsubst %.c, obj/%.o, $(HELPER_SRC))
 
+OUT_PAINT = $(patsubst %.c, out/%.out, $(SRC_paint))
+
 OUT_ALL = $(patsubst %.c, out/%.out,	\
-	$(SRC_get_next_line)	\
+	$(SRC_get_next_line)	$(SRC_convolve)\
 	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_green_counts))
 
 #-----------------------------------------------------------------------------------------------
@@ -43,12 +48,16 @@ CLONE_GNL = $(patsubst input/get_next_line/input/%, input/get_next_line/clone_in
 # *** obj, out, and lib ***
 all: all_out all_clone
 
-all_out: $(OUT_ALL)
+all_out: $(OUT_ALL) $(OUT_PAINT)
 	@echo $^
 
 $(OUT_ALL): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a -lm
+
+$(OUT_PAINT): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $^ -L. ../src/lib/table.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a -lm
 
 obj/%.o: %.c
 	@mkdir -p $(@D)

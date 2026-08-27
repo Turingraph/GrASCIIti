@@ -12,13 +12,14 @@ float	*gaussian_kernel_1d(size_t half_dim, float std)
 	float	sum;
 
 	kernel = malloc_talk(sizeof(float) * (2 * half_dim + 1),
-		"editor/convolve/kernel.c/gaussian_kernel_1d\n");
+			"editor/convolve/kernel.c/gaussian_kernel_1d\n");
 	if (kernel == NULL)
 		return (NULL);
 	i = 0;
 	while (i <= half_dim)
 	{
-		kernel[half_dim - i] = normal_distribution_function(std, 0, (-1.0) * (float)(i));
+		kernel[half_dim - i] = normal_distribution_function(
+				std, 0, (-1.0) * (float)(i));
 		kernel[half_dim + i] = normal_distribution_function(std, 0, (float)(i));
 		i += 1;
 	}
@@ -32,8 +33,21 @@ float	*gaussian_kernel_1d(size_t half_dim, float std)
 	return (kernel);
 }
 
-// time : O(n^2)
-// space: O(n^2)
+/**
+ * Create a 2D Blur Gaussian kernel from two 1D Gaussian kernels.
+ *
+ * time/space: O(n^2) / O(n^2)
+ *
+ * status: public api
+ *
+ * @param half_dim half the kernel width
+ * @param std_1 standard deviation for the first dimension
+ * @param std_2 standard deviation for the second dimension
+ * @return generated Gaussian kernel
+ * 
+ * @see 3B1B convolution video https://youtu.be/KuXjwB4LzSA?si=9DNIvf9SS2SX4jET
+ *  for more details
+ */
 t_matrix	gaussian_kernel(size_t half_dim, float std_1, float std_2)
 {
 	float		*vec_v;

@@ -18,11 +18,8 @@ size_t	knight_of_coin(const char *str, char stop)
 	size_t	i;
 
 	i = 0;
-	while (*str != '\0' && *str != stop)
-	{
+	while (str != NULL && str[i] != '\0' && str[i] != stop)
 		i += 1;
-		str += 1;
-	}
 	return (i);
 }
 

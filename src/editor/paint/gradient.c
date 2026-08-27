@@ -75,11 +75,19 @@ unsigned char	update_cell_color(unsigned char alpha, bool is_overwrite,
 	return ((unsigned char)f_interval(f_round(((dc * alpha) + (new_color * (255 - alpha))) / 255.0), 0, 255));
 }
 
-// time : O(n)
-// space: O(1)
+/**
+ * Apply a color gradient to cells within an input range.
+ *
+ * time/space: O(n) / O(1)
+ *
+ * status: public api
+ *
+ * @param dst FDF table to modify
+ * @param gradient_input gradient definition
+ * @param is_overwrite replace existing colors instead of blending
+ */
 void	color_cells_gradient(t_table_fdf *dst,
-	t_gradient gradient_input,
-	bool is_overwrite)
+	t_gradient gradient_input, bool is_overwrite)
 {
 	size_t			i;
 	int				threshold;

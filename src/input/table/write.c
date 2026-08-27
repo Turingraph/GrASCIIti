@@ -27,7 +27,7 @@ void	write_rgba_fdf(int fd, const t_table_fdf *src, size_t index)
  *
  * time/space: O(n) / O(1)
  *
- * status: internal helper
+ * status: public api
  *
  * @param fd output file descriptor
  * @param src source FDF table

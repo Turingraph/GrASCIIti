@@ -77,6 +77,8 @@ size_t	binary_search_count(size_t min_input, size_t max_input)
 	return (count);
 }
 
+// time : O(n)
+// space: O(1)
 float	f_sum(const float *vec_v, size_t dim)
 {
 	float	y;
