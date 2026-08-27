@@ -11,11 +11,9 @@ t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 
 // ascii.c
 char			mirror_tune(char a, bool is_left);
-int				f_ctoi(char a, const char *dict);
 
 // init.c
 void			*free_load_fdf_arr(t_load_fdf_arr *src);
-t_load_fdf_arr	init_load_fdf_arr(size_t length);
 
 // parse.c
 

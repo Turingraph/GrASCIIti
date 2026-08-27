@@ -22,7 +22,6 @@ void			ft_put_ascii_fd(int fd, int cell, const char *dict,
 
 // init.c
 void			*free_load_fdf_arr(t_load_fdf_arr *src);
-t_load_fdf_arr	init_load_fdf_arr(size_t length);
 
 // parse.c
 
