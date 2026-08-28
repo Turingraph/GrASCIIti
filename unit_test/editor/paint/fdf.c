@@ -8,7 +8,7 @@ t_gradient	init_gradient()
 
 	dst.cell_channel = D7_HEIGHT;
 	dst.input_start = 0;
-	dst.input_end = 100;
+	dst.input_end = 79;
 	dst.rgba_start.r = 70;
 	dst.rgba_start.g = 75;
 	dst.rgba_start.b = 113;
@@ -76,7 +76,7 @@ int	main(void)
 	{
 		output = open_dir_file(arr_dst[i], dst, APPEND);
 		table_a = open_table_fdf_file(arr_src[i], src,
-				parse_ascii_line_chungaloider, false);
+				parse_ascii_line_chungaloider, true);
         color_cells_gradient(&table_a, init_gradient(), true);
 		write_table_fdf(output, &table_a, 1, HEIGHT_RGBA);
 		free_table_fdf(&table_a);

@@ -34,11 +34,12 @@ t_table_fdf		scale_dimension_fdf(const t_table_fdf *src,
 // scale.c
 
 void			scale_multiplication_fdf(t_table_fdf *dst,
-					float scale, e_rgba channels);
+					float scale, e_rgba channel);
 void			scale_addition_fdf(t_table_fdf *dst,
-					int input, e_rgba channels);
+					int input, e_rgba channel);
 void			table_fdf_addition(t_table_fdf *dst,
-					const t_table_fdf *src, e_rgba channels);
+					const t_table_fdf *src, e_rgba channel);
+void			table_fdf_height_to_color(t_table_fdf *dst, e_rgba channel);
 
 // shade.c
 

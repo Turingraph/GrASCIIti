@@ -87,7 +87,7 @@ void	scale_addition_fdf(t_table_fdf *dst, int input, e_rgba channels)
  * @param channels channel to add
  */
 void	table_fdf_addition(t_table_fdf *dst,
-	const t_table_fdf *src, e_rgba channels)
+	const t_table_fdf *src, e_rgba channel)
 {
 	size_t	i;
 
@@ -95,22 +95,51 @@ void	table_fdf_addition(t_table_fdf *dst,
 	while (src != NULL && dst != NULL && i < dst->row * dst->col
 		&& dst->row * dst->col == src->row * src->col)
 	{
-		if (src->arr != NULL && dst->arr != NULL && channels == HEIGHT)
+		if (src->arr != NULL && dst->arr != NULL && channel == HEIGHT)
 			dst->arr[i] = (int)f_interval(
 					f_round(dst->arr[i] + src->arr[i]),
 					-2147483648.0, 2147483647.0);
-		if (src->r != NULL && dst->r != NULL && channels == RED)
+		if (src->r != NULL && dst->r != NULL && channel == RED)
 			dst->r[i] = (unsigned char)f_interval(
 					dst->r[i] + src->r[i], 0, 255);
-		if (src->g != NULL && dst->g != NULL && channels == GREEN)
+		if (src->g != NULL && dst->g != NULL && channel == GREEN)
 			dst->g[i] = (unsigned char)f_interval(
 					dst->g[i] + src->g[i], 0, 255);
-		if (src->b != NULL && dst->b != NULL && channels == BLUE)
+		if (src->b != NULL && dst->b != NULL && channel == BLUE)
 			dst->b[i] = (unsigned char)f_interval(
 					dst->b[i] + src->b[i], 0, 255);
-		if (src->a != NULL && dst->a != NULL && channels == ALPHA)
+		if (src->a != NULL && dst->a != NULL && channel == ALPHA)
 			dst->a[i] = (unsigned char)f_interval(
 					dst->a[i] + src->a[i], 0, 255);
+		i += 1;
+	}
+}
+
+/**
+* Copy the FDF height channel into the selected RGBA channel.
+* 
+* time/space: O(n) / O(1)
+* 
+* status: public api
+* 
+* @param dst FDF table to modify
+* @param channel RGBA channel to overwrite with height values
+*/
+void	table_fdf_height_to_color(t_table_fdf *dst, e_rgba channel)
+{
+	size_t	i;
+
+	i = 0;
+	while (dst != NULL && dst->arr != NULL && i < dst->row * dst->col)
+	{
+		if (dst->r != NULL && channel == RED)
+			dst->r[i] = (unsigned char)f_interval(dst->arr[i], 0, 255);
+		if (dst->g != NULL && channel == GREEN)
+			dst->g[i] = (unsigned char)f_interval(dst->arr[i], 0, 255);
+		if (dst->b != NULL && channel == BLUE)
+			dst->b[i] = (unsigned char)f_interval(dst->arr[i], 0, 255);
+		if (dst->a != NULL && channel == ALPHA)
+			dst->a[i] = (unsigned char)f_interval(dst->arr[i], 0, 255);
 		i += 1;
 	}
 }

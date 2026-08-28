@@ -44,6 +44,9 @@ void	copy_duplicated_row(const int *src, int *dst,
 
 /**
  * Scale an RGBA channel by duplicating its rows and columns.
+ * 
+ * If src == NULL or src do not contains the target color,
+ *  this function will return the array with 0 as the default instead.
  *
  * time/space: O(n^2) / O(n^2)
  *
@@ -64,11 +67,9 @@ unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
 	unsigned char	*arr;
 
 	arr = get_rgba_of_table_fdf(src, rgba_type);
-	if (arr == NULL)
-		return (NULL);
 	dst = malloc_talk(sizeof(unsigned char) * src->row * src->col * s_row * s_col,
 		"input/table/scale_dimension.c/scale_dimension_fdf_rgba\n");
-	if (dst == NULL)
+	if (dst == NULL || arr == NULL)
 		return (NULL);
 	i = 0;
 	while (i < src->row)

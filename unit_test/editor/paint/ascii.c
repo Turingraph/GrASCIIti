@@ -8,17 +8,38 @@ t_gradient	init_gradient()
 
 	dst.cell_channel = D7_HEIGHT;
 	dst.input_start = 0;
-	dst.input_end = 100;
-	dst.rgba_start.r = 70;
-	dst.rgba_start.g = 75;
-	dst.rgba_start.b = 113;
-	dst.rgba_start.a = 255;
-	dst.rgba_end.r = 124;
-	dst.rgba_end.g = 213;
-	dst.rgba_end.b = 199;
-	dst.rgba_end.a = 255;
+	dst.input_end = 20;
+	dst.rgba_start.r = 50;
+	dst.rgba_start.g = 50;
+	dst.rgba_start.b = 50;
+	dst.rgba_start.a = 50;
+	dst.rgba_end.r = 20;
+	dst.rgba_end.g = 20;
+	dst.rgba_end.b = 20;
+	dst.rgba_end.a = 20;
 	return (dst);
 }
+
+// time : O(1)
+// space: O(1)
+t_gradient	init_gradient_2()
+{
+	t_gradient	dst;
+
+	dst.cell_channel = D7_HEIGHT;
+	dst.input_start = 21;
+	dst.input_end = 79;
+	dst.rgba_start.r = 0;
+	dst.rgba_start.g = 0;
+	dst.rgba_start.b = 0;
+	dst.rgba_start.a = 0;
+	dst.rgba_end.r = 10;
+	dst.rgba_end.g = 10;
+	dst.rgba_end.b = 10;
+	dst.rgba_end.a = 10;
+	return (dst);
+}
+
 
 int	main(void)
 {
@@ -55,9 +76,11 @@ int	main(void)
 	{
 		output = open_dir_file(arr[i], dst, APPEND);
 		table_a = open_table_fdf_file(arr[i], src,
-				parse_ascii_line_chungaloider, false);
+				parse_ascii_line_chungaloider, true);
         color_cells_gradient(&table_a, init_gradient(), true);
-		write_table_ascii_cheche01(output, &table_a, RED);
+        color_cells_gradient(&table_a, init_gradient_2(), true);
+		scale_multiplication_fdf(&table_a, 1.0 / 3.0, RED);
+		write_table_ascii_standard(output, &table_a, RED);
 		free_table_fdf(&table_a);
 		i += 1;
 	}
