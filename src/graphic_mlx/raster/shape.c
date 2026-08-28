@@ -1,4 +1,34 @@
-#include"raster.h"
+#include"raster_private.h"
+
+// time : O(1)
+// space: O(1)
+t_line	define_circle_boundary(t_circle point, int ix, int iy, char mode)
+{
+	t_line	dst;
+
+	dst.p1.x = point.x - ix;
+	dst.p1.y = point.y + iy;
+	dst.p2.x = point.x + ix;
+	dst.p2.y = point.y + iy;
+	if (mode == 1)
+	{
+		dst.p1.y = point.y - iy;
+		dst.p2.y = point.y - iy;
+	}
+	if (mode == 2 || mode == 3)
+	{
+		dst.p1.x = point.x - iy;
+		dst.p1.y = point.y + ix;
+		dst.p2.x = point.x + iy;
+		dst.p2.y = point.y + ix;
+	}
+	if (mode == 3)
+	{
+		dst.p1.y = point.y - ix;
+		dst.p2.y = point.y - ix;
+	}
+	return (dst);
+}
 
 // time : O(n)
 // space: O(1)
@@ -94,8 +124,26 @@ Reference
 *	https://www.youtube.com/watch?v=hpiILbMkF9w
 */
 
-// time : O(r^2)
-// space: O(1)
+/**
+ * Draw a filled circle using the midpoint circle algorithm.
+ * 
+ * The circle is rasterized using integer arithmetic and four horizontal
+ * spans are drawn for each calculated point. Pixels outside the boundary
+ * are clipped by draw_horizontal_mlx().
+ * 
+ * This function also used for drawing the end point of straight line
+ * with arbitrary thickness with draw_mlx_straight_line from raster/line.c
+ * 
+ * time/space: O(r^2) / O(1)
+ * 
+ * status: internal helper
+ * 
+ * @param dst destination MLX image
+ * @param color 32-bit RGBA drawing color
+ * @param point circle center and radius
+ * @param boundary drawable area used to clip the circle
+ * @see https://www.youtube.com/watch?v=hpiILbMkF9w for learning how Midpoint circle works.
+*/
 void	midpoint_circle_mlx(mlx_image_t *dst,
 	int32_t color, t_circle point, t_boundary boundary)
 {
@@ -126,51 +174,44 @@ void	midpoint_circle_mlx(mlx_image_t *dst,
 	}
 }
 
-// time : O(n)
-// sapce: O(1)
-void	draw_kusama_mlx(mlx_image_t *dst,
-	const t_2d_polygon *polygon, t_ink32 ink, t_line boundary)
+/**
+ * Fill a rectangular area with a color.
+ *
+ * The rectangle is restricted to the specified drawing boundary before
+ * each pixel within the resulting area is filled with the given color.
+ *
+ * time/space: O(n) / O(1)
+ *
+ * status: internal helper
+ *
+ * @param dst destination MLX image
+ * @param rectangle rectangular area to fill
+ * @param boundary drawing boundary used to restrict the rectangle
+ * @param ink 32-bit RGBA color used to fill the rectangle
+ */
+void	draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
+	t_line boundary, int32_t ink)
 {
-	size_t		i;
-	t_line		line;
-	t_circle	circle;
-	t_boundary	sub_area;
+	t_boundary		sub_area;
+	int				i;
+	int				j;
 
-	i = 0;
-	while (dst != NULL && polygon != NULL && i < polygon->length)
+	if (dst != NULL)
 	{
 		sub_area = init_rectangle_boundary(boundary,
 				dst->height, dst->width);
-		line = init_float_line(polygon->arr[i], polygon->arr[i], boundary);
-		line = init_rectangle(line, sub_area);
-		circle.radius = ink.thickness;
-		circle.x = line.p1.x;
-		circle.y = line.p1.y;
-		midpoint_circle_mlx(dst, ink.color, circle, sub_area);
-		i += 1;
-	}
-}
-
-// time : O(n)
-// sapce: O(1)
-void	draw_kusama_tiling_mlx(mlx_image_t *dst,
-	const t_2d_polygon *polygon, t_ink32 ink, t_2d_int tiling_area)
-{
-	size_t	i;
-	size_t	j;
-	t_line	tiling;
-
-	i = 0;
-	while (dst != NULL && polygon != NULL && tiling_area.y > 0
-		&& i < f_floor(dst->height / tiling_area.y) + 1)
-	{
-		j = 0;
-		while (tiling_area.x > 0 && j < f_floor(dst->width / tiling_area.x) + 1)
+		rectangle = init_rectangle(rectangle, sub_area);
+		i = rectangle.p1.x;
+		while (i <= rectangle.p2.x)
 		{
-			tiling = get_tiling(tiling_area, i, j);
-			draw_kusama_mlx(dst, polygon, ink, tiling);
-			j += 1;
+			j = rectangle.p1.y;
+			while (j <= rectangle.p2.y)
+			{
+				if (is_in_boundary(i, j, sub_area.sub_area) == true)
+					mlx_put_pixel(dst, i, j, ink);
+				j += 1;
+			}
+			i += 1;
 		}
-		i += 1;
 	}
 }

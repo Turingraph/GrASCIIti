@@ -1,4 +1,4 @@
-#include"raster.h"
+#include"raster_private.h"
 
 /*
 dx = x2 - x1
@@ -148,8 +148,22 @@ void	bresenham_mlx_y_thick(mlx_image_t *dst, t_line line, t_boundary boundary, t
 	}
 }
 
-// time : O(n * thickness)
-// space: O(1)
+/**
+ * Draw a straight line with configurable thickness.
+ *
+ * The line is first restricted to the destination boundary and then
+ * rendered using the Bresenham algorithm. 
+ * Thick lines receive circular end caps to produce a rounded appearance.
+ *
+ * time/space: O(n * thickness) / O(1)
+ *
+ * status: internal helper
+ *
+ * @param dst destination MLX image
+ * @param line line to draw
+ * @param rectangle_boundary area in which the line is allowed to be drawn
+ * @param ink drawing style containing the color and line thickness
+ */
 void	draw_mlx_straight_line(mlx_image_t *dst, t_line line,
 	t_line rectangle_boundary, t_ink32 ink)
 {

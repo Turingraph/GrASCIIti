@@ -1,4 +1,4 @@
-#include"line.h"
+#include"raster_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -58,8 +58,23 @@ int	init_swap_bresenham_x(t_line *line,
 	return (0);
 }
 
-// time : O(1)
-// space: O(1)
+/**
+ * Define the rectangular sub-area within the full table boundary.
+ * 
+ * The returned boundary stores the full table dimensions in all_area and
+ * clamps sub_area to the valid range [0, col] x [0, row]. The sub-area
+ * endpoints are reordered when necessary so that p1 represents the
+ * minimum corner and p2 represents the maximum corner.
+ * 
+ * time/space: O(1) / O(1)
+ * 
+ * status: internal helper
+ * 
+ * @param sub_area requested rectangular sub-area
+ * @param row number of rows in the full table
+ * @param col number of columns in the full table
+ * @return normalized and clamped table boundary
+ */
 t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col)
 {
 	int			temp;
@@ -86,21 +101,21 @@ t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col)
 	return (dst);
 }
 
-/*
-I compute 
-dst.p1.x = (int)f_interval(src.p1.x, 0,
-	boundary.sub_area.p2.x - boundary.sub_area.p1.x) + boundary.sub_area.p1.x;
-
-instead of compute
-dst.p1.x = (int)f_interval(src.p1.x, 0,
-	boundary.sub_area.p2.x - boundary.sub_area.p1.x);
-
-because I want to "move" the entire line within the sub area of
-the entire canvas (a.k.a. table_fdf).
-*/
-
-// time : O(1)
-// space: O(1)
+/**
+ * Translate a line into a rectangular sub-area.
+ * Each coordinate of src is interpreted relative to the origin of the
+ * sub-area. The coordinate is first clamped to the corresponding sub-area
+ * dimension, then translated by the sub-area origin so that the complete
+ * line remains within the requested region of the full table.
+ * 
+ * time/space: O(1) / O(1)
+ * 
+ * status: internal helper
+ * 
+ * @param src source line in sub-area-relative coordinates
+ * @param boundary full table and target sub-area boundary
+ * @return translated and clamped line
+ */
 t_line	init_first_line(t_line src, t_boundary boundary)
 {
 	t_line	dst;
@@ -116,21 +131,26 @@ t_line	init_first_line(t_line src, t_boundary boundary)
 	return (dst);
 }
 
-/*
-Note that I compute
-
-return (int)f_floor(dst * (boundary.p2.y - boundary.p1.y));
-
-instead of compute
-
-return (int)f_floor(dst * (boundary.p2.y - boundary.p1.y)) + boundary.p1.y;
-
-because I want to avoid adding the boundary.p1.y twice,
-given that init_first_line already compute this term.
-*/
-
-// time : O(1)
-// space: O(1)
+/**
+ * Convert a normalized floating-point coordinate to a 2D integer coordinate.
+ * 
+ * The source value is clamped to [0, 1] and scaled to the size of the
+ * selected boundary dimension. Mode 1 selects the y dimension; any other
+ * mode selects the x dimension.
+ * 
+ * The returned coordinate is relative to the boundary origin. This allows
+ * the caller to apply the boundary offset separately and prevents the
+ * boundary origin from being added more than once.
+ * 
+ * time/space: O(1) / O(1)
+ * 
+ * status: internal helper
+ * 
+ * @param src normalized coordinate to convert
+ * @param boundary target rectangular boundary
+ * @param mode 1 for y dimension, otherwise x dimension
+ * @return converted integer coordinate relative to the boundary origin
+ */
 int	float_to_2d_int(float src, t_line boundary, char mode)
 {
 	float	dst;

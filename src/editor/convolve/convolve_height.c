@@ -2,27 +2,30 @@
 
 // time : O(1)
 // space: O(1)
-int	return_edge_height(const t_table_fdf *src, int edge_row, int edge_col)
+int	get_clamped_height(const t_table_fdf *src, int edge_row, int edge_col)
 {
 	size_t	row;
 	size_t	col;
+	int		*arr;
 
-	if (src == NULL || src->row == 0 || src->col == 0 || src->arr == NULL)
+	if (src == NULL || src->arr == NULL || src->row == 0 || src->col == 0)
 		return (0);
-	if (0 <= edge_row && (size_t)edge_row < src->row
-		&& 0 <= edge_col && (size_t)edge_col < src->col)
-		return (src->arr[(size_t)edge_row * src->col + (size_t)edge_col]);
+	arr = src->arr;
+	if (arr == NULL)
+		return (0);
+	if (0 <= edge_row && edge_row < (int)src->row && 0 <= edge_col && edge_col < (int)src->col)
+		return (arr[edge_row * src->col + edge_col]);
 	row = 0;
-	if (edge_row > 0 && (size_t)edge_row < src->row)
-		row = (size_t)edge_row;
-	if ((size_t)edge_row >= src->row)
+	if (edge_row > 0 && edge_row < (int)src->row)
+		row = edge_row;
+	if (edge_row >= (int)src->row)
 		row = src->row - 1;
 	col = 0;
-	if (edge_col > 0 && (size_t)edge_col < src->col)
-		col = (size_t)edge_col;
-	if ((size_t)edge_col >= src->col)
+	if (edge_col > 0 && edge_col < (int)src->col)
+		col = edge_col;
+	if (edge_col >= (int)src->col)
 		col = src->col - 1;
-	return (src->arr[src->col * row + col]);
+	return (arr[src->col * row + col]);
 }
 
 // time : O(n^2)
@@ -43,10 +46,10 @@ t_matrix	init_src_kernel_height(size_t half_dim,
 		j = 0;
 		while (j < half_dim)
 		{
-			dst.arr[(half_dim + i) * dst.col + half_dim + j] = return_edge_height(src, index / src->col + i, index % src->col + j);
-			dst.arr[(half_dim + i) * dst.col + half_dim - j] = return_edge_height(src, index / src->col + i, index % src->col - j);
-			dst.arr[(half_dim - i) * dst.col + half_dim + j] = return_edge_height(src, index / src->col - i, index % src->col + j);
-			dst.arr[(half_dim - i) * dst.col + half_dim - j] = return_edge_height(src, index / src->col - i, index % src->col - j);
+			dst.arr[(half_dim + i) * dst.col + half_dim + j] = get_clamped_height(src, index / src->col + i, index % src->col + j);
+			dst.arr[(half_dim + i) * dst.col + half_dim - j] = get_clamped_height(src, index / src->col + i, index % src->col - j);
+			dst.arr[(half_dim - i) * dst.col + half_dim + j] = get_clamped_height(src, index / src->col - i, index % src->col + j);
+			dst.arr[(half_dim - i) * dst.col + half_dim - j] = get_clamped_height(src, index / src->col - i, index % src->col - j);
 			j += 1;
 		}
 		i += 1;
@@ -87,10 +90,23 @@ int	convolve_unit_height(const t_table_fdf *src,
 
 /**
  * Apply a convolution kernel to HEIGHT channels.
+ * 
+ * The kernel must be a square matrix with odd dimensions (e.g. 3x3, 5x5).
+ * For each pixel, the kernel is centered on that pixel. Samples outside
+ * the source image are clamped to the nearest edge pixel.
+ * 
+ * If kernel.arr is NULL, an adaptive kernel is generated from the local
+ * source region instead of treating the kernel as invalid. This allows
+ * the same convolution path to be reused for both fixed and adaptive
+ * filtering.
  *
  * time/space: O(n * m^2) / O(n)
  * 
- * status: public api
+ * status: public api (broken)
+ * 
+ * issue: convolution is currently incorrect and may become extremely slow
+ * or appear to hang. Further debugging is deferred.
+ * It used to be working before I refactor my code.
  *
  * @param src source FDF table
  * @param kernel convolution kernel
@@ -108,7 +124,7 @@ t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel)
 		return (init_table_fdf(0, 0, false));
 	dst = scale_dimension_fdf(src, 1, 1);
 	i = 0;
-	while (i < dst.col * dst.row)
+	while (i < src->col * src->row)
 	{
 		dst.arr[i] = convolve_unit_height(src, kernel, i);
 		i += 1;

@@ -42,7 +42,7 @@ unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type)
 		return (src->g);
 	if (src->b != NULL && rgba_type == BLUE)
 		return (src->b);
-	if (src->a != NULL && (rgba_type == ALPHA))
+	if (src->a != NULL && rgba_type == ALPHA)
 		return (src->a);
 	return (NULL);
 }
