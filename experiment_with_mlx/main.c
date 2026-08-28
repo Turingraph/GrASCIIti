@@ -22,8 +22,7 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-// time : O(1)
-// space: O(1)
+
 int32_t	get_table_rgba_int32(const t_table_fdf *src, size_t index)
 {
 	int32_t	r;

@@ -97,7 +97,7 @@ int	main(void)
 			write(1, arr[i], f_strlen(arr[i]));
 			write(1, " ***\n", 5);
 			write_table_fdf(1, &table, 3, HEIGHT_ONLY);
-			write_table_fdf(fdf_dst, &table, 1, HEIGHT_ONLY);
+			write_table_fdf(fdf_dst, &table, 1, HEIGHT_RGBA);
 		}
 		else
 			warning_file_not_exists(arr[i]);
