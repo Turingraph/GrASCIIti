@@ -1,4 +1,16 @@
-#include"raster_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shape.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 16:34:22 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:21:47 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "raster_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -142,7 +154,8 @@ Reference
  * @param color 32-bit RGBA drawing color
  * @param point circle center and radius
  * @param boundary drawable area used to clip the circle
- * @see https://www.youtube.com/watch?v=hpiILbMkF9w for learning how Midpoint circle works.
+ * @see https://www.youtube.com/watch?v=hpiILbMkF9w
+ * for learning how Midpoint circle works.
 */
 void	midpoint_circle_mlx(mlx_image_t *dst,
 	int32_t color, t_circle point, t_boundary boundary)
@@ -172,6 +185,35 @@ void	midpoint_circle_mlx(mlx_image_t *dst,
 		ix += 1;
 		pivot += 2 * ix + 1;
 	}
+}
+
+/**
+ * Define the rectangle within the given area.
+ *
+ * time/space: O(1) / O(1)
+ *
+ * status: internal helper
+ *
+ * @param src the rectangle area (which is defined by 2 pairs of integers
+ * as x_min, y_min -> x_max, y_max)
+ * @param boundary the area that contains src rectangle.
+ */
+t_line	init_rectangle(t_line src, t_boundary boundary)
+{
+	t_line	dst;
+	int		offset;
+
+	offset = boundary.sub_area.p1.x;
+	dst.p1.x = (int)f_interval(f_min(src.p1.x, src.p2.x), 0,
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
+	dst.p2.x = (int)f_interval(f_max(src.p1.x, src.p2.x), 0,
+			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
+	offset = boundary.sub_area.p1.y;
+	dst.p1.y = (int)f_interval(f_min(src.p1.y, src.p2.y), 0,
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+	dst.p2.y = (int)f_interval(f_max(src.p1.y, src.p2.y), 0,
+			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+	return (dst);
 }
 
 /**

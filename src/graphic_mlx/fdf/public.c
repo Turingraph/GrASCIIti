@@ -1,4 +1,16 @@
-#include"fdf_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   public.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:26:33 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf_private.h"
 
 // This function is only used for view_fdf.
 bool	view_fdf_handle_00(mlx_t *mlx, mlx_image_t *img)
@@ -16,12 +28,12 @@ bool	view_fdf_handle_00(mlx_t *mlx, mlx_image_t *img)
 int32_t	view_fdf_handle_01(mlx_t *mlx, mlx_image_t *img)
 {
 	return (mlx_image_to_window(mlx, img,
-		(mlx->width - img->width) / 2,
-		(mlx->height - img->height) / 2));
+			((int)mlx->width - (int)img->width) / 2,
+			((int)mlx->height - (int)img->height) / 2));
 }
 
 // This function is only used for view_fdf.
-int32_t	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
+void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
 {
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, img);
@@ -63,23 +75,23 @@ int32_t	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  *
  * status: public api
  *
- * @param calligraphy FDF object to display
+ * @param fdf FDF object to display
  * @param drawing_style style used to render the FDF object
  * @param view_config configuration for the FDF view
  */
-void	view_fdf(t_fdf *calligraphy, t_ink32 drawing_style, t_view_config view_config)
+void	view_fdf(t_fdf *fdf, t_ink32 drawing_style, t_view_config view_config)
 {
 	mlx_t			*mlx;
 	t_2d_hook		hook;
 	t_2d_camera		camera;
 
 	mlx = mlx_init(1440, 810, "Sunset at 4:42pm", true);
-	hook = init_2d_hook(mlx, calligraphy, drawing_style, view_config);
+	hook = init_2d_hook(mlx, fdf, drawing_style, view_config);
 	if (view_fdf_handle_00(mlx, hook.img) == false)
 		return ;
 	camera = init_2d_camera(1440, 810);
 	hook.camera = &camera;
-	init_3d_fdf_object(calligraphy, f_min(1440, 810), view_config.init_3d_transform);
+	init_3d_fdf_object(fdf, f_min(1440, 810), view_config.init_3d_transform);
 	color_background_mlx(hook.img, view_config.background_color);
 	draw_fdf_mlx(&hook, true);
 	if (-1 == view_fdf_handle_01(mlx, hook.img))

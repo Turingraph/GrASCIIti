@@ -1,4 +1,16 @@
-#include"linalg.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:34:35 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:34:53 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "linalg.h"
 
 // time : O(n)
 // space: O(1)
@@ -63,4 +75,3 @@ float	dot_product(const float *vec_v, const float *vec_u, size_t dim)
 	}
 	return (y);
 }
-

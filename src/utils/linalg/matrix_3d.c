@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix_3d.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:32:57 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:33:31 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "linalg.h"
 
 // https://www.storyofmathematics.com/inverse-of-a-3x3-matrix/
@@ -37,7 +49,6 @@ t_matrix	init_inverse_3d_matrix(t_matrix src)
 void	matrix_3d_product(t_matrix src, t_matrix *dst)
 {
 	float	c[9];
-	float	*a;
 	float	*b;
 	size_t	i;
 
@@ -45,17 +56,16 @@ void	matrix_3d_product(t_matrix src, t_matrix *dst)
 		|| dst->arr == NULL || src.col * src.row < 9
 		|| src.col * src.row != dst->col * dst->row)
 		return ;
-	a = src.arr;
 	b = dst->arr;
-	c[0] = a[0] * b[0] + a[3] * b[1] + a[6] * b[2];
-	c[1] = a[1] * b[0] + a[4] * b[1] + a[7] * b[2];
-	c[2] = a[2] * b[0] + a[5] * b[1] + a[8] * b[2];
-	c[3] = a[0] * b[3] + a[3] * b[4] + a[6] * b[5];
-	c[4] = a[1] * b[3] + a[4] * b[4] + a[7] * b[5];
-	c[5] = a[2] * b[3] + a[5] * b[4] + a[8] * b[5];
-	c[6] = a[0] * b[6] + a[3] * b[7] + a[6] * b[8];
-	c[7] = a[1] * b[6] + a[4] * b[7] + a[7] * b[8];
-	c[8] = a[2] * b[6] + a[5] * b[7] + a[8] * b[8];
+	c[0] = src.arr[0] * b[0] + src.arr[3] * b[1] + src.arr[6] * b[2];
+	c[1] = src.arr[1] * b[0] + src.arr[4] * b[1] + src.arr[7] * b[2];
+	c[2] = src.arr[2] * b[0] + src.arr[5] * b[1] + src.arr[8] * b[2];
+	c[3] = src.arr[0] * b[3] + src.arr[3] * b[4] + src.arr[6] * b[5];
+	c[4] = src.arr[1] * b[3] + src.arr[4] * b[4] + src.arr[7] * b[5];
+	c[5] = src.arr[2] * b[3] + src.arr[5] * b[4] + src.arr[8] * b[5];
+	c[6] = src.arr[0] * b[6] + src.arr[3] * b[7] + src.arr[6] * b[8];
+	c[7] = src.arr[1] * b[6] + src.arr[4] * b[7] + src.arr[7] * b[8];
+	c[8] = src.arr[2] * b[6] + src.arr[5] * b[7] + src.arr[8] * b[8];
 	i = 0;
 	while (i < 9)
 	{

@@ -1,9 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   table.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:55:09 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 18:44:13 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TABLE_H
 # define TABLE_H
 
-#include <stdlib.h>
-#include "../../input/load/load.h"
-#include "../../utils/green_counts/green_counts.h"
+# include <stdlib.h>
+# include "../../input/load/load.h"
+# include "../../utils/green_counts/green_counts.h"
+
+// color.c
+
+void			set_table_color(t_table_fdf *dst, t_enum_rgba channel,
+					unsigned char color);
+void			set_table_color_based_on_height(t_table_fdf *dst,
+					t_enum_rgba channel);
 
 // init.c
 
@@ -13,7 +32,7 @@ t_table_fdf		init_table_fdf(size_t row, size_t col, bool is_rgba);
 // positive.c
 
 int				get_minmax_from_table_fdf(const t_table_fdf *dst,
-					bool is_max, e_rgba channels);
+					bool is_max, t_enum_rgba channels);
 void			scale_positive_fdf(t_table_fdf *dst);
 void			scale_relu_fdf(t_table_fdf *dst, int min, int max, int expect);
 
@@ -25,7 +44,7 @@ t_table_fdf		open_table_fdf_file(const char *file_name, const char *dir,
 // scale_dimension.c
 
 unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
-					size_t s_row, size_t s_col, e_rgba rgba_type);
+					size_t s_row, size_t s_col, t_enum_rgba rgba_type);
 int				*scale_dimension_fdf_int(const t_table_fdf *src,
 					size_t s_row, size_t s_col);
 t_table_fdf		scale_dimension_fdf(const t_table_fdf *src,
@@ -34,25 +53,26 @@ t_table_fdf		scale_dimension_fdf(const t_table_fdf *src,
 // scale.c
 
 void			scale_multiplication_fdf(t_table_fdf *dst,
-					float scale, e_rgba channel);
+					float scale, t_enum_rgba channel);
 void			scale_addition_fdf(t_table_fdf *dst,
-					int input, e_rgba channel);
+					int input, t_enum_rgba channel);
 void			table_fdf_addition(t_table_fdf *dst,
-					const t_table_fdf *src, e_rgba channel);
-void			table_fdf_height_to_color(t_table_fdf *dst, e_rgba channel);
+					const t_table_fdf *src, t_enum_rgba channel);
+void			table_fdf_hadamard(t_table_fdf *dst,
+					const t_table_fdf *src, t_enum_rgba channel);
 
 // shade.c
 
 void			write_table_ascii_cheche01(int fd,
-					const t_table_fdf *src, e_rgba channel);
+					const t_table_fdf *src, t_enum_rgba channel);
 void			write_table_ascii_standard(int fd,
-					const t_table_fdf *src, e_rgba channel);
+					const t_table_fdf *src, t_enum_rgba channel);
 void			write_table_ascii_chungaloider(int fd,
-					const t_table_fdf *src, e_rgba channel);
+					const t_table_fdf *src, t_enum_rgba channel);
 
 // write.c
 
 void			write_table_fdf(int fd,
-					const t_table_fdf *src, size_t digits, e_write_style mode);
+					const t_table_fdf *src, size_t digits, t_write_style mode);
 
 #endif

@@ -25,7 +25,7 @@ void	fill_cells_height(
 void	fill_cells_color(
 	t_table_fdf *dst,
 	unsigned char input_value,
-	e_rgba rgba_type,
+	t_enum_rgba rgba_type,
 	bool(*is_filtered_cell)(const t_table_fdf *dst, size_t index))
 {
 	size_t			i;
@@ -45,7 +45,7 @@ void	fill_cells_color(
 // space: O(1)
 void	generate_cells_color(
 	t_table_fdf *dst,
-	e_rgba channel,
+	t_enum_rgba channel,
 	bool(*is_filtered_cell)(const t_table_fdf *dst, size_t index),
 	int(*gen_color)(const t_table_fdf *dst, size_t index))
 {

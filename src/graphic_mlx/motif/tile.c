@@ -1,4 +1,16 @@
-#include"motif_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tile.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:31:22 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:31:45 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "motif_private.h"
 
 /**
  * Calculate the side length of one tile for a given resolution.
@@ -40,7 +52,8 @@ size_t	init_tile_size(size_t side_length, size_t resolution)
  *
  * time/space: O(resolution, where resolution is limited to 10) / O(1)
  * 
- * @param side_length side length of the drawing area (width or height of the window)
+ * @param side_length side length of the drawing area
+ * (width or height of the window)
  * @param resolution tile resolution
  * @param fixed_length reference side length (width or height of the window)
  * used to determine tile size (the minimum width or height of the window)
@@ -53,7 +66,7 @@ size_t	init_alltiles_count(size_t side_length,
 	if (init_tile_size(fixed_length, resolution) == 0)
 		return (0);
 	return (side_length / init_tile_size(fixed_length, resolution));
-}		
+}
 
 /**
  * Calculate the total side length occupied by complete tiles.
@@ -63,14 +76,17 @@ size_t	init_alltiles_count(size_t side_length,
  * complete tile is excluded.
  *
  * Examples
- * - f(1080, 5, 1080) = init_tile_size(1080, 5) * init_alltiles_count(1080, 5, 1080) = 1056
- * - f(1920, 5, 1080) = init_tile_size(1080, 5) * init_alltiles_count(1920, 5, 1080) = 58 * 33 = 1914
+ * - f(1080, 5, 1080) = init_tile_size(1080, 5) *
+ * init_alltiles_count(1080, 5, 1080) = 1056
+ * - f(1920, 5, 1080) = init_tile_size(1080, 5) *
+ * init_alltiles_count(1920, 5, 1080) = 58 * 33 = 1914
  * 
  * status: internal helper
  *
  * time/space: O(resolution, where resolution is limited to 10) / O(1)
  * 
- * @param side_length side length of the drawing area (width or height of the window)
+ * @param side_length side length of the drawing area
+ * (width or height of the window)
  * @param resolution tile resolution
  * @param fixed_length reference side length (width or height of the window)
  * used to determine tile size

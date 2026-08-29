@@ -1,4 +1,16 @@
-#include"motif_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   public.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:22:35 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:23:45 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "motif_private.h"
 
 // This function is only used for view_fdf.
 bool	view_motif_handle_00(mlx_t *mlx, mlx_image_t *img)
@@ -16,12 +28,12 @@ bool	view_motif_handle_00(mlx_t *mlx, mlx_image_t *img)
 int32_t	view_motif_handle_01(mlx_t *mlx, mlx_image_t *img)
 {
 	return (mlx_image_to_window(mlx, img,
-		(mlx->width - img->width) / 2,
-		(mlx->height - img->height) / 2));
+			(mlx->width - img->width) / 2,
+			(mlx->height - img->height) / 2));
 }
 
 // This function is only used for view_fdf.
-int32_t	view_motif_handle_02(mlx_t *mlx, mlx_image_t *img)
+void	view_motif_handle_02(mlx_t *mlx, mlx_image_t *img)
 {
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, img);
@@ -49,7 +61,8 @@ int32_t	view_motif_handle_02(mlx_t *mlx, mlx_image_t *img)
  * @param background_color background colour of the rendered composition
  * @param resolution tile subdivision resolution (equal to or less than 10)
  */
-void	view_motif(t_motif_arr *src, int32_t background_color, size_t resolution)
+void	view_motif(t_motif_arr *src,
+	int32_t background_color, size_t resolution)
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
@@ -59,7 +72,7 @@ void	view_motif(t_motif_arr *src, int32_t background_color, size_t resolution)
 	img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (view_motif_handle_00(mlx, img) == false)
 		return ;
-	color_background_mlx(hook.img, view_config.background_color);
+	color_background_mlx(img, background_color);
 	drawing_context.motif = src;
 	drawing_context.tiles = init_tile_format(1440, 810, resolution);
 	draw_motif_mlx(img, &drawing_context);

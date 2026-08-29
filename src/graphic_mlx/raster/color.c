@@ -1,4 +1,16 @@
-#include"raster_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 16:28:58 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 16:29:00 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "raster_private.h"
 
 /**
  * Pack individual RGBA channels into a 32-bit color value.

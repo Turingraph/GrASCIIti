@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scale_dimension.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:46:33 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 18:10:12 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "table_private.h"
 
 // time : O(n^2)
@@ -59,7 +71,7 @@ void	copy_duplicated_row(const int *src, int *dst,
  * @return scaled channel array, or NULL on failure
  */
 unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
-	size_t s_row, size_t s_col, e_rgba rgba_type)
+	size_t s_row, size_t s_col, t_enum_rgba rgba_type)
 {
 	size_t			i;
 	size_t			ii;
@@ -67,9 +79,13 @@ unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
 	unsigned char	*arr;
 
 	arr = get_rgba_of_table_fdf(src, rgba_type);
-	dst = malloc_talk(sizeof(unsigned char) * src->row * src->col * s_row * s_col,
-		"input/table/scale_dimension.c/scale_dimension_fdf_rgba\n");
-	if (dst == NULL || arr == NULL)
+	if (arr == NULL || src == NULL || src->row == 0
+		|| src->col == 0 || src->arr == NULL)
+		return (NULL);
+	dst = malloc_talk(sizeof(unsigned char)
+			* src->row * src->col * s_row * s_col,
+			"input/table/scale_dimension.c/scale_dimension_fdf_rgba\n");
+	if (dst == NULL)
 		return (NULL);
 	i = 0;
 	while (i < src->row)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:37:16 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:44:19 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_private.h"
 
 /**
@@ -24,18 +36,6 @@ size_t	knight_of_coin(const char *str, char stop)
 }
 
 // time : O(n)
-// space: O(1)
-void	*queen_of_coin(size_t elem_size)
-{
-	void	*dst;
-
-	dst = (void *)malloc(elem_size);
-	if (dst == NULL)
-		write(1, "Malloc Fail: src/input/get_next_line/\n", 39);
-	return (dst);
-}
-
-// time : O(n)
 // space: O(n)
 char	*ace_of_coin(const char *src, size_t length, size_t capacity)
 {
@@ -46,7 +46,7 @@ char	*ace_of_coin(const char *src, size_t length, size_t capacity)
 		capacity = length;
 	if (capacity == 0)
 		return (NULL);
-	coin = (char *)queen_of_coin(sizeof(char) * (capacity + 1));
+	coin = (char *)malloc(sizeof(char) * (capacity + 1));
 	if (coin == NULL)
 		return (NULL);
 	coin[capacity] = '\0';
@@ -65,13 +65,34 @@ char	*ace_of_coin(const char *src, size_t length, size_t capacity)
 	return (coin);
 }
 
+// time : O(n)
+// space: O(n)
+t_temperance	*two_of_coin(t_temperance *src)
+{
+	t_temperance	*dst;
+
+	if (src == NULL || src->arr == NULL
+		|| src->capacity == 0 || src->length == 0)
+		return (NULL);
+	dst = (t_temperance *)malloc(sizeof(t_temperance));
+	if (dst == NULL)
+		return (NULL);
+	dst->length = src->length;
+	dst->capacity = src->length * 2;
+	dst->arr = ace_of_coin(src->arr, src->length, src->capacity * 2);
+	if (dst->arr == NULL)
+		free(dst);
+	return (dst);
+}
+
 // time : O(1)
 // space: O(1)
 t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 {
 	t_temperance	*right_cup;
 
-	if (left_cup == NULL || *left_cup == NULL)
+	if (left_cup == NULL || *left_cup == NULL
+		|| (*left_cup)->arr == NULL)
 		return (NULL);
 	if ((*left_cup)->length < (*left_cup)->capacity)
 	{
@@ -79,18 +100,7 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 		(*left_cup)->length += 1;
 		return (*left_cup);
 	}
-	right_cup = (t_temperance *)queen_of_coin(sizeof(t_temperance));
-	if (right_cup == NULL)
-		return (NULL);
-	right_cup->capacity = (*left_cup)->capacity * 2;
-	right_cup->length = (*left_cup)->length;
-	right_cup->arr = ace_of_coin((*left_cup)->arr,
-		(*left_cup)->length, (*left_cup)->capacity * 2);
-	if (right_cup->arr == NULL)
-	{
-		free(right_cup);
-		return (NULL);
-	}
+	right_cup = two_of_coin(*left_cup);
 	free((*left_cup)->arr);
 	free((*left_cup));
 	*left_cup = right_cup;
@@ -101,7 +111,8 @@ t_temperance	*two_of_cups(t_temperance **left_cup, char c)
 // space: O(1)
 t_temperance	**three_of_cups(t_temperance **group, const char *friends)
 {
-	while (friends != NULL && group != NULL && *group != NULL && *friends != '\0')
+	while (friends != NULL && group != NULL
+		&& *group != NULL && *friends != '\0')
 	{
 		if (two_of_cups(group, *friends) == NULL)
 		{

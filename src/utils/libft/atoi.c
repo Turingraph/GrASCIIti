@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   atoi.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:15:00 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:45:27 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 // time : O(n)
@@ -30,7 +42,8 @@ size_t	f_atoonei(char c, const char *base, bool *is_int)
 
 // time : O(1)
 // space: O(1)
-long int	f_atolongi(const char *src, bool *is_int, const char *base, size_t digits)
+long int	f_atolongi(const char *src,
+	bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
 	size_t		i;
@@ -52,8 +65,23 @@ long int	f_atolongi(const char *src, bool *is_int, const char *base, size_t digi
 	return (y);
 }
 
-// time : O(1)
-// space: O(1)
+/**
+ * Convert a string representing an integer in a given base.
+ *
+ * A leading '-' is interpreted as a negative sign.
+ * The resulting value must fit within the range of an int.
+ *
+ * time/space: O(1) / O(1)
+ * 
+ * status: public api
+ *
+ * @param src the string to convert
+ * @param is_int set to false if conversion fails
+ * @param base the numeric base used for conversion
+ * @param digits maximum number of characters to convert
+ *
+ * @return converted integer, or -1 if conversion fails or overflows
+ */
 int	f_atoi(const char *src, bool *is_int, const char *base, size_t digits)
 {
 	long int	y;
@@ -112,8 +140,23 @@ size_t	display_int(int fd, long x, const char *base, bool is_write)
 	return (i);
 }
 
-// time : O(1)
-// space: O(1)
+/**
+ * Write an integer to a file descriptor using the specified base.
+ *
+ * The output is padded with the first character of base until it
+ * reaches digits characters.
+ *
+ * time/space: O(n) / O(1)
+ * 
+ * status: public api
+ *
+ * @param n integer to write
+ * @param fd file descriptor used for output
+ * @param base numeric base used for representation, return 0 if base is NULL
+ * @param digits minimum number of characters to write
+ *
+ * @return number of characters written
+ */
 size_t	ft_putnbr_fd(int n, int fd, const char *base, size_t digits)
 {
 	size_t	i;

@@ -1,9 +1,21 @@
-#include"load_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:15:10 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:15:13 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "load_private.h"
 
 // time : O(n)
 // space: O(n)
 void	write_load_fdf(int fd, const t_load_fdf *src,
-		size_t digits, e_write_style mode)
+		size_t digits, t_write_style mode)
 {
 	size_t	i;
 
@@ -32,7 +44,7 @@ void	write_load_fdf(int fd, const t_load_fdf *src,
 // time : O(n)
 // space: O(n)
 void	write_load_fdf_arr(int fd,
-		const t_load_fdf_arr *src, size_t digits, e_write_style mode)
+		const t_load_fdf_arr *src, size_t digits, t_write_style mode)
 {
 	size_t	i;
 

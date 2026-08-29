@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ascii.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:00:57 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:01:03 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "load_private.h"
 
 // https://paulbourke.net/dataformats/asciiart/
@@ -84,7 +96,8 @@ void	ft_put_ascii_fd(int fd, int cell, const char *dict, bool is_left)
 
 // time : O(n)
 // space: O(n)
-int	*line_to_ascii_arr(const char *line, const char *dict, int *dst, size_t length)
+int	*line_to_ascii_arr(const char *line,
+	const char *dict, int *dst, size_t length)
 {
 	size_t	i;
 

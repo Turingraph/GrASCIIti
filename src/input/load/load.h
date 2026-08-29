@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:00:26 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:00:33 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LOAD_H
 # define LOAD_H
 
-#include "../get_next_line/get_next_line.h"
-#include "../../utils/libft/libft.h"
+# include "../get_next_line/get_next_line.h"
+# include "../../utils/libft/libft.h"
+# include "load_type.h"
 
 /*
 Note that
 *	load.h is for utilized by only src/input/table module and not by the user.
-*	load_test.h is for checking if src/input/load/ works as expected.
+*	load_debug.h is for checking if src/input/load/ works as expected.
 */
 
 // all_files.c

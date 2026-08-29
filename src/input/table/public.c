@@ -1,4 +1,16 @@
-#include"table_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   public.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:46:26 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:46:28 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "table_private.h"
 
 /**
  * Load target file as t_table_fdf 5 rgba and height integer array data.

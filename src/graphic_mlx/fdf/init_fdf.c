@@ -1,4 +1,16 @@
-#include"fdf_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_fdf.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:03:06 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:03:27 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -70,9 +82,9 @@ t_fdf	init_fdf(t_table_fdf *src)
 	dst.pos_z = init_fdf_position(src, 2);
 	dst.matrix = init_3d_zoom_matrix(1.0);
 	min_x = (float)get_minmax_from_table_fdf(
-		(const t_table_fdf *)src, false, HEIGHT);
+			(const t_table_fdf *)src, false, HEIGHT);
 	max_x = (float)get_minmax_from_table_fdf(
-		(const t_table_fdf *)src, true, HEIGHT);
+			(const t_table_fdf *)src, true, HEIGHT);
 	dst.width = f_max3(max_x - min_x, src->row, src->col);
 	return (dst);
 }
@@ -116,7 +128,7 @@ void	free_fdf(t_fdf *src)
 
 // time : O(1)
 // space: O(1)
-bool	is_fdf_valid(const t_2d_hook *src)
+bool	is_fdf_valid(const t_fdf *src)
 {
 	t_table_fdf	*table;
 

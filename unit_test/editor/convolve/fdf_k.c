@@ -3,7 +3,7 @@
 int	main(void)
 {
 	t_table_fdf	table_a;
-	t_table_fdf	table_b;
+	// t_table_fdf	table_b;
 	t_matrix	kernel;
 	size_t		half_dim;
 	// int			output;
@@ -49,10 +49,10 @@ int	main(void)
 		// output = open_dir_file(arr[i], dst_dir, APPEND);
 		table_a = open_table_fdf_file(arr[i], src_dir,
 				parse_ascii_line_chungaloider, true);
-		table_b = convolve_hight(&table_a, kernel);
+		// table_b = convolve_hight(&table_a, kernel);
 		// write_table_fdf(output, &table_a, 1, HEIGHT_ONLY);
 		free_table_fdf(&table_a);
-		free_table_fdf(&table_b);
+		// free_table_fdf(&table_b);
 		i += 1;
 	}
 	free_matrix(&kernel);

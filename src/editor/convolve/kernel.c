@@ -1,4 +1,16 @@
-#include"convolve.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   kernel.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 16:16:03 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 16:16:05 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "convolve.h"
 
 // https://stackoverflow.com/questions/1696113/
 // how-do-i-gaussian-blur-an-image-without-using-any-in-built-gaussian-functions

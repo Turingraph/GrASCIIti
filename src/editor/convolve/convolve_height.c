@@ -1,55 +1,59 @@
-#include"convolve.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convolve_height.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 16:15:53 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 16:37:00 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "convolve.h"
 
 // time : O(1)
 // space: O(1)
-int	get_clamped_height(const t_table_fdf *src, int edge_row, int edge_col)
+int	clamped_int(const t_table_fdf *src, int ix, int iy)
 {
-	size_t	row;
-	size_t	col;
-	int		*arr;
-
-	if (src == NULL || src->arr == NULL || src->row == 0 || src->col == 0)
+	if (src == NULL || src->arr == NULL || src->row * src->col == 0)
 		return (0);
-	arr = src->arr;
-	if (arr == NULL)
-		return (0);
-	if (0 <= edge_row && edge_row < (int)src->row && 0 <= edge_col && edge_col < (int)src->col)
-		return (arr[edge_row * src->col + edge_col]);
-	row = 0;
-	if (edge_row > 0 && edge_row < (int)src->row)
-		row = edge_row;
-	if (edge_row >= (int)src->row)
-		row = src->row - 1;
-	col = 0;
-	if (edge_col > 0 && edge_col < (int)src->col)
-		col = edge_col;
-	if (edge_col >= (int)src->col)
-		col = src->col - 1;
-	return (arr[src->col * row + col]);
+	if (ix < 0)
+		ix = 0;
+	else if (ix >= (int)src->col)
+		ix = (int)src->col - 1;
+	if (iy < 0)
+		iy = 0;
+	else if (iy >= (int)src->row)
+		iy = (int)src->row - 1;
+	return (src->arr[iy * src->col + ix]);
 }
 
 // time : O(n^2)
 // space: O(n^2)
-t_matrix	init_src_kernel_height(size_t half_dim,
-	const t_table_fdf *src, size_t index)
+t_matrix	init_src_kernel_int(const t_table_fdf *src,
+	size_t dim, int ix, int iy)
 {
 	t_matrix	dst;
-	size_t		i;
-	size_t		j;
+	int			i;
+	int			j;
 
-	dst = init_matrix(2 * half_dim + 1, 2 * half_dim + 1, 1);
-	if (src == NULL || src->arr == NULL || index >= src->col * src->row)
+	dst.col = dim;
+	dst.row = dim;
+	dst.arr = malloc_talk(sizeof(int) * dim * dim,
+			"editor/convolve/convolve_height.c/init_src_kernel_int\n");
+	if (dst.arr == NULL || dim == 0)
 		return (dst);
 	i = 0;
-	while (i < half_dim)
+	while (i <= (int)dim / 2)
 	{
 		j = 0;
-		while (j < half_dim)
+		while (j <= (int)dim / 2)
 		{
-			dst.arr[(half_dim + i) * dst.col + half_dim + j] = get_clamped_height(src, index / src->col + i, index % src->col + j);
-			dst.arr[(half_dim + i) * dst.col + half_dim - j] = get_clamped_height(src, index / src->col + i, index % src->col - j);
-			dst.arr[(half_dim - i) * dst.col + half_dim + j] = get_clamped_height(src, index / src->col - i, index % src->col + j);
-			dst.arr[(half_dim - i) * dst.col + half_dim - j] = get_clamped_height(src, index / src->col - i, index % src->col - j);
+			dst.arr[(dim / 2 + i) * dst.col + dim / 2 + j] = clamped_int(src, ix + j, iy + i);
+			dst.arr[(dim / 2 + i) * dst.col + dim / 2 - j] = clamped_int(src, ix - j, iy + i);
+			dst.arr[(dim / 2 - i) * dst.col + dim / 2 + j] = clamped_int(src, ix + j, iy - i);
+			dst.arr[(dim / 2 - i) * dst.col + dim / 2 - j] = clamped_int(src, ix - j, iy - i);
 			j += 1;
 		}
 		i += 1;
@@ -57,34 +61,35 @@ t_matrix	init_src_kernel_height(size_t half_dim,
 	return (dst);
 }
 
-// time : O(n)
-// space: O(n)
+// time : O(m^2)
+// space: O(m^2)
 int	convolve_unit_height(const t_table_fdf *src,
 	t_matrix kernel, size_t index)
 {
-	int			output;
 	t_matrix	src_kernel;
+	int			output;
+	size_t		dim;
 
+	dim = kernel.col;
 	output = 0;
-	if (src != NULL && index < src->col * src->row)
+	if (src == NULL || src->arr == NULL || dim * dim == 0
+		|| index >= src->row * src->col)
+		return (output);
+	src_kernel = init_src_kernel_int(src, dim,
+			(int)(index % src->col), (int)(index / src->col));
+	if (src_kernel.arr == NULL)
+		return (output);
+	if (src_kernel.arr != NULL && kernel.arr != NULL)
 	{
-		src_kernel = init_src_kernel_height(kernel.col / 2, src, index);
-		if (src_kernel.arr != NULL && kernel.arr != NULL)
-			output = dot_product((const float *)src_kernel.arr,
-					kernel.arr, kernel.col * kernel.col);
-		else if (src_kernel.arr != NULL && kernel.arr == NULL)
-		{
-			kernel = init_src_kernel_height(kernel.col / 2, src, index);
-			output = f_sum(kernel.arr, kernel.col * kernel.col);
-			if (output > 0.025 || output <= -0.025)
-				vector_scale(kernel.arr, 1.0 / output, kernel.col * kernel.col);
-			if (kernel.arr != NULL)
-				output = (int)f_round(dot_product((const float *)src_kernel.arr,
-							kernel.arr, kernel.col * kernel.col));
-			free_matrix(&kernel);
-		}
-		free_matrix(&src_kernel);
+		output = dot_product(src_kernel.arr,
+				kernel.arr, dim * dim);
+		if ((float)(f_sum(kernel.arr, dim * dim)) > 0.2)
+			output = (int)f_round(
+					(float)output / (float)(f_sum(kernel.arr, dim * dim)));
 	}
+	else if (src_kernel.arr != NULL && kernel.arr == NULL)
+		output = f_round(f_sum(src_kernel.arr, dim * dim) / (float)(dim * dim));
+	free(src_kernel.arr);
 	return (output);
 }
 
@@ -95,32 +100,25 @@ int	convolve_unit_height(const t_table_fdf *src,
  * For each pixel, the kernel is centered on that pixel. Samples outside
  * the source image are clamped to the nearest edge pixel.
  * 
- * If kernel.arr is NULL, an adaptive kernel is generated from the local
- * source region instead of treating the kernel as invalid. This allows
- * the same convolution path to be reused for both fixed and adaptive
- * filtering.
+ * If kernel.arr is NULL, an average kernel will be utilized instead.
  *
  * time/space: O(n * m^2) / O(n)
  * 
- * status: public api (broken)
- * 
- * issue: convolution is currently incorrect and may become extremely slow
- * or appear to hang. Further debugging is deferred.
- * It used to be working before I refactor my code.
+ * status: public api (unchecked)
  *
  * @param src source FDF table
  * @param kernel convolution kernel
  * @return FDF table with the selected channels convolved
  * 
  * @see 3B1B convolution video https://youtu.be/KuXjwB4LzSA?si=9DNIvf9SS2SX4jET
- *  for more details
+ * for more details
  */
 t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel)
 {
 	t_table_fdf	dst;
 	size_t		i;
 
-	if (src == NULL || src->arr == NULL)
+	if (src == NULL || src->arr == NULL || kernel.col != kernel.row)
 		return (init_table_fdf(0, 0, false));
 	dst = scale_dimension_fdf(src, 1, 1);
 	i = 0;

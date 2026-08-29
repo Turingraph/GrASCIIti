@@ -1,4 +1,16 @@
-#include"motif_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tile_format.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:23:56 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:38:46 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "motif_private.h"
 
 /**
  * Initialize the screen-space area occupied by the complete tile grid.
@@ -61,10 +73,13 @@ t_tile_format	init_tile_format(size_t window_width,
 	size_t			fixed_side;
 
 	fixed_side = (size_t)f_min((float)window_width, (float)window_height);
-	dst.offset = init_offset_tile_area(window_width, window_height, resolution, fixed_side);
+	dst.offset = init_offset_tile_area(window_width, window_height,
+			resolution, fixed_side);
 	dst.tile_size = (float)init_tile_size(fixed_side, resolution);
-	dst.tile_counts.x = init_alltiles_count(window_width, resolution, fixed_side);
-	dst.tile_counts.y = init_alltiles_count(window_height, resolution, fixed_side);
+	dst.tile_counts.x = init_alltiles_count(window_width,
+			resolution, fixed_side);
+	dst.tile_counts.y = init_alltiles_count(window_height,
+			resolution, fixed_side);
 	return (dst);
 }
 
@@ -91,7 +106,8 @@ t_2d_int	get_ith_tile_screen(t_tile_format tiles,
 	t_2d_int	output;
 	t_2d_int	screen_xy;
 
-	screen_xy = tiles.offset.p1;
+	screen_xy.x = (int)tiles.offset.p1.re;
+	screen_xy.y = (int)tiles.offset.p1.im;
 	output.x = ix * tiles.tile_size + screen_xy.x;
 	output.y = iy * tiles.tile_size + screen_xy.y;
 	return (output);

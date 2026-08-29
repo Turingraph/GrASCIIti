@@ -1,7 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arr.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:27:08 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:45:39 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-// time : O(1)
-// space: O(n)
+/**
+ * Allocate and initialize a memory block with zero values.
+ * Print a message to stdout if allocation fails and comment is provided.
+ *
+ * time/space: O(n) / O(n)
+ *
+ * status: public api
+ * 
+ * @param elem_size size of the memory block in bytes
+ * @param comment message to print when allocation fails
+ *
+ * @return pointer to the initialized memory block, or NULL on failure
+ */
 void	*malloc_talk(size_t elem_size, const char *comment)
 {
 	size_t			i;
@@ -30,9 +53,20 @@ void	*malloc_talk(size_t elem_size, const char *comment)
 	return (dst);
 }
 
-// time : O(1)
-// space: O(1)
-unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src, e_rgba rgba_type)
+/**
+ * Get the RGBA channel array corresponding to the requested channel.
+ *
+ * time/space: O(1) / O(1)
+ * 
+ * status: public api
+ *
+ * @param src the input t_table_fdf array
+ * @param rgba_type RGBA channel to retrieve
+ *
+ * @return pointer to the requested channel array, or NULL if unavailable
+ */
+unsigned char	*get_rgba_of_table_fdf(const t_table_fdf *src,
+	t_enum_rgba rgba_type)
 {
 	if (src == NULL)
 		return (NULL);

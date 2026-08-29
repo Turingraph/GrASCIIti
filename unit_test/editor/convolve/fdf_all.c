@@ -84,6 +84,6 @@ int	main(void)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/editor/convolve/fdf.out
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/editor/convolve/fdf_all.out
 
 */

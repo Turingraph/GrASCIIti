@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   motif_private.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:14:48 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:34:01 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MOTIF_PRIVATE_H
 # define MOTIF_PRIVATE_H
 
@@ -16,9 +28,9 @@
  */
 typedef struct s_2d_polygon
 {
-t_complex	*arr;
-size_t		length;
-bool		is_loop;
+	t_complex	*arr;
+	size_t		length;
+	bool		is_loop;
 }	t_2d_polygon;
 
 /**
@@ -30,8 +42,8 @@ bool		is_loop;
  */
 typedef struct s_motif
 {
-t_2d_polygon	polygon;
-t_ink32			ink;
+	t_2d_polygon	polygon;
+	t_ink32			ink;
 }	t_motif;
 
 /**
@@ -44,8 +56,8 @@ t_ink32			ink;
  */
 typedef struct s_motif_arr
 {
-t_motif	*arr;
-size_t	length;
+	t_motif	*arr;
+	size_t	length;
 }	t_motif_arr;
 
 
@@ -69,8 +81,8 @@ size_t	length;
  */
 typedef struct s_fline
 {
-t_complex	p1;
-t_complex	p2;
+	t_complex	p1;
+	t_complex	p2;
 }	t_fline;
 
 /**
@@ -97,9 +109,9 @@ t_complex	p2;
  */
 typedef struct s_tile_format
 {
-float		tile_size;
-t_2d_int	tile_counts;
-t_fline		offset;
+	float		tile_size;
+	t_2d_int	tile_counts;
+	t_fline		offset;
 }	t_tile_format;
 
 /**
@@ -125,38 +137,49 @@ t_fline		offset;
 */
 typedef struct s_islamic_art
 {
-t_motif_arr		*motif;
-t_tile_format	tiles;
+	t_motif_arr		*motif;
+	t_tile_format	tiles;
 }	t_islamic_art;
 
 // draw.c
 
-void	draw_motif_mlx(mlx_image_t *img, t_islamic_art *src);
+void			draw_motif_mlx(mlx_image_t *img, t_islamic_art *src);
 
 // motif.c
 
-void	draw_kusama_mlx(mlx_image_t *dst,
-	const t_2d_polygon *polygon, t_ink32 ink, t_line boundary);
-void	draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-	t_ink32 ink, t_line boundary);
-void	draw_mondrian_mlx(mlx_image_t *dst,
-	const t_2d_polygon *polygon, int32_t ink, t_line boundary);
+void			draw_kusama_mlx(mlx_image_t *dst,
+					const t_2d_polygon *polygon, t_ink32 ink, t_line boundary);
+void			draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
+					t_ink32 ink, t_line boundary);
+void			draw_mondrian_mlx(mlx_image_t *dst,
+					const t_2d_polygon *polygon, int32_t ink, t_line boundary);
 
 // public.c
 
-void	view_motif(t_motif_arr *src, int32_t background_color, size_t resolution);
+void			view_motif(t_motif_arr *src,
+					int32_t background_color, size_t resolution);
 
 // tile_format.c
 
-t_fline	init_offset_tile_area(size_t width, size_t height,
-	size_t resolution, size_t fixed_length);
+t_fline			init_offset_tile_area(size_t width, size_t height,
+					size_t resolution, size_t fixed_length);
 t_tile_format	init_tile_format(size_t width,
-	size_t height, size_t resolution);
-t_2d_int	get_ith_tile_screen(t_tile_format tiles,
-	int ix, int iy);
+					size_t height, size_t resolution);
+t_2d_int		get_ith_tile_screen(t_tile_format tiles,
+					int ix, int iy);
+
+// tile.c
+
+size_t			init_tile_size(size_t side_length, size_t resolution);
+size_t			init_alltiles_count(size_t side_length,
+					size_t resolution, size_t fixed_length);
+size_t			init_alltiles_size(size_t side_length,
+					size_t resolution, size_t fixed_length);
+int				init_alltiles_offset(size_t side_length,
+					size_t resolution, size_t fixed_length);
 
 // utils.c
 
-bool	is_islamic_art_valid(const t_islamic_art *src);
+bool			is_islamic_art_valid(const t_islamic_art *src);
 
 #endif

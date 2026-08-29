@@ -1,4 +1,16 @@
-#include"fdf_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_2d_hook.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:02:58 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:03:00 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf_private.h"
 
 /**
  * Initialize a 2D camera for an MLX window.
@@ -68,19 +80,19 @@ mlx_image_t	*init_mlx_image(mlx_t *mlx)
 * status: internal helper
 *
 * @param mlx MLX window context used by the view
-* @param calligraphy FDF object to display
+* @param fdf FDF object to display
 * @param drawing_style style used to render the FDF object
 * @param view_config configuration controlling the view
 * @return initialized 2D FDF rendering context
 */
-t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *calligraphy,
+t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
 	t_ink32 drawing_style, t_view_config view_config)
 {
 	t_2d_hook	dst;
 
 	dst.mlx = mlx;
 	dst.camera = NULL;
-	dst.master_piece.calligraphy = calligraphy;
+	dst.master_piece.fdf = fdf;
 	dst.master_piece.view_config = view_config;
 	dst.master_piece.drawing_style = drawing_style;
 	dst.img = init_mlx_image(mlx);

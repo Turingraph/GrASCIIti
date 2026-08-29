@@ -1,4 +1,16 @@
-#include"load_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:07:35 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:07:38 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "load_private.h"
 
 /**
  * Parse an ASCII-art line using the Cheche01 character ramp.

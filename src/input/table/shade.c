@@ -1,4 +1,16 @@
-#include"table_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shade.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:54:20 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:54:24 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "table_private.h"
 
 /**
  * Write an FDF channel using the Cheche01 ASCII ramp.
@@ -12,7 +24,7 @@
  * @param channel channel to convert
  */
 void	write_table_ascii_cheche01(int fd,
-	const t_table_fdf *src, e_rgba channel)
+	const t_table_fdf *src, t_enum_rgba channel)
 {
 	char	*dict;
 
@@ -33,7 +45,7 @@ void	write_table_ascii_cheche01(int fd,
  * @param channel channel to convert
  */
 void	write_table_ascii_standard(int fd,
-	const t_table_fdf *src, e_rgba channel)
+	const t_table_fdf *src, t_enum_rgba channel)
 {
 	char	*dict;
 
@@ -54,7 +66,7 @@ void	write_table_ascii_standard(int fd,
  * @param channel channel to convert
  */
 void	write_table_ascii_chungaloider(int fd,
-	const t_table_fdf *src, e_rgba channel)
+	const t_table_fdf *src, t_enum_rgba channel)
 {
 	char	*dict;
 

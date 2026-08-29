@@ -1,4 +1,16 @@
-#include"table_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:55:57 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 15:06:49 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "table_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -35,7 +47,7 @@ void	write_rgba_fdf(int fd, const t_table_fdf *src, size_t index)
  * @param mode output format
  */
 void	write_table_fdf(int fd, const t_table_fdf *src,
-	size_t digits, e_write_style mode)
+	size_t digits, t_write_style mode)
 {
 	size_t	i;
 	size_t	j;
@@ -62,31 +74,25 @@ void	write_table_fdf(int fd, const t_table_fdf *src,
 	}
 }
 
-// time : O(1)
-// space: O(1)
-unsigned char	*choose_rgba_channel(const t_table_fdf *src, e_rgba channel)
+// time : O(n)
+// space: O(n)
+static void	wta_rgba(unsigned char input,
+	const char *dict, int fd, bool is_left)
 {
-	if (src == NULL)
-		return (NULL);
-	if (channel == RED && src->r != NULL)
-		return (src->r);
-	if (channel == GREEN && src->g != NULL)
-		return (src->g);
-	if (channel == BLUE && src->b != NULL)
-		return (src->b);
-	if (channel == ALPHA && src->a != NULL)
-		return (src->a);
-	return (NULL);
+	int	output;
+
+	output = (int)f_interval((float)input, 0, 255);
+	ft_put_ascii_fd(fd, output, dict, is_left);
 }
 
 // time : O(n)
 // space: O(n)
-void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const char *dict)
+void	write_table_ascii(int fd, const t_table_fdf *src,
+	t_enum_rgba channel, const char *dict)
 {
 	size_t			i;
 	size_t			j;
 	unsigned char	*arr;
-	int				rgb95;
 	bool			left_char;
 
 	i = 0;
@@ -98,14 +104,12 @@ void	write_table_ascii(int fd, const t_table_fdf *src, e_rgba channel, const cha
 			left_char = true;
 			if (j >= src->col / 2)
 				left_char = false;
-			arr = choose_rgba_channel(src, channel);
+			arr = get_rgba_of_table_fdf(src, channel);
 			if (src->arr != NULL && channel == HEIGHT)
-				ft_put_ascii_fd(fd, (int)src->arr[i * src->col + j], dict, left_char);
+				ft_put_ascii_fd(fd,
+					(int)src->arr[i * src->col + j], dict, left_char);
 			else if (arr != NULL && channel != HEIGHT)
-			{
-				rgb95 = (int)f_interval(f_round((float)arr[i * src->col + j]), 0, 255);
-				ft_put_ascii_fd(fd, rgb95, dict, left_char);
-			}
+				wta_rgba(arr[i * src->col + j], dict, fd, left_char);
 			j += 1;
 		}
 		write(fd, "\n", 1);

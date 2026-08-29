@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   motif.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:15:32 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:18:19 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MOTIF_H
 # define MOTIF_H
 
-# include "../raster/raster_private.h"
+# include "../raster/raster.h"
 
 /**
  * Reusable 2D drawing motif composed of geometry and drawing properties.
@@ -12,8 +24,8 @@
  */
 typedef struct s_motif
 {
-t_2d_polygon	polygon;
-t_ink32			ink;
+	t_2d_polygon	polygon;
+	t_ink32			ink;
 }	t_motif;
 
 /**
@@ -26,12 +38,13 @@ t_ink32			ink;
  */
 typedef struct s_motif_arr
 {
-t_motif	*arr;
-size_t	length;
+	t_motif	*arr;
+	size_t	length;
 }	t_motif_arr;
 
 // public.c
 
-void	view_motif(t_motif_arr *src, int32_t background_color, size_t resolution);
+void	view_motif(t_motif_arr *src,
+			int32_t background_color, size_t resolution);
 
 #endif

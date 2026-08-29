@@ -1,9 +1,21 @@
-#include"table_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   positive.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:44:59 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:46:11 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "table_private.h"
 
 // time : O(1)
 // space: O(1)
 int	target_minmax(const t_table_fdf *dst,
-	e_rgba channels, size_t index, bool is_bool)
+	t_enum_rgba channels, size_t index, bool is_bool)
 {
 	if (dst != NULL && index < dst->col * dst->row)
 	{
@@ -46,7 +58,7 @@ int	target_minmax(const t_table_fdf *dst,
  * @return minimum or maximum integer based on the input.
  */
 int	get_minmax_from_table_fdf(const t_table_fdf *dst,
-	bool is_max, e_rgba channels)
+	bool is_max, t_enum_rgba channels)
 {
 	int		sign;
 	size_t	i;
@@ -60,8 +72,8 @@ int	get_minmax_from_table_fdf(const t_table_fdf *dst,
 	while (dst != NULL && i < dst->row * dst->col)
 	{
 		if (target_minmax((const t_table_fdf *)dst, channels, i, true) == 1
-			&& y * sign < target_minmax(
-				(const t_table_fdf *)dst, channels, 0, false) * sign)
+			&& y * sign < sign * target_minmax(
+				(const t_table_fdf *)dst, channels, 0, false))
 			y = target_minmax((const t_table_fdf *)dst, channels, 0, false);
 		i += 1;
 	}

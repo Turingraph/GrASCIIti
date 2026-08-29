@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_private.h                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:35:31 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:38:42 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_PRIVATE_H
 # define GET_NEXT_LINE_PRIVATE_H
 
@@ -17,31 +29,32 @@ typedef struct t_temperance
 	char	*arr;
 }	t_temperance;
 
-typedef enum e_dream
+typedef enum t_dream
 {
 	CONTINUE,
 	STOP_CHARIOT,
 	STOP_GNL,
 	STOP_NEWLINE
-}	e_dream;
+}	t_dream;
 
-typedef enum e_file_mode
+typedef enum t_file_mode
 {
 	READ = 'r',
 	APPEND = 'a',
-}	e_file_mode;
+}	t_file_mode;
 
 // get_next_line.c
+
 t_temperance	*ace_of_cup(size_t capacity, t_temperance **cup);
-e_dream			the_lost_treasure(e_dream *ambition,
+t_dream			the_lost_treasure(t_dream *ambition,
 					char **coin, t_temperance **angel);
-e_dream			king_gnu(char **coin, e_dream *ambition,
-					e_dream anchor, t_temperance **angel);
-char			the_chariot(int fd, e_dream *ambition, t_temperance **angel);
+t_dream			king_gnu(char **coin, t_dream *ambition,
+					t_dream anchor, t_temperance **angel);
+char			the_chariot(int fd, t_dream *ambition, t_temperance **angel);
 
 // utils.c
+
 size_t			knight_of_coin(const char *str, char stop);
-void			*queen_of_coin(size_t elem_size);
 char			*ace_of_coin(const char *src, size_t length, size_t capacity);
 t_temperance	**three_of_cups(t_temperance **group, const char *friends);
 

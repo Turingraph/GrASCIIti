@@ -1,4 +1,30 @@
-#include"motif_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   motif.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:08:15 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:17:53 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "motif_private.h"
+
+// time : O(1)
+// space: O(1)
+t_line	init_float_line(t_complex point_1, t_complex point_2,
+	t_line boundary)
+{
+	t_line	dst;
+
+	dst.p1.x = float_to_2d_int(point_1.re, boundary, 0);
+	dst.p1.y = float_to_2d_int(point_1.im, boundary, 1);
+	dst.p2.x = float_to_2d_int(point_2.re, boundary, 0);
+	dst.p2.y = float_to_2d_int(point_2.im, boundary, 1);
+	return (dst);
+}
 
 /**
  * Draw a circle at each vertex of a 2D polygon.

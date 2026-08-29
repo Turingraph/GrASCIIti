@@ -1,4 +1,16 @@
-#include"fdf_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_fdf.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 16:42:45 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 16:52:25 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf_private.h"
 
 // time : O(n)
 // space: O(1)
@@ -7,10 +19,10 @@ void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw)
 	t_2d_int	ixiy;
 	t_fdf		src;
 
-	if (is_2dhook_valid(hook, E_STILL_LIFE) == false
+	if (is_2dhook_valid(hook) == false
 		|| hook->master_piece.drawing_style.type == E_PIXEL_ART)
 		return ;
-	src = *hook->master_piece.still_life;
+	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
 	while (0 < src.src->col && ixiy.x < (int)src.src->col - 1)
 	{
@@ -20,7 +32,6 @@ void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw)
 			draw_fdf_mlx_x_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;
 		}
-		// write(1, "\n", 1);
 		ixiy.x += 1;
 	}
 }
@@ -32,10 +43,10 @@ void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw)
 	t_2d_int	ixiy;
 	t_fdf		src;
 
-	if (is_2dhook_valid(hook, E_STILL_LIFE) == false
+	if (is_2dhook_valid(hook) == false
 		|| hook->master_piece.drawing_style.type == E_PIXEL_ART)
 		return ;
-	src = *hook->master_piece.still_life;
+	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
 	while (ixiy.x < (int)src.src->col)
 	{
@@ -60,11 +71,15 @@ void	draw_fdf_mlx_pixel_art_unit(t_2d_hook *hook,
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	ink.type = E_RECTANGLE;
 	line.p1 = world_3d_to_screen_2d(*hook->camera,
-		hook->master_piece.still_life->pos_x[ixiy.y * hook->master_piece.still_life->src->col + ixiy.x],
-		hook->master_piece.still_life->pos_y[ixiy.y * hook->master_piece.still_life->src->col + ixiy.x]);
+			hook->master_piece.fdf->pos_x[
+			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x],
+			hook->master_piece.fdf->pos_y[
+			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x]);
 	line.p2 = world_3d_to_screen_2d(*hook->camera,
-		hook->master_piece.still_life->pos_x[(ixiy.y + 1) * hook->master_piece.still_life->src->col + ixiy.x + 1],
-		hook->master_piece.still_life->pos_y[(ixiy.y + 1) * hook->master_piece.still_life->src->col + ixiy.x + 1]);
+			hook->master_piece.fdf->pos_x[
+			(ixiy.y + 1) * hook->master_piece.fdf->src->col + ixiy.x + 1],
+			hook->master_piece.fdf->pos_y[
+			(ixiy.y + 1) * hook->master_piece.fdf->src->col + ixiy.x + 1]);
 	draw_fdf_mlx_unit(line, ink, *(hook->camera), hook->img);
 }
 
@@ -75,10 +90,10 @@ void	draw_fdf_mlx_pixel_art(t_2d_hook *hook, bool is_draw)
 	t_2d_int	ixiy;
 	t_fdf		src;
 
-	if (is_2dhook_valid(hook, E_STILL_LIFE) == false
+	if (is_2dhook_valid(hook) == false
 		|| hook->master_piece.drawing_style.type != E_PIXEL_ART)
 		return ;
-	src = *hook->master_piece.still_life;
+	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
 	while (0 < src.src->col && ixiy.x < (int)src.src->col - 1)
 	{

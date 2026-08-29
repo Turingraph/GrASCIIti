@@ -1,4 +1,16 @@
-#include"fdf_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   geometry.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 17:01:37 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:01:42 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf_private.h"
 
 /**
  * Apply a 3D linear transformation to one FDF point.
@@ -17,7 +29,8 @@
  * @param src FDF object containing the point coordinates
  * @param matrix 3x3 linear transformation matrix
  * @param i index of the point to transform
- * @param axis transformed coordinate to return: 0 for X, 1 for Y, 2 or other input for Z
+ * @param axis transformed coordinate to return: 0 for X,
+ * 1 for Y, 2 or other input for Z
  * @return transformed coordinate, or 0.0 when the input is invalid
  */
 float	linear_map_fdf(const t_fdf *src, t_matrix matrix, size_t i, char axis)

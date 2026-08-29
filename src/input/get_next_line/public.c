@@ -1,4 +1,16 @@
-#include"get_next_line_private.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   public.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:37:10 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:37:13 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line_private.h"
 
 /**
  * concatenate string str_1 and string str_2 as [str_1][str_2]
@@ -58,7 +70,7 @@ char	*concat_string(const char *str_1, const char *str_2)
  * 
  * @return file descriptor represented as integer
  */
-int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
+int	open_dir_file(const char *file_name, const char *dir, t_file_mode mode)
 {
 	char	*file;
 	int		dst;
@@ -80,10 +92,10 @@ int	open_dir_file(const char *file_name, const char *dir, e_file_mode mode)
 
 // time : O(n)
 // space: O(n)
-char	*get_next_cards(int fd, e_dream anchor)
+char	*get_next_cards(int fd, t_dream anchor)
 {
 	static char		*coin = NULL;
-	static e_dream	ambition = CONTINUE;
+	static t_dream	ambition = CONTINUE;
 	t_temperance	*angel;
 	char			*knight;
 	size_t			length;
@@ -119,7 +131,7 @@ char	*get_next_cards(int fd, e_dream anchor)
  */
 char	*get_next_line(int fd, bool is_continue)
 {
-	e_dream	dream;
+	t_dream	dream;
 
 	dream = CONTINUE;
 	if (is_continue == false)

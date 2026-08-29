@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/29 14:36:58 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 14:36:59 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
@@ -16,15 +28,15 @@ Note that get_next_line.h is intended to be utilized by
 2.	src/input/load/
 */
 
-typedef enum e_file_mode
+typedef enum t_file_mode
 {
 	READ = 'r',
 	APPEND = 'a',
-}	e_file_mode;
+}	t_file_mode;
 
 // public.c
 
-int		open_dir_file(const char *file_name, const char *dir, e_file_mode mode);
+int		open_dir_file(const char *file_name, const char *dir, t_file_mode mode);
 char	*get_next_line(int fd, bool is_continue);
 char	*concat_string(const char *str_1, const char *str_2);
 
