@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:34:35 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:34:53 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 13:37:27 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	vector_scale(float *update_v, float s, size_t dim)
 	}
 }
 
-// f(vec_u = NULL and vec_v != NULL) = sum of vec_v.
 // time : O(n)
 // space: O(1)
 float	dot_product(const float *vec_v, const float *vec_u, size_t dim)

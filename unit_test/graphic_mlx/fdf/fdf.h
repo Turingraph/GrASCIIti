@@ -2,6 +2,7 @@
 # define FDF_TESTER_H
 
 #include "../../../src/graphic_mlx/fdf/fdf.h"
+#include "../../../src/editor/paint/paint.h"
 #include "../../../src/input/table/table.h"
 
 #endif

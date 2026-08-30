@@ -48,6 +48,7 @@ size_t	display_int(int fd, long x, const char *base, bool is_write)
 
 // time : O(1)
 // space: O(1)
+
 size_t	ft_putnbr_fd(int n, int fd, const char *base, size_t digits)
 {
 	size_t	i;

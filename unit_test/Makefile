@@ -15,8 +15,8 @@ SRC_green_counts = $(wildcard utils/green_counts/*.c)
 SRC_convolve = $(wildcard editor/convolve/*.c)
 SRC_paint = $(wildcard editor/paint/*.c)
 
-SRC_motif = $(wildcard graphic/motif/*.c)
-SRC_fdf = $(wildcard graphic/fdf/*.c)
+SRC_motif = $(wildcard graphic_mlx/motif/*.c)
+SRC_fdf = $(wildcard graphic_mlx/fdf/*.c)
 
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
 SRC_HELPER_get_next_line = $(wildcard ../src/input/get_next_line/*.c)
@@ -26,7 +26,9 @@ OBJ_HELPER_get_next_line = $(patsubst ../src/%.c, ../src/obj/%.o, $(SRC_HELPER_g
 HELPER_SRC = $(wildcard test_helpers/*.c)
 HELPER_OBJ = $(patsubst %.c, obj/%.o, $(HELPER_SRC))
 
-OUT_USE_TABLE = $(patsubst %.c, out/%.out, $(SRC_paint) $(SRC_motif) $(SRC_fdf))
+OUT_paint = $(patsubst %.c, out/%.out, $(SRC_paint))
+OUT_motif = $(patsubst %.c, out/%.out, $(SRC_motif))
+OUT_fdf = $(patsubst %.c, out/%.out, $(SRC_fdf))
 
 OUT_ALL = $(patsubst %.c, out/%.out,	\
 	$(SRC_get_next_line) $(SRC_convolve)\
@@ -51,14 +53,24 @@ CLONE_GNL = $(patsubst input/get_next_line/input/%, input/get_next_line/clone_in
 # *** obj, out, and lib ***
 all: all_out all_clone
 
-all_out: $(OUT_ALL) $(OUT_USE_TABLE)
+all_out: $(OUT_ALL) $(OUT_paint) $(OUT_motif) $(OUT_fdf)
 	@echo $^
 
 $(OUT_ALL): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/debug.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a -lm
 
-$(OUT_USE_TABLE): out/%.out: obj/%.o
+$(OUT_motif): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
+	../include/libmlx42.a -ldl -lglfw -pthread -lm
+
+$(OUT_fdf): out/%.out: obj/%.o
+	@mkdir -p $(@D)
+	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
+	../src/lib/table.a ../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm
+
+$(OUT_paint): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/table.a ../src/lib/$(notdir $(call remove_slash, $(dir $@))).a -lm
 

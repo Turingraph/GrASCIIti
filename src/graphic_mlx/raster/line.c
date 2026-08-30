@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:30:07 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:40:51 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 17:35:30 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,3 +204,8 @@ void	draw_mlx_straight_line(mlx_image_t *dst, t_line line,
 			midpoint_circle_mlx(dst, ink.color, end_point, boundary);
 	}
 }
+
+// this function helps program calculate fewer pixel cells.
+// (for optimization)
+// it is removed because of time limited.
+// line = init_first_line(line, boundary);

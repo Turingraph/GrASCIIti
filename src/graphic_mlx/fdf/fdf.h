@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:59:48 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:01:30 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 16:03:57 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,6 @@ typedef struct s_fdf
 	float		width;
 }	t_fdf;
 
-/**
- * Describes the background and initial transformation of a view.
- * 
- * The initial 3D transformation can be used to change the orientation
- * of the first 3D object before it is projected and rasterized.
- * This is useful when a user wants to inspect a static 2D view of an
- * FDF object from a particular orientation without interactively
- * transforming the object during rendering.
- * 
- * @param background_color 32-bit color used for the background
- * @param initial_3d_transform optional transformation applied to the
- * first 3D object before rendering
- */
-typedef struct s_view_config
-{
-	int32_t		background_color;
-	t_matrix	*init_3d_transform;
-}	t_view_config;
-
 // init_fdf.c
 
 t_fdf	init_fdf(t_table_fdf *src);
@@ -69,7 +50,7 @@ void	free_fdf(t_fdf *src);
 
 // public.c
 
-void	view_fdf(t_fdf *still_life, t_ink32 drawing_style,
-			t_view_config view_config);
+void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
+			int32_t background_color, bool is_isometric);
 
 #endif

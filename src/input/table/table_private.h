@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:54:30 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 18:44:05 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 11:52:39 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 void			set_table_color(t_table_fdf *dst, t_enum_rgba channel,
 					unsigned char color);
 void			set_table_color_based_on_height(t_table_fdf *dst,
-					t_enum_rgba channel);
+					t_enum_rgba channel, int min, int max);
 
 // init.c
 
@@ -61,8 +61,6 @@ void			table_fdf_addition(t_table_fdf *dst,
 					const t_table_fdf *src, t_enum_rgba channel);
 void			table_fdf_hadamard(t_table_fdf *dst,
 					const t_table_fdf *src, t_enum_rgba channel);
-void			table_fdf_height_to_color(t_table_fdf *dst,
-					t_enum_rgba channel);
 
 // shade.c
 

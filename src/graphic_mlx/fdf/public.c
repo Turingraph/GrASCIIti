@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:26:33 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 16:38:26 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,30 @@ void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  *
  * @param fdf FDF object to display
  * @param drawing_style style used to render the FDF object
- * @param view_config configuration for the FDF view
+ * @param background_color 32-bit color used for the background
+ * @param is_isometric if is_isometric is true then render 3D
+ * isometric projection, if not then render 2D projection.
  */
-void	view_fdf(t_fdf *fdf, t_ink32 drawing_style, t_view_config view_config)
+void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
+	int32_t background_color, bool is_isometric)
 {
 	mlx_t			*mlx;
 	t_2d_hook		hook;
 	t_2d_camera		camera;
+	size_t			window_width;
+	size_t			window_height;
 
-	mlx = mlx_init(1440, 810, "Sunset at 4:42pm", true);
-	hook = init_2d_hook(mlx, fdf, drawing_style, view_config);
+	window_width = 1440;
+	window_height = 810;
+	mlx = mlx_init(window_width, window_height, "Sunset at 4:42pm", true);
+	hook = init_2d_hook(mlx, fdf, drawing_style, background_color);
+	hook.master_piece.is_isometric = is_isometric;
 	if (view_fdf_handle_00(mlx, hook.img) == false)
 		return ;
-	camera = init_2d_camera(1440, 810);
+	camera = init_2d_camera(window_width, window_height);
 	hook.camera = &camera;
-	init_3d_fdf_object(fdf, f_min(1440, 810), view_config.init_3d_transform);
-	color_background_mlx(hook.img, view_config.background_color);
+	scale_fdf_as_window_object(fdf, f_max(window_width, window_height));
+	color_background_mlx(hook.img, background_color);
 	draw_fdf_mlx(&hook, true);
 	if (-1 == view_fdf_handle_01(mlx, hook.img))
 	{

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:29:04 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:30:04 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 18:31:04 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ t_boundary	init_rectangle_boundary(t_line sub_area, size_t row, size_t col)
  * 
  * status: internal helper
  * 
+ * issue: It truncate the line (that outside the boundary) incorrectly.
+ * 
  * @param src source line in sub-area-relative coordinates
  * @param boundary full table and target sub-area boundary
  * @return translated and clamped line
@@ -134,17 +136,48 @@ t_line	init_first_line(t_line src, t_boundary boundary)
 	int		offset;
 
 	offset = boundary.sub_area.p1.x;
-	dst.p1.x = (int)f_interval(src.p1.x, 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
-	dst.p2.x = (int)f_interval(src.p2.x, 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
+	dst.p1.x = src.p1.x + offset;
+	dst.p2.x = src.p2.x + offset;
 	offset = boundary.sub_area.p1.y;
-	dst.p1.y = (int)f_interval(src.p1.y, 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
-	dst.p2.y = (int)f_interval(src.p2.y, 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+	dst.p1.y = src.p1.y + offset;
+	dst.p2.y = src.p2.y + offset;
 	return (dst);
 }
+
+/**
+ * Translate a line into a rectangular sub-area.
+ * Each coordinate of src is interpreted relative to the origin of the
+ * sub-area. The coordinate is first clamped to the corresponding sub-area
+ * dimension, then translated by the sub-area origin so that the complete
+ * line remains within the requested region of the full table.
+ * 
+ * time/space: O(1) / O(1)
+ * 
+ * status: internal helper
+ * 
+ * issue: It truncate the line (that outside the boundary) incorrectly.
+ * 
+ * @param src source line in sub-area-relative coordinates
+ * @param boundary full table and target sub-area boundary
+ * @return translated and clamped line
+ */
+// t_line	init_first_line(t_line src, t_boundary boundary)
+// {
+// 	t_line	dst;
+// 	int		offset;
+
+// 	offset = boundary.sub_area.p1.x;
+// 	dst.p1.x = (int)f_interval(src.p1.x, 0,
+// 			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
+// 	dst.p2.x = (int)f_interval(src.p2.x, 0,
+// 			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
+// 	offset = boundary.sub_area.p1.y;
+// 	dst.p1.y = (int)f_interval(src.p1.y, 0,
+// 			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+// 	dst.p2.y = (int)f_interval(src.p2.y, 0,
+// 			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+// 	return (dst);
+// }
 
 /**
  * Convert a normalized floating-point coordinate to a 2D integer coordinate.

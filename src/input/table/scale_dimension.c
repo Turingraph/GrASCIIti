@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:46:33 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 18:10:12 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 18:50:26 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,6 @@ t_table_fdf	scale_dimension_fdf(const t_table_fdf *src,
 	dst.g = scale_dimension_fdf_rgba(src, scale_row, scale_col, GREEN);
 	dst.b = scale_dimension_fdf_rgba(src, scale_row, scale_col, BLUE);
 	dst.a = scale_dimension_fdf_rgba(src, scale_row, scale_col, ALPHA);
+	dst.is_valid_map = true;
 	return (dst);
 }

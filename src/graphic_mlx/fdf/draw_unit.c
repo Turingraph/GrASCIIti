@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:52:29 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:59:36 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 16:55:33 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ink32	get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy)
 	ink.color = get_table_rgba_int32((const t_table_fdf *)table,
 			ixiy.y * table->col + ixiy.x);
 	if (is_draw == false)
-		ink.color = hook->master_piece.view_config.background_color;
+		ink.color = hook->master_piece.background_color;
 	else if (is_draw == true && ink.color == 0)
 		ink.color = hook->master_piece.drawing_style.color;
 	return (ink);
@@ -56,15 +56,12 @@ void	draw_fdf_mlx_unit(t_line line, t_ink32 ink,
 {
 	t_line		rectangle_boundary;
 
-	rectangle_boundary.p1 = camera.offset;
+	rectangle_boundary.p1.x = 0;
+	rectangle_boundary.p1.y = 0;
 	rectangle_boundary.p2 = camera.window_size;
-	if ((is_line_in_screen(camera, line.p1) == true
-			|| is_line_in_screen(camera, line.p2) == true)
-		&& ink.type == E_RECTANGLE)
+	if (is_line_in_screen(camera, line) && ink.type == E_RECTANGLE)
 		draw_rectangle_mlx(img, line, rectangle_boundary, ink.color);
-	else if ((is_line_in_screen(camera, line.p1) == true
-			|| is_line_in_screen(camera, line.p2) == true)
-		&& ink.type == E_LINE)
+	else if (is_line_in_screen(camera, line) && ink.type == E_LINE)
 		draw_mlx_straight_line(img, line, rectangle_boundary, ink);
 	else
 	{
@@ -83,15 +80,22 @@ void	draw_fdf_mlx_y_unit(t_2d_hook *hook,
 
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	line.p1 = world_3d_to_screen_2d(*hook->camera,
-			hook->master_piece.fdf->pos_x[
-			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x],
-			hook->master_piece.fdf->pos_y[
-			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x]);
+			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
+			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0));
 	line.p2 = world_3d_to_screen_2d(*hook->camera,
-			hook->master_piece.fdf->pos_x[
-			(ixiy.y + 1) * hook->master_piece.fdf->src->col + ixiy.x],
-			hook->master_piece.fdf->pos_y[
-			(ixiy.y + 1) * hook->master_piece.fdf->src->col + ixiy.x]);
+			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 2),
+			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 2));
+	if (hook->master_piece.is_isometric == true)
+	{
+		line.p1 = world_3d_to_screen_isometric(*hook->camera,
+				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 0));
+		line.p2 = world_3d_to_screen_isometric(*hook->camera,
+				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 2),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 2),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 2));
+	}
 	draw_fdf_mlx_unit(line, ink, *(hook->camera), hook->img);
 }
 
@@ -105,14 +109,21 @@ void	draw_fdf_mlx_x_unit(t_2d_hook *hook,
 
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	line.p1 = world_3d_to_screen_2d(*hook->camera,
-			hook->master_piece.fdf->pos_x[
-			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x],
-			hook->master_piece.fdf->pos_y[
-			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x]);
+			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
+			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0));
 	line.p2 = world_3d_to_screen_2d(*hook->camera,
-			hook->master_piece.fdf->pos_x[
-			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x + 1],
-			hook->master_piece.fdf->pos_y[
-			ixiy.y * hook->master_piece.fdf->src->col + ixiy.x + 1]);
+			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 1),
+			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 1));
+	if (hook->master_piece.is_isometric == true)
+	{
+		line.p1 = world_3d_to_screen_isometric(*hook->camera,
+				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 0));
+		line.p2 = world_3d_to_screen_isometric(*hook->camera,
+				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 1),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 1),
+				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 1));
+	}
 	draw_fdf_mlx_unit(line, ink, *(hook->camera), hook->img);
 }

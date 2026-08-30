@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:00:47 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:00:48 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 19:14:44 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,8 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 	if (parse_line == NULL || fd < 1)
 		return (init_load_fdf_arr(0));
 	dst = init_load_fdf_arr(1);
-	if (parse_line == NULL)
-	{
-		write(1, "Warning: parse_line is NULL\n", 29);
+	if (dst.arr == NULL)
 		return (dst);
-	}
 	line = get_next_line(fd, true);
 	while (line != NULL)
 	{

@@ -1,17 +1,5 @@
 #include"motif.h"
 
-/*
-int	main(void)
-{
-	t_line	src = {.p1 = {.x = 100, .y = 300}, .p2 = {.x = 500, .y = 400}};
-
-	view_rectangle(src, 
-		f_rgba_to_int32(255, 155, 100, 255),
-		f_rgba_to_int32(123, 155, 244, 255));
-	return (0);
-}
-*/
-
 int	main(void)
 {
 	float		u_0 = 0.25;
@@ -59,7 +47,6 @@ int	main(void)
 	t_2d_polygon	polygon_01 = {.arr = shape_01, .is_loop = false, .length = 5};
 	t_2d_polygon	polygon_02 = {.arr = shape_02, .is_loop = false, .length = 5};
 	t_2d_polygon	polygon_03 = {.arr = shape_03, .is_loop = false, .length = 5};
-
 	t_complex		thickline_00[] = {
 		{.re = u_2, .im = 0},
 		{.re = 2 * u_0, .im = 1}
@@ -117,10 +104,12 @@ int	main(void)
 			},
 		}
 	};
-	t_background	bc = {.color = f_rgba_to_int32(253, 240, 213, 255), .first_post = NULL, .tiles_resolution = 3};
-	t_ink32	style = {.color = f_rgba_to_int32(253, 240, 213, 255), .thickness = 0, .type = E_LINE};
 
-	vie(NULL, &islamic_art, style, bc);
+	view_motif(&islamic_art, f_rgba_to_int32(253, 240, 213, 255), 3);
 	return (0);
 }
 
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/motif/islamic.out
+
+*/

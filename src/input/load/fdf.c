@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:01:09 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:36:47 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 19:04:29 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	parse_fdf_line_loop(t_load_fdf *dst, size_t length,
 	{
 		while (f_isspace(*line, " \n\t\r\f\v") == 1)
 			line += 1;
-		j = count_decimal_digits(line, 10);
+		j = count_decimal_digits(line, 12);
 		dst->arr[i] = f_atoi(line, is_int, "0123456789", j);
 		line += j;
 		if (dst->a != NULL || dst->g != NULL

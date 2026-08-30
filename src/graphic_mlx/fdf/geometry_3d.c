@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   geometry.c                                         :+:      :+:    :+:   */
+/*   geometry_3d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/29 17:01:37 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:01:42 by phsottat         ###   ########.fr       */
+/*   Created: 2026/08/30 15:13:49 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/30 16:15:16 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,28 +107,20 @@ t_2d_int	world_3d_to_screen_2d(t_2d_camera camera,
 	return (dst);
 }
 
-// time : O(1)
-// space: O(1)
-bool	is_line_in_screen(t_2d_camera camera,
-	t_2d_int src)
-{
-	if (0 <= src.x
-		&& src.x <= camera.window_size.x
-		&& 0 <= src.y
-		&& src.y <= camera.window_size.y)
-		return (true);
-	return (false);
-}
+// https://medium.com/@amehri_tarik/fdf-42-a-detailed-walkthrough-7184cca317fc
 
 // time : O(1)
 // space: O(1)
-bool	is_circle_in_screen(t_2d_camera camera,
-	t_2d_int src, int thickness)
+t_2d_int	world_3d_to_screen_isometric(t_2d_camera camera,
+	float x, float y, float z)
 {
-	if (-1 * thickness <= src.x
-		&& src.x <= camera.window_size.x + thickness
-		&& -1 * thickness <= src.y
-		&& src.y <= camera.window_size.y + thickness)
-		return (true);
-	return (false);
+	t_2d_int	dst;
+	float		xx;
+	float		yy;
+
+	xx = 0.5 * x - 0.5 * y;
+	yy = 0.25 * x + 0.25 * y - z;
+	dst.x = xx + (camera.offset.x + camera.window_size.x) / 2;
+	dst.y = yy + (camera.offset.y + camera.window_size.y) / 2;
+	return (dst);
 }

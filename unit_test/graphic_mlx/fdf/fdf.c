@@ -28,7 +28,7 @@ int	main(int len, char **str)
 
 	if (len < 2)
 		return (0);
-	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
+	table = open_table_fdf_file(str[1], NULL, parse_fdf_line_rgba, true);
 	style.color = 0;
 	style.thickness = 1;
 	style.type = E_LINE;
@@ -42,6 +42,6 @@ int	main(int len, char **str)
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/ascii.out input_examples/ascii/zutomayo_isometric2.txt
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/fdf.out input_examples/fdf/42.fdf
 
 */

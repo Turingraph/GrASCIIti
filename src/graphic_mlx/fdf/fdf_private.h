@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:43:32 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:40:26 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 16:53:03 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,6 @@ typedef struct s_2d_camera
 }	t_2d_camera;
 
 /**
- * Describes the background and initial transformation of a view.
- * 
- * The initial 3D transformation can be used to change the orientation
- * of the first 3D object before it is projected and rasterized.
- * This is useful when a user wants to inspect a static 2D view of an
- * FDF object from a particular orientation without interactively
- * transforming the object during rendering.
- * 
- * @param background_color 32-bit color used for the background
- * @param initial_3d_transform optional transformation applied to the
- * first 3D object before rendering
- */
-typedef struct s_view_config
-{
-	int32_t		background_color;
-	t_matrix	*init_3d_transform;
-}	t_view_config;
-
-/**
  * Describes the object and drawing configuration presented by a view.
  * 
  * A master piece combines the FDF object with the drawing style and
@@ -87,14 +68,16 @@ typedef struct s_view_config
  * 
  * @param drawing_style describes how the FDF object is rasterized
  * @param fdf FDF object to display
- * @param view_config the utility configuration for
- * coloring background and transforming 3D object.
+ * @param background_color 32-bit color used for the background
+ * @param is_isometric if is_isometric is true then render 3D projection,
+ * if not then render 2D projection.
  */
 typedef struct s_master_piece
 {
 	t_ink32			drawing_style;
 	t_fdf			*fdf;
-	t_view_config	view_config;
+	int32_t			background_color;
+	bool			is_isometric;
 }	t_master_piece;
 
 /**
@@ -131,17 +114,24 @@ void		draw_fdf_mlx_x_unit(t_2d_hook *hook,
 
 void		draw_fdf_mlx(t_2d_hook *hook, bool is_draw);
 
-// geometry.c
+// geometry_2d.c
+
+bool		is_line_in_screen(t_2d_camera camera,
+				t_line src);
+bool		is_circle_in_screen(t_2d_camera camera,
+				t_2d_int src, int radius);
+float		get_fdf_point(t_fdf *fdf, t_2d_int ixiy,
+				size_t dim, char next);
+
+// geometry_3d.c
 
 float		linear_map_fdf(const t_fdf *src, t_matrix matrix,
 				size_t i, char axis);
 void		linear_map_fdf_all(t_fdf *src, t_matrix matrix);
 t_2d_int	world_3d_to_screen_2d(t_2d_camera camera,
 				float x, float y);
-bool		is_line_in_screen(t_2d_camera camera,
-				t_2d_int src);
-bool		is_circle_in_screen(t_2d_camera camera,
-				t_2d_int src, int thickness);
+t_2d_int	world_3d_to_screen_isometric(t_2d_camera camera,
+				float x, float y, float z);
 
 // hook.c
 
@@ -151,9 +141,9 @@ void		hook_fdf_controller(mlx_key_data_t keydata, void *param);
 
 t_2d_camera	init_2d_camera(size_t window_width, size_t window_height);
 t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
-				t_ink32 drawing_style, t_view_config view_config);
-void		init_3d_fdf_object(t_fdf *src, size_t fixed_window_size,
-				t_matrix *init_3d_transform);
+				t_ink32 drawing_style, int32_t background_color);
+void		scale_fdf_as_window_object(t_fdf *src,
+				size_t fixed_window_size);
 
 // init_fdf.c
 
@@ -163,8 +153,8 @@ bool		is_fdf_valid(const t_fdf *src);
 
 // public.c
 
-void		view_fdf(t_fdf *still_life, t_ink32 drawing_style,
-				t_view_config view_config);
+void		view_fdf(t_fdf *fdf, t_ink32 drawing_style,
+				int32_t background_color, bool is_isometric);
 
 // verify.c
 

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:02:58 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:03:00 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 16:04:03 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,32 +69,33 @@ mlx_image_t	*init_mlx_image(mlx_t *mlx)
 }
 
 /**
-* Initialize the rendering hook context for a 2D FDF view.
-*
-* The context stores the FDF object, drawing style, and view
-* configuration. The camera is initialized separately because
-* its lifetime is managed by the caller.
-*
-* time/space: O(1) / O(1)
-*
-* status: internal helper
-*
-* @param mlx MLX window context used by the view
-* @param fdf FDF object to display
-* @param drawing_style style used to render the FDF object
-* @param view_config configuration controlling the view
-* @return initialized 2D FDF rendering context
-*/
+ * Initialize the rendering hook context for a 2D FDF view.
+ *
+ * The context stores the FDF object, drawing style, and background
+ * configuration. The camera is initialized separately because
+ * its lifetime is managed by the caller.
+ *
+ * time/space: O(1) / O(1)
+ *
+ * status: internal helper
+ *
+ * @param mlx MLX window context used by the view
+ * @param fdf FDF object to display
+ * @param drawing_style style used to render the FDF object
+ * @param background_color 32-bit color used for the background
+ * @return initialized 2D FDF rendering context
+ */
 t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
-	t_ink32 drawing_style, t_view_config view_config)
+	t_ink32 drawing_style, int32_t background_color)
 {
 	t_2d_hook	dst;
 
 	dst.mlx = mlx;
 	dst.camera = NULL;
 	dst.master_piece.fdf = fdf;
-	dst.master_piece.view_config = view_config;
+	dst.master_piece.background_color = background_color;
 	dst.master_piece.drawing_style = drawing_style;
+	dst.master_piece.is_isometric = false;
 	dst.img = init_mlx_image(mlx);
 	return (dst);
 }
@@ -103,12 +104,7 @@ t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
  * Prepare an FDF object for 3D viewing.
  *
  * The FDF object is first scaled to fit within the requested window
- * size. If an initial 3D transformation is supplied, that
- * transformation is then applied to the object and recorded in its
- * transformation matrix.
- *
- * This allows the caller to choose the initial orientation of the
- * FDF object before it is projected onto the 2D window.
+ * size.
  *
  * time/space: O(n) / O(n)
  *
@@ -116,23 +112,17 @@ t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
  *
  * @param src FDF object to transform
  * @param fixed_window_size target size used for initial scaling
- * @param init_3d_transform optional initial 3D transformation
  */
-void	init_3d_fdf_object(t_fdf *src, size_t fixed_window_size,
-	t_matrix *init_3d_transform)
+void	scale_fdf_as_window_object(t_fdf *src, size_t fixed_window_size)
 {
-	t_matrix	transform;
+	size_t		length;
+	float		scale;
 
 	if (is_fdf_valid(src) == false || fixed_window_size == 0)
 		return ;
-	transform = init_3d_zoom_matrix(fixed_window_size / src->width);
-	if (transform.arr == NULL)
-		return ;
-	linear_map_fdf_all(src, transform);
-	if (init_3d_transform != NULL && is_matrix_valid(init_3d_transform) == true)
-	{
-		linear_map_fdf_all(src, *init_3d_transform);
-		matrix_3d_product(*init_3d_transform, &(src->matrix));
-	}
-	free(transform.arr);
+	length = src->src->col * src->src->row;
+	scale = fixed_window_size / src->width;
+	vector_scale(src->pos_x, scale, length);
+	vector_scale(src->pos_y, scale, length);
+	vector_scale(src->pos_z, scale, length);
 }
