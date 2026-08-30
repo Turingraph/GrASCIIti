@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:16:00 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:16:27 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 14:30:05 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@
 
 // convolve_height.c
 
-t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel);
-
-// convolve_rgba.c
-
-t_table_fdf	convolve_rgba(const t_table_fdf *src,
-				t_matrix kernel, t_enum_rgba target_channels);
+t_table_fdf	convolve_fdf(const t_table_fdf *src, float *kernel,
+				size_t dim);
 
 // kernel.c
 
 float		*gaussian_kernel_1d(size_t half_dim, float std);
-t_matrix	gaussian_kernel(size_t half_dim, float std_1, float std_2);
+float		*gaussian_kernel(size_t half_dim, float std_1, float std_2);
 
 #endif

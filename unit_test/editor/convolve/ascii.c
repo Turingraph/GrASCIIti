@@ -4,12 +4,11 @@ int	main(void)
 {
 	t_table_fdf	table_a;
 	t_table_fdf	table_b;
-	t_matrix	kernel_2;
-	t_matrix	kernel;
+	t_table_fdf	table_c;
 	size_t		half_dim;
 	int			output;
-	char		*dst = "unit_test/editor/convolve/input_ascii/";
-	char		*src = "input_examples/ascii/";
+	char		*dst_dir = "unit_test/editor/convolve/input_ascii/";
+	char		*src_dir = "input_examples/ascii/";
 	char		*arr[] = {
 		"apartment_goofy.txt",
 		"bangkok_usa_frag.txt",
@@ -32,32 +31,23 @@ int	main(void)
 		"unix_o8.txt",
 		"zutomayo_isometric2.txt"};
 	size_t	  i;
-	size_t	  length = 20;
+	size_t	  length = 20;	// max = 24
 
-	half_dim = 3;
-	kernel = gaussian_kernel(half_dim, 0.7, 0.7);
-	kernel_2 = init_matrix(2 * half_dim + 1,
-		2 * half_dim + 1,
-		1.0 / ((2 * half_dim + 1) * (2 * half_dim + 1)));
+	half_dim = 5;
 	i = 0;
 	while (i < length)
 	{
-		output = open_dir_file(arr[i], dst, APPEND);
-		table_a = open_table_fdf_file(arr[i], src,
-				parse_ascii_line_chungaloider, false);
-		table_b = scale_dimension_fdf((const t_table_fdf *)&table_a, 3, 3);
-		free_table_fdf(&table_a);
-		if (i % 2 == 0)
-			table_a = convolve_hight(&table_b, kernel);
-		else
-			table_a = convolve_hight(&table_b, kernel_2);
-		write_table_ascii_cheche01(output, &table_a, HEIGHT);
+		output = open_dir_file(arr[i], dst_dir, APPEND);
+		table_a = open_table_fdf_file(arr[i], src_dir,
+				parse_ascii_line_cheche01, false);
+		table_b = scale_dimension_fdf(&table_a, 3, 3);
+		table_c = convolve_fdf(&table_b, NULL, half_dim);
+		write_table_ascii_cheche01(output, &table_c, HEIGHT);
 		free_table_fdf(&table_a);
 		free_table_fdf(&table_b);
+		free_table_fdf(&table_c);
 		i += 1;
 	}
-	free_matrix(&kernel);
-	free_matrix(&kernel_2);
 	return (0);
 }
 

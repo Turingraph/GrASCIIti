@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:16:03 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:16:05 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 14:30:24 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ float	*gaussian_kernel_1d(size_t half_dim, float std)
  * @param half_dim half the kernel width
  * @param std_1 standard deviation for the first dimension
  * @param std_2 standard deviation for the second dimension
- * @return generated Gaussian kernel
+ * @return generated Gaussian kernel as array of float,
+ * with (2 * half_dim + 1) * (2 * half_dim + 1) items.
  * 
  * @see 3B1B convolution video https://youtu.be/KuXjwB4LzSA?si=9DNIvf9SS2SX4jET
  *  for more details
  */
-t_matrix	gaussian_kernel(size_t half_dim, float std_1, float std_2)
+float	*gaussian_kernel(size_t half_dim, float std_1, float std_2)
 {
 	float		*vec_v;
 	float		*vec_u;
@@ -69,9 +70,7 @@ t_matrix	gaussian_kernel(size_t half_dim, float std_1, float std_2)
 	vec_v = gaussian_kernel_1d(half_dim, std_1);
 	vec_u = gaussian_kernel_1d(half_dim, std_2);
 	dst = outer_product_matrix(vec_v, vec_u, 2 * half_dim + 1);
-	dst.row = 2 * half_dim + 1;
-	dst.col = 2 * half_dim + 1;
 	free(vec_v);
 	free(vec_u);
-	return (dst);
+	return (dst.arr);
 }

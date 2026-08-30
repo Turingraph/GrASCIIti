@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convolve_height.c                                  :+:      :+:    :+:   */
+/*   convolve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:15:53 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:37:00 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/30 14:27:47 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // time : O(1)
 // space: O(1)
-int	clamped_int(const t_table_fdf *src, int ix, int iy)
+int	clamped(const t_table_fdf *src, int ix, int iy)
 {
 	if (src == NULL || src->arr == NULL || src->row * src->col == 0)
 		return (0);
@@ -29,6 +29,16 @@ int	clamped_int(const t_table_fdf *src, int ix, int iy)
 	return (src->arr[iy * src->col + ix]);
 }
 
+// time : O(1)
+// space: O(1)
+size_t	get_i(size_t dim, size_t col, int i, int j)
+{
+	int	y;
+
+	y = (((int)dim) / 2 + i) * ((int)col) + ((int)dim) / 2 + j;
+	return (y);
+}
+
 // time : O(n^2)
 // space: O(n^2)
 t_matrix	init_src_kernel_int(const t_table_fdf *src,
@@ -40,7 +50,7 @@ t_matrix	init_src_kernel_int(const t_table_fdf *src,
 
 	dst.col = dim;
 	dst.row = dim;
-	dst.arr = malloc_talk(sizeof(int) * dim * dim,
+	dst.arr = malloc_talk(sizeof(float) * dim * dim,
 			"editor/convolve/convolve_height.c/init_src_kernel_int\n");
 	if (dst.arr == NULL || dim == 0)
 		return (dst);
@@ -50,10 +60,10 @@ t_matrix	init_src_kernel_int(const t_table_fdf *src,
 		j = 0;
 		while (j <= (int)dim / 2)
 		{
-			dst.arr[(dim / 2 + i) * dst.col + dim / 2 + j] = clamped_int(src, ix + j, iy + i);
-			dst.arr[(dim / 2 + i) * dst.col + dim / 2 - j] = clamped_int(src, ix - j, iy + i);
-			dst.arr[(dim / 2 - i) * dst.col + dim / 2 + j] = clamped_int(src, ix + j, iy - i);
-			dst.arr[(dim / 2 - i) * dst.col + dim / 2 - j] = clamped_int(src, ix - j, iy - i);
+			dst.arr[get_i(dim, dst.col, i, j)] = clamped(src, ix + j, iy + i);
+			dst.arr[get_i(dim, dst.col, i, -j)] = clamped(src, ix - j, iy + i);
+			dst.arr[get_i(dim, dst.col, -i, j)] = clamped(src, ix + j, iy - i);
+			dst.arr[get_i(dim, dst.col, -i, -j)] = clamped(src, ix - j, iy - i);
 			j += 1;
 		}
 		i += 1;
@@ -63,14 +73,12 @@ t_matrix	init_src_kernel_int(const t_table_fdf *src,
 
 // time : O(m^2)
 // space: O(m^2)
-int	convolve_unit_height(const t_table_fdf *src,
-	t_matrix kernel, size_t index)
+int	convolve_unit(const t_table_fdf *src, size_t index,
+	float *kernel, size_t dim)
 {
 	t_matrix	src_kernel;
 	int			output;
-	size_t		dim;
 
-	dim = kernel.col;
 	output = 0;
 	if (src == NULL || src->arr == NULL || dim * dim == 0
 		|| index >= src->row * src->col)
@@ -79,19 +87,30 @@ int	convolve_unit_height(const t_table_fdf *src,
 			(int)(index % src->col), (int)(index / src->col));
 	if (src_kernel.arr == NULL)
 		return (output);
-	if (src_kernel.arr != NULL && kernel.arr != NULL)
+	if (src_kernel.arr != NULL && kernel != NULL)
 	{
 		output = dot_product(src_kernel.arr,
-				kernel.arr, dim * dim);
-		if ((float)(f_sum(kernel.arr, dim * dim)) > 0.2)
+				kernel, dim * dim);
+		if ((float)(f_sum(kernel, dim * dim)) > 0.2)
 			output = (int)f_round(
-					(float)output / (float)(f_sum(kernel.arr, dim * dim)));
+					(float)output / (float)(f_sum(kernel, dim * dim)));
 	}
-	else if (src_kernel.arr != NULL && kernel.arr == NULL)
-		output = f_round(f_sum(src_kernel.arr, dim * dim) / (float)(dim * dim));
+	else if (src_kernel.arr != NULL && kernel == NULL)
+		output = (int)f_round(
+				f_sum(src_kernel.arr, dim * dim) / (float)(dim * dim));
 	free(src_kernel.arr);
 	return (output);
 }
+
+	// write(1, ">>> ", 4);
+	// ft_putnbr_fd(index, 1, "0123456789", 3);
+	// write(1, " => ", 4);
+	// ft_putnbr_fd(f_sum(src_kernel.arr, dim * dim), 1, "0123456789", 3);
+	// write(1, " / ", 3);
+	// ft_putnbr_fd((dim * dim), 1, "0123456789", 3);
+	// write(1, " = ", 3);
+	// ft_putnbr_fd(output, 1, "0123456789", 3);
+	// write(1, "\n", 1);
 
 /**
  * Apply a convolution kernel to HEIGHT channels.
@@ -100,31 +119,39 @@ int	convolve_unit_height(const t_table_fdf *src,
  * For each pixel, the kernel is centered on that pixel. Samples outside
  * the source image are clamped to the nearest edge pixel.
  * 
- * If kernel.arr is NULL, an average kernel will be utilized instead.
+ * If kernel is NULL, an average kernel will be utilized instead.
  *
  * time/space: O(n * m^2) / O(n)
  * 
  * status: public api (unchecked)
  *
  * @param src source FDF table
- * @param kernel convolution kernel
+ * @param kernel convolution kernel.
+ * @param dim the dimension (number of row and column) of the square kernel.
+ * If dim is odd, then dim = dim + 1. If dim is less than 3, then dim = 3.
+ * The dimension should be odd number.
  * @return FDF table with the selected channels convolved
  * 
  * @see 3B1B convolution video https://youtu.be/KuXjwB4LzSA?si=9DNIvf9SS2SX4jET
  * for more details
  */
-t_table_fdf	convolve_hight(const t_table_fdf *src, t_matrix kernel)
+t_table_fdf	convolve_fdf(const t_table_fdf *src, float *kernel,
+	size_t dim)
 {
 	t_table_fdf	dst;
 	size_t		i;
 
-	if (src == NULL || src->arr == NULL || kernel.col != kernel.row)
+	if (src == NULL || src->arr == NULL)
 		return (init_table_fdf(0, 0, false));
+	if (dim % 2 == 0)
+		dim += 1;
+	if (dim < 3)
+		dim = 3;
 	dst = scale_dimension_fdf(src, 1, 1);
 	i = 0;
 	while (i < src->col * src->row)
 	{
-		dst.arr[i] = convolve_unit_height(src, kernel, i);
+		dst.arr[i] = convolve_unit(src, i, kernel, dim);
 		i += 1;
 	}
 	return (dst);
