@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:55:57 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 15:06:49 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:45:40 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	write_table_fdf(int fd, const t_table_fdf *src,
 
 // time : O(n)
 // space: O(n)
-static void	wta_rgba(unsigned char input,
+void	wta_rgba(unsigned char input,
 	const char *dict, int fd, bool is_left)
 {
 	int	output;

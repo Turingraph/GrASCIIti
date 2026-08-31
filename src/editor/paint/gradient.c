@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:16:49 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:07:19 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:45:17 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ unsigned char	update_cell_color(unsigned char alpha, bool is_overwrite,
 
 // time : O(1)
 // space: O(1)
-static void	color_cells_gradient_unit(t_table_fdf *dst,
+void	color_cells_gradient_unit(t_table_fdf *dst,
 	t_gradient gradient_input, bool is_overwrite, size_t i)
 {
 	int				threshold;

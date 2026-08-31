@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:01:50 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:43:42 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:55:20 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,32 @@ void	hook_home(mlx_key_data_t keydata,
 	free(undo.arr);
 }
 
+// The Inverse Matrix for undo the hook isn't working.
+// void	hook_home(mlx_key_data_t keydata,
+// 	t_2d_hook *hook)
+// {
+// 	t_matrix	undo;
+// 	size_t		len;
+
+// 	if (is_2dhook_valid(hook) == false || hook->camera->zoom < 0.2
+// 		|| keydata.key != MLX_KEY_Q)
+// 		return ;
+// 	undo = init_inverse_3d_matrix(hook->master_piece.fdf->matrix);
+// 	if (undo.arr == NULL)
+// 		return ;
+// 	len = hook->master_piece.fdf->src->col;
+// 	len *= hook->master_piece.fdf->src->row;
+// 	hook->camera->offset.x = 0.0;
+// 	hook->camera->offset.y = 0.0;
+// 	vector_scale(hook->master_piece.fdf->pos_x, 1.0 / hook->camera->zoom, len);
+// 	vector_scale(hook->master_piece.fdf->pos_y, 1.0 / hook->camera->zoom, len);
+// 	vector_scale(hook->master_piece.fdf->pos_z, 1.0 / hook->camera->zoom, len);
+// 	hook->camera->zoom = 1.0;
+// 	matrix_3d_product(undo, &(hook->master_piece.fdf->matrix));
+// 	linear_map_fdf_all(hook->master_piece.fdf, undo);
+// 	free(undo.arr);
+// }
+
 /**
  * Handle keyboard input for an interactive FDF view.
  *
@@ -133,6 +159,10 @@ void	hook_home(mlx_key_data_t keydata,
  * time/space: O(n) / O(1)
  *
  * status: internal helper
+ * 
+ * issue: The rotation hook is not working. Everytime user click "1",
+ * "2", and/or "3", the 3D object get smaller. There isn't other known
+ * issues with other hooks.
  *
  * @param keydata keyboard event received from MLX
  * @param param pointer to the active FDF view context
@@ -154,7 +184,6 @@ void	hook_fdf_controller(mlx_key_data_t keydata, void *param)
 		return ;
 	before = after;
 	draw_fdf_mlx(hook, false);
-	hook_rotate(keydata, hook);
 	hook_zoom(keydata, hook);
 	hook_pan(keydata, hook->camera);
 	hook_home(keydata, hook);

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:28:58 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 16:29:00 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:55:00 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  *
  * time/space: O(1) / O(1)
  *
- * status: internal helper
+ * status: public api
  *
  * @param r red channel value
  * @param g green channel value

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:46:26 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 15:12:48 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:39:14 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
  * @param is_rgba if is_rgba == true, then the program using malloc 
  * for initializing rgba color.
  * @return return the array that contains rgba and height of the height map.
- * If user use ``
  * @see src/input/load/parse.c
  */
 t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,

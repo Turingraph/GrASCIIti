@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:16:19 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:16:28 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:45:25 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  * @param src Islamic-art motif configuration containing motif data
  * @param tile screen-space boundary of the tile to render into
  */
-static void	draw_motif_mlx_unit(mlx_image_t *img,
+void	draw_motif_mlx_unit(mlx_image_t *img,
 	t_islamic_art *src, t_line tile)
 {
 	size_t	i;
@@ -67,7 +67,7 @@ static void	draw_motif_mlx_unit(mlx_image_t *img,
  * @param src Islamic-art motif configuration
  * @param interier_tile rectangular range of tile indices to render
  */
-static void	draw_motif_mlx_loop(mlx_image_t *img,
+void	draw_motif_mlx_loop(mlx_image_t *img,
 	t_islamic_art *src, t_line interier_tile)
 {
 	t_line		tile;

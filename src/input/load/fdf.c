@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:01:09 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 15:19:03 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:45:34 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ size_t	count_fdf_columns(const char *line, bool *is_valid_fdf)
 
 // time : O(n)
 // space: O(n)
-static void	parse_fdf_line_loop(t_load_fdf *dst, size_t length,
+void	parse_fdf_line_loop(t_load_fdf *dst, size_t length,
 	bool *is_int, char *line)
 {
 	size_t	i;

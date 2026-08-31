@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:38:26 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 17:04:16 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  * @param drawing_style style used to render the FDF object
  * @param background_color 32-bit color used for the background
  * @param is_isometric if is_isometric is true then render 3D
- * isometric projection, if not then render 2D projection.
+ * isometric projection, if not then render orthogonal projection.
  */
 void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
 	int32_t background_color, bool is_isometric)
