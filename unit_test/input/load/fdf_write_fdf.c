@@ -40,6 +40,18 @@ int	main(void)
 			write_load_fdf_arr(clone_examples, &fdf_file, 1, HEIGHT_ONLY);
 			if (assert_files(arr[i], arr[i], src_dir, dst_dir) == true)
 				score += 1;
+			else
+			{
+				write(1, "Incorrect: ", 12);
+				write(1, arr[i], f_strlen(arr[i]));
+				write(1, "\n", 1);
+			}
+		}
+		else
+		{
+			write(1, "Incorrect: ", 12);
+			write(1, arr[i], f_strlen(arr[i]));
+			write(1, "\n", 1);
 		}
 		free_load_fdf_arr(&fdf_file);
 		i += 1;

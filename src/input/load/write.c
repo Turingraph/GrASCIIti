@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:15:10 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:15:13 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 12:35:10 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,28 @@ void	warning_load_fdf(const t_load_fdf *src, size_t i)
 			write(1, " not a valid hexadecimal rgb representation", 44);
 		write(1, ".\n", 2);
 	}
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_load_fdf_valid(t_load_fdf *src)
+{
+	if (src == NULL || src->arr == NULL
+		|| src->int_warn == NOT_DECIMAL
+		|| src->rgb_warn == NOT_HEX
+		|| src->rgb_warn == NOT_DECIMAL
+		|| src->int_warn == NOT_HEX)
+		return (false);
+	return (true);
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_load_fdf_arr_valid(t_load_fdf_arr *src, int i)
+{
+	if (src == NULL || src->arr == NULL || i < 0
+		|| i > (int)src->length || i > (int)src->capacity
+		|| is_load_fdf_valid(&(src->arr[i])) == false)
+		return (false);
+	return (true);
 }

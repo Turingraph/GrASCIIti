@@ -29,12 +29,17 @@ int	main(int len, char **str)
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_fdf_line_rgba, true);
+	if (table.col * table.row == 0)
+	{
+		free_table_fdf(&table);
+		return (0);
+	}
 	style.color = 0;
 	style.thickness = 1;
 	style.type = E_LINE;
 	scale_multiplication_fdf(&table, 5.0, HEIGHT);
 	color_cells_gradient(&table, init_gradient(), true);
-	scale_multiplication_fdf(&table, 1.0 / 5.0, HEIGHT);
+	scale_multiplication_fdf(&table, 1.0 / 15.0, HEIGHT);
 	output = init_fdf(&table);
 	view_fdf(&output, style, f_rgba_to_int32(255, 255, 255, 255), true);
 	free_fdf(&output);

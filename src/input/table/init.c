@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:44:49 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 19:13:08 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 12:31:19 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_table_fdf(t_table_fdf *src)
 	src->g = NULL;
 	src->b = NULL;
 	src->a = NULL;
-	src->is_valid_map = false;
 	src->row = 0;
 	src->col = 0;
 }
@@ -62,17 +61,21 @@ t_table_fdf	init_table_fdf(size_t row, size_t col, bool is_rgba)
 			"input/table/init.c/init_table_fdf\n");
 	dst.row = row;
 	dst.col = col;
-	dst.is_valid_map = true;
-	if (is_rgba == false)
-		row = 0;
-	dst.r = malloc_talk(sizeof(unsigned char) * row * col,
-			"input/table/init.c/init_table_fdf\n");
-	dst.g = malloc_talk(sizeof(unsigned char) * row * col,
-			"input/table/init.c/init_table_fdf\n");
-	dst.b = malloc_talk(sizeof(unsigned char) * row * col,
-			"input/table/init.c/init_table_fdf\n");
-	dst.a = malloc_talk(sizeof(unsigned char) * row * col,
-			"input/table/init.c/init_table_fdf\n");
+	dst.r = NULL;
+	dst.g = NULL;
+	dst.b = NULL;
+	dst.a = NULL;
+	if (is_rgba == true)
+	{
+		dst.r = malloc_talk(sizeof(unsigned char) * row * col,
+				"input/table/init.c/init_table_fdf\n");
+		dst.g = malloc_talk(sizeof(unsigned char) * row * col,
+				"input/table/init.c/init_table_fdf\n");
+		dst.b = malloc_talk(sizeof(unsigned char) * row * col,
+				"input/table/init.c/init_table_fdf\n");
+		dst.a = malloc_talk(sizeof(unsigned char) * row * col,
+				"input/table/init.c/init_table_fdf\n");
+	}
 	if (dst.arr == NULL || dst.col < 1 || dst.row < 1)
 		free_table_fdf(&dst);
 	return (dst);

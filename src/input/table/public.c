@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:46:26 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 19:14:31 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:12:48 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
  * loading file as ASCII art, parse_fdf_line_rgba as colorful Fdf file etc.
  * @param is_rgba if is_rgba == true, then the program using malloc 
  * for initializing rgba color.
+ * @return return the array that contains rgba and height of the height map.
+ * If user use ``
  * @see src/input/load/parse.c
  */
 t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
@@ -34,31 +36,12 @@ t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
 	t_load_fdf_arr	src;
 
 	src = open_fdf_file(file_name, dir, one_line);
+	if (is_load_fdf_arr_valid(&src, (int)src.length - 1) == false)
+	{
+		free_load_fdf_arr(&src);
+		return (init_table_fdf(0, 0, false));
+	}
 	dst = load_table_fdf(&src, is_rgba);
 	free_load_fdf_arr(&src);
 	return (dst);
 }
-
-// t_table_fdf	open_table_fdf_file(const char *file_name, const char *dir,
-// 	t_load_fdf (*one_line)(char *line), bool is_rgba)
-// {
-// 	t_table_fdf		dst;
-// 	t_load_fdf_arr	src;
-
-// 	src = open_fdf_file(file_name, dir, one_line);
-// 	if (src.length == 0)
-// 	{
-// 		dst = init_table_fdf(0, 0, false);
-// 		dst.is_valid_map = false;
-// 		return (dst);
-// 	}
-// 	dst = load_table_fdf(&src, is_rgba);
-// 	if (src.arr[src.length - 1].int_warn != CORRECT
-// 		|| src.arr[src.length - 1].rgb_warn != CORRECT)
-// 	{
-// 		dst.is_valid_map = false;
-// 		return (dst);
-// 	}
-// 	free_load_fdf_arr(&src);
-// 	return (dst);
-// }

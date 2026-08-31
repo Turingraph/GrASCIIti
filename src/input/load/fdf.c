@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:01:09 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 19:04:29 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:19:03 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,54 @@ size_t	count_decimal_digits(const char *line, size_t max)
 	return (j);
 }
 
+// time : O(1)
+// space: O(1)
+bool	is_valid_fdf_color(const char *line)
+{
+	size_t	i;
+
+	if (line == NULL || f_strlen(line) < 4
+		|| line[0] != ','
+		|| line[1] != '0'
+		|| line[2] != 'x')
+		return (false);
+	i = 0;
+	while (f_isspace(*line, "0123456789ABCDEFabcdef") == 1)
+	{
+		line += 1;
+		i += 1;
+	}
+	if (i > 8 || (*line != '\0' && f_isspace(*line, " \n\t\r\f\v") == 0))
+		return (false);
+	return (true);
+}
+
 // time : O(n)
 // space: O(1)
-size_t	count_fdf_columns(const char *line)
+size_t	count_fdf_columns(const char *line, bool *is_valid_fdf)
 {
 	size_t	y;
 
 	y = 0;
-	while (line != NULL && *line != '\0')
+	while (line != NULL && *line != '\0'
+		&& is_valid_fdf != NULL && *is_valid_fdf == true)
 	{
 		while (f_isspace(*line, " \n\t\r\f\v") == 1)
 			line += 1;
 		if (f_isspace(*line, "0123456789") == 1 || *line == '-')
-			y += 1;
-		while (f_isspace(*line, "-0123456789,xABCDEFabcdef") == 1)
+		{
 			line += 1;
-		while (f_isspace(*line, "-0123456789,xABCDEFabcdef \n\t\r\f\v") == 0
-			&& *line != '\0')
+			y += 1;
+		}
+		while (f_isspace(*line, "0123456789") == 1)
+			line += 1;
+		if (*line == ',')
+			*is_valid_fdf = is_valid_fdf_color(line);
+		else if (f_isspace(*line, "0123456789") == 0
+			&& f_isspace(*line, " \n\t\r\f\v") == 0 && *line != '\0')
+			*is_valid_fdf = false;
+		while (f_isspace(*line, "0123456789,xABCDEFabcdef") == 1
+			&& *is_valid_fdf == true)
 			line += 1;
 	}
 	return (y);
@@ -83,9 +114,11 @@ t_load_fdf	parse_fdf_line(char *line, bool is_rgba)
 	t_load_fdf	dst;
 	size_t		length;
 	bool		is_int;
+	bool		is_valid_fdf;
 
-	length = count_fdf_columns(line);
-	if (line == NULL || length == 0)
+	is_valid_fdf = true;
+	length = count_fdf_columns(line, &is_valid_fdf);
+	if (line == NULL || length == 0 || is_valid_fdf == false)
 		return (init_load_fdf(0, false));
 	dst = init_load_fdf(length, is_rgba);
 	if (dst.arr == NULL)

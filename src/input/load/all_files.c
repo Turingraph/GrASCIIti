@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:00:47 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 19:14:44 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 13:05:28 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,26 +86,32 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 	t_load_fdf_arr	dst;
 	t_load_fdf		item;
 	char			*line;
+	bool			is_valid;
 
 	if (parse_line == NULL || fd < 1)
 		return (init_load_fdf_arr(0));
 	dst = init_load_fdf_arr(1);
 	if (dst.arr == NULL)
 		return (dst);
+	is_valid = true;
 	line = get_next_line(fd, true);
-	while (line != NULL)
+	while (line != NULL && is_valid == true)
 	{
 		item = parse_line(line);
 		load_fdf_arr_push(&dst, &item);
-		if (dst.length > 0 && dst.arr != NULL)
-			warning_load_fdf(&dst.arr[dst.length - 1], dst.length - 1);
 		free(line);
+		if (is_load_fdf_arr_valid(&dst, (int)dst.length - 1) == false)
+			is_valid = false;
 		line = get_next_line(fd, true);
 	}
 	free(line);
 	get_next_line(fd, false);
 	return (dst);
 }
+
+// this 2 lines are used for debugging.
+// if (dst.length > 0 && dst.arr != NULL)
+// 	warning_load_fdf(&dst.arr[dst.length - 1], dst.length - 1);
 
 /**
  * Load an FDF file and parse its lines into a t_load_fdf_arr.

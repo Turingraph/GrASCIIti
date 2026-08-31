@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 13:59:39 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:00:03 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:19:16 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void			write_load_fdf_arr(int fd, const t_load_fdf_arr *src,
 void			write_load_ascii_arr(int fd, const t_load_fdf_arr *src,
 					const char *dict);
 void			warning_load_fdf(const t_load_fdf *src, size_t i);
+bool			is_load_fdf_arr_valid(t_load_fdf_arr *src, int i);
 
 #endif

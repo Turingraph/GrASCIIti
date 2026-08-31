@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:00:26 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:00:33 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 11:58:46 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ t_load_fdf		parse_ascii_line_standard(char *line);
 t_load_fdf		parse_ascii_line_chungaloider(char *line);
 t_load_fdf		parse_fdf_line_rgba(char *line);
 t_load_fdf		parse_fdf_line_bw(char *line);
+
+// write.c
+bool			is_load_fdf_arr_valid(t_load_fdf_arr *src, int i);
 
 #endif

@@ -6,59 +6,59 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:44:59 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:46:11 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 13:49:22 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "table_private.h"
 
-// time : O(1)
-// space: O(1)
-int	target_minmax(const t_table_fdf *dst,
-	t_enum_rgba channels, size_t index, bool is_bool)
-{
-	if (dst != NULL && index < dst->col * dst->row)
-	{
-		if (dst->arr != NULL && channels == HEIGHT && is_bool == true)
-			return (1);
-		if (dst->arr != NULL && channels == HEIGHT && is_bool == false)
-			return (dst->arr[index]);
-		if (dst->r != NULL && channels == RED && is_bool == true)
-			return (1);
-		if (dst->r != NULL && channels == RED && is_bool == false)
-			return ((int)dst->r[index]);
-		if (dst->g != NULL && channels == GREEN && is_bool == true)
-			return (1);
-		if (dst->g != NULL && channels == GREEN && is_bool == false)
-			return ((int)dst->g[index]);
-		if (dst->b != NULL && channels == BLUE && is_bool == true)
-			return (1);
-		if (dst->b != NULL && channels == BLUE && is_bool == false)
-			return ((int)dst->b[index]);
-		if (dst->a != NULL && channels == ALPHA && is_bool == true)
-			return (1);
-		if (dst->a != NULL && channels == ALPHA && is_bool == false)
-			return ((int)dst->a[index]);
-	}
-	return (-1);
-}
+// // time : O(1)
+// // space: O(1)
+// int	target_minmax(const t_table_fdf *dst,
+// 	t_enum_rgba channels, size_t index, bool is_bool)
+// {
+// 	if (dst != NULL && index < dst->col * dst->row)
+// 	{
+// 		if (dst->arr != NULL && channels == HEIGHT && is_bool == true)
+// 			return (1);
+// 		if (dst->arr != NULL && channels == HEIGHT && is_bool == false)
+// 			return (dst->arr[index]);
+// 		if (dst->r != NULL && channels == RED && is_bool == true)
+// 			return (1);
+// 		if (dst->r != NULL && channels == RED && is_bool == false)
+// 			return ((int)dst->r[index]);
+// 		if (dst->g != NULL && channels == GREEN && is_bool == true)
+// 			return (1);
+// 		if (dst->g != NULL && channels == GREEN && is_bool == false)
+// 			return ((int)dst->g[index]);
+// 		if (dst->b != NULL && channels == BLUE && is_bool == true)
+// 			return (1);
+// 		if (dst->b != NULL && channels == BLUE && is_bool == false)
+// 			return ((int)dst->b[index]);
+// 		if (dst->a != NULL && channels == ALPHA && is_bool == true)
+// 			return (1);
+// 		if (dst->a != NULL && channels == ALPHA && is_bool == false)
+// 			return ((int)dst->a[index]);
+// 	}
+// 	return (-1);
+// }
 
 /**
- * Get either the minimum or maximum number from dst.
+ * Get either the minimum or maximum number from src.
  *
  * time/space: O(n) / O(1)
  * 
  * status: public api
  *
- * @param dst the input t_table_fdf array
+ * @param src the input t_table_fdf array
  * @param is_max if is_max == true, then return maximum number, 
  * else return minimum number.
  * @param channels RGBA channel to inspect
  * 
  * @return minimum or maximum integer based on the input.
  */
-int	get_minmax_from_table_fdf(const t_table_fdf *dst,
-	bool is_max, t_enum_rgba channels)
+int	get_minmax_from_table_fdf(const t_table_fdf *src,
+	bool is_max, t_enum_rgba channel)
 {
 	int		sign;
 	size_t	i;
@@ -69,12 +69,19 @@ int	get_minmax_from_table_fdf(const t_table_fdf *dst,
 	if (is_max == false)
 		sign = -1;
 	i = 0;
-	while (dst != NULL && i < dst->row * dst->col)
+	while (src != NULL && i < src->row * src->col)
 	{
-		if (target_minmax((const t_table_fdf *)dst, channels, i, true) == 1
-			&& y * sign < sign * target_minmax(
-				(const t_table_fdf *)dst, channels, 0, false))
-			y = target_minmax((const t_table_fdf *)dst, channels, 0, false);
+		if (channel == HEIGHT && src->arr != NULL
+			&& sign * y < sign * src->arr[i])
+			y = src->arr[i];
+		if (channel == ALPHA && src->a != NULL && sign * y < sign * src->a[i])
+			y = src->a[i];
+		if (channel == RED && src->r != NULL && sign * y < sign * src->r[i])
+			y = src->r[i];
+		if (channel == GREEN && src->g != NULL && sign * y < sign * src->g[i])
+			y = src->g[i];
+		if (channel == BLUE && src->b != NULL && sign * y < sign * src->b[i])
+			y = src->b[i];
 		i += 1;
 	}
 	return (y);
@@ -100,6 +107,10 @@ void	scale_positive_fdf(t_table_fdf *dst)
 		y = 0;
 	scale_addition_fdf(dst, y, HEIGHT);
 }
+
+	// write(1, "\nmin(table) = ", 15);
+	// ft_putnbr_fd(y, 1, "0123456789", 1);
+	// write(1, "\n", 1);
 
 /**
  * Making all number that in an interval between minimum target number
