@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 13:58:04 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 12:21:22 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:03:53 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef enum t_write_style
 	HEIGHT_RGBA,
 	HEIGHT_RGB
 }	t_write_style;
-
 
 /**
  * Describes the parsing status of a loaded FDF value.

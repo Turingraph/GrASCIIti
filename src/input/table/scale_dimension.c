@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:46:33 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 11:55:39 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:04:53 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ unsigned char	*scale_dimension_fdf_rgba(const t_table_fdf *src,
 	if (arr == NULL || src == NULL || src->row == 0
 		|| src->col == 0 || src->arr == NULL)
 		return (NULL);
-	dst = malloc_talk(sizeof(unsigned char)
-			* src->row * src->col * s_row * s_col,
-			"input/table/scale_dimension.c/scale_dimension_fdf_rgba\n");
+	dst = malloc(sizeof(unsigned char) * src->row * src->col * s_row * s_col);
 	if (dst == NULL)
 		return (NULL);
 	i = 0;
@@ -123,8 +121,7 @@ int	*scale_dimension_fdf_int(const t_table_fdf *src,
 
 	if (src == NULL || src->row == 0 || src->col == 0 || src->arr == NULL)
 		return (NULL);
-	dst = malloc_talk(sizeof(int) * src->row * src->col * s_row * s_col,
-			"input/table/scale_dimension.c/scale_dimension_fdf_int\n");
+	dst = malloc(sizeof(int) * src->row * src->col * s_row * s_col);
 	if (dst == NULL)
 		return (NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/30 12:12:33 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 12:13:31 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:08:30 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <stdbool.h>
-
 
 /**
  * 2D polygon represented by normalized coordinates.
