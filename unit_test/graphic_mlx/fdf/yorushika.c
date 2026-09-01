@@ -1,0 +1,108 @@
+#include"fdf.h"
+
+// time : O(1)
+// space: O(1)
+// t_gradient	init_blue_period()
+// {
+// 	t_gradient	dst;
+
+// 	dst.cell_channel = D7_RED;
+// 	dst.input_start = 40;
+// 	dst.input_end = 45;
+// 	dst.rgba_start.r = 70;
+// 	dst.rgba_start.g = 75;
+// 	dst.rgba_start.b = 113;
+// 	dst.rgba_start.a = 255;
+// 	dst.rgba_end.r = 124;
+// 	dst.rgba_end.g = 213;
+// 	dst.rgba_end.b = 199;
+// 	dst.rgba_end.a = 255;
+// 	return (dst);
+// }
+
+// time : O(1)
+// space: O(1)
+t_gradient	init_white_noise()
+{
+	t_gradient	dst;
+
+	dst.cell_channel = D7_HEIGHT;
+	dst.input_start = 0;
+	dst.input_end = 0;
+	dst.rgba_start.r = 34;
+	dst.rgba_start.g = 79;
+	dst.rgba_start.b = 112;
+	dst.rgba_start.a = 255;
+	dst.rgba_start.r = 34;
+	dst.rgba_start.g = 79;
+	dst.rgba_start.b = 112;
+	dst.rgba_end.a = 255;
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_gradient	init_feeling_blue()
+{
+	t_gradient	dst;
+
+	dst.cell_channel = D7_HEIGHT;
+	dst.input_start = 1;
+	dst.input_end = 100;
+	dst.rgba_start.r = 255;
+	dst.rgba_start.g = 81;
+	dst.rgba_start.b = 58;
+	dst.rgba_start.a = 255;
+	dst.rgba_end.r = 255;
+	dst.rgba_end.g = 189;
+	dst.rgba_end.b = 13;
+	dst.rgba_end.a = 255;
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_gradient	init_popart()
+{
+	t_gradient	dst;
+
+	dst.cell_channel = D7_GREEN;
+	dst.input_start = 90;
+	dst.input_end = 120;
+	dst.rgba_start.r = 34;
+	dst.rgba_start.g = 79;
+	dst.rgba_start.b = 112;
+	dst.rgba_start.a = 255;
+	dst.rgba_end.r = 163;
+	dst.rgba_end.g = 196;
+	dst.rgba_end.b = 202;
+	dst.rgba_end.a = 255;
+	return (dst);
+}
+
+int	main(int len, char **str)
+{
+	t_table_fdf		table;
+	t_fdf			output;
+	t_ink32			style;
+
+	if (len < 2)
+		return (0);
+	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
+	style.color = 0;
+	style.thickness = 2;
+	style.type = E_CIRCLE;
+	color_cells_gradient(&table, init_feeling_blue(), true);
+	color_cells_gradient(&table, init_popart(), true);
+	scale_multiplication_fdf(&table, 1.0 / 30.0, HEIGHT);
+	color_cells_gradient(&table, init_white_noise(), true);
+	output = init_fdf(&table);
+	view_fdf(&output, style, f_rgba_to_int32(34, 79, 112, 255), true);
+	free_fdf(&output);
+	return (0);
+}
+
+/*
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/yorushika.out unit_test/editor/convolve/input_ascii/rain_with_cappuccino_rozzo.txt
+
+*/

@@ -79,7 +79,7 @@ bool	is_valid_zoom_key(mlx_key_data_t keydata, float zoom)
 {
 	if ((keydata.action == MLX_PRESS
 			|| keydata.action == MLX_REPEAT)
-		&& ((keydata.key == MLX_KEY_9 && zoom * 1.01 < 2.0)
+		&& ((keydata.key == MLX_KEY_9 && zoom * 1.01 < 8.0)
 			|| (keydata.key == MLX_KEY_0 && zoom / 1.01 > 0.2)))
 		return (true);
 	return (false);
