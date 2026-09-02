@@ -94,7 +94,7 @@ int	main(int len, char **str)
 	style.type = E_CIRCLE;
 	color_cells_gradient(&table, init_feeling_blue(), true);
 	color_cells_gradient(&table, init_popart(), true);
-	scale_multiplication_fdf(&table, 1.0 / 30.0, HEIGHT);
+	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
 	output = init_fdf(&table);
 	view_fdf(&output, style, f_rgba_to_int32(34, 79, 112, 255), true);

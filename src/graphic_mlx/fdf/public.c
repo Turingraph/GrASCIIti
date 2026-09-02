@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 17:04:16 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/02 16:13:18 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
 	size_t			window_width;
 	size_t			window_height;
 
-	window_width = 1440;
-	window_height = 810;
+	window_width = 1920;
+	window_height = 1080;
 	mlx = mlx_init(window_width, window_height, "Sunset at 4:42pm", true);
 	hook = init_2d_hook(mlx, fdf, drawing_style, background_color);
 	hook.master_piece.is_isometric = is_isometric;
@@ -110,3 +110,6 @@ void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
 	mlx_key_hook(mlx, &hook_fdf_controller, &hook);
 	view_fdf_handle_02(mlx, hook.img);
 }
+
+	// window_width = 1440;
+	// window_height = 810;

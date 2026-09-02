@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:43:32 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:53:03 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/02 16:01:23 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,14 @@ void		scale_fdf_as_window_object(t_fdf *src,
 t_fdf		init_fdf(t_table_fdf *src);
 void		free_fdf(t_fdf *src);
 bool		is_fdf_valid(const t_fdf *src);
+
+// perspective.c
+
+t_2d_int	perspective_3d_isometric(float x, float y, float z);
+t_2d_int	perspective_2d_conformal_sin(float x, float y, float z);
+t_2d_int	perspective_2d_conformal_square(float x, float y, float z);
+t_2d_int	perspective_3d_oblique(float x, float y, float z);
+t_2d_int	perspective_3d_cabinet(float x, float y, float z);
 
 // public.c
 

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:59:48 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:03:57 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/02 16:05:12 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,20 @@ typedef struct s_fdf
 
 // init_fdf.c
 
-t_fdf	init_fdf(t_table_fdf *src);
-void	free_fdf(t_fdf *src);
+t_fdf		init_fdf(t_table_fdf *src);
+void		free_fdf(t_fdf *src);
+
+// perspective.c
+
+t_2d_int	perspective_3d_isometric(float x, float y, float z);
+t_2d_int	perspective_2d_conformal_sin(float x, float y, float z);
+t_2d_int	perspective_2d_conformal_square(float x, float y, float z);
+t_2d_int	perspective_3d_oblique(float x, float y, float z);
+t_2d_int	perspective_3d_cabinet(float x, float y, float z);
 
 // public.c
 
-void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
-			int32_t background_color, bool is_isometric);
+void		view_fdf(t_fdf *fdf, t_ink32 drawing_style,
+				int32_t background_color, bool is_isometric);
 
 #endif

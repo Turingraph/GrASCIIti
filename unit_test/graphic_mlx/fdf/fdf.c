@@ -35,7 +35,7 @@ int	main(int len, char **str)
 		return (0);
 	}
 	style.color = 0;
-	style.thickness = 1;
+	style.thickness = 3;
 	style.type = E_LINE;
 	scale_multiplication_fdf(&table, 5.0, HEIGHT);
 	color_cells_gradient(&table, init_gradient(), true);
