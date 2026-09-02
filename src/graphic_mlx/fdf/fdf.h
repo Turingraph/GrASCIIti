@@ -52,7 +52,7 @@ void		free_fdf(t_fdf *src);
 
 t_2d_int	perspective_3d_isometric(float x, float y, float z);
 t_2d_int	perspective_2d_conformal_sin(float x, float y, float z);
-t_2d_int	perspective_2d_conformal_square(float x, float y, float z);
+t_2d_int	perspective_conformal_reciprocal(float x, float y, float z);
 t_2d_int	perspective_3d_oblique(float x, float y, float z);
 t_2d_int	perspective_3d_cabinet(float x, float y, float z);
 
