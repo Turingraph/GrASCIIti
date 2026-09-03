@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 12:51:36 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 15:37:22 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 17:12:35 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ t_2d_int	projection_orthogonal(float x, float y, float z)
 	t_2d_int	dst;
 
 	dst.x = (int)x;
-	dst.y = (int)(y + z);
+	dst.y = (int)(y - z);
 	return (dst);
 }
