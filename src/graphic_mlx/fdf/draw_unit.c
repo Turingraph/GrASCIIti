@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:52:29 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:55:33 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 14:18:15 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_ink32	get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy)
 	ink.color = get_table_rgba_int32((const t_table_fdf *)table,
 			ixiy.y * table->col + ixiy.x);
 	if (is_draw == false)
-		ink.color = hook->master_piece.background_color;
-	else if (is_draw == true && ink.color == 0)
 		ink.color = hook->master_piece.drawing_style.color;
 	return (ink);
 }
@@ -75,8 +73,9 @@ void	draw_fdf_mlx_unit(t_line line, t_ink32 ink,
 void	draw_fdf_mlx_y_unit(t_2d_hook *hook,
 	bool is_draw, t_2d_int ixiy)
 {
-	t_line	line;
-	t_ink32	ink;
+	t_line		line;
+	t_ink32		ink;
+	t_2d_int	point;
 
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	line.p1 = world_3d_to_screen_2d(*hook->camera,
@@ -85,16 +84,18 @@ void	draw_fdf_mlx_y_unit(t_2d_hook *hook,
 	line.p2 = world_3d_to_screen_2d(*hook->camera,
 			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 2),
 			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 2));
-	if (hook->master_piece.is_isometric == true)
+	if (hook->master_piece.projection != NULL)
 	{
-		line.p1 = world_3d_to_screen_isometric(*hook->camera,
+		point = hook->master_piece.projection(
 				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 0));
-		line.p2 = world_3d_to_screen_isometric(*hook->camera,
+		line.p1 = world_3d_to_screen_2d(*hook->camera, point.x, point.y);
+		point = hook->master_piece.projection(
 				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 2),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 2),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 2));
+		line.p2 = world_3d_to_screen_2d(*hook->camera, point.x, point.y);
 	}
 	draw_fdf_mlx_unit(line, ink, *(hook->camera), hook->img);
 }
@@ -104,8 +105,9 @@ void	draw_fdf_mlx_y_unit(t_2d_hook *hook,
 void	draw_fdf_mlx_x_unit(t_2d_hook *hook,
 	bool is_draw, t_2d_int ixiy)
 {
-	t_line	line;
-	t_ink32	ink;
+	t_line		line;
+	t_ink32		ink;
+	t_2d_int	point;
 
 	ink = get_hook_ink(hook, is_draw, ixiy);
 	line.p1 = world_3d_to_screen_2d(*hook->camera,
@@ -114,16 +116,18 @@ void	draw_fdf_mlx_x_unit(t_2d_hook *hook,
 	line.p2 = world_3d_to_screen_2d(*hook->camera,
 			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 1),
 			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 1));
-	if (hook->master_piece.is_isometric == true)
+	if (hook->master_piece.projection != NULL)
 	{
-		line.p1 = world_3d_to_screen_isometric(*hook->camera,
+		point = hook->master_piece.projection(
 				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 0));
-		line.p2 = world_3d_to_screen_isometric(*hook->camera,
+		line.p1 = world_3d_to_screen_2d(*hook->camera, point.x, point.y);
+		point = hook->master_piece.projection(
 				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 1),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 1),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 1));
+		line.p2 = world_3d_to_screen_2d(*hook->camera, point.x, point.y);
 	}
 	draw_fdf_mlx_unit(line, ink, *(hook->camera), hook->img);
 }

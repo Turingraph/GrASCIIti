@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:29:28 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:29:31 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 14:42:28 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,27 +161,5 @@ double	f_sin(double x)
 // space: O(1)
 double	f_cos(double x)
 {
-	double	y;
-	double	div;
-	double	term;
-	double	pi;
-	size_t	i;
-
-	i = 1;
-	pi = 3.141592653;
-	x = x - f_floor(x / (2 * pi)) * 2 * pi;
-	term = x * x;
-	div = 2;
-	y = 1;
-	while (div != 0 && f_abs(term / div) > 1e-8 && i < 64)
-	{
-		if (i % 2 == 0)
-			y += term / div;
-		else
-			y -= term / div;
-		i += 1;
-		div *= ((double)i * 2) * ((double)i * 2 - 1);
-		term *= x * x;
-	}
-	return (y);
+	return (f_sin(x + 3.141592653 / 2.0));
 }

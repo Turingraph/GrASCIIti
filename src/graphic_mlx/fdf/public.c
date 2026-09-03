@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/02 16:13:18 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 14:53:00 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,17 @@ void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  *
  * status: public api
  *
- * @param fdf FDF object to display
- * @param drawing_style style used to render the FDF object
- * @param background_color 32-bit color used for the background
- * @param is_isometric if is_isometric is true then render 3D
- * isometric projection, if not then render orthogonal projection.
+ * @param fdf FDF object to display.
+ * The default color of the FDF object is black.
+ * @param drawing_style style used to render the FDF object.
+ * The drawing_style.color means the background color.
+ * @param projection define the user defined projection style
+ * e.g. projection_isometric, projection_military etc. If NULL,
+ * then it operate orthogonal projection.
+ * @see graphic_mlx/fdf/projection.c and conformal.c for more details.
  */
 void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
-	int32_t background_color, bool is_isometric)
+	t_2d_int (*projection)(float x, float y, float z))
 {
 	mlx_t			*mlx;
 	t_2d_hook		hook;
@@ -93,14 +96,13 @@ void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
 	window_width = 1920;
 	window_height = 1080;
 	mlx = mlx_init(window_width, window_height, "Sunset at 4:42pm", true);
-	hook = init_2d_hook(mlx, fdf, drawing_style, background_color);
-	hook.master_piece.is_isometric = is_isometric;
+	hook = init_2d_hook(mlx, fdf, drawing_style, projection);
 	if (view_fdf_handle_00(mlx, hook.img) == false)
 		return ;
 	camera = init_2d_camera(window_width, window_height);
 	hook.camera = &camera;
 	scale_fdf_as_window_object(fdf, f_max(window_width, window_height));
-	color_background_mlx(hook.img, background_color);
+	color_background_mlx(hook.img, drawing_style.color);
 	draw_fdf_mlx(&hook, true);
 	if (-1 == view_fdf_handle_01(mlx, hook.img))
 	{

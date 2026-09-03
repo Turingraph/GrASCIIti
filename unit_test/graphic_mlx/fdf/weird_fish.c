@@ -90,19 +90,20 @@ int	main(int len, char **str)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
 	style.color = f_rgba_to_int32(34, 79, 112, 255);
-	style.thickness = 2;
+	style.thickness = 1;
 	style.type = E_CIRCLE;
+	scale_multiplication_fdf(&table, 12.0, HEIGHT);
 	color_cells_gradient(&table, init_feeling_blue(), true);
 	color_cells_gradient(&table, init_popart(), true);
 	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
 	output = init_fdf(&table);
-	view_fdf(&output, style, projection_isometric);
+	view_fdf(&output, style, projection_cexp);
 	free_fdf(&output);
 	return (0);
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/yorushika.out unit_test/editor/convolve/input_ascii/rain_with_cappuccino_rozzo.txt
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/weird_fish.out unit_test/editor/convolve/input_ascii/o_isometric2.txt
 
 */

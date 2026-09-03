@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:59:48 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/02 16:05:12 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 15:49:20 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,32 @@ typedef struct s_fdf
 t_fdf		init_fdf(t_table_fdf *src);
 void		free_fdf(t_fdf *src);
 
-// perspective.c
+// projection_01.c
 
-t_2d_int	perspective_3d_isometric(float x, float y, float z);
-t_2d_int	perspective_2d_conformal_sin(float x, float y, float z);
-t_2d_int	perspective_conformal_reciprocal(float x, float y, float z);
-t_2d_int	perspective_3d_oblique(float x, float y, float z);
-t_2d_int	perspective_3d_cabinet(float x, float y, float z);
+t_2d_int	projection_isometric(float x, float y, float z);
+t_2d_int	projection_military(float x, float y, float z);
+t_2d_int	projection_cabinet(float x, float y, float z);
+t_2d_int	projection_cabinet_flat(float x, float y, float z);
+
+// projection_02.c
+
+t_2d_int	projection_scifi_rotate(float x, float y, float z);
+t_2d_int	projection_orthogonal(float x, float y, float z);
+t_2d_int	projection_csin(float x, float y, float z);
+t_2d_int	projection_cexp(float x, float y, float z);
+t_2d_int	projection_cexp_left(float x, float y, float z);
+
+// projection_03.c
+
+t_2d_int	projection_y_times_z(float x, float y, float z);
+t_2d_int	projection_scifi_scale(float x, float y, float z);
+t_2d_int	projection_scifi_divide(float x, float y, float z);
+t_2d_int	projection_zparallel(float x, float y, float z);
+t_2d_int	projection_wave(float x, float y, float z);
 
 // public.c
 
 void		view_fdf(t_fdf *fdf, t_ink32 drawing_style,
-				int32_t background_color, bool is_isometric);
+				t_2d_int (*projection)(float x, float y, float z));
 
 #endif

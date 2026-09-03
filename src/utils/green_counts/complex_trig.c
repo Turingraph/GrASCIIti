@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:29:02 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:29:08 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 15:33:07 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ t_complex	complex_cos(t_complex a)
 	t_complex	e1;
 	t_complex	e2;
 
-	x1.re = -1 * a.im;
-	x1.im = a.re;
+	x1.re = -1 * a.re;
+	x1.im = a.im;
 	e1 = complex_exp(x1);
-	x2.re = a.im;
-	x2.im = -1 * a.re;
+	x2.re = a.re;
+	x2.im = -1 * a.im;
 	e2 = complex_exp(x2);
 	y.re = (e1.re + e2.re) / 2;
 	y.im = (e1.im + e2.im) / 2;
@@ -79,11 +79,11 @@ t_complex	complex_sin(t_complex a)
 	t_complex	e1;
 	t_complex	e2;
 
-	x1.re = a.im;
-	x1.im = -1 * a.re;
+	x1.re = a.re;
+	x1.im = -1 * a.im;
 	e1 = complex_exp(x1);
-	x2.re = -1 * a.im;
-	x2.im = a.re;
+	x2.re = -1 * a.re;
+	x2.im = a.im;
 	e2 = complex_exp(x2);
 	y.re = (e1.re - e2.re) / 2;
 	y.im = (e1.im - e2.im) / 2;

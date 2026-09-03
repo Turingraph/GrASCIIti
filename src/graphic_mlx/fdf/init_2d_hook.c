@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:02:58 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:04:03 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 13:45:27 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,18 @@ mlx_image_t	*init_mlx_image(mlx_t *mlx)
  * @param mlx MLX window context used by the view
  * @param fdf FDF object to display
  * @param drawing_style style used to render the FDF object
- * @param background_color 32-bit color used for the background
  * @return initialized 2D FDF rendering context
  */
-t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
-	t_ink32 drawing_style, int32_t background_color)
+t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf, t_ink32 drawing_style,
+	t_2d_int (*projection)(float x, float y, float z))
 {
 	t_2d_hook	dst;
 
 	dst.mlx = mlx;
 	dst.camera = NULL;
 	dst.master_piece.fdf = fdf;
-	dst.master_piece.background_color = background_color;
 	dst.master_piece.drawing_style = drawing_style;
-	dst.master_piece.is_isometric = false;
+	dst.master_piece.projection = projection;
 	dst.img = init_mlx_image(mlx);
 	return (dst);
 }

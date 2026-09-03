@@ -89,7 +89,7 @@ int	main(int len, char **str)
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
-	style.color = 0;
+	style.color = f_rgba_to_int32(0, 0, 0, 255);
 	style.thickness = 1;
 	style.type = E_LINE;
 	scale_multiplication_fdf(&table, 10.0, HEIGHT);
@@ -98,7 +98,7 @@ int	main(int len, char **str)
 	scale_multiplication_fdf(&table, 1.0 / 30.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
 	output = init_fdf(&table);
-	view_fdf(&output, style, f_rgba_to_int32(0, 0, 0, 255), true);
+	view_fdf(&output, style, projection_isometric);
 	free_fdf(&output);
 	return (0);
 }

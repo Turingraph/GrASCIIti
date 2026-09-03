@@ -41,7 +41,7 @@ int32_t	get_table_rgba_int32(const t_table_fdf *src, size_t index)
 	b = 0;
 	if (src->b != NULL)
 		b = (int32_t)src->b[index];
-	a = 0;
+	a = 255;
 	if (src->a != NULL)
 		a = (int32_t)src->a[index];
 	return (ft_pixel(r, g, b, a));

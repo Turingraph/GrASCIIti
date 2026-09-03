@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:42:45 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:30:30 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 14:49:30 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,52 +62,45 @@ void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw)
 
 // time : O(1)
 // space: O(1)
-void	draw_fdf_mlx_pixel_art_unit(t_2d_hook *hook,
+void	draw_fdf_mlx_kusama_unit(t_2d_hook *hook,
 	bool is_draw, t_2d_int ixiy)
 {
-	t_line	line;
-	t_ink32	ink;
+	t_2d_int	position;
+	t_ink32		ink;
 
 	ink = get_hook_ink(hook, is_draw, ixiy);
-	ink.type = E_RECTANGLE;
-	line.p1 = world_3d_to_screen_2d(*hook->camera,
+	position = world_3d_to_screen_2d(*hook->camera,
 			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
 			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0));
-	line.p2 = world_3d_to_screen_2d(*hook->camera,
-			get_fdf_point(hook->master_piece.fdf, ixiy, 1, 3),
-			get_fdf_point(hook->master_piece.fdf, ixiy, 2, 3));
-	if (hook->master_piece.is_isometric == true)
+	if (hook->master_piece.projection != NULL)
 	{
-		line.p1 = world_3d_to_screen_isometric(*hook->camera,
+		position = hook->master_piece.projection(
 				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 0),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 0),
 				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 0));
-		line.p2 = world_3d_to_screen_isometric(*hook->camera,
-				get_fdf_point(hook->master_piece.fdf, ixiy, 1, 3),
-				get_fdf_point(hook->master_piece.fdf, ixiy, 2, 3),
-				get_fdf_point(hook->master_piece.fdf, ixiy, 3, 3));
+		position = world_3d_to_screen_2d(*hook->camera, position.x, position.y);
 	}
-	draw_fdf_mlx_unit(line, ink, *(hook->camera), hook->img);
+	draw_fdf_mlx_unit_circle(position, ink, *hook->camera, hook->img);
 }
 
 // time : O(n)
 // space: O(1)
-void	draw_fdf_mlx_pixel_art(t_2d_hook *hook, bool is_draw)
+void	draw_fdf_mlx_kusama(t_2d_hook *hook, bool is_draw)
 {
 	t_2d_int	ixiy;
 	t_fdf		src;
 
 	if (is_2dhook_valid(hook) == false
-		|| hook->master_piece.drawing_style.type != E_PIXEL_ART)
+		|| hook->master_piece.drawing_style.type != E_CIRCLE)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (0 < src.src->col && ixiy.x < (int)src.src->col - 1)
+	while (0 < src.src->col && ixiy.x < (int)src.src->col)
 	{
 		ixiy.y = 0;
-		while (0 < src.src->row && ixiy.y < (int)src.src->row - 1)
+		while (0 < src.src->row && ixiy.y < (int)src.src->row)
 		{
-			draw_fdf_mlx_pixel_art_unit(hook, is_draw, ixiy);
+			draw_fdf_mlx_kusama_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;
 		}
 		ixiy.x += 1;
@@ -138,7 +131,16 @@ void	draw_fdf_mlx_pixel_art(t_2d_hook *hook, bool is_draw)
  */
 void	draw_fdf_mlx(t_2d_hook *hook, bool is_draw)
 {
-	draw_fdf_mlx_y(hook, is_draw);
-	draw_fdf_mlx_x(hook, is_draw);
-	draw_fdf_mlx_pixel_art(hook, is_draw);
+	if (is_2dhook_valid(hook) == false)
+		return ;
+	if (hook->master_piece.drawing_style.type == E_LINE
+		|| hook->master_piece.drawing_style.type == E_RECTANGLE)
+	{
+		draw_fdf_mlx_y(hook, is_draw);
+		draw_fdf_mlx_x(hook, is_draw);
+	}
+	else if (hook->master_piece.drawing_style.type == E_PIXEL_ART)
+		draw_fdf_mlx_pixel_art(hook, is_draw);
+	else if (hook->master_piece.drawing_style.type == E_CIRCLE)
+		draw_fdf_mlx_kusama(hook, is_draw);
 }

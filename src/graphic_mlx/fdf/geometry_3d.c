@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/30 15:13:49 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 16:15:16 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 12:42:00 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,23 +104,5 @@ t_2d_int	world_3d_to_screen_2d(t_2d_camera camera,
 
 	dst.x = x + (camera.offset.x + camera.window_size.x) / 2;
 	dst.y = y + (camera.offset.y + camera.window_size.y) / 2;
-	return (dst);
-}
-
-// https://medium.com/@amehri_tarik/fdf-42-a-detailed-walkthrough-7184cca317fc
-
-// time : O(1)
-// space: O(1)
-t_2d_int	world_3d_to_screen_isometric(t_2d_camera camera,
-	float x, float y, float z)
-{
-	t_2d_int	dst;
-	float		xx;
-	float		yy;
-
-	xx = 0.5 * x - 0.5 * y;
-	yy = 0.25 * x + 0.25 * y - z;
-	dst.x = xx + (camera.offset.x + camera.window_size.x) / 2;
-	dst.y = yy + (camera.offset.y + camera.window_size.y) / 2;
 	return (dst);
 }

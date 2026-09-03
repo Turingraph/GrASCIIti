@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:43:32 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/02 16:01:23 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 15:49:11 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,12 @@ typedef struct s_2d_camera
  * 
  * @param drawing_style describes how the FDF object is rasterized
  * @param fdf FDF object to display
- * @param background_color 32-bit color used for the background
- * @param is_isometric if is_isometric is true then render 3D projection,
- * if not then render 2D projection.
  */
 typedef struct s_master_piece
 {
 	t_ink32			drawing_style;
 	t_fdf			*fdf;
-	int32_t			background_color;
-	bool			is_isometric;
+	t_2d_int		(*projection)(float x, float y, float z);
 }	t_master_piece;
 
 /**
@@ -100,19 +96,25 @@ typedef struct s_2d_hook
 	t_master_piece	master_piece;
 }	t_2d_hook;
 
+// draw_fdf.c
+
+void		draw_fdf_mlx(t_2d_hook *hook, bool is_draw);
+
+// draw_pixel_art.c
+
+void		draw_fdf_mlx_pixel_art(t_2d_hook *hook, bool is_draw);
+
 // draw_unit.c
 
 t_ink32		get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy);
+void		draw_fdf_mlx_unit_circle(t_2d_int point,
+				t_ink32 ink, t_2d_camera camera, mlx_image_t *img);
 void		draw_fdf_mlx_unit(t_line line, t_ink32 ink, t_2d_camera camera,
 				mlx_image_t *img);
 void		draw_fdf_mlx_y_unit(t_2d_hook *hook,
 				bool is_draw, t_2d_int ixiy);
 void		draw_fdf_mlx_x_unit(t_2d_hook *hook,
 				bool is_draw, t_2d_int ixiy);
-
-// draw_fdf.c
-
-void		draw_fdf_mlx(t_2d_hook *hook, bool is_draw);
 
 // geometry_2d.c
 
@@ -130,8 +132,6 @@ float		linear_map_fdf(const t_fdf *src, t_matrix matrix,
 void		linear_map_fdf_all(t_fdf *src, t_matrix matrix);
 t_2d_int	world_3d_to_screen_2d(t_2d_camera camera,
 				float x, float y);
-t_2d_int	world_3d_to_screen_isometric(t_2d_camera camera,
-				float x, float y, float z);
 
 // hook.c
 
@@ -140,8 +140,8 @@ void		hook_fdf_controller(mlx_key_data_t keydata, void *param);
 // init_2d_hook.c
 
 t_2d_camera	init_2d_camera(size_t window_width, size_t window_height);
-t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf,
-				t_ink32 drawing_style, int32_t background_color);
+t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf, t_ink32 drawing_style,
+				t_2d_int (*projection)(float x, float y, float z));
 void		scale_fdf_as_window_object(t_fdf *src,
 				size_t fixed_window_size);
 
@@ -151,18 +151,33 @@ t_fdf		init_fdf(t_table_fdf *src);
 void		free_fdf(t_fdf *src);
 bool		is_fdf_valid(const t_fdf *src);
 
-// perspective.c
+// projection_01.c
 
-t_2d_int	perspective_3d_isometric(float x, float y, float z);
-t_2d_int	perspective_2d_conformal_sin(float x, float y, float z);
-t_2d_int	perspective_conformal_reciprocal(float x, float y, float z);
-t_2d_int	perspective_3d_oblique(float x, float y, float z);
-t_2d_int	perspective_3d_cabinet(float x, float y, float z);
+t_2d_int	projection_isometric(float x, float y, float z);
+t_2d_int	projection_military(float x, float y, float z);
+t_2d_int	projection_cabinet(float x, float y, float z);
+t_2d_int	projection_cabinet_flat(float x, float y, float z);
+
+// projection_02.c
+
+t_2d_int	projection_scifi_rotate(float x, float y, float z);
+t_2d_int	projection_orthogonal(float x, float y, float z);
+t_2d_int	projection_csin(float x, float y, float z);
+t_2d_int	projection_cexp(float x, float y, float z);
+t_2d_int	projection_cexp_left(float x, float y, float z);
+
+// projection_03.c
+
+t_2d_int	projection_y_times_z(float x, float y, float z);
+t_2d_int	projection_scifi_scale(float x, float y, float z);
+t_2d_int	projection_scifi_divide(float x, float y, float z);
+t_2d_int	projection_zparallel(float x, float y, float z);
+t_2d_int	projection_wave(float x, float y, float z);
 
 // public.c
 
 void		view_fdf(t_fdf *fdf, t_ink32 drawing_style,
-				int32_t background_color, bool is_isometric);
+				t_2d_int (*projection)(float x, float y, float z));
 
 // verify.c
 
