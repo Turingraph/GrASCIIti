@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:00:47 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 13:05:28 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 16:12:30 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 	char			*line;
 	bool			is_valid;
 
-	if (parse_line == NULL || fd < 1)
+	if (parse_line == NULL || fd < 0)
 		return (init_load_fdf_arr(0));
 	dst = init_load_fdf_arr(1);
 	if (dst.arr == NULL)
@@ -106,6 +106,7 @@ t_load_fdf_arr	load_all_fdf_lines(int fd,
 	}
 	free(line);
 	get_next_line(fd, false);
+	close(fd);
 	return (dst);
 }
 

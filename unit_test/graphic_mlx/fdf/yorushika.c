@@ -89,6 +89,11 @@ int	main(int len, char **str)
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
+	if (table.col * table.row == 0)
+	{
+		free_table_fdf(&table);
+		return (0);
+	}
 	style.color = f_rgba_to_int32(34, 79, 112, 255);
 	style.thickness = 2;
 	style.type = E_CIRCLE;
@@ -97,7 +102,7 @@ int	main(int len, char **str)
 	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
 	output = init_fdf(&table);
-	view_fdf(&output, style, projection_isometric);
+	view_fdf(&output, style, projection_cabinet);
 	free_fdf(&output);
 	return (0);
 }
