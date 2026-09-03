@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:01:09 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 17:45:34 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 19:12:58 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // time : O(n)
 // space: O(1)
-size_t	count_decimal_digits(const char *line, size_t max)
+size_t	count_decimal_digits(const char *line, size_t max, bool *is_int)
 {
 	size_t	j;
 
@@ -23,8 +23,10 @@ size_t	count_decimal_digits(const char *line, size_t max)
 	j = 0;
 	if (line[j] == '-')
 		j += 1;
-	while (f_isspace(line[j], "0123456789") == 1 && j < max)
+	while (j < max && f_isspace(line[j], "0123456789") == 1)
 		j += 1;
+	if (j == 1 && f_isspace(line[0], "0123456789") == 0 && is_int != NULL)
+		*is_int = false;
 	return (j);
 }
 
@@ -35,17 +37,18 @@ bool	is_valid_fdf_color(const char *line)
 	size_t	i;
 
 	if (line == NULL || f_strlen(line) < 4
-		|| line[0] != ','
 		|| line[1] != '0'
 		|| line[2] != 'x')
 		return (false);
+	line += 3;
 	i = 0;
 	while (f_isspace(*line, "0123456789ABCDEFabcdef") == 1)
 	{
 		line += 1;
 		i += 1;
 	}
-	if (i > 8 || (*line != '\0' && f_isspace(*line, " \n\t\r\f\v") == 0))
+	if (i == 0 || i > 8
+		|| (*line != '\0' && f_isspace(*line, " \n\t\r\f\v") == 0))
 		return (false);
 	return (true);
 }
@@ -94,7 +97,7 @@ void	parse_fdf_line_loop(t_load_fdf *dst, size_t length,
 	{
 		while (f_isspace(*line, " \n\t\r\f\v") == 1)
 			line += 1;
-		j = count_decimal_digits(line, 12);
+		j = count_decimal_digits(line, 12, is_int);
 		dst->arr[i] = f_atoi(line, is_int, "0123456789", j);
 		line += j;
 		if (dst->a != NULL || dst->g != NULL
@@ -118,7 +121,9 @@ t_load_fdf	parse_fdf_line(char *line, bool is_rgba)
 
 	is_valid_fdf = true;
 	length = count_fdf_columns(line, &is_valid_fdf);
-	if (line == NULL || length == 0 || is_valid_fdf == false)
+	if (line == NULL || length == 0
+		|| (f_strlen((const char *)line) == 1 && f_isspace(*line, "0123456789") == 0)
+		|| is_valid_fdf == false)
 		return (init_load_fdf(0, false));
 	dst = init_load_fdf(length, is_rgba);
 	if (dst.arr == NULL)

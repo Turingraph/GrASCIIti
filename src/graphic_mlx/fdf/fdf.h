@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:59:48 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 15:49:20 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 17:34:03 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_2d_int	projection_wave(float x, float y, float z);
 
 // public.c
 
-void		view_fdf(t_fdf *fdf, t_ink32 drawing_style,
+void		view_fdf(t_fdf *fdf, t_ink32 drawing_style, float zoom,
 				t_2d_int (*projection)(float x, float y, float z));
 
 #endif

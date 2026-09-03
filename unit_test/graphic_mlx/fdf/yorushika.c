@@ -102,7 +102,7 @@ int	main(int len, char **str)
 	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
 	output = init_fdf(&table);
-	view_fdf(&output, style, projection_cabinet);
+	view_fdf(&output, style, 0.5, projection_cabinet);
 	free_fdf(&output);
 	return (0);
 }

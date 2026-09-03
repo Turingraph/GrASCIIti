@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:07:44 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 17:45:36 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 19:23:33 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	update_rgba(char *line, t_load_fdf *dst, size_t index)
 
 	is_rgba = true;
 	length = count_hex_digits(line, 8);
+	dst->a[index] = 255;
 	if (length > 0 && length < 5 && dst != NULL)
 	{
 		if (dst->r != NULL)

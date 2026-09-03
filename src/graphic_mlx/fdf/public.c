@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 14:53:00 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 18:39:15 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  * The default color of the FDF object is black.
  * @param drawing_style style used to render the FDF object.
  * The drawing_style.color means the background color.
+ * @param zoom zoom the Fdf object
  * @param projection define the user defined projection style
  * e.g. projection_isometric, projection_military etc. If NULL,
  * then it operate orthogonal projection.
  * @see graphic_mlx/fdf/projection.c and conformal.c for more details.
  */
-void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
+void	view_fdf(t_fdf *fdf, t_ink32 drawing_style, float zoom,
 	t_2d_int (*projection)(float x, float y, float z))
 {
 	mlx_t			*mlx;
@@ -101,7 +102,7 @@ void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
 		return ;
 	camera = init_2d_camera(window_width, window_height);
 	hook.camera = &camera;
-	scale_fdf_as_window_object(fdf, f_max(window_width, window_height));
+	scale_fdf_as_window_object(fdf, f_max(window_width, window_height) * zoom);
 	color_background_mlx(hook.img, drawing_style.color);
 	draw_fdf_mlx(&hook, true);
 	if (-1 == view_fdf_handle_01(mlx, hook.img))
@@ -112,6 +113,3 @@ void	view_fdf(t_fdf *fdf, t_ink32 drawing_style,
 	mlx_key_hook(mlx, &hook_fdf_controller, &hook);
 	view_fdf_handle_02(mlx, hook.img);
 }
-
-	// window_width = 1440;
-	// window_height = 810;

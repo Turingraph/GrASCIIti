@@ -38,10 +38,10 @@ int	main(int len, char **str)
 	style.thickness = 3;
 	style.type = E_LINE;
 	scale_multiplication_fdf(&table, 5.0, HEIGHT);
-	color_cells_gradient(&table, init_gradient(), true);
+	// color_cells_gradient(&table, init_gradient(), true);
 	scale_multiplication_fdf(&table, 1.0 / 15.0, HEIGHT);
 	output = init_fdf(&table);
-	view_fdf(&output, style, projection_isometric);
+	view_fdf(&output, style, 0.5, projection_isometric);
 	free_fdf(&output);
 	return (0);
 }
