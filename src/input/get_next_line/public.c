@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:37:10 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:37:13 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 16:52:59 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,25 @@ int	open_dir_file(const char *file_name, const char *dir, t_file_mode mode)
 {
 	char	*file;
 	int		dst;
+	int		flags;
 
+	if (mode == READ)
+		flags = O_RDONLY;
+	else if (mode == APPEND)
+		flags = O_WRONLY | O_APPEND | O_CREAT;
+	else
+		return (-1);
 	if (dir == NULL || *dir == '\0')
 	{
-		dst = open(file_name, mode);
-		if (dst < 1)
-			return (1);
+		dst = open(file_name, flags);
+		if (dst == -1)
+			return (-1);
 		return (dst);
 	}
 	file = concat_string(dir, file_name);
 	if (file == NULL)
-		return (1);
-	dst = open(file, mode);
+		return (-1);
+	dst = open(file, flags);
 	free(file);
 	return (dst);
 }

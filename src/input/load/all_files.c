@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:00:47 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 16:12:30 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/03 16:55:43 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_load_fdf_arr	open_fdf_file(const char *file_name, const char *dir,
 	int		dst;
 
 	if (dir == NULL || *dir == '\0')
-		return (load_all_fdf_lines(open(file_name, READ), parse_line));
+		return (load_all_fdf_lines(open(file_name, O_RDONLY), parse_line));
 	dst = open_dir_file(file_name, dir, READ);
 	return (load_all_fdf_lines(dst, parse_line));
 }
