@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 11:13:30 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 15:48:36 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:15:33 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ Reference
 t_2d_int	projection_isometric(float x, float y, float z)
 {
 	t_2d_int	dst;
-	double		alpha;
 
-	alpha = 3.141592653 / 6.0;
-	dst.x = (int)(f_cos(alpha) * x - f_cos(alpha) * y);
-	dst.y = (int)(f_sin(alpha) * x + f_sin(alpha) * y - z);
+	dst.x = (int)(0.866 * x - 0.866 * y);
+	dst.y = (int)(0.5 * x + 0.5 * y - z);
 	return (dst);
 }
 
@@ -38,11 +36,9 @@ t_2d_int	projection_isometric(float x, float y, float z)
 t_2d_int	projection_military(float x, float y, float z)
 {
 	t_2d_int	dst;
-	double		alpha;
 
-	alpha = 3.141592653 / 4.0;
-	dst.x = (int)(f_cos(alpha) * x - f_cos(alpha) * y);
-	dst.y = (int)(f_sin(alpha) * x + f_sin(alpha) * y - z);
+	dst.x = (int)(0.707 * x - 0.707 * y);
+	dst.y = (int)(0.707 * x + 0.707 * y - z);
 	return (dst);
 }
 
@@ -51,11 +47,9 @@ t_2d_int	projection_military(float x, float y, float z)
 t_2d_int	projection_cabinet_flat(float x, float y, float z)
 {
 	t_2d_int	dst;
-	double		alpha;
 
-	alpha = 3.141592653 / 4;
-	dst.x = (int)(x - f_cos(alpha) * y / 2.0);
-	dst.y = (int)(f_sin(alpha) * y / 2.0 - z);
+	dst.x = (int)(x - 0.353 * y);
+	dst.y = (int)(0.353 * y - z);
 	return (dst);
 }
 
@@ -64,10 +58,8 @@ t_2d_int	projection_cabinet_flat(float x, float y, float z)
 t_2d_int	projection_cabinet(float x, float y, float z)
 {
 	t_2d_int	dst;
-	double		alpha;
 
-	alpha = 3.141592653 / 4;
-	dst.x = (int)(x - f_cos(alpha) * y / 2.0);
-	dst.y = (int)(f_sin(alpha) * y - z);
+	dst.x = (int)(x - 0.353 * y);
+	dst.y = (int)(0.707 * y - z);
 	return (dst);
 }

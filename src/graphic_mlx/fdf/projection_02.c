@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 12:51:36 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 17:12:35 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/04 18:16:08 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,12 @@ t_2d_int	projection_csin(float x, float y, float z)
 {
 	t_2d_int	dst;
 	t_complex	complex;
-	double		alpha;
-	double		xxx;
-	double		yyy;
 
-	xxx = (double)x;
-	yyy = (double)(y + z);
-	alpha = 3.141592653 / 2.0;
-	complex.re = alpha * xxx / 1920.0;
-	complex.im = alpha * yyy / 1920.0;
+	complex.re = 1.57 * x / 1920.0;
+	complex.im = 1.57 * (y - z) / 1920.0;
 	complex = complex_sin(complex);
-	dst.x = (int)(complex.re * 1080.0);
-	dst.y = (int)(complex.im * 1080.0 * -1);
+	dst.x = (int)(complex.re * 1920.0);
+	dst.y = (int)(complex.im * -1920.0);
 	return (dst);
 }
 
@@ -39,16 +33,12 @@ t_2d_int	projection_cexp(float x, float y, float z)
 {
 	t_2d_int	dst;
 	t_complex	complex;
-	double		xxx;
-	double		yyy;
 
-	xxx = (double)x;
-	yyy = (double)(y + z);
-	complex.re = xxx / 1920.0;
-	complex.im = yyy / 1920.0;
+	complex.re = x / 1920.0;
+	complex.im = (y - z) / 1920.0;
 	complex = complex_exp(complex);
-	dst.x = (int)(complex.re * 1080.0 - 1920.0);
-	dst.y = (int)(complex.im * 1080.0);
+	dst.x = (int)(complex.re * 1920.0 - 1920.0);
+	dst.y = (int)(complex.im * 1920.0);
 	return (dst);
 }
 
@@ -58,16 +48,12 @@ t_2d_int	projection_cexp_left(float x, float y, float z)
 {
 	t_2d_int	dst;
 	t_complex	complex;
-	double		xxx;
-	double		yyy;
 
-	xxx = (double)(-1.0 * x);
-	yyy = (double)(y + z);
-	complex.re = xxx / 1920.0;
-	complex.im = yyy / 1920.0;
+	complex.re = x / 1920.0;
+	complex.im = (y - z) / 1920.0;
 	complex = complex_exp(complex);
-	dst.x = -1 * (int)(complex.re * 1080.0 - 1920.0);
-	dst.y = (int)(complex.im * 1080.0);
+	dst.x = -1 * (int)(complex.re * 1920.0 - 1920.0);
+	dst.y = (int)(complex.im * 1920.0);
 	return (dst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:29:44 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:30:21 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/04 17:49:30 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // time : O(1)
 // space: O(1)
-double	f_abs(double x)
+float	f_abs(float x)
 {
 	if (x < 0)
 		return (-1 * x);
@@ -87,23 +87,4 @@ size_t	binary_search_count(size_t min_input, size_t max_input)
 		count += 1;
 	}
 	return (count);
-}
-
-// time : O(n)
-// space: O(1)
-float	f_sum(const float *vec_v, size_t dim)
-{
-	float	y;
-	size_t	i;
-
-	y = 0.0;
-	if (vec_v == NULL)
-		return (y);
-	i = 0;
-	while (i < dim)
-	{
-		y += vec_v[i];
-		i += 1;
-	}
-	return (y);
 }

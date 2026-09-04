@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:01:50 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 16:55:20 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/04 17:50:00 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	hook_rotate(mlx_key_data_t keydata,
 		|| is_valid_rotate_key(keydata) == false)
 		return ;
 	if (keydata.key == MLX_KEY_1)
-		transform = init_3d_rotate_matrix_x(3.141592653 / 12.0);
+		transform = init_3d_rotate_matrix_x(3.1415 / 12.0);
 	else if (keydata.key == MLX_KEY_2)
-		transform = init_3d_rotate_matrix_y(3.141592653 / 12.0);
+		transform = init_3d_rotate_matrix_y(3.1415 / 12.0);
 	else
-		transform = init_3d_rotate_matrix_z(3.141592653 / 12.0);
+		transform = init_3d_rotate_matrix_z(3.1415 / 12.0);
 	if (transform.arr == NULL)
 		return ;
 	linear_map_fdf_all(hook->master_piece.fdf, transform);

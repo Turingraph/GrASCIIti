@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:29:13 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 14:29:24 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/04 17:45:52 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ t_complex	complex_reciprocal(t_complex a)
 
 // time : O(1)
 // space: O(1)
-double	complex_magnitude(t_complex a, char is_square)
+float	complex_magnitude(t_complex a, char is_square)
 {
-	double	y;
+	float	y;
 
 	y = a.re * a.re + a.im * a.im;
 	if (is_square > 0)

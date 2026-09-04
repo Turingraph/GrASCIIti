@@ -31,11 +31,11 @@ void	hook_rotate(mlx_key_data_t keydata,
 			&& keydata.key != MLX_KEY_3))
 		return ;
 	if (keydata.key == MLX_KEY_1)
-		transform = init_3d_rotate_matrix_x(3.141592653 / 12.0);
+		transform = init_3d_rotate_matrix_x(3.1415 / 12.0);
 	else if (keydata.key == MLX_KEY_2)
-		transform = init_3d_rotate_matrix_y(3.141592653 / 12.0);
+		transform = init_3d_rotate_matrix_y(3.1415 / 12.0);
 	else
-		transform = init_3d_rotate_matrix_z(3.141592653 / 12.0);
+		transform = init_3d_rotate_matrix_z(3.1415 / 12.0);
 	if (transform.arr == NULL)
 		return ;
 	len = hook->master_piece.still_life->src->col;
