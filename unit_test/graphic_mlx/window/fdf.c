@@ -1,4 +1,4 @@
-#include"fdf.h"
+#include"window.h"
 
 // time : O(1)
 // space: O(1)
@@ -24,7 +24,7 @@ int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	t_fdf			output;
-	t_ink32			style;
+	t_artstyle32	style;
 
 	if (len < 2)
 		return (0);
@@ -34,12 +34,10 @@ int	main(int len, char **str)
 		free_table_fdf(&table);
 		return (0);
 	}
-	style.color = f_rgba_to_int32(255, 255, 255, 255);
-	style.thickness = 3;
-	style.type = E_LINE;
-	scale_multiplication_fdf(&table, 5.0, HEIGHT);
+	style.background_color = f_rgba_to_int32(255, 255, 255, 255);
+	style.line_thickness = 3;
+	style.artists = E_PICASSO;
 	// color_cells_gradient(&table, init_gradient(), true);
-	scale_multiplication_fdf(&table, 1.0 / 15.0, HEIGHT);
 	output = init_fdf(&table);
 	view_fdf(&output, style, 0.5, projection_isometric);
 	free_fdf(&output);

@@ -20,7 +20,7 @@ void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw)
 	t_fdf		src;
 
 	if (is_2dhook_valid(hook) == false
-		|| hook->master_piece.drawing_style.type == E_PIXEL_ART)
+		|| hook->master_piece.artstyle.type == E_PIXEL_ART)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
@@ -44,7 +44,7 @@ void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw)
 	t_fdf		src;
 
 	if (is_2dhook_valid(hook) == false
-		|| hook->master_piece.drawing_style.type == E_PIXEL_ART)
+		|| hook->master_piece.artstyle.type == E_PIXEL_ART)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
@@ -62,7 +62,7 @@ void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw)
 
 // time : O(1)
 // space: O(1)
-void	draw_fdf_mlx_kusama_unit(t_2d_hook *hook,
+void	proj_kusama_fdf_unit(t_2d_hook *hook,
 	bool is_draw, t_2d_int ixiy)
 {
 	t_2d_int	position;
@@ -85,13 +85,13 @@ void	draw_fdf_mlx_kusama_unit(t_2d_hook *hook,
 
 // time : O(n)
 // space: O(1)
-void	draw_fdf_mlx_kusama(t_2d_hook *hook, bool is_draw)
+void	proj_kusama_fdf(t_2d_hook *hook, bool is_draw)
 {
 	t_2d_int	ixiy;
 	t_fdf		src;
 
 	if (is_2dhook_valid(hook) == false
-		|| hook->master_piece.drawing_style.type != E_CIRCLE)
+		|| hook->master_piece.artstyle.type != E_CIRCLE)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
@@ -100,7 +100,7 @@ void	draw_fdf_mlx_kusama(t_2d_hook *hook, bool is_draw)
 		ixiy.y = 0;
 		while (0 < src.src->row && ixiy.y < (int)src.src->row)
 		{
-			draw_fdf_mlx_kusama_unit(hook, is_draw, ixiy);
+			proj_kusama_fdf_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;
 		}
 		ixiy.x += 1;
@@ -133,14 +133,14 @@ void	draw_fdf_mlx(t_2d_hook *hook, bool is_draw)
 {
 	if (is_2dhook_valid(hook) == false)
 		return ;
-	if (hook->master_piece.drawing_style.type == E_LINE
-		|| hook->master_piece.drawing_style.type == E_RECTANGLE)
+	if (hook->master_piece.artstyle.type == E_LINE
+		|| hook->master_piece.artstyle.type == E_RECTANGLE)
 	{
 		draw_fdf_mlx_y(hook, is_draw);
 		draw_fdf_mlx_x(hook, is_draw);
 	}
-	else if (hook->master_piece.drawing_style.type == E_PIXEL_ART)
+	else if (hook->master_piece.artstyle.type == E_PIXEL_ART)
 		draw_fdf_mlx_pixel_art(hook, is_draw);
-	else if (hook->master_piece.drawing_style.type == E_CIRCLE)
-		draw_fdf_mlx_kusama(hook, is_draw);
+	else if (hook->master_piece.artstyle.type == E_CIRCLE)
+		proj_kusama_fdf(hook, is_draw);
 }

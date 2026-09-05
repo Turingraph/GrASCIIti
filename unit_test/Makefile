@@ -16,7 +16,7 @@ SRC_convolve = $(wildcard editor/convolve/*.c)
 SRC_paint = $(wildcard editor/paint/*.c)
 
 SRC_motif = $(wildcard graphic_mlx/motif/*.c)
-SRC_fdf = $(wildcard graphic_mlx/fdf/*.c)
+SRC_window = $(wildcard graphic_mlx/window/*.c)
 
 SRC_HELPER_libft = $(wildcard ../src/utils/libft/*.c)
 SRC_HELPER_get_next_line = $(wildcard ../src/input/get_next_line/*.c)
@@ -28,10 +28,10 @@ HELPER_OBJ = $(patsubst %.c, obj/%.o, $(HELPER_SRC))
 
 OUT_paint = $(patsubst %.c, out/%.out, $(SRC_paint))
 OUT_motif = $(patsubst %.c, out/%.out, $(SRC_motif))
-OUT_fdf = $(patsubst %.c, out/%.out, $(SRC_fdf))
+OUT_window = $(patsubst %.c, out/%.out, $(SRC_window))
 
 OUT_ALL = $(patsubst %.c, out/%.out,	\
-	$(SRC_get_next_line) $(SRC_convolve)\
+	$(SRC_get_next_line) $(SRC_convolve) $(SRC_window)\
 	$(SRC_load) $(SRC_table) $(SRC_libft) $(SRC_green_counts))
 
 #-----------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ CLONE_GNL = $(patsubst input/get_next_line/input/%, input/get_next_line/clone_in
 # *** obj, out, and lib ***
 all: all_out all_clone
 
-all_out: $(OUT_ALL) $(OUT_paint) $(OUT_motif) $(OUT_fdf)
+all_out: $(OUT_ALL) $(OUT_paint) $(OUT_motif) $(OUT_window)
 	@echo $^
 
 $(OUT_ALL): out/%.out: obj/%.o
@@ -65,7 +65,7 @@ $(OUT_motif): out/%.out: obj/%.o
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
 	../include/libmlx42.a -ldl -lglfw -pthread -lm
 
-$(OUT_fdf): out/%.out: obj/%.o
+$(OUT_window): out/%.out: obj/%.o
 	@mkdir -p $(@D)
 	$(CC) -o $@ $^ -L. ../src/lib/$(basename $(notdir $(call remove_slash, $(dir $@)).c)).a \
 	../src/lib/table.a ../src/lib/paint.a ../include/libmlx42.a -ldl -lglfw -pthread -lm

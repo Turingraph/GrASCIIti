@@ -31,19 +31,17 @@ void	draw_motif_mlx_unit(mlx_image_t *img,
 {
 	size_t	i;
 	t_motif	*arr;
-	t_ink32	ink;
 
 	arr = src->motif->arr;
 	i = 0;
 	while (i < src->motif->length)
 	{
-		ink = arr[i].ink;
-		if (ink.type == E_LINE)
-			draw_polygon_mlx(img, &(arr[i].polygon), ink, tile);
-		else if (ink.type == E_CIRCLE)
-			draw_kusama_mlx(img, &(arr[i].polygon), ink, tile);
-		else if (ink.type == E_RECTANGLE)
-			draw_mondrian_mlx(img, &(arr[i].polygon), ink.color, tile);
+		if (arr[i].type == E_LINE)
+			draw_polygon_mlx(img, &(arr[i].polygon), arr[i].ink, tile);
+		else if (arr[i].type == E_CIRCLE)
+			draw_kusama_mlx(img, &(arr[i].polygon), arr[i].ink, tile);
+		else if (arr[i].type == E_RECTANGLE)
+			draw_mondrian_mlx(img, &(arr[i].polygon), arr[i].ink.color, tile);
 		i += 1;
 	}
 }

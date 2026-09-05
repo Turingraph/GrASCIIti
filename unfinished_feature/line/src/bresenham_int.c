@@ -102,7 +102,7 @@ void	bresenham_int_x_thick(int *dst, t_line line, t_boundary boundary, t_ink ink
 	t_line	parallel;
 
 	if (dst != NULL && ink.channel == HEIGHT
-		&& f_abs(line.p2.x - line.p1.x) >= f_abs(line.p2.y - line.p1.y))
+		&& f_abs_int(line.p2.x - line.p1.x) >= f_abs_int(line.p2.y - line.p1.y))
 	{
 		bresenham_int_x(dst, line, boundary, ink.color);
 		parallel = line;
@@ -128,7 +128,7 @@ void	bresenham_int_y_thick(int *dst, t_line line, t_boundary boundary, t_ink ink
 	t_line	parallel;
 
 	if (dst != NULL && ink.channel == HEIGHT
-		&& f_abs(line.p2.x - line.p1.x) < f_abs(line.p2.y - line.p1.y))
+		&& f_abs_int(line.p2.x - line.p1.x) < f_abs_int(line.p2.y - line.p1.y))
 	{
 		bresenham_int_y(dst, line, boundary, ink.color);
 		parallel = line;

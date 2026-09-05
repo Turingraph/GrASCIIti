@@ -21,7 +21,7 @@ int	init_swap_bresenham_y(t_line *line,
 
 	y = 1;
 	if (line != NULL && delta_x != NULL && delta_y != NULL
-		&& f_abs(line->p2.x - line->p1.x) < f_abs(line->p2.y - line->p1.y))
+		&& f_abs_int(line->p2.x - line->p1.x) < f_abs_int(line->p2.y - line->p1.y))
 	{
 		*delta_y = line->p2.x - line->p1.x;
 		*delta_x = line->p2.y - line->p1.y;
@@ -50,7 +50,7 @@ int	init_swap_bresenham_x(t_line *line,
 
 	y = 1;
 	if (line != NULL && delta_x != NULL && delta_y != NULL
-		&& f_abs(line->p2.x - line->p1.x) >= f_abs(line->p2.y - line->p1.y))
+		&& f_abs_int(line->p2.x - line->p1.x) >= f_abs_int(line->p2.y - line->p1.y))
 	{
 		*delta_x = line->p2.x - line->p1.x;
 		*delta_y = line->p2.y - line->p1.y;

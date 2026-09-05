@@ -37,7 +37,6 @@ float	*init_fdf_position(const t_table_fdf *src, char axis)
 }
 
 
-
 t_fdf	init_fdf(t_table_fdf *src)
 {
 	t_fdf	dst;

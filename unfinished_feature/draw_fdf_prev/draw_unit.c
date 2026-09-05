@@ -20,11 +20,11 @@ t_ink32	get_hook_ink(t_2d_hook *hook, bool is_draw, t_2d_int ixiy)
 	t_table_fdf	*table;
 
 	table = hook->master_piece.fdf->src;
-	ink = hook->master_piece.drawing_style;
+	ink = hook->master_piece.artstyle;
 	ink.color = get_table_rgba_int32((const t_table_fdf *)table,
 			ixiy.y * table->col + ixiy.x);
 	if (is_draw == false)
-		ink.color = hook->master_piece.drawing_style.color;
+		ink.color = hook->master_piece.artstyle.color;
 	return (ink);
 }
 

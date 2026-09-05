@@ -117,7 +117,7 @@ void	bresenham_mlx_x_thick(mlx_image_t *dst,
 	t_line	parallel;
 
 	if (dst != NULL
-		&& f_abs(line.p2.x - line.p1.x) >= f_abs(line.p2.y - line.p1.y))
+		&& f_abs_int(line.p2.x - line.p1.x) >= f_abs_int(line.p2.y - line.p1.y))
 	{
 		bresenham_mlx_x(dst, line, boundary, ink.color);
 		parallel = line;
@@ -144,7 +144,7 @@ void	bresenham_mlx_y_thick(mlx_image_t *dst,
 	t_line	parallel;
 
 	if (dst != NULL
-		&& f_abs(line.p2.x - line.p1.x) < f_abs(line.p2.y - line.p1.y))
+		&& f_abs_int(line.p2.x - line.p1.x) < f_abs_int(line.p2.y - line.p1.y))
 	{
 		bresenham_mlx_y(dst, line, boundary, ink.color);
 		parallel = line;
@@ -189,7 +189,7 @@ void	draw_mlx_straight_line(mlx_image_t *dst, t_line line,
 		boundary = init_rectangle_boundary(rectangle_boundary,
 				dst->height, dst->width);
 		line = init_first_line(line, boundary);
-		if (f_abs(line.p2.x - line.p1.x) >= f_abs(line.p2.y - line.p1.y))
+		if (f_abs_int(line.p2.x - line.p1.x) >= f_abs_int(line.p2.y - line.p1.y))
 			bresenham_mlx_x_thick(dst, line, boundary, ink);
 		else
 			bresenham_mlx_y_thick(dst, line, boundary, ink);

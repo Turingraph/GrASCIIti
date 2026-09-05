@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf_private.h"
+#include "window_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -69,6 +69,6 @@ t_2d_int	projection_wave(float x, float y, float z)
 	t_2d_int	dst;
 
 	dst.x = (int)x;
-	dst.y = (int)(f_cos(x) + y - z);
+	dst.y = (int)(z * f_cos(x) + y - z);
 	return (dst);
 }

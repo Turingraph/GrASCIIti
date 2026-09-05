@@ -1,4 +1,4 @@
-#include"fdf.h"
+#include"window.h"
 
 // time : O(1)
 // space: O(1)
@@ -84,14 +84,14 @@ int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	t_fdf			output;
-	t_ink32			style;
+	t_artstyle32	style;
 
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
-	style.color = f_rgba_to_int32(34, 79, 112, 255);
-	style.thickness = 1;
-	style.type = E_CIRCLE;
+	style.background_color = f_rgba_to_int32(34, 79, 112, 255);
+	style.line_thickness = 1;
+	style.artists = E_KUSAMA;
 	scale_multiplication_fdf(&table, 12.0, HEIGHT);
 	color_cells_gradient(&table, init_feeling_blue(), true);
 	color_cells_gradient(&table, init_popart(), true);

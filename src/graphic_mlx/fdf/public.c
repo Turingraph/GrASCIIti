@@ -1,115 +1,149 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   public.c                                           :+:      :+:    :+:   */
+/*   init_fdf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 18:39:15 by phsottat         ###   ########.fr       */
+/*   Created: 2026/08/29 17:03:06 by phsottat          #+#    #+#             */
+/*   Updated: 2026/08/29 17:03:27 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf_private.h"
+#include "fdf.h"
 
-// This function is only used for view_fdf.
-bool	view_fdf_handle_00(mlx_t *mlx, mlx_image_t *img)
+// time : O(1)
+// space: O(1)
+float	init_fdf_position_unit(const t_table_fdf *src, char axis, size_t i)
 {
-	if (img == NULL)
+	if (src == NULL || src->arr == NULL || axis < 0 || axis > 2
+		|| src->row * src->col == 0)
+		return (0.0);
+	if (axis == 0)
+		return ((float)(i % src->col) - (float)(src->col / 2));
+	if (axis == 1)
+		return ((float)(i / src->col) - (float)(src->row / 2));
+	return ((float)src->arr[i]);
+}
+
+// time : O(n)
+// space: O(n)
+float	*init_fdf_position(const t_table_fdf *src, char axis)
+{
+	float	*dst;
+	size_t	i;
+
+	if (src == NULL || src->arr == NULL || axis < 0 || axis > 2
+		|| src->row * src->col == 0)
+		return (NULL);
+	dst = (float *)malloc(sizeof(float) * src->row * src->col);
+	if (dst == NULL)
+		return (NULL);
+	i = 0;
+	while (i < src->row * src->col)
 	{
-		if (mlx != NULL)
-			mlx_terminate(mlx);
-		return (false);
+		dst[i] = init_fdf_position_unit(src, axis, i);
+		i += 1;
 	}
-	return (true);
-}
-
-// This function is only used for view_fdf.
-int32_t	view_fdf_handle_01(mlx_t *mlx, mlx_image_t *img)
-{
-	return (mlx_image_to_window(mlx, img,
-			((int)mlx->width - (int)img->width) / 2,
-			((int)mlx->height - (int)img->height) / 2));
-}
-
-// This function is only used for view_fdf.
-void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
-{
-	mlx_loop(mlx);
-	mlx_delete_image(mlx, img);
-	mlx_terminate(mlx);
+	return (dst);
 }
 
 /**
- * Display an FDF object in an interactive 2D MLX window.
+ * Initialize a 3D FDF object from a t_table_fdf table.
  *
- * The FDF object is scaled to fit the viewing area and optionally
- * transformed by the initial 3D transformation specified by
- * view_config. The drawing style controls how the FDF object is
- * rendered, while view_config controls the background and initial
- * viewing configuration.
+ * The returned object owns the position arrays and 3D transformation
+ * matrix created from the source table. The source table itself is also
+ * owned by the returned t_fdf and must not be freed separately before
+ * free_fdf() is called.
  *
- * The view supports interactive manipulation through the registered
- * FDF keyboard controller.
+ * The position arrays represent the X, Y, and Z coordinates used by
+ * the FDF renderer.
  *
- * Available keyboard input is handled by hook_fdf_controller(), including
- * 
- * - "ESC" = close the MLX window
- * 
- * - "Q" = reset 3D Fdf object
- * 
- * - "Left", "Right", "Up", "Down" = Panning the
- * 3D Fdf Object on 2D screen accordingly.
- * 
- * - "1" = rotaing 3D Fdf object on X Axis.
- * 
- * - "2" = rotaing 3D Fdf object on Y Axis.
- * 
- * - "3" = rotaing 3D Fdf object on Z Axis.
- * 
- * - "9" = Zoom in
- * 
- * - "0" = Zoom out
+ * This function does not display the object. The caller is responsible
+ * for checking the returned object and calling free_fdf() when it is
+ * no longer needed.
  *
  * time/space: O(n) / O(n)
  *
  * status: public api
  *
- * @param fdf FDF object to display.
- * The default color of the FDF object is black.
- * @param drawing_style style used to render the FDF object.
- * The drawing_style.color means the background color.
- * @param zoom zoom the Fdf object
- * @param projection define the user defined projection style
- * e.g. projection_isometric, projection_military etc. If NULL,
- * then it operate orthogonal projection.
- * @see graphic_mlx/fdf/projection.c and conformal.c for more details.
+ * @param src source table containing the FDF data
+ * @return initialized t_fdf object
  */
-void	view_fdf(t_fdf *fdf, t_ink32 drawing_style, float zoom,
-	t_2d_int (*projection)(float x, float y, float z))
+t_fdf	init_fdf(t_table_fdf *src)
 {
-	mlx_t			*mlx;
-	t_2d_hook		hook;
-	t_2d_camera		camera;
-	size_t			window_width;
-	size_t			window_height;
+	t_fdf	dst;
+	float	max_x;
+	float	min_x;
 
-	window_width = 1920;
-	window_height = 1080;
-	mlx = mlx_init(window_width, window_height, "Sunset at 4:42pm", true);
-	hook = init_2d_hook(mlx, fdf, drawing_style, projection);
-	if (view_fdf_handle_00(mlx, hook.img) == false)
+	dst.src = src;
+	dst.pos_x = init_fdf_position(src, 0);
+	dst.pos_y = init_fdf_position(src, 1);
+	dst.pos_z = init_fdf_position(src, 2);
+	dst.matrix = init_3d_zoom_matrix(1.0);
+	min_x = (float)get_minmax_from_table_fdf(
+			(const t_table_fdf *)src, false, HEIGHT);
+	max_x = (float)get_minmax_from_table_fdf(
+			(const t_table_fdf *)src, true, HEIGHT);
+	dst.width = f_max3(max_x - min_x, src->row, src->col);
+	return (dst);
+}
+
+/**
+ * Release all resources owned by an FDF object.
+ *
+ * This function frees the source table, position arrays, and
+ * transformation matrix owned by the t_fdf object. After this function
+ * returns, the object's owned pointers are set to NULL and its matrix
+ * dimensions are reset to zero.
+ *
+ * view_fdf() does not call free_fdf(). The caller therefore remains
+ * responsible for releasing an FDF object created by init_fdf().
+ *
+ * Calling free_fdf() with NULL is safe.
+ *
+ * time/space: O(1) /  O(1)
+ *
+ * status: public api
+ *
+ * @param src FDF object to release
+ */
+void	free_fdf(t_fdf *src)
+{
+	if (src == NULL)
 		return ;
-	camera = init_2d_camera(window_width, window_height);
-	hook.camera = &camera;
-	scale_fdf_as_window_object(fdf, f_max(window_width, window_height) * zoom);
-	color_background_mlx(hook.img, drawing_style.color);
-	draw_fdf_mlx(&hook, true);
-	if (-1 == view_fdf_handle_01(mlx, hook.img))
-	{
-		mlx_terminate(mlx);
-		return ;
-	}
-	mlx_key_hook(mlx, &hook_fdf_controller, &hook);
-	view_fdf_handle_02(mlx, hook.img);
+	free_table_fdf(src->src);
+	free(src->pos_x);
+	free(src->pos_y);
+	free(src->pos_z);
+	free(src->matrix.arr);
+	src->pos_x = NULL;
+	src->pos_y = NULL;
+	src->pos_z = NULL;
+	src->src = NULL;
+	src->matrix.arr = NULL;
+	src->matrix.col = 0;
+	src->matrix.row = 0;
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_fdf_valid(const t_fdf *src)
+{
+	t_table_fdf	*table;
+
+	if (src == NULL)
+		return (false);
+	table = src->src;
+	if (table == NULL || table->arr == NULL
+		|| src->width == 0
+		|| table->row * table->col == 0
+		|| src->matrix.col != 3
+		|| src->matrix.row != 3
+		|| src->matrix.arr == NULL
+		|| src->pos_x == NULL
+		|| src->pos_y == NULL
+		|| src->pos_z == NULL)
+		return (false);
+	return (true);
 }

@@ -15,4 +15,12 @@
 
 # include "display_type.h"
 
+// public.c
+
+void		draw_fdf_mlx(t_2d_hook *hook, bool is_draw);
+
+// utils.c
+
+bool		is_2dhook_valid(const t_2d_hook *src);
+
 #endif

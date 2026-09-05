@@ -39,7 +39,7 @@ void	draw_fdf_mlx_pixel_art(t_2d_hook *hook, bool is_draw)
 	t_fdf		src;
 
 	if (is_2dhook_valid(hook) == false
-		|| hook->master_piece.drawing_style.type != E_PIXEL_ART)
+		|| hook->master_piece.artstyle.type != E_PIXEL_ART)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;

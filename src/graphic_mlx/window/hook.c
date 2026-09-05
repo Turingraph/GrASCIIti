@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <time.h>
-#include "fdf_private.h"
+#include "window_private.h"
 
 // time : O(1)
 // space: O(1)
@@ -29,6 +29,7 @@ void	hook_pan(mlx_key_data_t keydata, t_2d_camera *camera)
 		camera->offset.x += 5;
 }
 
+/*
 // time : O(n)
 // space: O(1)
 void	hook_rotate(mlx_key_data_t keydata,
@@ -51,6 +52,7 @@ void	hook_rotate(mlx_key_data_t keydata,
 	matrix_3d_product(transform, &(hook->master_piece.fdf->matrix));
 	free(transform.arr);
 }
+*/
 
 // time : O(n)
 // space: O(1)
@@ -79,14 +81,10 @@ void	hook_zoom(mlx_key_data_t keydata,
 void	hook_home(mlx_key_data_t keydata,
 	t_2d_hook *hook)
 {
-	t_matrix	undo;
 	size_t		len;
 
 	if (is_2dhook_valid(hook) == false || hook->camera->zoom < 0.2
 		|| keydata.key != MLX_KEY_Q)
-		return ;
-	undo = init_inverse_3d_matrix(hook->master_piece.fdf->matrix);
-	if (undo.arr == NULL)
 		return ;
 	len = hook->master_piece.fdf->src->col;
 	len *= hook->master_piece.fdf->src->row;
@@ -96,9 +94,6 @@ void	hook_home(mlx_key_data_t keydata,
 	vector_scale(hook->master_piece.fdf->pos_y, 1.0 / hook->camera->zoom, len);
 	vector_scale(hook->master_piece.fdf->pos_z, 1.0 / hook->camera->zoom, len);
 	hook->camera->zoom = 1.0;
-	matrix_3d_product(undo, &(hook->master_piece.fdf->matrix));
-	linear_map_fdf_all(hook->master_piece.fdf, undo);
-	free(undo.arr);
 }
 
 // The Inverse Matrix for undo the hook isn't working.

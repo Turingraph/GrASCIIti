@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf_private.h"
+#include "window_private.h"
 
 /*
 Reference

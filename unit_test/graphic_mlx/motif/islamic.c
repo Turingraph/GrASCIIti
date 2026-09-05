@@ -39,10 +39,10 @@ int	main(void)
 	};
 	t_ink32			ink = {
 		.color = (170 << 24 | 28 << 16 | 65 << 8 | 255),
-		.thickness = 30, .type = E_LINE};
+		.thickness = 30};
 	t_ink32			ink2 = {
 		.color = (63 << 24 | 29 << 16 | 56 << 8 | 255),
-		.thickness = 20, .type = E_LINE};
+		.thickness = 20};
 	t_2d_polygon	polygon_00 = {.arr = shape_00, .is_loop = false, .length = 5};
 	t_2d_polygon	polygon_01 = {.arr = shape_01, .is_loop = false, .length = 5};
 	t_2d_polygon	polygon_02 = {.arr = shape_02, .is_loop = false, .length = 5};
@@ -73,34 +73,42 @@ int	main(void)
 			{
 				.polygon = thickline_arr_00,
 				.ink = ink,
+				.type = E_LINE,
 			},
 			{
 				.polygon = thickline_arr_01,
 				.ink = ink,
+				.type = E_LINE,
 			},
 			{
 				.polygon = thickline_arr_02,
 				.ink = ink,
+				.type = E_LINE,
 			},
 			{
 				.polygon = thickline_arr_03,
 				.ink = ink,
+				.type = E_LINE,
 			},
 			{
 				.polygon = polygon_00,
 				.ink = ink2,
+				.type = E_LINE,
 			},
 			{
 				.polygon = polygon_01,
 				.ink = ink2,
+				.type = E_LINE,
 			},
 			{
 				.polygon = polygon_02,
 				.ink = ink2,
+				.type = E_LINE,
 			},
 			{
 				.polygon = polygon_03,
 				.ink = ink2,
+				.type = E_LINE,
 			},
 		}
 	};

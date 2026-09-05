@@ -60,32 +60,6 @@ typedef struct s_circle
 }	t_circle;
 
 /**
- * Supported 2D motif and rendering types.
- * 
- * The type determines how the motif geometry or FDF data is interpreted
- * by the raster layer.
- * 
- * ENUM TYPE
- * 
- * - E_RECTANGLE draws rectangular geometry.
- * 
- * - E_CIRCLE draws circular geometry.
- * 
- * - E_LINE draws polygon edges as lines.
- * 
- * - E_PIXEL_ART interprets a t_table_fdf as a grid of rectangular cells,
- * allowing the FDF data to be rendered as pixel art.
- * 
- */
-typedef enum t_2d_shape
-{
-	E_RECTANGLE,
-	E_CIRCLE,
-	E_LINE,
-	E_PIXEL_ART
-}	t_2d_shape;
-
-/**
  * Describes the rendering properties of a 2D motif or FDF drawing.
  * 
  * color stores the 32-bit drawing color. type determines how the associated
@@ -112,7 +86,6 @@ typedef struct s_ink32
 {
 	int32_t		color;
 	size_t		thickness;
-	t_2d_shape	type;
 }	t_ink32;
 
 #endif

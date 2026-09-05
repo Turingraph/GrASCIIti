@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "display_private.h"
+#include "window_private.h"
 
 
 /**
@@ -96,14 +96,3 @@ void	linear_map_fdf_all(t_fdf *src, t_matrix matrix)
 	}
 }
 
-// time : O(1)
-// space: O(1)
-t_2d_int	world_3d_to_screen_2d(t_2d_camera camera,
-	float x, float y)
-{
-	t_2d_int	dst;
-
-	dst.x = x + (camera.offset.x + camera.window_size.x) / 2;
-	dst.y = y + (camera.offset.y + camera.window_size.y) / 2;
-	return (dst);
-}

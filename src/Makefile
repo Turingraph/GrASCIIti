@@ -13,8 +13,8 @@ BUFFER_SIZE = 42
 .SECONDEXPANSION:
 
 # *** library ***
-LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table debug convolve paint debug\
-		raster motif fdf)
+LIBRARY = $(patsubst %, lib/%.a, libft green_counts get_next_line linalg load table \
+	debug convolve paint debug raster motif fdf display window)
 
 # *** atom src ***
 SRC_libft = $(wildcard utils/libft/*.c)
@@ -28,12 +28,13 @@ SRC_load = $(wildcard input/load/*.c)
 SRC_table = $(wildcard input/table/*.c)
 
 SRC_convolve = $(wildcard editor/convolve/*.c)
-SRC_mathart = $(wildcard editor/mathart/*/*.c)
 SRC_paint = $(wildcard editor/paint/*.c)
 
 SRC_raster = $(wildcard graphic_mlx/raster/*.c)
 SRC_motif = $(wildcard graphic_mlx/motif/*.c)
 SRC_fdf = $(wildcard graphic_mlx/fdf/*.c)
+SRC_display = $(wildcard graphic_mlx/display/*.c)
+SRC_window = $(wildcard graphic_mlx/window/*.c)
 
 #-----------------------------------------------------------------------------------------------
 
@@ -49,12 +50,13 @@ OBJ_load = $(patsubst %.c, obj/%.o, $(SRC_load)) $(OBJ_libft) $(OBJ_get_next_lin
 OBJ_table = $(patsubst %.c, obj/%.o, $(SRC_table)) $(OBJ_load) $(OBJ_green_counts)
 
 OBJ_convolve = $(patsubst %.c, obj/%.o, $(SRC_convolve)) $(OBJ_table) $(OBJ_linalg)
-OBJ_mathart = $(patsubst %.c, obj/%.o, $(SRC_mathart)) $(OBJ_libft) $(OBJ_green_counts)
 OBJ_paint = $(patsubst %.c, obj/%.o, $(SRC_paint)) $(OBJ_green_counts)
 
 OBJ_raster = $(patsubst %.c, obj/%.o, $(SRC_raster)) $(OBJ_green_counts) $(OBJ_table)
 OBJ_motif = $(patsubst %.c, obj/%.o, $(SRC_motif)) $(OBJ_raster)
 OBJ_fdf = $(patsubst %.c, obj/%.o, $(SRC_fdf)) $(OBJ_raster) $(OBJ_linalg)
+OBJ_display = $(patsubst %.c, obj/%.o, $(SRC_display)) $(OBJ_fdf)
+OBJ_window = $(patsubst %.c, obj/%.o, $(SRC_window)) $(OBJ_display)
 
 # https://stackoverflow.com/questions/59465799/avoid-gnu-make-automatic-file-deletion
 # This command will preserve the selected files.

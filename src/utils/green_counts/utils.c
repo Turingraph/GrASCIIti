@@ -23,6 +23,15 @@ float	f_abs(float x)
 
 // time : O(1)
 // space: O(1)
+int	f_abs_int(int x)
+{
+	if (x < 0)
+		return (-1 * x);
+	return (x);
+}
+
+// time : O(1)
+// space: O(1)
 float	f_max3(float a, float b, float c)
 {
 	if (a >= b && a >= c)
