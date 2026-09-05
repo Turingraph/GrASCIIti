@@ -27,10 +27,10 @@ void	draw_toby_fox_fdf(t_2d_hook *hook, bool is_draw)
 
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (1 < src.src->row && ixiy.x < (int)src.src->col - 1)
+	while (1 < src.row && ixiy.x < (int)src.col - 1)
 	{
 		ixiy.y = 0;
-		while (ixiy.y < (int)src.src->row - 1)
+		while (ixiy.y < (int)src.row - 1)
 		{
 			draw_toby_fox_fdf_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;

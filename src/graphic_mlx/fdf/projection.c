@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "window_private.h"
+#include "fdf.h"
 
 /*
 Reference
@@ -22,44 +22,55 @@ Reference
 
 // time : O(1)
 // space: O(1)
-t_2d_int	projection_isometric(float x, float y, float z)
+t_complex	projection_isometric(float x, float y, float z)
 {
-	t_2d_int	dst;
+	t_complex	dst;
 
-	dst.x = (int)(0.866 * x - 0.866 * y);
-	dst.y = (int)(0.5 * x + 0.5 * y - z);
+	dst.re = (0.866 * x - 0.866 * y);
+	dst.im = (0.5 * x + 0.5 * y - z);
 	return (dst);
 }
 
 // time : O(1)
 // space: O(1)
-t_2d_int	projection_military(float x, float y, float z)
+t_complex	projection_military(float x, float y, float z)
 {
-	t_2d_int	dst;
+	t_complex	dst;
 
-	dst.x = (int)(0.707 * x - 0.707 * y);
-	dst.y = (int)(0.707 * x + 0.707 * y - z);
+	dst.re = (0.707 * x - 0.707 * y);
+	dst.im = (0.707 * x + 0.707 * y - z);
 	return (dst);
 }
 
 // time : O(1)
 // space: O(1)
-t_2d_int	projection_cabinet_flat(float x, float y, float z)
+t_complex	projection_cabinet(float x, float y, float z)
 {
-	t_2d_int	dst;
+	t_complex	dst;
 
-	dst.x = (int)(x - 0.353 * y);
-	dst.y = (int)(0.353 * y - z);
+	dst.re = (x - 0.353 * y);
+	dst.im = (0.707 * y - z);
 	return (dst);
 }
 
 // time : O(1)
 // space: O(1)
-t_2d_int	projection_cabinet(float x, float y, float z)
+t_complex	projection_orthogonal(float x, float y, float z)
 {
-	t_2d_int	dst;
+	t_complex	dst;
 
-	dst.x = (int)(x - 0.353 * y);
-	dst.y = (int)(0.707 * y - z);
+	dst.re = x;
+	dst.im = (y - z);
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_complex	projection_wave(float x, float y, float z)
+{
+	t_complex	dst;
+
+	dst.re = x;
+	dst.im = (z * f_cos(x) + y - z);
 	return (dst);
 }

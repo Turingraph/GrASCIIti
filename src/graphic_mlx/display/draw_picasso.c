@@ -35,10 +35,10 @@ static void	draw_picassox_fdf(t_2d_hook *hook, bool is_draw, size_t thickness)
 
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (0 < src.src->row && ixiy.x < (int)src.src->col - 1)
+	while (0 < src.row && ixiy.x < (int)src.col - 1)
 	{
 		ixiy.y = 0;
-		while (ixiy.y < (int)src.src->row)
+		while (ixiy.y < (int)src.row)
 		{
 			draw_picassox_fdf_unit(hook, is_draw, ixiy, thickness);
 			ixiy.y += 1;
@@ -56,10 +56,10 @@ static void	draw_picassoy_fdf(t_2d_hook *hook, bool is_draw, size_t thickness)
 
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (1 < src.src->row && ixiy.x < (int)src.src->col)
+	while (1 < src.row && ixiy.x < (int)src.col)
 	{
 		ixiy.y = 0;
-		while (ixiy.y < (int)src.src->row - 1)
+		while (ixiy.y < (int)src.row - 1)
 		{
 			draw_picassoy_fdf_unit(hook, is_draw, ixiy, thickness);
 			ixiy.y += 1;

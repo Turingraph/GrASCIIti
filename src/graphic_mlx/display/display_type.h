@@ -63,6 +63,8 @@ typedef struct s_artstyle32
  * A master piece combines the FDF object with the drawing style and
  * background configuration required to display it.
  * 
+ * status: outdated doc
+ * 
  * @param artstyle describes how the FDF object is rasterized
  * @param fdf FDF object to display
  */
@@ -70,7 +72,6 @@ typedef struct s_master_piece
 {
 	t_artstyle32	artstyle;
 	t_fdf			*fdf;
-	t_2d_int		(*projection)(float x, float y, float z);
 }	t_master_piece;
 
 /**
@@ -78,6 +79,8 @@ typedef struct s_master_piece
  * 
  * The hook owns the MLX image and keeps references to the camera and
  * master piece used while the rendering loop is running.
+ * 
+ * status: outdated doc
  * 
  * @param mlx MLX window context
  * @param img image used as the rendering target

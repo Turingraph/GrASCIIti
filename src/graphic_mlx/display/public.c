@@ -1,30 +1,5 @@
 #include "display_private.h"
 
-static void	draw_basic_art_fdf(t_2d_hook *hook, bool is_draw)
-{
-	size_t	thickness;
-
-	thickness = hook->master_piece.artstyle.line_thickness;
-	if (hook->master_piece.projection == NULL)
-	{
-		if (hook->master_piece.artstyle.artists == E_PICASSO)
-			draw_picasso_fdf(hook, is_draw, thickness);
-		if (hook->master_piece.artstyle.artists == E_KUSAMA)
-			draw_kusama_fdf(hook, is_draw, thickness);
-		if (hook->master_piece.artstyle.artists == E_TOBY_FOX)
-			draw_toby_fox_fdf(hook, is_draw);
-	}
-	else
-	{
-		if (hook->master_piece.artstyle.artists == E_PICASSO)
-			proj_picasso_fdf(hook, is_draw, thickness);
-		if (hook->master_piece.artstyle.artists == E_KUSAMA)
-			proj_kusama_fdf(hook, is_draw, thickness);
-		if (hook->master_piece.artstyle.artists == E_TOBY_FOX)
-			draw_toby_fox_fdf(hook, is_draw);
-	}
-}
-
 /**
  * Draw or erase an FDF object on an MLX image.
  *
@@ -51,23 +26,20 @@ static void	draw_basic_art_fdf(t_2d_hook *hook, bool is_draw)
  */
 void	draw_fdf_mlx(t_2d_hook *hook, bool is_draw)
 {
+	size_t	thickness;
+
 	if (is_2dhook_valid(hook) == false)
 		return ;
-	draw_basic_art_fdf(hook, is_draw);
-	if (hook->master_piece.projection == NULL)
-	{
-		draw_araki_fdf(hook, is_draw);
-		draw_dijkstra_fdf(hook, is_draw);
-		draw_poincare_fdf(hook, is_draw);
-		draw_warhol_fdf(hook, is_draw);
-		draw_euler_fdf(hook, is_draw);
-	}
-	else
-	{
-		proj_araki_fdf(hook, is_draw);
-		proj_dijkstra_fdf(hook, is_draw);
-		proj_poincare_fdf(hook, is_draw);
-		proj_warhol_fdf(hook, is_draw);
-		proj_euler_fdf(hook, is_draw);
-	}
+	thickness = hook->master_piece.artstyle.line_thickness;
+	if (hook->master_piece.artstyle.artists == E_PICASSO)
+		draw_picasso_fdf(hook, is_draw, thickness);
+	if (hook->master_piece.artstyle.artists == E_KUSAMA)
+		draw_kusama_fdf(hook, is_draw, thickness);
+	if (hook->master_piece.artstyle.artists == E_TOBY_FOX)
+		draw_toby_fox_fdf(hook, is_draw);
+	draw_araki_fdf(hook, is_draw);
+	draw_dijkstra_fdf(hook, is_draw);
+	draw_poincare_fdf(hook, is_draw);
+	draw_warhol_fdf(hook, is_draw);
+	draw_euler_fdf(hook, is_draw);
 }

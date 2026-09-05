@@ -35,18 +35,35 @@
  */
 typedef struct s_fdf
 {
-	t_table_fdf	*src;
-	float		*pos_x;
-	float		*pos_y;
-	float		*pos_z;
-	t_matrix	matrix;
-	float		width;
+	unsigned char	*r;
+	unsigned char	*g;
+	unsigned char	*b;
+	unsigned char	*a;
+	size_t			row;
+	size_t			col;
+	float			*x;
+	float			*y;
+	float			width;
 }	t_fdf;
 
-// public.c
+// init.c
 
-t_fdf		init_fdf(t_table_fdf *src);
+t_fdf		init_fdf(t_table_fdf *src,
+				t_complex (*projection)(float x, float y, float z),
+				float scale);
 void		free_fdf(t_fdf *src);
 bool		is_fdf_valid(const t_fdf *src);
+
+// projection.c
+
+t_complex	projection_isometric(float x, float y, float z);
+t_complex	projection_military(float x, float y, float z);
+t_complex	projection_cabinet(float x, float y, float z);
+t_complex	projection_orthogonal(float x, float y, float z);
+t_complex	projection_wave(float x, float y, float z);
+
+// utils.c
+
+int32_t	get_fdf_rgba_int32(const t_fdf *src, size_t index);
 
 #endif

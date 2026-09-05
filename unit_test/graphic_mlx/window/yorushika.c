@@ -33,9 +33,9 @@ t_gradient	init_white_noise(void)
 	dst.rgba_start.g = 79;
 	dst.rgba_start.b = 112;
 	dst.rgba_start.a = 255;
-	dst.rgba_start.r = 34;
-	dst.rgba_start.g = 79;
-	dst.rgba_start.b = 112;
+	dst.rgba_end.r = 34;
+	dst.rgba_end.g = 79;
+	dst.rgba_end.b = 112;
 	dst.rgba_end.a = 255;
 	return (dst);
 }
@@ -84,7 +84,7 @@ int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	t_fdf			output;
-	t_artstyle32	style;
+	// t_artstyle32	style;
 
 	if (len < 2)
 		return (0);
@@ -94,20 +94,21 @@ int	main(int len, char **str)
 		free_table_fdf(&table);
 		return (0);
 	}
-	style.background_color = f_rgba_to_int32(255, 255, 255, 255);
-	style.line_thickness = 3;
-	style.artists = E_KUSAMA;
+	// style.background_color = f_rgba_to_int32(34, 79, 112, 255);
+	// style.line_thickness = 3;
+	// style.artists = E_KUSAMA;
 	color_cells_gradient(&table, init_feeling_blue(), true);
 	color_cells_gradient(&table, init_popart(), true);
 	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
-	output = init_fdf(&table);
-	view_fdf(&output, style, 0.5, projection_cabinet);
+	output = init_fdf(&table, projection_cabinet, 1.0);
+	// view_fdf(&output, style);
+	free_table_fdf(&table);
 	free_fdf(&output);
 	return (0);
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/yorushika.out unit_test/editor/convolve/input_ascii/rain_with_cappuccino_rozzo.txt
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/window/yorushika.out unit_test/editor/convolve/input_ascii/rain_with_cappuccino_rozzo.txt
 
 */

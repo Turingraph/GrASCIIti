@@ -43,10 +43,10 @@ void	draw_fdf_mlx_pixel_art(t_2d_hook *hook, bool is_draw)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (0 < src.src->col && ixiy.x < (int)src.src->col - 1)
+	while (0 < src->col && ixiy.x < (int)src->col - 1)
 	{
 		ixiy.y = 0;
-		while (0 < src.src->row && ixiy.y < (int)src.src->row - 1)
+		while (0 < src->row && ixiy.y < (int)src->row - 1)
 		{
 			draw_fdf_mlx_pixel_art_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;

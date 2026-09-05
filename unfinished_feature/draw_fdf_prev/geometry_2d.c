@@ -82,8 +82,8 @@ float	get_fdf_point(t_fdf *fdf, t_2d_int ixiy, size_t dim, char next)
 	if (next == 2 || next == 3)
 		ixiy.y += 1;
 	if (dim == 1)
-		return (fdf->pos_x[ixiy.y * fdf->src->col + ixiy.x]);
+		return (fdf->x[ixiy.y * fdf->src->col + ixiy.x]);
 	if (dim == 2)
-		return (fdf->pos_y[ixiy.y * fdf->src->col + ixiy.x]);
+		return (fdf->y[ixiy.y * fdf->src->col + ixiy.x]);
 	return (fdf->pos_z[ixiy.y * fdf->src->col + ixiy.x]);
 }

@@ -6,14 +6,14 @@ t_ink32	get_hook_ink32(t_2d_hook *hook, bool is_draw, t_2d_int ixiy,
 	size_t thickness)
 {
 	t_ink32		ink;
-	t_table_fdf	*table;
+	t_fdf		*fdf;
 
-	table = hook->master_piece.fdf->src;
+	fdf = hook->master_piece.fdf;
 	ink.thickness = thickness;
 	ink.color = hook->master_piece.artstyle.background_color;
 	if (is_draw == true)
-		ink.color = get_table_rgba_int32((const t_table_fdf *)table,
-				ixiy.y * table->col + ixiy.x);
+		ink.color = get_fdf_rgba_int32((const t_fdf *)fdf,
+				ixiy.y * fdf->col + ixiy.x);
 	else
 		ink.color = hook->master_piece.artstyle.background_color;
 	return (ink);
@@ -64,4 +64,17 @@ void	draw_line_fdf(t_line line, t_ink32 ink,
 		draw_circle_fdf(line.p1, ink, camera, img);
 		draw_circle_fdf(line.p2, ink, camera, img);
 	}
+}
+
+// time : O(1)
+// space: O(1)
+bool	is_2dhook_valid(const t_2d_hook *src)
+{
+	if (src == NULL
+		|| src->camera == NULL
+		|| src->img == NULL
+		|| src->mlx == NULL
+		|| is_fdf_valid(src->master_piece.fdf) == false)
+		return (false);
+	return (true);
 }

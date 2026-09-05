@@ -77,15 +77,14 @@ mlx_image_t	*init_mlx_image(mlx_t *mlx)
  *
  * time/space: O(1) / O(1)
  *
- * status: internal helper
+ * status: internal helper (outdated doc)
  *
  * @param mlx MLX window context used by the view
  * @param fdf FDF object to display
  * @param artstyle style used to render the FDF object
  * @return initialized 2D FDF rendering context
  */
-t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf, t_artstyle32 artstyle,
-	t_2d_int (*projection)(float x, float y, float z))
+t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf, t_artstyle32 artstyle)
 {
 	t_2d_hook	dst;
 
@@ -93,7 +92,6 @@ t_2d_hook	init_2d_hook(mlx_t *mlx, t_fdf *fdf, t_artstyle32 artstyle,
 	dst.camera = NULL;
 	dst.master_piece.fdf = fdf;
 	dst.master_piece.artstyle = artstyle;
-	dst.master_piece.projection = projection;
 	dst.img = init_mlx_image(mlx);
 	return (dst);
 }
@@ -118,9 +116,8 @@ void	scale_fdf_as_window_object(t_fdf *src, size_t fixed_window_size)
 
 	if (is_fdf_valid(src) == false || fixed_window_size == 0)
 		return ;
-	length = src->src->col * src->src->row;
+	length = src->col * src->row;
 	scale = fixed_window_size / src->width;
-	vector_scale(src->pos_x, scale, length);
-	vector_scale(src->pos_y, scale, length);
-	vector_scale(src->pos_z, scale, length);
+	vector_scale(src->x, scale, length);
+	vector_scale(src->y, scale, length);
 }

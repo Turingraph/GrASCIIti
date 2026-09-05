@@ -2,23 +2,23 @@
 
 // time : O(1)
 // space: O(1)
-// t_gradient	init_blue_period()
-// {
-// 	t_gradient	dst;
+t_gradient	init_blue_period()
+{
+	t_gradient	dst;
 
-// 	dst.cell_channel = D7_RED;
-// 	dst.input_start = 40;
-// 	dst.input_end = 45;
-// 	dst.rgba_start.r = 70;
-// 	dst.rgba_start.g = 75;
-// 	dst.rgba_start.b = 113;
-// 	dst.rgba_start.a = 255;
-// 	dst.rgba_end.r = 124;
-// 	dst.rgba_end.g = 213;
-// 	dst.rgba_end.b = 199;
-// 	dst.rgba_end.a = 255;
-// 	return (dst);
-// }
+	dst.cell_channel = D7_HEIGHT;
+	dst.input_start = 0;
+	dst.input_end = 10;
+	dst.rgba_start.r = 70;
+	dst.rgba_start.g = 75;
+	dst.rgba_start.b = 113;
+	dst.rgba_start.a = 255;
+	dst.rgba_end.r = 124;
+	dst.rgba_end.g = 213;
+	dst.rgba_end.b = 199;
+	dst.rgba_end.a = 255;
+	return (dst);
+}
 
 // time : O(1)
 // space: O(1)
@@ -29,53 +29,13 @@ t_gradient	init_white_noise(void)
 	dst.cell_channel = D7_HEIGHT;
 	dst.input_start = 0;
 	dst.input_end = 0;
-	dst.rgba_start.r = 34;
-	dst.rgba_start.g = 79;
-	dst.rgba_start.b = 112;
+	dst.rgba_start.r = 0;
+	dst.rgba_start.g = 0;
+	dst.rgba_start.b = 0;
 	dst.rgba_start.a = 255;
-	dst.rgba_start.r = 34;
-	dst.rgba_start.g = 79;
-	dst.rgba_start.b = 112;
-	dst.rgba_end.a = 255;
-	return (dst);
-}
-
-// time : O(1)
-// space: O(1)
-t_gradient	init_feeling_blue(void)
-{
-	t_gradient	dst;
-
-	dst.cell_channel = D7_HEIGHT;
-	dst.input_start = 1;
-	dst.input_end = 100;
-	dst.rgba_start.r = 255;
-	dst.rgba_start.g = 81;
-	dst.rgba_start.b = 58;
-	dst.rgba_start.a = 255;
-	dst.rgba_end.r = 255;
-	dst.rgba_end.g = 189;
-	dst.rgba_end.b = 13;
-	dst.rgba_end.a = 255;
-	return (dst);
-}
-
-// time : O(1)
-// space: O(1)
-t_gradient	init_popart(void)
-{
-	t_gradient	dst;
-
-	dst.cell_channel = D7_GREEN;
-	dst.input_start = 90;
-	dst.input_end = 120;
-	dst.rgba_start.r = 34;
-	dst.rgba_start.g = 79;
-	dst.rgba_start.b = 112;
-	dst.rgba_start.a = 255;
-	dst.rgba_end.r = 163;
-	dst.rgba_end.g = 196;
-	dst.rgba_end.b = 202;
+	dst.rgba_end.r = 0;
+	dst.rgba_end.g = 0;
+	dst.rgba_end.b = 0;
 	dst.rgba_end.a = 255;
 	return (dst);
 }
@@ -84,26 +44,25 @@ int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	t_fdf			output;
-	t_artstyle32	style;
+	// t_artstyle32	style;
 
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
-	style.background_color = f_rgba_to_int32(34, 79, 112, 255);
-	style.line_thickness = 1;
-	style.artists = E_KUSAMA;
-	scale_multiplication_fdf(&table, 12.0, HEIGHT);
-	color_cells_gradient(&table, init_feeling_blue(), true);
-	color_cells_gradient(&table, init_popart(), true);
-	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
-	color_cells_gradient(&table, init_white_noise(), true);
-	output = init_fdf(&table);
-	view_fdf(&output, style, 0.5, projection_cexp);
+	// style.background_color = f_rgba_to_int32(255, 255, 255, 255);
+	// style.line_thickness = 3;
+	// style.artists = E_ARAKI;
+	color_cells_gradient(&table, init_blue_period(), true);
+	// scale_multiplication_fdf(&table, 1.0, HEIGHT);
+	// color_cells_gradient(&table, init_white_noise(), true);
+	output = init_fdf(&table, projection_cabinet, 1.0);
+	// view_fdf(&output, style);
+	free_table_fdf(&table);
 	free_fdf(&output);
 	return (0);
 }
 
 /*
-valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/fdf/weird_fish.out unit_test/editor/convolve/input_ascii/o_isometric2.txt
+valgrind --leak-check=full --show-leak-kinds=all ./unit_test/out/graphic_mlx/window/weird_fish.out unit_test/editor/convolve/input_ascii/o_isometric2.txt
 
 */

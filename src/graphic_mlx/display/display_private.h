@@ -19,16 +19,10 @@
 
 t_line		init_draw_line_y(t_2d_camera camera, t_fdf *fdf, t_2d_int ixiy);
 t_line		init_draw_line_x(t_2d_camera camera, t_fdf *fdf, t_2d_int ixiy);
-t_line		init_proj_line_y(t_2d_camera camera, t_fdf *fdf, t_2d_int ixiy,
-				t_2d_int (*projection)(float x, float y, float z));
-t_line		init_proj_line_x(t_2d_camera camera, t_fdf *fdf, t_2d_int ixiy,
-				t_2d_int (*projection)(float x, float y, float z));
 
-// proj_*/draw_*.c
+// draw_*.c
 
-void		proj_kusama_fdf(t_2d_hook *hook, bool is_draw, size_t thickness);
 void		draw_kusama_fdf(t_2d_hook *hook, bool is_draw, size_t thickness);
-void		proj_picasso_fdf(t_2d_hook *hook, bool is_draw, size_t thickness);
 void		draw_picasso_fdf(t_2d_hook *hook, bool is_draw, size_t thickness);
 void		draw_toby_fox_fdf(t_2d_hook *hook, bool is_draw);
 
@@ -39,14 +33,6 @@ void		draw_poincare_fdf(t_2d_hook *hook, bool is_draw);
 void		draw_dijkstra_fdf(t_2d_hook *hook, bool is_draw);
 void		draw_warhol_fdf(t_2d_hook *hook, bool is_draw);
 void		draw_araki_fdf(t_2d_hook *hook, bool is_draw);
-
-// proj_etc.c
-
-void		proj_euler_fdf(t_2d_hook *hook, bool is_draw);
-void		proj_poincare_fdf(t_2d_hook *hook, bool is_draw);
-void		proj_dijkstra_fdf(t_2d_hook *hook, bool is_draw);
-void		proj_warhol_fdf(t_2d_hook *hook, bool is_draw);
-void		proj_araki_fdf(t_2d_hook *hook, bool is_draw);
 
 // public.c
 

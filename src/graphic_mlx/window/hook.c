@@ -29,31 +29,6 @@ void	hook_pan(mlx_key_data_t keydata, t_2d_camera *camera)
 		camera->offset.x += 5;
 }
 
-/*
-// time : O(n)
-// space: O(1)
-void	hook_rotate(mlx_key_data_t keydata,
-	t_2d_hook *hook)
-{
-	t_matrix	transform;
-
-	if (is_2dhook_valid(hook) == false
-		|| is_valid_rotate_key(keydata) == false)
-		return ;
-	if (keydata.key == MLX_KEY_1)
-		transform = init_3d_rotate_matrix_x(3.1415 / 12.0);
-	else if (keydata.key == MLX_KEY_2)
-		transform = init_3d_rotate_matrix_y(3.1415 / 12.0);
-	else
-		transform = init_3d_rotate_matrix_z(3.1415 / 12.0);
-	if (transform.arr == NULL)
-		return ;
-	linear_map_fdf_all(hook->master_piece.fdf, transform);
-	matrix_3d_product(transform, &(hook->master_piece.fdf->matrix));
-	free(transform.arr);
-}
-*/
-
 // time : O(n)
 // space: O(1)
 void	hook_zoom(mlx_key_data_t keydata,
@@ -65,15 +40,14 @@ void	hook_zoom(mlx_key_data_t keydata,
 	if (is_2dhook_valid(hook) == false
 		|| is_valid_zoom_key(keydata, hook->camera->zoom) == false)
 		return ;
-	len = hook->master_piece.fdf->src->col;
-	len *= hook->master_piece.fdf->src->row;
+	len = hook->master_piece.fdf->col;
+	len *= hook->master_piece.fdf->row;
 	scale = 1.01;
 	if (keydata.key == MLX_KEY_0)
 		scale = 1.0 / 1.01;
 	hook->camera->zoom *= scale;
-	vector_scale(hook->master_piece.fdf->pos_x, scale, len);
-	vector_scale(hook->master_piece.fdf->pos_y, scale, len);
-	vector_scale(hook->master_piece.fdf->pos_z, scale, len);
+	vector_scale(hook->master_piece.fdf->x, scale, len);
+	vector_scale(hook->master_piece.fdf->y, scale, len);
 }
 
 // time : O(n)
@@ -86,13 +60,12 @@ void	hook_home(mlx_key_data_t keydata,
 	if (is_2dhook_valid(hook) == false || hook->camera->zoom < 0.2
 		|| keydata.key != MLX_KEY_Q)
 		return ;
-	len = hook->master_piece.fdf->src->col;
-	len *= hook->master_piece.fdf->src->row;
+	len = hook->master_piece.fdf->col;
+	len *= hook->master_piece.fdf->row;
 	hook->camera->offset.x = 0.0;
 	hook->camera->offset.y = 0.0;
-	vector_scale(hook->master_piece.fdf->pos_x, 1.0 / hook->camera->zoom, len);
-	vector_scale(hook->master_piece.fdf->pos_y, 1.0 / hook->camera->zoom, len);
-	vector_scale(hook->master_piece.fdf->pos_z, 1.0 / hook->camera->zoom, len);
+	vector_scale(hook->master_piece.fdf->x, 1.0 / hook->camera->zoom, len);
+	vector_scale(hook->master_piece.fdf->y, 1.0 / hook->camera->zoom, len);
 	hook->camera->zoom = 1.0;
 }
 
@@ -109,12 +82,12 @@ void	hook_home(mlx_key_data_t keydata,
 // 	undo = init_inverse_3d_matrix(hook->master_piece.fdf->matrix);
 // 	if (undo.arr == NULL)
 // 		return ;
-// 	len = hook->master_piece.fdf->src->col;
-// 	len *= hook->master_piece.fdf->src->row;
+// 	len = hook->master_piece.fdf->col;
+// 	len *= hook->master_piece.fdf->row;
 // 	hook->camera->offset.x = 0.0;
 // 	hook->camera->offset.y = 0.0;
-// 	vector_scale(hook->master_piece.fdf->pos_x, 1.0 / hook->camera->zoom, len);
-// 	vector_scale(hook->master_piece.fdf->pos_y, 1.0 / hook->camera->zoom, len);
+// 	vector_scale(hook->master_piece.fdf->x, 1.0 / hook->camera->zoom, len);
+// 	vector_scale(hook->master_piece.fdf->y, 1.0 / hook->camera->zoom, len);
 // 	vector_scale(hook->master_piece.fdf->pos_z, 1.0 / hook->camera->zoom, len);
 // 	hook->camera->zoom = 1.0;
 // 	matrix_3d_product(undo, &(hook->master_piece.fdf->matrix));

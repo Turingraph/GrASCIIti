@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   conformal_02.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/03 12:51:36 by phsottat          #+#    #+#             */
+/*   Updated: 2026/09/04 18:16:08 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+
+// time : O(1)
+// space: O(1)
+t_complex	conformal_csin(float x, float y, float z, float zoom)
+{
+	t_complex	dst;
+	t_complex	complex;
+
+	complex.re = 1.57 * x / zoom;
+	complex.im = 1.57 * (y - z) / zoom;
+	complex = complex_sin(complex);
+	dst.re = (int)(complex.re * zoom);
+	dst.im = (int)(complex.im * -zoom);
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_complex	conformal_cexp(float x, float y, float z, float zoom)
+{
+	t_complex	dst;
+	t_complex	complex;
+
+	complex.re = x / zoom;
+	complex.im = (y - z) / zoom;
+	complex = complex_exp(complex);
+	dst.re = (int)(complex.re * zoom - zoom);
+	dst.im = (int)(complex.im * zoom);
+	return (dst);
+}
+
+// time : O(1)
+// space: O(1)
+t_complex	conformal_cexp_left(float x, float y, float z, float zoom)
+{
+	t_complex	dst;
+	t_complex	complex;
+
+	complex.re = x / zoom;
+	complex.im = (y - z) / zoom;
+	complex = complex_exp(complex);
+	dst.re = -1 * (int)(complex.re * zoom - zoom);
+	dst.im = (int)(complex.im * zoom);
+	return (dst);
+}

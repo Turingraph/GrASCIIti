@@ -68,7 +68,7 @@ t_gradient	init_ztmy_studyme()
 
 	dst.cell_channel = D7_HEIGHT;
 	dst.input_start = 0;
-	dst.input_end = 200;
+	dst.input_end = 100;
 	dst.rgba_start.r = 66;
 	dst.rgba_start.g = 54;
 	dst.rgba_start.b = 118;
@@ -92,13 +92,13 @@ int	main(int len, char **str)
 	style.background_color = f_rgba_to_int32(0, 0, 0, 255);
 	style.line_thickness = 1;
 	style.artists = E_PICASSO;
-	scale_multiplication_fdf(&table, 10.0, HEIGHT);
 	color_cells_gradient(&table, init_ztmy_studyme(), true);
 	color_cells_gradient(&table, init_ztmy_timeleft(), true);
 	scale_multiplication_fdf(&table, 1.0 / 30.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
-	output = init_fdf(&table);
-	view_fdf(&output, style, 1.0, projection_isometric);
+	output = init_fdf(&table, projection_isometric, 1.0);
+	view_fdf(&output, style);
+	free_table_fdf(&table);
 	free_fdf(&output);
 	return (0);
 }

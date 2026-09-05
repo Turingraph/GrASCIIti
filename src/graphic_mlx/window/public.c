@@ -73,7 +73,7 @@ void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  *
  * time/space: O(n) / O(n)
  *
- * status: public api
+ * status: public api (outdated doc)
  *
  * @param fdf FDF object to display.
  * The default color of the FDF object is black.
@@ -85,8 +85,7 @@ void	view_fdf_handle_02(mlx_t *mlx, mlx_image_t *img)
  * then it operate orthogonal projection.
  * @see graphic_mlx/fdf/projection.c and conformal.c for more details.
  */
-void	view_fdf(t_fdf *fdf, t_artstyle32 artstyle, float zoom,
-	t_2d_int (*projection)(float x, float y, float z))
+void	view_fdf(t_fdf *fdf, t_artstyle32 artstyle)
 {
 	mlx_t			*mlx;
 	t_2d_hook		hook;
@@ -97,12 +96,12 @@ void	view_fdf(t_fdf *fdf, t_artstyle32 artstyle, float zoom,
 	window_width = 1920;
 	window_height = 1080;
 	mlx = mlx_init(window_width, window_height, "Sunset at 4:42pm", true);
-	hook = init_2d_hook(mlx, fdf, artstyle, projection);
+	hook = init_2d_hook(mlx, fdf, artstyle);
 	if (view_fdf_handle_00(mlx, hook.img) == false)
 		return ;
 	camera = init_2d_camera(window_width, window_height);
 	hook.camera = &camera;
-	scale_fdf_as_window_object(fdf, f_max(window_width, window_height) * zoom);
+	scale_fdf_as_window_object(fdf, f_max(window_width, window_height));
 	color_background_mlx(hook.img, artstyle.background_color);
 	draw_fdf_mlx(&hook, true);
 	if (-1 == view_fdf_handle_01(mlx, hook.img))
@@ -110,6 +109,6 @@ void	view_fdf(t_fdf *fdf, t_artstyle32 artstyle, float zoom,
 		mlx_terminate(mlx);
 		return ;
 	}
-	mlx_key_hook(mlx, &hook_fdf_controller, &hook);
+	// mlx_key_hook(mlx, &hook_fdf_controller, &hook);
 	view_fdf_handle_02(mlx, hook.img);
 }

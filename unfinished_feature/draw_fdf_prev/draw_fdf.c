@@ -24,10 +24,10 @@ void	draw_fdf_mlx_x(t_2d_hook *hook, bool is_draw)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (0 < src.src->col && ixiy.x < (int)src.src->col - 1)
+	while (0 < src->col && ixiy.x < (int)src->col - 1)
 	{
 		ixiy.y = 0;
-		while (ixiy.y < (int)src.src->row)
+		while (ixiy.y < (int)src->row)
 		{
 			draw_fdf_mlx_x_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;
@@ -48,10 +48,10 @@ void	draw_fdf_mlx_y(t_2d_hook *hook, bool is_draw)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (ixiy.x < (int)src.src->col)
+	while (ixiy.x < (int)src->col)
 	{
 		ixiy.y = 0;
-		while (0 < src.src->row && ixiy.y < (int)src.src->row - 1)
+		while (0 < src->row && ixiy.y < (int)src->row - 1)
 		{
 			draw_fdf_mlx_y_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;
@@ -95,10 +95,10 @@ void	proj_kusama_fdf(t_2d_hook *hook, bool is_draw)
 		return ;
 	src = *hook->master_piece.fdf;
 	ixiy.x = 0;
-	while (0 < src.src->col && ixiy.x < (int)src.src->col)
+	while (0 < src->col && ixiy.x < (int)src->col)
 	{
 		ixiy.y = 0;
-		while (0 < src.src->row && ixiy.y < (int)src.src->row)
+		while (0 < src->row && ixiy.y < (int)src->row)
 		{
 			proj_kusama_fdf_unit(hook, is_draw, ixiy);
 			ixiy.y += 1;
