@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:16:19 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 17:45:25 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 17:12:09 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void	draw_motif_mlx_unit(mlx_image_t *img,
 	while (i < src->motif->length)
 	{
 		if (arr[i].type == E_LINE)
-			draw_polygon_mlx(img, &(arr[i].polygon), arr[i].ink, tile);
+			draw_polygon_unittile(img, &(arr[i].polygon), arr[i].ink, tile);
 		else if (arr[i].type == E_CIRCLE)
-			draw_kusama_mlx(img, &(arr[i].polygon), arr[i].ink, tile);
+			draw_circle_unittile(img, &(arr[i].polygon), arr[i].ink, tile);
 		else if (arr[i].type == E_RECTANGLE)
-			draw_mondrian_mlx(img, &(arr[i].polygon), arr[i].ink.color, tile);
+			draw_rectangle_unittile(img, &(arr[i].polygon),
+				arr[i].ink.color, tile);
 		i += 1;
 	}
 }

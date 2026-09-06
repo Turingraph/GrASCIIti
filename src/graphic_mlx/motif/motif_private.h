@@ -6,14 +6,14 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:14:48 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/30 12:13:41 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 17:11:38 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MOTIF_PRIVATE_H
 # define MOTIF_PRIVATE_H
 
-# include "../raster/raster_private.h"
+# include "../raster/raster.h"
 # include "motif_type.h"
 
 /**
@@ -100,13 +100,19 @@ typedef struct s_islamic_art
 
 void			draw_motif_mlx(mlx_image_t *img, t_islamic_art *src);
 
+// init.c
+
+bool			is_islamic_art_valid(const t_islamic_art *src);
+t_line			init_float_line(t_complex point_1, t_complex point_2,
+					t_line boundary);
+
 // motif.c
 
-void			draw_kusama_mlx(mlx_image_t *dst,
+void			draw_circle_unittile(mlx_image_t *dst,
 					const t_2d_polygon *polygon, t_ink32 ink, t_line boundary);
-void			draw_polygon_mlx(mlx_image_t *dst, const t_2d_polygon *polygon,
-					t_ink32 ink, t_line boundary);
-void			draw_mondrian_mlx(mlx_image_t *dst,
+void			draw_polygon_unittile(mlx_image_t *dst,
+					const t_2d_polygon *polygon, t_ink32 ink, t_line boundary);
+void			draw_rectangle_unittile(mlx_image_t *dst,
 					const t_2d_polygon *polygon, int32_t ink, t_line boundary);
 
 // public.c
@@ -132,9 +138,5 @@ size_t			init_alltiles_size(size_t side_length,
 					size_t resolution, size_t fixed_length);
 int				init_alltiles_offset(size_t side_length,
 					size_t resolution, size_t fixed_length);
-
-// utils.c
-
-bool			is_islamic_art_valid(const t_islamic_art *src);
 
 #endif

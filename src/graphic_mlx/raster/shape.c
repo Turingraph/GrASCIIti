@@ -6,21 +6,21 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:34:22 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:21:47 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 18:49:55 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "raster_private.h"
+#include "raster.h"
 
 // time : O(1)
 // space: O(1)
-t_line	define_circle_boundary(t_circle point, int ix, int iy, char mode)
+t_line	define_circle_line(t_2d_int point, int ix, int iy, char mode)
 {
 	t_line	dst;
 
 	dst.p1.x = point.x - ix;
-	dst.p1.y = point.y + iy;
 	dst.p2.x = point.x + ix;
+	dst.p1.y = point.y + iy;
 	dst.p2.y = point.y + iy;
 	if (mode == 1)
 	{
@@ -29,9 +29,9 @@ t_line	define_circle_boundary(t_circle point, int ix, int iy, char mode)
 	}
 	if (mode == 2 || mode == 3)
 	{
-		dst.p1.x = point.x - iy;
+		dst.p1.x = point.x + iy;
+		dst.p2.x = point.x - iy;
 		dst.p1.y = point.y + ix;
-		dst.p2.x = point.x + iy;
 		dst.p2.y = point.y + ix;
 	}
 	if (mode == 3)
@@ -44,25 +44,20 @@ t_line	define_circle_boundary(t_circle point, int ix, int iy, char mode)
 
 // time : O(n)
 // space: O(1)
-void	draw_horizontal_mlx(mlx_image_t *dst, t_line line,
-	int32_t color, t_boundary boundary)
+static void	draw_horizontal_mlx(mlx_image_t *dst, t_line line,
+	int32_t color, t_line boundary)
 {
-	int	temp;
+	int	start;
+	int	stop;
 
-	if (line.p1.x > line.p2.x)
+	if (line.p1.y < boundary.p1.y || line.p1.y > boundary.p2.x)
+		return ;
+	start = f_max_int(line.p1.x, boundary.p1.x);
+	stop = f_min_int(line.p2.x, boundary.p2.x);
+	while (start <= stop && dst != NULL)
 	{
-		temp = line.p2.x;
-		line.p2.x = line.p1.x;
-		line.p1.x = temp;
-		temp = line.p2.y;
-		line.p2.y = line.p1.y;
-		line.p1.y = temp;
-	}
-	while (line.p1.x <= line.p2.x && dst != NULL)
-	{
-		if (is_in_boundary(line.p1.x, line.p1.y, boundary.sub_area) == true)
-			mlx_put_pixel(dst, line.p1.x, line.p1.y, color);
-		line.p1.x += 1;
+		mlx_put_pixel(dst, start, line.p1.y, color);
+		start += 1;
 	}
 }
 
@@ -91,7 +86,7 @@ if (x^2 + (y + 0.5)^2 - r^2 > 0)
 
 During first iteration
 *	x = 0
-*	y = -r (because we have to calculate the 2d position
+*	y = -r (because we have to calculate the 2d point
 		of the top point of the circle)
 
 Calculating this inequality when y = -r and x = 0.
@@ -143,41 +138,40 @@ Reference
  * spans are drawn for each calculated point. Pixels outside the boundary
  * are clipped by draw_horizontal_mlx().
  * 
- * This function also used for drawing the end point of straight line
- * with arbitrary thickness with draw_mlx_straight_line from raster/line.c
+ * This function also used for drawing the end point of straight line.
  * 
  * time/space: O(r^2) / O(1)
  * 
  * status: internal helper
  * 
  * @param dst destination MLX image
- * @param color 32-bit RGBA drawing color
- * @param point circle center and radius
+ * @param point the point of circle
+ * @param ink contains both color and the size of the circle.
  * @param boundary drawable area used to clip the circle
  * @see https://www.youtube.com/watch?v=hpiILbMkF9w
  * for learning how Midpoint circle works.
 */
-void	midpoint_circle_mlx(mlx_image_t *dst,
-	int32_t color, t_circle point, t_boundary boundary)
+void	draw_circle(mlx_image_t *dst,
+	t_2d_int point, t_ink32 ink, t_line boundary)
 {
 	int		ix;
 	int		iy;
 	int		pivot;
 	t_line	line;
 
-	pivot = point.radius * -1;
-	iy = -1 * point.radius;
+	pivot = ink.thickness * -1;
+	iy = -1 * ink.thickness;
 	ix = 0;
 	while (dst != NULL && ix <= -1 * iy)
 	{
-		line = define_circle_boundary(point, ix, iy, 0);
-		draw_horizontal_mlx(dst, line, color, boundary);
-		line = define_circle_boundary(point, ix, iy, 1);
-		draw_horizontal_mlx(dst, line, color, boundary);
-		line = define_circle_boundary(point, ix, iy, 2);
-		draw_horizontal_mlx(dst, line, color, boundary);
-		line = define_circle_boundary(point, ix, iy, 3);
-		draw_horizontal_mlx(dst, line, color, boundary);
+		line = define_circle_line(point, ix, iy, 0);
+		draw_horizontal_mlx(dst, line, ink.color, boundary);
+		line = define_circle_line(point, ix, iy, 1);
+		draw_horizontal_mlx(dst, line, ink.color, boundary);
+		line = define_circle_line(point, ix, iy, 2);
+		draw_horizontal_mlx(dst, line, ink.color, boundary);
+		line = define_circle_line(point, ix, iy, 3);
+		draw_horizontal_mlx(dst, line, ink.color, boundary);
 		if (pivot > 0)
 			iy += 1;
 		if (pivot > 0)
@@ -188,31 +182,31 @@ void	midpoint_circle_mlx(mlx_image_t *dst,
 }
 
 /**
- * Define the rectangle within the given area.
+ * Define the rectangle/point within the given area.
  *
  * time/space: O(1) / O(1)
  *
  * status: internal helper
  *
  * @param src the rectangle area (which is defined by 2 pairs of integers
- * as x_min, y_min -> x_max, y_max)
+ * as x_min, y_min --> x_max, y_max)
  * @param boundary the area that contains src rectangle.
  */
-t_line	init_rectangle(t_line src, t_boundary boundary)
+t_line	init_rectangle(t_line src, t_line boundary)
 {
 	t_line	dst;
 	int		offset;
 
-	offset = boundary.sub_area.p1.x;
-	dst.p1.x = (int)f_interval(f_min(src.p1.x, src.p2.x), 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
-	dst.p2.x = (int)f_interval(f_max(src.p1.x, src.p2.x), 0,
-			boundary.sub_area.p2.x - boundary.sub_area.p1.x) + offset;
-	offset = boundary.sub_area.p1.y;
-	dst.p1.y = (int)f_interval(f_min(src.p1.y, src.p2.y), 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
-	dst.p2.y = (int)f_interval(f_max(src.p1.y, src.p2.y), 0,
-			boundary.sub_area.p2.y - boundary.sub_area.p1.y) + offset;
+	offset = boundary.p1.x;
+	dst.p1.x = (int)f_interval_int(f_min_int(src.p1.x, src.p2.x), 0,
+			boundary.p2.x - boundary.p1.x) + offset;
+	dst.p2.x = (int)f_interval_int(f_max_int(src.p1.x, src.p2.x), 0,
+			boundary.p2.x - boundary.p1.x) + offset;
+	offset = boundary.p1.y;
+	dst.p1.y = (int)f_interval_int(f_min_int(src.p1.y, src.p2.y), 0,
+			boundary.p2.y - boundary.p1.y) + offset;
+	dst.p2.y = (int)f_interval_int(f_max_int(src.p1.y, src.p2.y), 0,
+			boundary.p2.y - boundary.p1.y) + offset;
 	return (dst);
 }
 
@@ -231,29 +225,24 @@ t_line	init_rectangle(t_line src, t_boundary boundary)
  * @param boundary drawing boundary used to restrict the rectangle
  * @param ink 32-bit RGBA color used to fill the rectangle
  */
-void	draw_rectangle_mlx(mlx_image_t *dst, t_line rectangle,
+void	draw_rectangle(mlx_image_t *dst, t_line rectangle,
 	t_line boundary, int32_t ink)
 {
-	t_boundary		sub_area;
-	int				i;
-	int				j;
+	int	i;
+	int	j;
 
 	if (dst != NULL)
+		return ;
+	rectangle = init_rectangle(rectangle, boundary);
+	i = rectangle.p1.x;
+	while (i <= rectangle.p2.x)
 	{
-		sub_area = init_rectangle_boundary(boundary,
-				dst->height, dst->width);
-		rectangle = init_rectangle(rectangle, sub_area);
-		i = rectangle.p1.x;
-		while (i <= rectangle.p2.x)
+		j = rectangle.p1.y;
+		while (j <= rectangle.p2.y)
 		{
-			j = rectangle.p1.y;
-			while (j <= rectangle.p2.y)
-			{
-				if (is_in_boundary(i, j, sub_area.sub_area) == true)
-					mlx_put_pixel(dst, i, j, ink);
-				j += 1;
-			}
-			i += 1;
+			mlx_put_pixel(dst, i, j, ink);
+			j += 1;
 		}
+		i += 1;
 	}
 }

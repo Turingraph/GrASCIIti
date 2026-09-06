@@ -84,7 +84,7 @@ int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	t_fdf			output;
-	// t_artstyle32	style;
+	t_artstyle32	style;
 
 	if (len < 2)
 		return (0);
@@ -94,15 +94,15 @@ int	main(int len, char **str)
 		free_table_fdf(&table);
 		return (0);
 	}
-	// style.background_color = f_rgba_to_int32(34, 79, 112, 255);
-	// style.line_thickness = 3;
-	// style.artists = E_KUSAMA;
+	style.background_color = f_rgba_to_int32(34, 79, 112, 255);
+	style.line_thickness = 3;
+	style.artists = E_KUSAMA;
 	color_cells_gradient(&table, init_feeling_blue(), true);
 	color_cells_gradient(&table, init_popart(), true);
 	scale_multiplication_fdf(&table, 1.0 / 20.0, HEIGHT);
 	color_cells_gradient(&table, init_white_noise(), true);
 	output = init_fdf(&table, projection_cabinet, 1.0);
-	// view_fdf(&output, style);
+	view_fdf(&output, style);
 	free_table_fdf(&table);
 	free_fdf(&output);
 	return (0);

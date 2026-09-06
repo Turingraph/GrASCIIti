@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_fdf.c                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:06 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/29 17:03:27 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 11:39:28 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_fdf_position(const t_table_fdf *src, float *arr_x,
 	i = 0;
 	while (i < src->row * src->col)
 	{
-		dst.re = (float)(i % src->col - src->col / 2);
-		dst.im = (float)(i / src->col - src->row / 2);
+		dst.re = (float)(i % src->col) - (float)(src->col / 2);
+		dst.im = (float)(i / src->col) - (float)(src->row / 2);
 		if (src->arr == NULL && projection != NULL)
 			dst = projection(dst.re, dst.im, 0.0);
 		else if (projection != NULL)
@@ -96,9 +96,9 @@ t_fdf	init_fdf(t_table_fdf *src,
 	src->b = NULL;
 	src->a = NULL;
 	dst.x = malloc_talk(src->row * src->col * sizeof(float),
-		"graphic_mlx/fdf/public.c/init_fdf/\n");
+			"graphic_mlx/fdf/public.c/init_fdf/\n");
 	dst.y = malloc_talk(src->row * src->col * sizeof(float),
-		"graphic_mlx/fdf/public.c/init_fdf/\n");
+			"graphic_mlx/fdf/public.c/init_fdf/\n");
 	init_fdf_position(src, dst.x, dst.y, projection);
 	vector_scale(dst.x, scale, src->col * src->row);
 	vector_scale(dst.y, scale, src->col * src->row);

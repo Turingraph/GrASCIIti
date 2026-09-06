@@ -131,6 +131,8 @@ given that init_first_line already compute this term.
 
 // time : O(1)
 // space: O(1)
+
+
 int	float_to_2d_int(float src, t_line boundary, char mode)
 {
 	float	dst;

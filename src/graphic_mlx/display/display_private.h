@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 19:02:00 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/04 19:05:47 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 17:32:46 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_line		init_draw_line_x(t_2d_camera camera, t_fdf *fdf, t_2d_int ixiy);
 void		draw_kusama_fdf(t_2d_hook *hook, bool is_draw, size_t thickness);
 void		draw_picasso_fdf(t_2d_hook *hook, bool is_draw, size_t thickness);
 void		draw_toby_fox_fdf(t_2d_hook *hook, bool is_draw);
+void		draw_tuyoki_fdf(t_2d_hook *hook, bool is_draw);
+void		draw_piet_mondrian_fdf(t_2d_hook *hook, bool is_draw);
 
 // draw_etc.c
 

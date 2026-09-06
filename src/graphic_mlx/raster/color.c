@@ -6,11 +6,11 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 16:28:58 by phsottat          #+#    #+#             */
-/*   Updated: 2026/08/31 16:55:00 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 16:27:01 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "raster_private.h"
+#include "raster.h"
 
 /**
  * Pack individual RGBA channels into a 32-bit color value.

@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:03:34 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/03 18:39:15 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 11:44:51 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ void	view_fdf(t_fdf *fdf, t_artstyle32 artstyle)
 		mlx_terminate(mlx);
 		return ;
 	}
-	// mlx_key_hook(mlx, &hook_fdf_controller, &hook);
+	mlx_key_hook(mlx, &hook_fdf_controller, &hook);
 	view_fdf_handle_02(mlx, hook.img);
 }

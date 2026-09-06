@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 14:28:15 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/04 17:49:07 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 13:05:48 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ t_complex	complex_cube(t_complex a);
 t_complex	complex_reciprocal(t_complex a);
 float		complex_magnitude(t_complex a, char is_square);
 
+// int.c
+
+int			f_abs_int(int x);
+int			f_max_int(int a, int b);
+int			f_min_int(int a, int b);
+int			f_interval_int(int num, int min, int max);
+
 // math.c
 
 float		f_pow(float x, size_t a);
@@ -63,7 +70,6 @@ float		f_sum(const float *vec_v, size_t dim);
 size_t		collatz_max_point(size_t x);
 size_t		binary_search_count(size_t min_input, size_t max_input);
 float		f_abs(float x);
-int			f_abs_int(int x);
 float		f_max3(float a, float b, float c);
 
 #endif

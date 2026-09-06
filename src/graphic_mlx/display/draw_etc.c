@@ -52,7 +52,7 @@ void	draw_warhol_fdf(t_2d_hook *hook, bool is_draw)
 	if (hook->master_piece.artstyle.artists != E_WARHOL)
 		return ;
 	draw_toby_fox_fdf(hook, is_draw);
-	draw_picasso_fdf(hook, false, thickness);
+	draw_picasso_fdf(hook, false, thickness * 4 / 5);
 }
 
 // time : O(n)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/06 17:01:01 by phsottat          #+#    #+#             */
+/*   Updated: 2026/09/06 17:37:28 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "display_private.h"
 
 // time : O(1)
@@ -22,47 +34,49 @@ t_ink32	get_hook_ink32(t_2d_hook *hook, bool is_draw, t_2d_int ixiy,
 // time : O(1)
 // space: O(1)
 void	draw_circle_fdf(t_2d_int point,
-	t_ink32 ink, t_2d_camera camera, mlx_image_t *img)
+	t_ink32 ink, t_2d_camera camera, mlx_image_t *dst)
 {
-	t_circle	circle;
-	t_boundary	boundary;
+	t_line	boundary;
 
 	if (is_circle_in_screen(camera, point, ink.thickness) == false)
 		return ;
-	boundary = get_all_area(img->height, img->width);
-	circle.radius = ink.thickness;
-	circle.x = point.x;
-	circle.y = point.y;
-	midpoint_circle_mlx(img, ink.color, circle, boundary);
+	boundary.p1.x = 0;
+	boundary.p1.y = 0;
+	boundary.p2 = camera.window_size;
+	draw_circle(dst, point, ink, boundary);
 }
 
 // time : O(1)
 // space: O(1)
 void	draw_rectangle_fdf(t_line line, int32_t ink,
-	t_2d_camera camera, mlx_image_t *img)
+	t_2d_camera camera, mlx_image_t *dst)
 {
-	t_line		rectangle_boundary;
+	t_line	boundary;
 
 	if (is_line_in_screen(camera, line) == false)
 		return ;
-	rectangle_boundary = get_all_area(img->height, img->width).sub_area;
-	draw_rectangle_mlx(img, line, rectangle_boundary, ink);
+	boundary.p1.x = 0;
+	boundary.p1.y = 0;
+	boundary.p2 = camera.window_size;
+	draw_rectangle(dst, line, boundary, ink);
 }
 
 // time : O(1)
 // space: O(1)
 void	draw_line_fdf(t_line line, t_ink32 ink,
-	t_2d_camera camera, mlx_image_t *img)
+	t_2d_camera camera, mlx_image_t *dst)
 {
-	t_line		rectangle_boundary;
+	t_line	boundary;
 
-	rectangle_boundary = get_all_area(img->height, img->width).sub_area;
+	boundary.p1.x = 0;
+	boundary.p1.y = 0;
+	boundary.p2 = camera.window_size;
 	if (is_line_in_screen(camera, line) == true)
-		draw_mlx_straight_line(img, line, rectangle_boundary, ink);
+		draw_line_generic(dst, line, boundary, ink);
 	else
 	{
-		draw_circle_fdf(line.p1, ink, camera, img);
-		draw_circle_fdf(line.p2, ink, camera, img);
+		draw_circle_fdf(line.p1, ink, camera, dst);
+		draw_circle_fdf(line.p2, ink, camera, dst);
 	}
 }
 

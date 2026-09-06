@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   public.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/06 11:36:00 by phsottat          #+#    #+#             */
+/*   Updated: 2026/09/06 17:33:30 by phsottat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "display_private.h"
 
 /**
@@ -37,6 +49,10 @@ void	draw_fdf_mlx(t_2d_hook *hook, bool is_draw)
 		draw_kusama_fdf(hook, is_draw, thickness);
 	if (hook->master_piece.artstyle.artists == E_TOBY_FOX)
 		draw_toby_fox_fdf(hook, is_draw);
+	if (hook->master_piece.artstyle.artists == E_TUYOKI)
+		draw_tuyoki_fdf(hook, is_draw);
+	if (hook->master_piece.artstyle.artists == E_PIET_MONDRIAN)
+		draw_piet_mondrian_fdf(hook, is_draw);
 	draw_araki_fdf(hook, is_draw);
 	draw_dijkstra_fdf(hook, is_draw);
 	draw_poincare_fdf(hook, is_draw);

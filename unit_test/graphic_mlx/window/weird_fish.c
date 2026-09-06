@@ -2,13 +2,13 @@
 
 // time : O(1)
 // space: O(1)
-t_gradient	init_blue_period()
+t_gradient	init_gradient()
 {
 	t_gradient	dst;
 
 	dst.cell_channel = D7_HEIGHT;
 	dst.input_start = 0;
-	dst.input_end = 10;
+	dst.input_end = 20;
 	dst.rgba_start.r = 70;
 	dst.rgba_start.g = 75;
 	dst.rgba_start.b = 113;
@@ -20,43 +20,26 @@ t_gradient	init_blue_period()
 	return (dst);
 }
 
-// time : O(1)
-// space: O(1)
-t_gradient	init_white_noise(void)
-{
-	t_gradient	dst;
-
-	dst.cell_channel = D7_HEIGHT;
-	dst.input_start = 0;
-	dst.input_end = 0;
-	dst.rgba_start.r = 0;
-	dst.rgba_start.g = 0;
-	dst.rgba_start.b = 0;
-	dst.rgba_start.a = 255;
-	dst.rgba_end.r = 0;
-	dst.rgba_end.g = 0;
-	dst.rgba_end.b = 0;
-	dst.rgba_end.a = 255;
-	return (dst);
-}
-
 int	main(int len, char **str)
 {
 	t_table_fdf		table;
 	t_fdf			output;
-	// t_artstyle32	style;
+	t_artstyle32	style;
 
 	if (len < 2)
 		return (0);
 	table = open_table_fdf_file(str[1], NULL, parse_ascii_line_cheche01, true);
-	// style.background_color = f_rgba_to_int32(255, 255, 255, 255);
-	// style.line_thickness = 3;
-	// style.artists = E_ARAKI;
-	color_cells_gradient(&table, init_blue_period(), true);
-	// scale_multiplication_fdf(&table, 1.0, HEIGHT);
-	// color_cells_gradient(&table, init_white_noise(), true);
-	output = init_fdf(&table, projection_cabinet, 1.0);
-	// view_fdf(&output, style);
+	if (table.col * table.row == 0)
+	{
+		free_table_fdf(&table);
+		return (0);
+	}
+	style.background_color = f_rgba_to_int32(255, 255, 255, 255);
+	style.line_thickness = 5;
+	style.artists = E_TOBY_FOX;
+	color_cells_gradient(&table, init_gradient(), true);
+	output = init_fdf(&table, NULL, 1.);
+	view_fdf(&output, style);
 	free_table_fdf(&table);
 	free_fdf(&output);
 	return (0);

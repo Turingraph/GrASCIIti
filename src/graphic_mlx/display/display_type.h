@@ -6,7 +6,7 @@
 /*   By: phsottat <phsottat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 18:45:56 by phsottat          #+#    #+#             */
-/*   Updated: 2026/09/04 18:57:42 by phsottat         ###   ########.fr       */
+/*   Updated: 2026/09/06 17:33:03 by phsottat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ typedef struct s_2d_camera
 }	t_2d_camera;
 
 /*
- * ???
+ * The name of my favorite creators.
  */
 typedef enum t_artists
 {
 	E_PICASSO,
 	E_TOBY_FOX,
+	E_TUYOKI,
 	E_KUSAMA,
 	E_EULER,
 	E_POINCARE,
 	E_DIJKSTRA,
 	E_WARHOL,
 	E_ARAKI,
+	E_PIET_MONDRIAN,
 }	t_artists;
 
 /*
